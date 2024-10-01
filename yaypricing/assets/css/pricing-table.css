@@ -1,0 +1,42 @@
+.yaydp-pricing-table-header {
+  display: inline-block;
+  font-size: 1rem !important;
+  border-spacing: 0;
+  margin-bottom: 10px !important;
+}
+
+.yaydp-pricing-table {
+  width: 100%;
+  margin-bottom: 1rem !important;
+  border-spacing: 0;
+  table-layout: fixed !important;
+  border-collapse: collapse !important;
+}
+
+.yaydp-pricing-table,
+.yaydp-pricing-table th,
+.yaydp-pricing-table td {
+  border: 1px solid;
+}
+
+.yaydp-pricing-table th,
+.yaydp-pricing-table td {
+  padding: 1rem !important;
+}
+
+.yaydp-pricing-table th {
+  font-size: 1rem !important;
+  font-weight: 600;
+  text-align: left !important;
+  background: #f8f8f8 !important;
+}
+
+.yaydp-pricing-table td {
+  font-size: 1rem !important;
+  text-align: left !important;
+}
+
+.yaydp-pricing-table td span {
+  font-size: 1rem !important;
+  text-align: left !important;
+}

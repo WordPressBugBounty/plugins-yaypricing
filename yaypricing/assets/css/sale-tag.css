@@ -1,0 +1,23 @@
+.yaydp-sale-tag {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  top: 2px !important;
+  right: 2px !important;
+  -webkit-backface-visibility: hidden;
+  z-index: 99;
+  color: #fff;
+  position: absolute;
+  pointer-events: none;
+  border-style: solid;
+  top: 13px;
+  right: 9px;
+  line-height: 1.2;
+  border-radius: 5px;
+  padding: 0.2em 0.7em;
+  border-color: #cf2f2f;
+  background-color: #cf2f2f;
+  font-weight: 600;
+  min-height: 30px;
+}

@@ -1,0 +1,1834 @@
+# Copyright (C) 2024 YayCommerce
+# This file is distributed under the same license as the YayPricing Lite - WooCommerce Dynamic Pricing And Discounts plugin.
+msgid ""
+msgstr ""
+"Project-Id-Version: YayPricing Lite - WooCommerce Dynamic Pricing And "
+"Discounts 2.5\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/yaypricing-lite\n"
+"POT-Creation-Date: 2024-02-19T08:16:47+00:00\n"
+"PO-Revision-Date: 2024-03-12 10:52+0700\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: nb_NO\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 3.4.1\n"
+"X-Domain: yaypricing\n"
+
+#. Plugin Name of the plugin
+msgid "YayPricing Lite - WooCommerce Dynamic Pricing And Discounts"
+msgstr "YayPricing Lite - WooCommerce dynamiske priser og rabatter"
+
+#. Plugin URI of the plugin
+msgid "https://wordpress.org/plugins/yaypricing/"
+msgstr "https://wordpress.org/plugins/yaypricing/"
+
+#. Description of the plugin
+msgid ""
+"Create automatic product pricing rules and cart discounts to design a "
+"powerful marketing strategy for your WooCommerce store."
+msgstr ""
+"Lag automatiske produktprisregler og handlekurvrabatter for å designe en "
+"kraftig markedsføringsstrategi for din WooCommerce oppbevare."
+
+#. Author of the plugin
+msgid "YayCommerce"
+msgstr "YayCommerce"
+
+#. Author URI of the plugin
+msgid "https://yaycommerce.com/"
+msgstr "https://yaycommerce.com/"
+
+#: includes/admin/class-yaydp-admin-menus.php:33
+#: includes/yaycommercemenu/class-register-menu.php:175
+msgid "YayPricing"
+msgstr "YayPricing"
+
+#: includes/admin/class-yaydp-admin-menus.php:41
+msgid "YayPricing Report"
+msgstr "YayPricing Rapport"
+
+#. Translators: %s: search WooCommerce plugin link.
+#: includes/admin/views/html-notice-require-wc.php:5
+msgid ""
+"is enabled but not effective. It requires %1$sWooCommerce%2$s in order to "
+"work."
+msgstr ""
+"er aktivert, men ikke effektiv. Det krever %1$sWooCommerce%2$s for å fungere."
+
+#. translators:
+#: includes/admin/views/html-require-php-version.php:15
+msgid ""
+"YayPricing requires PHP 5.6 to work and does not support your current PHP "
+"version %1$s. Please contact your host and request a PHP upgrade to the "
+"latest one."
+msgstr ""
+"YayPricing krever PHP 5.6 for å fungere og støtter ikke din nåværende PHP-"
+"versjon %1$s. Ta kontakt med verten din og be om en PHP-oppgradering til den "
+"nyeste."
+
+#: includes/class-yaydp-ajax.php:31
+msgid "Verify nonce failed"
+msgstr "Nonce-verifisering mislyktes"
+
+#: includes/class-yaydp-i18n.php:35
+msgid "After \"Add to cart\" button"
+msgstr "Etter \"Legg i handlekurv\" -knappen"
+
+#: includes/class-yaydp-i18n.php:36
+msgid "Before \"Add to cart\" button"
+msgstr "Før \"Legg til i handlekurven\" knappen"
+
+#: includes/class-yaydp-i18n.php:37
+msgid "Add [discount_value] to the order"
+msgstr "Legg til [discount_value] i bestillingen"
+
+#: includes/class-yaydp-i18n.php:38
+msgid "Add 10"
+msgstr "Legg til 10"
+
+#: includes/class-yaydp-i18n.php:39
+msgid "add a condition"
+msgstr "Legg til en betingelse"
+
+#: includes/class-yaydp-i18n.php:40
+msgid "Add condition"
+msgstr "Legg til tilstand"
+
+#: includes/class-yaydp-i18n.php:41
+msgid "Add Custom Fee"
+msgstr "Legg til tollavgift"
+
+#: includes/class-yaydp-i18n.php:42
+msgid ""
+"Add handling fees or charge extra fees based on shipping region, payment "
+"method, and other criteria"
+msgstr ""
+"Legg til ekspedisjonsgebyrer eller belast ekstra gebyrer basert på "
+"fraktregion, betalingsmåte og andre kriterier"
+
+#: includes/class-yaydp-i18n.php:43
+msgid "add one"
+msgstr "Legg til en"
+
+#: includes/class-yaydp-i18n.php:44
+msgid "add product"
+msgstr "Legg til produkt"
+
+#: includes/class-yaydp-i18n.php:45
+msgid "Add Rule"
+msgstr "Legge til regel"
+
+#: includes/class-yaydp-i18n.php:46
+msgid "Add Your First Rule"
+msgstr "Legg til din første regel"
+
+#: includes/class-yaydp-i18n.php:47
+msgid "Add"
+msgstr "Legg til"
+
+#: includes/class-yaydp-i18n.php:48
+msgid "After Product short description"
+msgstr "Etter produktet kort beskrivelse"
+
+#: includes/class-yaydp-i18n.php:49
+msgid "After"
+msgstr "Etter"
+
+#: includes/class-yaydp-i18n.php:50
+msgid "All Cart Discount Rules"
+msgstr "Alle Handlekurv Rabatt Regler"
+
+#: includes/class-yaydp-i18n.php:51
+msgid "All Checkout Fee Rules"
+msgstr "Alle regler for betalingsgebyr"
+
+#: includes/class-yaydp-i18n.php:52
+msgid "All Product Pricing Rules"
+msgstr "Alle prisregler for produkter"
+
+#: includes/class-yaydp-i18n.php:53
+msgid "all products"
+msgstr "alle produkter"
+
+#: includes/class-yaydp-i18n.php:54
+msgid ""
+"All rules will be calculated and combined into a single rule to apply in cart"
+msgstr ""
+"Alle regler vil bli beregnet og kombinert i en enkelt regel som skal gjelde "
+"i handlekurven"
+
+#: includes/class-yaydp-i18n.php:55
+msgid "All together"
+msgstr "Alt sammen"
+
+#: includes/class-yaydp-i18n.php:56
+msgid "All"
+msgstr "Alle"
+
+#: includes/class-yaydp-i18n.php:57
+msgid "Analytics & reports"
+msgstr "Analytics og rapporter"
+
+#: includes/class-yaydp-i18n.php:58
+msgid "And much more"
+msgstr "Og mye mer"
+
+#: includes/class-yaydp-i18n.php:59
+msgid "Any"
+msgstr "Vilkårlig"
+
+#: includes/class-yaydp-i18n.php:60
+msgid "Applied coupons"
+msgstr "Brukte kuponger"
+
+#: includes/class-yaydp-i18n.php:61
+msgid "Apply all applicable rules"
+msgstr "Bruk alle gjeldende regler"
+
+#: includes/class-yaydp-i18n.php:62
+msgid "Apply the first applicable rule in your list"
+msgstr "Bruk den første gjeldende regelen i listen"
+
+#: includes/class-yaydp-i18n.php:63
+msgid "Apply the rule with maximum discount amount"
+msgstr "Bruk regelen med maksimalt rabattbeløp"
+
+#: includes/class-yaydp-i18n.php:64
+msgid "Apply the rule with minimum discount amount"
+msgstr "Bruk regelen med minste rabattbeløp"
+
+#: includes/class-yaydp-i18n.php:65
+msgid ""
+"Automatically add gift item(s) once the base product(s) are added to cart"
+msgstr ""
+"Legg automatisk til gavevare (er) når basisproduktet (e) er lagt til i "
+"handlekurven"
+
+#: includes/class-yaydp-i18n.php:66
+msgid ""
+"Automatically generate cart discount ID to be used as a coupon code in the "
+"admin order details"
+msgstr ""
+"Generer automatisk handlekurvrabatt-ID som skal brukes som kupongkode i "
+"administratorordredetaljene"
+
+#: includes/class-yaydp-i18n.php:67
+msgid "Before Product short description"
+msgstr "Før produktet kort beskrivelse"
+
+#: includes/class-yaydp-i18n.php:68
+msgid "Before"
+msgstr "Før"
+
+#: includes/class-yaydp-i18n.php:69
+msgid "Black Friday campaign"
+msgstr "Black Friday-kampanje"
+
+#: includes/class-yaydp-i18n.php:70
+msgid "Black friday discount! Discount [discount_value] all cart"
+msgstr "Black Friday-rabatt! Rabatt [discount_value] alle handlekurver"
+
+#: includes/class-yaydp-i18n.php:71
+msgid "Black Friday"
+msgstr "Black Friday"
+
+#: includes/class-yaydp-i18n.php:72
+msgid "BOGO (same product)"
+msgstr "BOGO (samme produkt)"
+
+#: includes/class-yaydp-i18n.php:73
+msgid "BOGO"
+msgstr "BOGO"
+
+#: includes/class-yaydp-i18n.php:74
+msgid "Border color"
+msgstr "Kant/ramme farge"
+
+#: includes/class-yaydp-i18n.php:75
+msgid "Bulk discounts"
+msgstr "Bulk rabatter"
+
+#: includes/class-yaydp-i18n.php:76
+msgid "Bulk Pricing"
+msgstr "Bulk prising"
+
+#: includes/class-yaydp-i18n.php:77
+msgid "Buy 3 get 1 free item"
+msgstr "Kjøp 3 få 1 gratis vare"
+
+#: includes/class-yaydp-i18n.php:78
+msgid "Buy 3 Get 1 Free"
+msgstr "Kjøp 3 Få 1 gratis"
+
+#: includes/class-yaydp-i18n.php:79
+msgid "Buy Products"
+msgstr "Kjøp produkter"
+
+#: includes/class-yaydp-i18n.php:80
+msgid "Buy X get X event"
+msgstr "Kjøp X få X hendelse"
+
+#: includes/class-yaydp-i18n.php:81
+msgid "Buy X Get X"
+msgstr "Kjøp X Få X"
+
+#: includes/class-yaydp-i18n.php:82
+msgid "Buy X get Y with discount"
+msgstr "Kjøp X få Y med rabatt"
+
+#: includes/class-yaydp-i18n.php:83
+msgid "Buy X Get Y"
+msgstr "Kjøp X Få Y"
+
+#: includes/class-yaydp-i18n.php:84
+msgid "Buy"
+msgstr "Kjøp"
+
+#: includes/class-yaydp-i18n.php:85
+msgid "campaign"
+msgstr "kampanje"
+
+#: includes/class-yaydp-i18n.php:86
+msgid "Campaigns"
+msgstr "Kampanjer"
+
+#: includes/class-yaydp-i18n.php:87
+msgid "Cart Discount"
+msgstr "Rabatt på handlekurv"
+
+#: includes/class-yaydp-i18n.php:88
+msgid ""
+"Cart discounts rules is used to create cart discount coupons that apply at "
+"checkout. You can also combine discount at Settings section."
+msgstr ""
+"Regler for handlekurvrabatter brukes til å opprette rabattkuponger for "
+"handlekurv som gjelder i kassen. Du kan også kombinere rabatt på "
+"Innstillinger-delen."
+
+#: includes/class-yaydp-i18n.php:89
+msgid "Cart discounts"
+msgstr "Handlekurv rabatter"
+
+#: includes/class-yaydp-i18n.php:90
+msgid "Cart item - category"
+msgstr "Handlevognvare - kategori"
+
+#: includes/class-yaydp-i18n.php:91
+msgid "Cart item - product"
+msgstr "Handlekurvvare - produkt"
+
+#: includes/class-yaydp-i18n.php:92
+msgid "Cart item - tag"
+msgstr "Handlekurvvare - tag"
+
+#: includes/class-yaydp-i18n.php:93
+msgid "Cart item - variation"
+msgstr "Handlevogn - variasjon"
+
+#: includes/class-yaydp-i18n.php:94
+msgid "Cart Items"
+msgstr "Handlekurv elementer"
+
+#: includes/class-yaydp-i18n.php:95
+msgid "Cart quantity"
+msgstr "Antall handlevogner"
+
+#: includes/class-yaydp-i18n.php:96
+msgid "Cart subtotal price"
+msgstr "Handlekurvens delsumpris"
+
+#: includes/class-yaydp-i18n.php:97
+msgid "Cart total weight"
+msgstr "Handlekurvens totalvekt"
+
+#: includes/class-yaydp-i18n.php:98
+msgid "cart total"
+msgstr "Handlekurv totalt"
+
+#: includes/class-yaydp-i18n.php:99
+msgid "Cart"
+msgstr "Handlekurv"
+
+#: includes/class-yaydp-i18n.php:100
+msgid "Cheapest one"
+msgstr "Billigste"
+
+#: includes/class-yaydp-i18n.php:101
+msgid "Checkout Fee"
+msgstr "Gebyr i kassen"
+
+#: includes/class-yaydp-i18n.php:102
+msgid "Choose file"
+msgstr "Velg fil"
+
+#: includes/class-yaydp-i18n.php:103
+msgid "Choose your desired campaign"
+msgstr "Velg ønsket kampanje"
+
+#: includes/class-yaydp-i18n.php:104
+msgid "Combination"
+msgstr "Kombinasjon"
+
+#: includes/class-yaydp-i18n.php:105
+msgid "Combine cart discounts"
+msgstr "Kombiner rabatter på handlekurv"
+
+#: includes/class-yaydp-i18n.php:106
+msgid "Combined condition is empty, please"
+msgstr "Kombinert tilstand er tom, vennligst"
+
+#: includes/class-yaydp-i18n.php:107
+msgid "Combined condition"
+msgstr "Kombinert tilstand"
+
+#: includes/class-yaydp-i18n.php:108
+msgid "Combined conditions"
+msgstr "Kombinerte forhold"
+
+#: includes/class-yaydp-i18n.php:109
+msgid "Combined items"
+msgstr "Kombinerte elementer"
+
+#: includes/class-yaydp-i18n.php:110
+msgid "Completed"
+msgstr "Fullført"
+
+#: includes/class-yaydp-i18n.php:111
+msgid "Conditions"
+msgstr "Betingelser"
+
+#: includes/class-yaydp-i18n.php:112
+msgid "Consider upgrading to"
+msgstr "Vurder å oppgradere til"
+
+#: includes/class-yaydp-i18n.php:113
+msgid ""
+"Contain a pitch of your products that your visitors go through and decide "
+"whether they want to buy."
+msgstr ""
+"Inneholder en tonehøyde av produktene dine som de besøkende går gjennom og "
+"bestemmer om de vil kjøpe."
+
+#: includes/class-yaydp-i18n.php:114
+msgid "Contain all"
+msgstr "Inneholder alle"
+
+#: includes/class-yaydp-i18n.php:115
+msgid "Contain in list"
+msgstr "Inneholder i liste"
+
+#: includes/class-yaydp-i18n.php:116
+msgid "Copied"
+msgstr "Kopiert"
+
+#: includes/class-yaydp-i18n.php:117
+msgid "Count quantity by"
+msgstr "Telle antall etter"
+
+#: includes/class-yaydp-i18n.php:118
+msgid "Countdown timer"
+msgstr "Nedtellingstidtaker"
+
+#: includes/class-yaydp-i18n.php:119
+msgid "Coupon Exclusions"
+msgstr "Kupong Ekskluderinger"
+
+#: includes/class-yaydp-i18n.php:120
+msgid ""
+"Create cart discount conditions that are restricted to those cart items. For "
+"example, minimum spend on specific product categories will get the discount"
+msgstr ""
+"Opprett rabattbetingelser for handlekurv som er begrenset til disse "
+"handlekurvvarene. For eksempel vil minimumsforbruk på bestemte "
+"produktkategorier få rabatten"
+
+#: includes/class-yaydp-i18n.php:121
+msgid ""
+"Create product pricing rules that affect price of products. You can also "
+"create product fee or discount."
+msgstr ""
+"Opprett produktprisregler som påvirker prisen på produkter. Du kan også "
+"opprette produktavgift eller rabatt."
+
+#: includes/class-yaydp-i18n.php:122
+msgid ""
+"Create rule to decide which products will not be affected by Product pricing "
+"rules."
+msgstr ""
+"Opprett regel for å bestemme hvilke produkter som ikke skal påvirkes av "
+"produktprisregler."
+
+#: includes/class-yaydp-i18n.php:123
+msgid "Current discount tier"
+msgstr "Gjeldende rabattnivå"
+
+#: includes/class-yaydp-i18n.php:124
+msgid "Current discounting product"
+msgstr "Nåværende diskonteringsprodukt"
+
+#: includes/class-yaydp-i18n.php:125
+msgid "Custom Fee"
+msgstr "Tilpasset avgift"
+
+#: includes/class-yaydp-i18n.php:126
+msgid "Custom fees"
+msgstr "Tilpassede avgifter"
+
+#: includes/class-yaydp-i18n.php:127
+msgid "Custom"
+msgstr "Egendefinert"
+
+#: includes/class-yaydp-i18n.php:128
+msgid "Customer order count"
+msgstr "Antall kundeordrer"
+
+#: includes/class-yaydp-i18n.php:129
+msgid "Customer role"
+msgstr "Kundens rolle"
+
+#: includes/class-yaydp-i18n.php:130
+msgid "Customer"
+msgstr "Kunde"
+
+#: includes/class-yaydp-i18n.php:131
+msgid ""
+"Customers need to add the quantity of items specified below to their cart"
+msgstr ""
+"Kunder må legge til antallet varer som er spesifisert nedenfor, i "
+"handlekurven"
+
+#: includes/class-yaydp-i18n.php:132
+msgid "Default"
+msgstr "Standard"
+
+#: includes/class-yaydp-i18n.php:133
+msgid "Description"
+msgstr "Beskrivelse"
+
+#: includes/class-yaydp-i18n.php:134
+msgid "Disable product pricing rules when product is on sale"
+msgstr "Deaktiver produktprisregler når produktet er i salg"
+
+#: includes/class-yaydp-i18n.php:135
+msgid "Discount [discount_value] all cart"
+msgstr "Rabatt [discount_value] alle handlekurver"
+
+#: includes/class-yaydp-i18n.php:136
+msgid "Discount [discount_value] off from 3rd item"
+msgstr "Rabatt [discount_value] av fra 3."
+
+#: includes/class-yaydp-i18n.php:137
+msgid "Discount [discount_value] off"
+msgstr "Rabatt [discount_value] av"
+
+#: includes/class-yaydp-i18n.php:138
+msgid "Discount 50% campaign"
+msgstr "Rabatt 50% campaign"
+
+#: includes/class-yaydp-i18n.php:139
+msgid "Discount 50% of the shipping cost"
+msgstr "Rabatt 50% of fraktkostnaden"
+
+#: includes/class-yaydp-i18n.php:140
+msgid ""
+"Discount applies to the items specified below, starting from the cheapest one"
+msgstr ""
+"Rabatten gjelder for varene som er spesifisert nedenfor, fra den billigste"
+
+#: includes/class-yaydp-i18n.php:141
+msgid ""
+"Discount applies to the items specified below, starting from the left to "
+"right"
+msgstr ""
+"Rabatten gjelder for elementene som er spesifisert nedenfor, fra venstre til "
+"høyre"
+
+#: includes/class-yaydp-i18n.php:142
+msgid ""
+"Discount applies to the items specified below, starting from the most "
+"expensive one"
+msgstr ""
+"Rabatten gjelder for varene som er spesifisert nedenfor, fra den dyreste"
+
+#: includes/class-yaydp-i18n.php:143
+msgid "Discount based on"
+msgstr "Rabatt basert på"
+
+#: includes/class-yaydp-i18n.php:144
+msgid "Discount title"
+msgstr "Rabatt tittel"
+
+#: includes/class-yaydp-i18n.php:145
+msgid "Discount type"
+msgstr "Rabattype"
+
+#: includes/class-yaydp-i18n.php:146
+msgid "Discount value cap"
+msgstr "Verditak for rabatt"
+
+#: includes/class-yaydp-i18n.php:147
+msgid "Discount value"
+msgstr "Rabatt verdi"
+
+#: includes/class-yaydp-i18n.php:148
+msgid "Discount will apply once or repeat"
+msgstr "Rabatten gjelder én gang eller gjentas"
+
+#: includes/class-yaydp-i18n.php:149
+msgid "Discount"
+msgstr "Rabatt"
+
+#: includes/class-yaydp-i18n.php:150
+msgid "Discountable price range"
+msgstr "Rabattert prisklasse"
+
+#: includes/class-yaydp-i18n.php:151
+msgid "Display a discount range tag on the sale tag"
+msgstr "Vise en rabattområdeetikett på salgstaggen"
+
+#: includes/class-yaydp-i18n.php:152
+msgid ""
+"Display a sale tag on product image on shop page and single product page"
+msgstr "Vis en salgstag på produktbildet på butikksiden og enkeltproduktsiden"
+
+#: includes/class-yaydp-i18n.php:153
+msgid "Do you want to remove"
+msgstr "Vil du fjerne"
+
+#: includes/class-yaydp-i18n.php:154
+msgid "Duplicate of"
+msgstr "Duplikater av"
+
+#: includes/class-yaydp-i18n.php:155
+msgid "Duplicate"
+msgstr "Dupliser"
+
+#: includes/class-yaydp-i18n.php:156
+msgid "Each single product/variable products"
+msgstr "Hvert enkelt produkt / variable produkter"
+
+#: includes/class-yaydp-i18n.php:157
+msgid "Enable schedule"
+msgstr "Aktiver tidsplan"
+
+#: includes/class-yaydp-i18n.php:158
+msgid "Encourage notice"
+msgstr "Oppmuntre til varsel"
+
+#: includes/class-yaydp-i18n.php:159
+msgid ""
+"Encouraged notice is used to motivate customers to buy more items in order "
+"to receive a discount or other promotional offer. It is a marketing strategy "
+"aimed at increasing sales and customer loyalty."
+msgstr ""
+"Oppmuntret varsel brukes til å motivere kunder til å kjøpe flere varer for å "
+"motta rabatt eller annet kampanjetilbud. Det er en markedsføringsstrategi "
+"som tar sikte på å øke salg og kundelojalitet."
+
+#: includes/class-yaydp-i18n.php:160
+msgid "Enter your description"
+msgstr "Skriv inn beskrivelsen din"
+
+#: includes/class-yaydp-i18n.php:161
+msgid "Enter your tooltip"
+msgstr "Angi verktøytipset"
+
+#: includes/class-yaydp-i18n.php:162
+msgid "Ex: Discount"
+msgstr "Eksempel: Rabatt"
+
+#: includes/class-yaydp-i18n.php:163
+msgid "Ex: Price"
+msgstr "Eksempel: Pris"
+
+#: includes/class-yaydp-i18n.php:164
+msgid "Ex: Quantity discounts"
+msgstr "Eksempel: Antallsrabatter"
+
+#: includes/class-yaydp-i18n.php:165
+msgid "Ex: Quantity"
+msgstr "Eksempel: antall"
+
+#: includes/class-yaydp-i18n.php:166
+msgid "Exclude Rules (Product pricing)"
+msgstr "Ekskluder regler (produktpriser)"
+
+#: includes/class-yaydp-i18n.php:167
+msgid "Exclude Rules"
+msgstr "Ekskluder regler"
+
+#: includes/class-yaydp-i18n.php:168
+msgid "Exclude selected rules when these coupons are applied"
+msgstr "Ekskluder valgte regler når disse kupongene brukes"
+
+#: includes/class-yaydp-i18n.php:169
+msgid "Exclude those products that match"
+msgstr "Ekskluder produkter som samsvarer"
+
+#: includes/class-yaydp-i18n.php:170
+msgid "Exclusions"
+msgstr "Exclusions"
+
+#: includes/class-yaydp-i18n.php:171
+msgid "Export rules"
+msgstr "Eksporter regler"
+
+#: includes/class-yaydp-i18n.php:172
+msgid "Features"
+msgstr "Funksjoner"
+
+#: includes/class-yaydp-i18n.php:173
+msgid "Fee rules is used to affect fees that apply at checkout."
+msgstr "Gebyrregler brukes til å påvirke gebyrer som gjelder i kassen."
+
+#: includes/class-yaydp-i18n.php:174
+msgid "fee to order"
+msgstr "Gebyr for bestilling"
+
+#: includes/class-yaydp-i18n.php:175
+msgid "Fee type"
+msgstr "Gebyr type"
+
+#: includes/class-yaydp-i18n.php:176
+msgid "Fee value"
+msgstr "Gebyrets verdi"
+
+#: includes/class-yaydp-i18n.php:177
+msgid "Fixed Discount per Individual Cart Item"
+msgstr "Fast rabatt per element i individuell handlekurv"
+
+#: includes/class-yaydp-i18n.php:178
+msgid "Fixed Discount"
+msgstr "Fast rabatt"
+
+#: includes/class-yaydp-i18n.php:179
+msgid "Fixed Fee"
+msgstr "Fast avgift"
+
+#: includes/class-yaydp-i18n.php:180
+msgid "Flat Price"
+msgstr "Flat pris"
+
+#: includes/class-yaydp-i18n.php:181
+msgid "Flexible shipping rules"
+msgstr "Fleksible fraktregler"
+
+#: includes/class-yaydp-i18n.php:182
+msgid "For example"
+msgstr "For eksempel"
+
+#: includes/class-yaydp-i18n.php:183
+msgid "Free shipping fee"
+msgstr "Gratis fraktgebyr"
+
+#: includes/class-yaydp-i18n.php:184
+msgid "Free shipping"
+msgstr "Fri frakt"
+
+#: includes/class-yaydp-i18n.php:185
+#: includes/templates/cart-item-price/extra-item.php:14
+msgid "Free"
+msgstr "Gratis"
+
+#: includes/class-yaydp-i18n.php:186
+msgid "General"
+msgstr "Generell"
+
+#: includes/class-yaydp-i18n.php:187
+msgid "Get 10% off"
+msgstr "Få 10% off"
+
+#: includes/class-yaydp-i18n.php:188
+msgid "Get free shipping"
+msgstr "Få gratis frakt"
+
+#: includes/class-yaydp-i18n.php:189
+msgid "Get Products"
+msgstr "Få produkter"
+
+#: includes/class-yaydp-i18n.php:190
+msgid "Get this free when buy 3 item"
+msgstr "Få dette gratis når du kjøper 3 varer"
+
+#: includes/class-yaydp-i18n.php:191
+msgid "Get YayPricing Pro"
+msgstr "Få YayPricing Pro"
+
+#: includes/class-yaydp-i18n.php:192
+msgid "Get"
+msgstr "Hent"
+
+#: includes/class-yaydp-i18n.php:193
+msgid "Go Pro"
+msgstr "Go Pro"
+
+#: includes/class-yaydp-i18n.php:194
+msgid "Greater than or equal"
+msgstr "Større enn eller lik"
+
+#: includes/class-yaydp-i18n.php:195
+msgid "Greater than"
+msgstr "Større enn"
+
+#: includes/class-yaydp-i18n.php:196
+msgid "How the rules are applied"
+msgstr "Hvordan reglene anvendes"
+
+#: includes/class-yaydp-i18n.php:197
+msgid "if cart quantity is greater than 5"
+msgstr "Hvis handlekurvantallet er større enn 5"
+
+#: includes/class-yaydp-i18n.php:198
+msgid "if cart subtotal price is greater than"
+msgstr "Hvis handlekurvens delsumpris er større enn"
+
+#: includes/class-yaydp-i18n.php:199
+msgid "if the customers have 10 orders in past"
+msgstr "Hvis kundene har 10 bestillinger tidligere"
+
+#: includes/class-yaydp-i18n.php:200
+msgid "If you want to decide when this rule will be used, please"
+msgstr "Hvis du vil bestemme når denne regelen skal brukes, vennligst"
+
+#: includes/class-yaydp-i18n.php:201
+msgid "Import failed"
+msgstr "Importen mislyktes"
+
+#: includes/class-yaydp-i18n.php:202
+msgid "Import successfully"
+msgstr "Importen var vellykket"
+
+#: includes/class-yaydp-i18n.php:203
+msgid "Import"
+msgstr "Importer"
+
+#: includes/class-yaydp-i18n.php:204
+msgid "Import/Export"
+msgstr "Import/Eksport"
+
+#: includes/class-yaydp-i18n.php:205
+msgid "Imported rule"
+msgstr "Importert regel"
+
+#: includes/class-yaydp-i18n.php:206
+msgid ""
+"In a combined condition, you must select the eligible products. Then, the "
+"values of cart amount and quantity of items are restricted to these filtered "
+"products in the same condition"
+msgstr ""
+"I en kombinert tilstand må du velge de kvalifiserte produktene. Deretter "
+"begrenses verdiene for handlekurvmengde og antall varer til disse filtrerte "
+"produktene i samme tilstand"
+
+#: includes/class-yaydp-i18n.php:207
+msgid "In list"
+msgstr "I liste"
+
+#: includes/class-yaydp-i18n.php:208
+msgid "In range"
+msgstr "I intervallet"
+
+#: includes/class-yaydp-i18n.php:209
+msgid "In stock"
+msgstr "På lager"
+
+#: includes/class-yaydp-i18n.php:210
+msgid "Inactive"
+msgstr "Inaktiv"
+
+#: includes/class-yaydp-i18n.php:211
+msgid "Is logged in customer"
+msgstr "Er innlogget kunde"
+
+#: includes/class-yaydp-i18n.php:212
+msgid "Is repeat"
+msgstr "Er gjentakelse"
+
+#: includes/class-yaydp-i18n.php:213
+msgid "Item get type"
+msgstr "Element får type"
+
+#: includes/class-yaydp-i18n.php:214
+msgid "Item quantity in each cart line"
+msgstr "Vareantall i hver handlekurvlinje"
+
+#: includes/class-yaydp-i18n.php:215
+msgid "Items - Category"
+msgstr "Elementer - Kategori"
+
+#: includes/class-yaydp-i18n.php:216
+msgid "Items - Product"
+msgstr "Varer - Produkt"
+
+#: includes/class-yaydp-i18n.php:217
+msgid "Items - Quantity"
+msgstr "Varer - Antall"
+
+#: includes/class-yaydp-i18n.php:218
+msgid "Items - Subtotal price"
+msgstr "Varer - Delsumpris"
+
+#: includes/class-yaydp-i18n.php:219
+msgid "Last 7 days"
+msgstr "Siste 7 dager"
+
+#: includes/class-yaydp-i18n.php:220
+msgid "Latest features & updates"
+msgstr "Siste funksjoner og oppdateringer"
+
+#: includes/class-yaydp-i18n.php:221
+msgid "Learn more"
+msgstr "Lær mer"
+
+#: includes/class-yaydp-i18n.php:222
+msgid "Less than or equal"
+msgstr "Mindre enn eller lik"
+
+#: includes/class-yaydp-i18n.php:223
+msgid "Less than"
+msgstr "Mindre enn"
+
+#: includes/class-yaydp-i18n.php:224
+msgid "Loading products"
+msgstr "Laster inn produkter"
+
+#: includes/class-yaydp-i18n.php:225
+msgid "Logged in"
+msgstr "Logget inn"
+
+#: includes/class-yaydp-i18n.php:226
+msgid "Manage Cart Discounts Rule"
+msgstr "Regel for administrering av handlekurvrabatter"
+
+#: includes/class-yaydp-i18n.php:227
+msgid "Manage Checkout Fees Rule"
+msgstr "Regel for administrering av kassegebyrer"
+
+#: includes/class-yaydp-i18n.php:228
+msgid "Manage Exclude Rule"
+msgstr "Behandle ekskluderingsregel"
+
+#: includes/class-yaydp-i18n.php:229
+msgid "Manage Product Pricing Rule"
+msgstr "Administrer produktprisregel"
+
+#: includes/class-yaydp-i18n.php:230
+msgid "Max use limit"
+msgstr "Maks bruksgrense"
+
+#: includes/class-yaydp-i18n.php:231
+msgid "Max use reached"
+msgstr "Maks bruk nådd"
+
+#: includes/class-yaydp-i18n.php:232
+msgid "Maximum value"
+msgstr "Maksimumsverdi"
+
+#: includes/class-yaydp-i18n.php:233
+msgid "Month"
+msgstr "Måned"
+
+#: includes/class-yaydp-i18n.php:234
+msgid "More result"
+msgstr "Mer resultat"
+
+#: includes/class-yaydp-i18n.php:235
+msgid "Most expensive one"
+msgstr "Dyreste en"
+
+#: includes/class-yaydp-i18n.php:236
+msgid "Name of the campaign"
+msgstr "Navn på kampanjen"
+
+#: includes/class-yaydp-i18n.php:237
+msgid "Name"
+msgstr "Navn"
+
+#: includes/class-yaydp-i18n.php:238
+msgid "Next discount tier as if 1 more item is added"
+msgstr "Neste rabattnivå som om 1 vare til er lagt til"
+
+#: includes/class-yaydp-i18n.php:239
+msgid "No product excluded. Please"
+msgstr "Ingen produkter ekskludert. Vær så snill"
+
+#: includes/class-yaydp-i18n.php:240
+msgid "No product excluded."
+msgstr "Ingen produkter ekskludert."
+
+#: includes/class-yaydp-i18n.php:241
+msgid "No product matched"
+msgstr "Ingen produkter matchet"
+
+#: includes/class-yaydp-i18n.php:242
+msgid "None"
+msgstr "Ingen"
+
+#: includes/class-yaydp-i18n.php:243
+msgid "Not contain in list"
+msgstr "Ikke i listen"
+
+#: includes/class-yaydp-i18n.php:244
+msgid "Not in list"
+msgstr "Ikke på liste"
+
+#: includes/class-yaydp-i18n.php:245
+msgid "Not logged in"
+msgstr "Ikke logget inn"
+
+#: includes/class-yaydp-i18n.php:246
+msgid "Number of all the orders they have placed in the past."
+msgstr "Antall av alle bestillinger de har lagt inn tidligere."
+
+#: includes/class-yaydp-i18n.php:247
+msgid ""
+"Number of orders counted from the last time they got a discount from "
+"YayPricing."
+msgstr ""
+"Antall bestillinger regnet fra forrige gang de fikk rabatt fra YayPricing."
+
+#: includes/class-yaydp-i18n.php:248
+msgid "of these conditions is available."
+msgstr "av disse betingelsene er tilgjengelige."
+
+#: includes/class-yaydp-i18n.php:249
+msgid "of these filters"
+msgstr "av disse filtrene"
+
+#: includes/class-yaydp-i18n.php:250
+msgid "off"
+msgstr "av"
+
+#: includes/class-yaydp-i18n.php:251
+msgid "OFF"
+msgstr "AV"
+
+#: includes/class-yaydp-i18n.php:252
+msgid "Offer description for X"
+msgstr "Tilbudsbeskrivelse for X"
+
+#: includes/class-yaydp-i18n.php:253
+msgid "Offer description for Y"
+msgstr "Tilbudsbeskrivelse for Y"
+
+#: includes/class-yaydp-i18n.php:254
+msgid "On"
+msgstr "På"
+
+#: includes/class-yaydp-i18n.php:255
+msgid ""
+"Once the discount/pricing rule is applied in the completed order, it is "
+"counted as a discount use. The rule will no longer apply if its use count "
+"reaches this number"
+msgstr ""
+"Når rabatt-/prisregelen er brukt i den fullførte ordren, regnes den som en "
+"rabattbruk. Regelen vil ikke lenger gjelde hvis bruksantallet når dette "
+"tallet"
+
+#: includes/class-yaydp-i18n.php:256
+msgid "Order count from last discount"
+msgstr "Ordreantall fra siste rabatt"
+
+#: includes/class-yaydp-i18n.php:257
+msgid "Order history category"
+msgstr "Kategori for ordrehistorikk"
+
+#: includes/class-yaydp-i18n.php:258
+msgid "Order history product"
+msgstr "Ordrehistorikk produkt"
+
+#: includes/class-yaydp-i18n.php:259
+msgid "Others"
+msgstr "Øvrige"
+
+#: includes/class-yaydp-i18n.php:260
+msgid "Payment method"
+msgstr "Betalingsmetode"
+
+#: includes/class-yaydp-i18n.php:261
+msgid "Percentage Discount"
+msgstr "Prosentvis rabatt"
+
+#: includes/class-yaydp-i18n.php:262
+msgid "Percentage Fee"
+msgstr "Prosentvis avgift"
+
+#: includes/class-yaydp-i18n.php:263
+msgid "Please paste it in your promotion page to show list on sale products"
+msgstr ""
+"Vennligst lim den inn i kampanjen siden for å vise listen over salg produkter"
+
+#: includes/class-yaydp-i18n.php:264
+msgid "Please"
+msgstr "Vennligst"
+
+#: includes/class-yaydp-i18n.php:265
+msgid "Preview"
+msgstr "Forhåndsvisning"
+
+#: includes/class-yaydp-i18n.php:266
+msgid "Previous purchase date"
+msgstr "Forrige kjøpsdato"
+
+#: includes/class-yaydp-i18n.php:267
+msgid "Price title"
+msgstr "Pris tittel"
+
+#: includes/class-yaydp-i18n.php:268
+msgid "Price"
+msgstr "Pris"
+
+#: includes/class-yaydp-i18n.php:269
+msgid "Pricing Ranges"
+msgstr "Prisområder"
+
+#: includes/class-yaydp-i18n.php:270
+msgid "Pricing table"
+msgstr "Pristabell"
+
+#: includes/class-yaydp-i18n.php:271
+msgid "Pricing type"
+msgstr "Pristype"
+
+#: includes/class-yaydp-i18n.php:272
+msgid "Pricing value"
+msgstr "Prisverdi"
+
+#: includes/class-yaydp-i18n.php:273
+msgid "Pricing"
+msgstr "Priser"
+
+#: includes/class-yaydp-i18n.php:274
+msgid "Product Exclusions"
+msgstr "Ekskluderinger av produkter"
+
+#: includes/class-yaydp-i18n.php:275
+msgid "Product meta end"
+msgstr "Produkt meta slutt"
+
+#: includes/class-yaydp-i18n.php:276
+msgid "Product meta start"
+msgstr "Metastart for produkt"
+
+#: includes/class-yaydp-i18n.php:277
+msgid "Product price after discounting"
+msgstr "Produktpris etter rabatt"
+
+#: includes/class-yaydp-i18n.php:278
+msgid "Product price display"
+msgstr "Visning av produktpriser"
+
+#: includes/class-yaydp-i18n.php:279
+msgid "Product pricing conditions"
+msgstr "Prisbetingelser for produkter"
+
+#: includes/class-yaydp-i18n.php:280
+msgid "Product pricing"
+msgstr "Priser for produkter"
+
+#: includes/class-yaydp-i18n.php:281
+msgid "Product Pricing"
+msgstr "Produktprising"
+
+#: includes/class-yaydp-i18n.php:282
+msgid "Product sale display"
+msgstr "Visning av produktsalg"
+
+#: includes/class-yaydp-i18n.php:283
+msgid "Product"
+msgstr "Produkt"
+
+#: includes/class-yaydp-i18n.php:284
+msgid "Purchase date of orders placed in the past."
+msgstr "Kjøpsdato for bestillinger som er lagt inn i fortiden."
+
+#: includes/class-yaydp-i18n.php:285
+msgid "Purchase history"
+msgstr "Kjøpshistorikk"
+
+#: includes/class-yaydp-i18n.php:286
+msgid "Purchased product categories in a specific order."
+msgstr "Kjøpte produktkategorier i en bestemt rekkefølge."
+
+#: includes/class-yaydp-i18n.php:287
+msgid "Purchased products (lifetime)"
+msgstr "Kjøpte produkter (levetid)"
+
+#: includes/class-yaydp-i18n.php:288
+msgid "Purchased products among all the orders they have placed in the past."
+msgstr "Kjøpte produkter blant alle bestillingene de har lagt inn tidligere."
+
+#: includes/class-yaydp-i18n.php:289
+msgid "Purchased products in a specific order."
+msgstr "Kjøpte produkter i en bestemt rekkefølge."
+
+#: includes/class-yaydp-i18n.php:290
+msgid "Quantity discounts"
+msgstr "Kvantumsrabatter"
+
+#: includes/class-yaydp-i18n.php:291
+msgid "Quantity title"
+msgstr "Antall tittel"
+
+#: includes/class-yaydp-i18n.php:292
+msgid "Quantity"
+msgstr "Antall"
+
+#: includes/class-yaydp-i18n.php:293
+msgid "Reduce 50% shipping fee for order below 100"
+msgstr "Reduser gebyret på 50% shipping for bestillinger under 100"
+
+#: includes/class-yaydp-i18n.php:294
+msgid "Reduce Shipping Fee"
+msgstr "Reduser fraktgebyret"
+
+#: includes/class-yaydp-i18n.php:295
+msgid ""
+"Refer to this comparison table so that you will have an informeddecision"
+msgstr "Se denne sammenligningstabellen slik at du får en informert beslutning"
+
+#: includes/class-yaydp-i18n.php:296
+msgid ""
+"Regular price is displayed as strike-through text on cart page and checkout "
+"page"
+msgstr ""
+"Vanlig pris vises som gjennomstreket tekst på handlekurvsiden og kassesiden"
+
+#: includes/class-yaydp-i18n.php:297
+msgid "Regular price is displayed as strike-through text on product price"
+msgstr "Vanlig pris vises som gjennomstreket tekst på produktpris"
+
+#: includes/class-yaydp-i18n.php:298
+msgid "Remove all"
+msgstr "Fjern alle"
+
+#: includes/class-yaydp-i18n.php:299
+msgid "Remove rule"
+msgstr "Fjern regel"
+
+#: includes/class-yaydp-i18n.php:300
+msgid "Remove"
+msgstr "Fjern"
+
+#: includes/class-yaydp-i18n.php:301
+msgid "Replace product price with the discounted one"
+msgstr "Erstatt produktprisen med den nedsatte"
+
+#: includes/class-yaydp-i18n.php:302
+msgid "Reset"
+msgstr "Nullstill"
+
+#: includes/class-yaydp-i18n.php:303
+msgid "Rule Name"
+msgstr "Navn på regel"
+
+#: includes/class-yaydp-i18n.php:304
+msgid "Rule type"
+msgstr "Type regel"
+
+#: includes/class-yaydp-i18n.php:305
+msgid "Running"
+msgstr "Kjører"
+
+#: includes/class-yaydp-i18n.php:306
+msgid "Sale [discount_value] all products"
+msgstr "Salg [discount_value] alle produkter"
+
+#: includes/class-yaydp-i18n.php:307
+msgid "Sale 10"
+msgstr "Salg 10"
+
+#: includes/class-yaydp-i18n.php:308
+msgid "Sale 30% from the third item"
+msgstr "Salg 30% from den tredje varen"
+
+#: includes/class-yaydp-i18n.php:309
+msgid "Sale 30% OFF from the third item"
+msgstr "Salg 30% AVSLAG fra den tredje varen"
+
+#: includes/class-yaydp-i18n.php:310 includes/class-yaydp-i18n.php:311
+msgid "Sale 50% all products"
+msgstr "Salg 50% all produkter"
+
+#: includes/class-yaydp-i18n.php:312
+msgid "Sale 50% OFF all products"
+msgstr "Salg 50% AVSLAG på alle produkter"
+
+#: includes/class-yaydp-i18n.php:313
+msgid "Sale Tag"
+msgstr "Salg Tag"
+
+#: includes/class-yaydp-i18n.php:314
+msgid "Sale"
+msgstr "Salg"
+
+#: includes/class-yaydp-i18n.php:315
+msgid "Sales triggers"
+msgstr "Salgsutløsere"
+
+#: includes/class-yaydp-i18n.php:316
+msgid "Sample rule"
+msgstr "Eksempel på regel"
+
+#: includes/class-yaydp-i18n.php:317
+msgid "Save failed"
+msgstr "Lagring mislyktes"
+
+#: includes/class-yaydp-i18n.php:318
+msgid "Scheduled discounts"
+msgstr "Planlagte rabatter"
+
+#: includes/class-yaydp-i18n.php:319
+msgid "Scheduled"
+msgstr "Planlagt"
+
+#: includes/class-yaydp-i18n.php:320
+msgid "Select at least one attribute"
+msgstr "Velg minst ett attributt"
+
+#: includes/class-yaydp-i18n.php:321
+msgid "Select at least one category"
+msgstr "Velg minst én kategori"
+
+#: includes/class-yaydp-i18n.php:322 includes/class-yaydp-i18n.php:323
+msgid "Select at least one coupon"
+msgstr "Velg minst én kupong"
+
+#: includes/class-yaydp-i18n.php:324
+msgid "Select at least one customer"
+msgstr "Velg minst én kunde"
+
+#: includes/class-yaydp-i18n.php:325
+msgid "Select at least one payment"
+msgstr "Velg minst én betaling"
+
+#: includes/class-yaydp-i18n.php:326
+msgid "Select at least one product"
+msgstr "Velg minst ett produkt"
+
+#: includes/class-yaydp-i18n.php:327
+msgid "Select at least one region"
+msgstr "Velg minst ett område"
+
+#: includes/class-yaydp-i18n.php:328
+msgid "Select at least one role"
+msgstr "Velg minst én rolle"
+
+#: includes/class-yaydp-i18n.php:329
+msgid "Select at least one rule"
+msgstr "Velg minst én regel"
+
+#: includes/class-yaydp-i18n.php:330
+msgid "Select at least one tag"
+msgstr "Velg minst én kode"
+
+#: includes/class-yaydp-i18n.php:331
+msgid "Select at least one value"
+msgstr "Velg minst én verdi"
+
+#: includes/class-yaydp-i18n.php:332
+msgid "Select at least one variation"
+msgstr "Velg minst én variant"
+
+#: includes/class-yaydp-i18n.php:333
+msgid "Select one rule to exclude"
+msgstr "Velg én regel som skal ekskluderes"
+
+#: includes/class-yaydp-i18n.php:334
+msgid "Select rules for on sale products"
+msgstr "Velg regler for produkter på salg"
+
+#: includes/class-yaydp-i18n.php:335
+msgid "Selected products"
+msgstr "Utvalgte produkter"
+
+#: includes/class-yaydp-i18n.php:336
+msgid ""
+"Set up additional conditions that need to be met before the promotion is "
+"applied"
+msgstr "Konfigurer flere betingelser som må oppfylles før kampanjen tas i bruk"
+
+#: includes/class-yaydp-i18n.php:337
+msgid "Settings"
+msgstr "Innstillinger"
+
+#: includes/class-yaydp-i18n.php:338
+msgid "Shipping region"
+msgstr "Frakt region"
+
+#: includes/class-yaydp-i18n.php:339
+msgid "Shortcode copied"
+msgstr "Kortkode kopiert"
+
+#: includes/class-yaydp-i18n.php:340
+msgid "Shortcode to load all products which has discount through YayPricing"
+msgstr ""
+"Kortkode for å laste inn alle produkter som har rabatt gjennom YayPricing"
+
+#: includes/class-yaydp-i18n.php:341
+msgid "Shortcodes"
+msgstr "Hurtigkoder"
+
+#: includes/class-yaydp-i18n.php:342
+msgid ""
+"Show ad countdown timer to let customers know how much time is left until "
+"sales on products are over and helps boost your sale."
+msgstr ""
+"Vis nedtellingstidtakeren for annonser for å fortelle kundene hvor mye tid "
+"som gjenstår til salget på produkter er over, og bidrar til å øke salget "
+"ditt."
+
+#: includes/class-yaydp-i18n.php:343
+msgid "Show countdown timer"
+msgstr "Vis nedtellingstidtaker"
+
+#: includes/class-yaydp-i18n.php:344
+msgid "Show HTML source"
+msgstr "Vis HTML-kilde"
+
+#: includes/class-yaydp-i18n.php:345
+msgid "Show notices after product description to encourage purchasing"
+msgstr "Vis meldinger etter produktbeskrivelsen for å oppmuntre til kjøp"
+
+#: includes/class-yaydp-i18n.php:346
+msgid "Show notices at bottom of Cart page to encourage purchasing"
+msgstr "Vis meldinger nederst på handlekurvsiden for å oppmuntre til kjøp"
+
+#: includes/class-yaydp-i18n.php:347
+msgid "Show notices at bottom of Checkout page to encourage purchasing"
+msgstr "Vis varsler nederst på betalingssiden for å oppmuntre til kjøp"
+
+#: includes/class-yaydp-i18n.php:348
+msgid "Show offer description in product page"
+msgstr "Vis tilbudsbeskrivelse på produktsiden"
+
+#: includes/class-yaydp-i18n.php:349
+msgid "Show product discounted price"
+msgstr "Vis produkt rabattert pris"
+
+#: includes/class-yaydp-i18n.php:350
+msgid "Show product regular price within discounted"
+msgstr "Vis produktet vanlig pris innen rabattert"
+
+#: includes/class-yaydp-i18n.php:351
+msgid "Show regular price on cart item"
+msgstr "Vis vanlig pris på handlekurven"
+
+#: includes/class-yaydp-i18n.php:352
+msgid "Show sale off amount on the sale tag"
+msgstr "Vis salgsbeløp på salgstaggen"
+
+#: includes/class-yaydp-i18n.php:353
+msgid "Show sale tag and discounted price as"
+msgstr "Vis salgstag og rabattert pris som"
+
+#: includes/class-yaydp-i18n.php:354
+msgid "Show sale tag for sale products"
+msgstr "Vis salg tag for salg produkter"
+
+#: includes/class-yaydp-i18n.php:355
+msgid "Show tooltip on cart discount"
+msgstr "Vis verktøytips om handlekurvrabatt"
+
+#: includes/class-yaydp-i18n.php:356
+msgid "Show tooltip on cart item price"
+msgstr "Vis verktøytips på vareprisen for handlekurven"
+
+#: includes/class-yaydp-i18n.php:357
+msgid "Show tooltip on checkout fee"
+msgstr "Vis verktøytips på betalingsgebyret"
+
+#: includes/class-yaydp-i18n.php:358
+msgid "Simple Adjustment"
+msgstr "Enkel justering"
+
+#: includes/class-yaydp-i18n.php:359
+msgid "Source"
+msgstr "Kilde"
+
+#: includes/class-yaydp-i18n.php:360
+msgid "Specific customer"
+msgstr "Spesifikk kunde"
+
+#: includes/class-yaydp-i18n.php:361
+msgid "Split rule"
+msgstr "Delt regel"
+
+#: includes/class-yaydp-i18n.php:362
+msgid "Status"
+msgstr "Status"
+
+#: includes/class-yaydp-i18n.php:363
+msgid "Style has been reset"
+msgstr "Stilen er tilbakestilt"
+
+#: includes/class-yaydp-i18n.php:364
+msgid "Table position"
+msgstr "Tabellplassering"
+
+#: includes/class-yaydp-i18n.php:365
+msgid "Table title"
+msgstr "Tabell tittel"
+
+#: includes/class-yaydp-i18n.php:366
+msgid ""
+"The action customer need to do to get the discount. Example: “buy more 100$” "
+"or “buy more 1 item of Product A” "
+msgstr ""
+"Handlingen kunden må gjøre for å få rabatten. Eksempel: \"kjøp mer 100 $\" "
+"eller \"kjøp mer 1 vare av produkt A\" "
+
+#: includes/class-yaydp-i18n.php:367
+msgid "The calculated value of discount"
+msgstr "Den beregnede verdien av rabatten"
+
+#: includes/class-yaydp-i18n.php:368
+msgid "The discount value. Example: “50%“ or “10$“"
+msgstr "Rabattverdien. Eksempel: \"50%\" eller \"10$\""
+
+#: includes/class-yaydp-i18n.php:369
+msgid "This adds a cap so that the discount amount will not exceed this amount"
+msgstr ""
+"Dette legger til et tak slik at rabattbeløpet ikke overstiger dette beløpet"
+
+#: includes/class-yaydp-i18n.php:370
+msgid "This rule applies to those products that match"
+msgstr "Denne regelen gjelder for de produktene som samsvarer"
+
+#: includes/class-yaydp-i18n.php:372
+msgid "This rule is not assigned to any product. Please"
+msgstr "Denne regelen er ikke tilordnet noe produkt. Vær så snill"
+
+#: includes/class-yaydp-i18n.php:373
+msgid "This rule will be used if"
+msgstr "Denne regelen vil bli brukt hvis:"
+
+#: includes/class-yaydp-i18n.php:374
+msgid ""
+"This setting allows you to apply YayPricing's rules only if a WooCommerce "
+"coupon is not applied to the order"
+msgstr ""
+"Denne innstillingen lar deg bruke YayPricings regler bare hvis en "
+"WooCommerce-kupong ikke brukes på bestillingen"
+
+#: includes/class-yaydp-i18n.php:375
+msgid "Time"
+msgstr "Tid"
+
+#: includes/class-yaydp-i18n.php:376
+msgid "Timer clock, it will countdown to the schedule day"
+msgstr "Timerklokke, den vil telle ned til tidsplandagen"
+
+#: includes/class-yaydp-i18n.php:377
+msgid "to assign it."
+msgstr "for å tilordne den."
+
+#: includes/class-yaydp-i18n.php:378
+msgid "to exclude."
+msgstr "å ekskludere."
+
+#: includes/class-yaydp-i18n.php:379
+msgid "Today is Black Friday, so you will get 70% off when buy all products"
+msgstr ""
+"I dag er det Black Friday, så du får 70% off når du kjøper alle produktene"
+
+#: includes/class-yaydp-i18n.php:380
+msgid "Total shipping fee"
+msgstr "Totalt fraktgebyr"
+
+#: includes/class-yaydp-i18n.php:381
+msgid "Unlimited cart discount rules"
+msgstr "Ubegrenset vogn rabatt regler"
+
+#: includes/class-yaydp-i18n.php:382
+msgid "Unlimited product discount rules"
+msgstr "Ubegrensede produktrabattregler"
+
+#: includes/class-yaydp-i18n.php:383
+msgid "Upgrade to unlock this feature"
+msgstr "Oppgrader for å låse opp denne funksjonen"
+
+#: includes/class-yaydp-i18n.php:384
+msgid "Upload Image"
+msgstr "Last opp bilde"
+
+#: includes/class-yaydp-i18n.php:385
+msgid "Upselling notices"
+msgstr "Varsler om mersalg"
+
+#: includes/class-yaydp-i18n.php:386
+msgid "Usage limits"
+msgstr "Bruksgrenser"
+
+#: includes/class-yaydp-i18n.php:387
+msgid "Use discount ID as coupon code"
+msgstr "Bruk rabatt-ID som kupongkode"
+
+#: includes/class-yaydp-i18n.php:388
+msgid ""
+"Use shortcode to output all discounted products on any WordPress page/post"
+msgstr ""
+"Bruk kortkode for å sende ut alle rabatterte produkter på hvilken som helst "
+"WordPress-side / -post"
+
+#: includes/class-yaydp-i18n.php:389
+msgid "Used"
+msgstr "Brukt"
+
+#: includes/class-yaydp-i18n.php:390
+msgid "User role discounts"
+msgstr "Rabatter for brukerrolle"
+
+#: includes/class-yaydp-i18n.php:391
+msgid "Variable list"
+msgstr "Variabel liste"
+
+#: includes/class-yaydp-i18n.php:392
+msgid "Variables"
+msgstr "Variabler"
+
+#: includes/class-yaydp-i18n.php:393
+msgid ""
+"View charts and analytics for your pricing rules. You can see how a "
+"promotion campaign performs in a date range"
+msgstr ""
+"Se diagrammer og analyser for prisreglene dine. Du kan se resultatene for en "
+"promoteringskampanje i en datoperiode"
+
+#: includes/class-yaydp-i18n.php:394
+msgid "View selected products"
+msgstr "Se utvalgte produkter"
+
+#: includes/class-yaydp-i18n.php:395
+msgid "VIP live chat support"
+msgstr "VIP live chat-støtte"
+
+#: includes/class-yaydp-i18n.php:396
+msgid ""
+"When product is on sale, it will not be discounted by product pricing rule."
+msgstr ""
+"Når produktet er i salg, vil det ikke bli diskontert av produktprisregelen."
+
+#: includes/class-yaydp-i18n.php:397
+msgid ""
+"With conditions feature, you can decide when this rule will be used. It "
+"helps you create a product pricing more powerful"
+msgstr ""
+"Med betingelsesfunksjonen kan du bestemme når denne regelen skal brukes. Det "
+"hjelper deg med å lage en produktpris kraftigere"
+
+#: includes/class-yaydp-i18n.php:398
+msgid "YayPricing Free"
+msgstr "YayPricing Gratis"
+
+#: includes/class-yaydp-i18n.php:399
+msgid "YayPricing Pro"
+msgstr "YayPricing Pro"
+
+#: includes/class-yaydp-i18n.php:400
+msgid "Year"
+msgstr "År"
+
+#: includes/class-yaydp-i18n.php:401
+msgid ""
+"You don't have any <strong>Product Pricing</strong> rule to exclude. Please "
+"create a pricing to continue setting up this rule"
+msgstr ""
+"Du har ingen <strong>produktprisingsregel</strong> å ekskludere. Opprett en "
+"pris for å fortsette å konfigurere denne regelen"
+
+#: includes/class-yaydp-i18n.php:402
+msgid ""
+"You don't have any rule to exclude. Please create one to continue setting up "
+"this rule"
+msgstr ""
+"Du har ingen regel å ekskludere. Opprett en for å fortsette å konfigurere "
+"denne regelen"
+
+#: includes/class-yaydp-i18n.php:403
+msgid "You have no pricing range, please"
+msgstr "Du har ikke noe prisområde, vær så snill"
+
+#: includes/class-yaydp-i18n.php:404
+msgid "You will get [discount_value] discount when buy 1 item of this product"
+msgstr "Du vil få [discount_value] rabatt når kjøpe 1 vare av dette produktet"
+
+#: includes/class-yaydp-i18n.php:405
+msgid "You will get 1 free item when buy 3 items of this product"
+msgstr "Du får 1 gratis vare når du kjøper 3 varer av dette produktet"
+
+#: includes/class-yaydp-i18n.php:406
+msgid "You will get 30% off when buy from 3 items"
+msgstr "Du får 30% off når du kjøper fra 3 varer"
+
+#: includes/class-yaydp-i18n.php:407
+msgid "You will get 50% off when buy the this product"
+msgstr "Du vil få 50% off når kjøpe dette produktet"
+
+#: includes/class-yaydp-i18n.php:408
+msgid "You're getting this discount: [discount_value] off for all products"
+msgstr "Du får denne rabatten: [discount_value] rabatt for alle produkter"
+
+#: includes/class-yaydp-i18n.php:409
+msgid "You're getting this discount: [discount_value] off"
+msgstr "Du får denne rabatten: [discount_value] rabatt"
+
+#: includes/class-yaydp-i18n.php:410
+msgid "Your current"
+msgstr "Din nåværende"
+
+#: includes/class-yaydp-i18n.php:411
+msgid "Your own campaign"
+msgstr "Din egen kampanje"
+
+#: includes/class-yaydp-i18n.php:412
+msgid "Saving amount"
+msgstr "Sparer beløp"
+
+#: includes/class-yaydp-i18n.php:413
+msgid "Show order saving amount"
+msgstr "Vis ordresparingsbeløp"
+
+#: includes/class-yaydp-i18n.php:414
+msgid "Show products saving amount on cart page (Only for cart shortcode)"
+msgstr ""
+"Vis produkter som sparer beløp på handlekurvsiden (Bare for handlekurvens "
+"kortkode)"
+
+#: includes/class-yaydp-i18n.php:415
+msgid "Before order total"
+msgstr "Før total bestilling"
+
+#: includes/class-yaydp-i18n.php:416
+msgid "After order total"
+msgstr "Etter bestilling totalt"
+
+#: includes/class-yaydp-logger.php:27
+msgid "SYSTEM ERROR:"
+msgstr "SYSTEMFEIL:"
+
+#: includes/class-yaydp-logger.php:44
+msgid "log-"
+msgstr "logg-"
+
+#. Translators: link href.
+#: includes/class-yaypricing.php:113
+msgid "%1$s Settings %2$s"
+msgstr "%1$s Innstillinger %2$s"
+
+#. Translators: link href.
+#: includes/class-yaypricing.php:129
+msgid "%1$s Docs %2$s"
+msgstr "%1$s Dokumenter %2$s"
+
+#. Translators: link href.
+#: includes/class-yaypricing.php:131
+msgid "%1$s Support %2$s"
+msgstr "%1$s Støtte %2$s"
+
+#: includes/core/manager/class-yaydp-cart-discount-manager.php:149
+#: includes/core/rule/cart-discount/class-yaydp-combined-discount.php:106
+msgid "%s"
+msgstr "%s"
+
+#: includes/core/manager/class-yaydp-product-pricing-manager.php:337
+msgid "Product discounts"
+msgstr "Produktrabatter"
+
+#: includes/core/offer-description/class-yaydp-offer-description.php:194
+#: includes/core/offer-description/class-yaydp-offer-description.php:279
+#: includes/core/offer-description/class-yaydp-offer-description.php:356
+msgid "unlimited"
+msgstr "ubegrenset"
+
+#: includes/core/offer-description/class-yaydp-offer-description.php:203
+msgid ""
+"from %1$s to %2$s: <span data-variable=\"discount_value\" data-"
+"formula=\"%3$s\">%4$s</span>"
+msgstr ""
+"fra %1$s til %2$s: <span data-variable=\"discount_value\" data-"
+"formula=\"%3$s\">%4$s</span>"
+
+#: includes/core/offer-description/class-yaydp-offer-description.php:225
+msgid ""
+"<span data-variable=\"discount_value\" data-formula=\"%1$s\">%2$s</span>"
+msgstr ""
+"<span data-variable=\"discount_value\" data-formula=\"%1$s\">%2$s</span>"
+
+#: includes/core/offer-description/class-yaydp-offer-description.php:256
+#: includes/core/offer-description/class-yaydp-offer-description.php:309
+msgid ""
+"<span data-variable=\"discount_amount\" data-formula=\"%1$s\">%2$s</span>"
+msgstr ""
+"<span data-variable=\"discount_amount\" data-formula=\"%1$s\">%2$s</span>"
+
+#: includes/core/offer-description/class-yaydp-offer-description.php:287
+msgid ""
+"from %1$s to %2$s: <span data-variable=\"discount_amount\" data-"
+"formula=\"%3$s\">%4$s</span>"
+msgstr ""
+"fra %1$s til %2$s: <span data-variable=\"discount_amount\" data-"
+"formula=\"%3$s\">%4$s</span>"
+
+#: includes/core/offer-description/class-yaydp-offer-description.php:364
+msgid ""
+"from %1$s to %2$s: <span data-variable=\"discounted_price\" data-"
+"formula=\"%3$s\">%4$s</span>"
+msgstr ""
+"fra %1$s til %2$s: <span data-variable=\"discounted_price\" data-"
+"formula=\"%3$s\">%4$s</span>"
+
+#: includes/core/offer-description/class-yaydp-offer-description.php:387
+msgid ""
+"<span data-variable=\"discounted_price\" data-formula=\"%1$s\">%2$s</span>"
+msgstr ""
+"<span data-variable=\"discounted_price\" data-formula=\"%1$s\">%2$s</span>"
+
+#. translators: %s Rule name.
+#: includes/core/use-time/class-yaydp-product-pricing-use-time.php:46
+msgid "%s has expired. Please reload the page to continue checkout."
+msgstr "%s er utløpt. Last inn siden på nytt for å fortsette kassen."
+
+#: includes/helper/class-yaydp-helper.php:26
+msgid "Nonce is invalid"
+msgstr "Nonce er ugyldig"
+
+#: includes/noname/class-yaydp-pricing-table.php:104
+msgid "Unlimited"
+msgstr "Ubegrenset"
+
+#: includes/templates/product/yaydp-sale-tag.php:31
+msgid "SALE!"
+msgstr "SALG!"
+
+#: includes/templates/product/yaydp-sale-tag.php:32
+msgid "Up to %s"
+msgstr "Opptil %s"
+
+#: includes/yaycommercemenu/class-register-menu.php:70
+msgid "Help"
+msgstr "Hjelp"
+
+#: includes/yaycommercemenu/class-register-menu.php:103
+msgid "Licenses"
+msgstr "Lisenser"
+
+#: includes/yaycommercemenu/class-register-menu.php:112
+msgid "Other plugins"
+msgstr "Andre plugins"
+
+#: includes/yaydp-duplicate-fallback.php:24
+msgid ""
+"It looks like you have another YayPricing version installed, please delete "
+"it before activating this new version. All current settings and data are "
+"still preserved."
+msgstr ""
+"Det ser ut til at du har en annen YayPricing-versjon installert, vennligst "
+"slett den før du aktiverer denne nye versjonen. Alle gjeldende innstillinger "
+"og data er fortsatt bevart."
+
+#: includes/yaydp-duplicate-fallback.php:25
+msgid "Read more details."
+msgstr "Les flere detaljer."

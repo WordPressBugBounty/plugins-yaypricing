@@ -1,0 +1,22 @@
+{
+  "admin-settings.jsx": {
+    "file": "admin-settings.js",
+    "src": "admin.jsx",
+    "isEntry": true,
+    "css": ["admin-settings.css"]
+  },
+  "admin-settings.css": {
+    "file": "admin-settings.css",
+    "src": "admin-settings.css"
+  },
+  "admin-report.jsx": {
+    "file": "admin-report.js",
+    "src": "report.jsx",
+    "isEntry": true,
+    "css": ["admin-report.css"]
+  },
+  "admin-report.css": {
+    "file": "admin-report.css",
+    "src": "admin-report.css"
+  }
+}

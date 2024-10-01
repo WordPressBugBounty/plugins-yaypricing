@@ -1,0 +1,1861 @@
+# Copyright (C) 2024 YayCommerce
+# This file is distributed under the same license as the YayPricing Lite - WooCommerce Dynamic Pricing And Discounts plugin.
+msgid ""
+msgstr ""
+"Project-Id-Version: YayPricing Lite - WooCommerce Dynamic Pricing And "
+"Discounts 2.5\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/yaypricing-lite\n"
+"POT-Creation-Date: 2024-02-19T08:16:47+00:00\n"
+"PO-Revision-Date: 2024-02-19 15:20+0700\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: nl\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 3.4.1\n"
+"X-Domain: yaypricing\n"
+
+#. Plugin Name of the plugin
+msgid "YayPricing Lite - WooCommerce Dynamic Pricing And Discounts"
+msgstr "YayPricing Lite - WooCommerce dynamische prijzen en kortingen"
+
+#. Plugin URI of the plugin
+msgid "https://wordpress.org/plugins/yaypricing/"
+msgstr "https://wordpress.org/plugins/yaypricing/"
+
+#. Description of the plugin
+msgid ""
+"Create automatic product pricing rules and cart discounts to design a "
+"powerful marketing strategy for your WooCommerce store."
+msgstr ""
+"Creëer automatische productprijsregels en winkelwagenkortingen om een "
+"krachtige marketingstrategie voor uw WooCommerce-winkel te ontwerpen."
+
+#. Author of the plugin
+msgid "YayCommerce"
+msgstr "YayCommerce"
+
+#. Author URI of the plugin
+msgid "https://yaycommerce.com/"
+msgstr "https://yaycommerce.com/"
+
+#: includes/admin/class-yaydp-admin-menus.php:33
+#: includes/yaycommercemenu/class-register-menu.php:175
+msgid "YayPricing"
+msgstr "Yay-prijzen"
+
+#: includes/admin/class-yaydp-admin-menus.php:41
+msgid "YayPricing Report"
+msgstr "YayPricing Rapport"
+
+#. Translators: %s: search WooCommerce plugin link.
+#: includes/admin/views/html-notice-require-wc.php:5
+msgid ""
+"is enabled but not effective. It requires %1$sWooCommerce%2$s in order to "
+"work."
+msgstr ""
+"is ingeschakeld, maar niet effectief. Het vereist %1$sWooCommerce%2$s om te "
+"werken."
+
+#. translators:
+#: includes/admin/views/html-require-php-version.php:15
+msgid ""
+"YayPricing requires PHP 5.6 to work and does not support your current PHP "
+"version %1$s. Please contact your host and request a PHP upgrade to the "
+"latest one."
+msgstr ""
+"YayPricing vereist PHP 5.6 om te werken en ondersteunt je huidige PHP-versie "
+"%1$s niet. Neem contact op met je host en vraag een PHP-upgrade aan naar de "
+"nieuwste."
+
+#: includes/class-yaydp-ajax.php:31
+msgid "Verify nonce failed"
+msgstr "Controleer of nonce mislukt is"
+
+#: includes/class-yaydp-i18n.php:35
+msgid "After \"Add to cart\" button"
+msgstr "Na \"In winkelmand\" knop"
+
+#: includes/class-yaydp-i18n.php:36
+msgid "Before \"Add to cart\" button"
+msgstr "قبل از دکمه «افزودن به سبد خرید»"
+
+#: includes/class-yaydp-i18n.php:37
+msgid "Add [discount_value] to the order"
+msgstr "Voeg [discount_value] toe aan de bestelling"
+
+#: includes/class-yaydp-i18n.php:38
+msgid "Add 10"
+msgstr "Tel 10 op"
+
+#: includes/class-yaydp-i18n.php:39
+msgid "add a condition"
+msgstr "Een voorwaarde toevoegen"
+
+#: includes/class-yaydp-i18n.php:40
+msgid "Add condition"
+msgstr "Voorwaarde toevoegen"
+
+#: includes/class-yaydp-i18n.php:41
+msgid "Add Custom Fee"
+msgstr "Aangepaste kosten toevoegen"
+
+#: includes/class-yaydp-i18n.php:42
+msgid ""
+"Add handling fees or charge extra fees based on shipping region, payment "
+"method, and other criteria"
+msgstr ""
+"Voeg administratiekosten toe of breng extra kosten in rekening op basis van "
+"verzendregio, betaalmethode en andere criteria"
+
+#: includes/class-yaydp-i18n.php:43
+msgid "add one"
+msgstr "voeg er een toe"
+
+#: includes/class-yaydp-i18n.php:44
+msgid "add product"
+msgstr "product toevoegen"
+
+#: includes/class-yaydp-i18n.php:45
+msgid "Add Rule"
+msgstr "Voeg regel toe"
+
+#: includes/class-yaydp-i18n.php:46
+msgid "Add Your First Rule"
+msgstr "Voeg je eerste regel toe"
+
+#: includes/class-yaydp-i18n.php:47
+msgid "Add"
+msgstr "Toevoegen"
+
+#: includes/class-yaydp-i18n.php:48
+msgid "After Product short description"
+msgstr "Na de korte beschrijving van het product"
+
+#: includes/class-yaydp-i18n.php:49
+msgid "After"
+msgstr "Na"
+
+#: includes/class-yaydp-i18n.php:50
+msgid "All Cart Discount Rules"
+msgstr "Alle kortingsregels voor winkelwagentjes"
+
+#: includes/class-yaydp-i18n.php:51
+msgid "All Checkout Fee Rules"
+msgstr "Alle regels voor afrekenkosten"
+
+#: includes/class-yaydp-i18n.php:52
+msgid "All Product Pricing Rules"
+msgstr "Alle prijsregels voor producten"
+
+#: includes/class-yaydp-i18n.php:53
+msgid "all products"
+msgstr "alle producten"
+
+#: includes/class-yaydp-i18n.php:54
+msgid ""
+"All rules will be calculated and combined into a single rule to apply in cart"
+msgstr ""
+"Alle regels worden berekend en gecombineerd tot één regel die in de "
+"winkelwagen kan worden toegepast"
+
+#: includes/class-yaydp-i18n.php:55
+msgid "All together"
+msgstr "Met z'n allen"
+
+#: includes/class-yaydp-i18n.php:56
+msgid "All"
+msgstr "Alle"
+
+#: includes/class-yaydp-i18n.php:57
+msgid "Analytics & reports"
+msgstr "Analyses en rapporten"
+
+#: includes/class-yaydp-i18n.php:58
+msgid "And much more"
+msgstr "En nog veel meer"
+
+#: includes/class-yaydp-i18n.php:59
+msgid "Any"
+msgstr "Elke"
+
+#: includes/class-yaydp-i18n.php:60
+msgid "Applied coupons"
+msgstr "Toegepaste kortingsbonnen"
+
+#: includes/class-yaydp-i18n.php:61
+msgid "Apply all applicable rules"
+msgstr "Pas alle toepasselijke regels toe"
+
+#: includes/class-yaydp-i18n.php:62
+msgid "Apply the first applicable rule in your list"
+msgstr "Pas de eerste toepasselijke regel in uw lijst toe"
+
+#: includes/class-yaydp-i18n.php:63
+msgid "Apply the rule with maximum discount amount"
+msgstr "Pas de regel toe met het maximale kortingsbedrag"
+
+#: includes/class-yaydp-i18n.php:64
+msgid "Apply the rule with minimum discount amount"
+msgstr "Pas de regel toe met een minimumkortingsbedrag"
+
+#: includes/class-yaydp-i18n.php:65
+msgid ""
+"Automatically add gift item(s) once the base product(s) are added to cart"
+msgstr ""
+"Voeg automatisch cadeauartikelen toe zodra het (de) basisproduct(en) aan de "
+"winkelwagen zijn toegevoegd"
+
+#: includes/class-yaydp-i18n.php:66
+msgid ""
+"Automatically generate cart discount ID to be used as a coupon code in the "
+"admin order details"
+msgstr ""
+"Genereer automatisch een kortings-ID voor winkelwagentjes die kan worden "
+"gebruikt als couponcode in de bestelgegevens van de beheerder"
+
+#: includes/class-yaydp-i18n.php:67
+msgid "Before Product short description"
+msgstr "Voor product korte beschrijving"
+
+#: includes/class-yaydp-i18n.php:68
+msgid "Before"
+msgstr "Voor"
+
+#: includes/class-yaydp-i18n.php:69
+msgid "Black Friday campaign"
+msgstr "Black Friday-campagne"
+
+#: includes/class-yaydp-i18n.php:70
+msgid "Black friday discount! Discount [discount_value] all cart"
+msgstr "Black friday korting! Korting [discount_value] alle winkelwagen"
+
+#: includes/class-yaydp-i18n.php:71
+msgid "Black Friday"
+msgstr "Black friday"
+
+#: includes/class-yaydp-i18n.php:72
+msgid "BOGO (same product)"
+msgstr "BOGO (hetzelfde product)"
+
+#: includes/class-yaydp-i18n.php:73
+msgid "BOGO"
+msgstr "BOGO"
+
+#: includes/class-yaydp-i18n.php:74
+msgid "Border color"
+msgstr "Randkleur"
+
+#: includes/class-yaydp-i18n.php:75
+msgid "Bulk discounts"
+msgstr "Volumekortingen"
+
+#: includes/class-yaydp-i18n.php:76
+msgid "Bulk Pricing"
+msgstr "Bulk prijzen"
+
+#: includes/class-yaydp-i18n.php:77
+msgid "Buy 3 get 1 free item"
+msgstr "Koop 3 en krijg 1 gratis item"
+
+#: includes/class-yaydp-i18n.php:78
+msgid "Buy 3 Get 1 Free"
+msgstr "Koop 3 Krijg 1 gratis"
+
+#: includes/class-yaydp-i18n.php:79
+msgid "Buy Products"
+msgstr "Producten kopen"
+
+#: includes/class-yaydp-i18n.php:80
+msgid "Buy X get X event"
+msgstr "Koop X krijg X evenement"
+
+#: includes/class-yaydp-i18n.php:81
+msgid "Buy X Get X"
+msgstr "Koop X Krijg X"
+
+#: includes/class-yaydp-i18n.php:82
+msgid "Buy X get Y with discount"
+msgstr "Koop X en krijg Y met korting"
+
+#: includes/class-yaydp-i18n.php:83
+msgid "Buy X Get Y"
+msgstr "Koop X Krijg Y"
+
+#: includes/class-yaydp-i18n.php:84
+msgid "Buy"
+msgstr "Koop"
+
+#: includes/class-yaydp-i18n.php:85
+msgid "campaign"
+msgstr "campagne"
+
+#: includes/class-yaydp-i18n.php:86
+msgid "Campaigns"
+msgstr "Campagnes"
+
+#: includes/class-yaydp-i18n.php:87
+msgid "Cart Discount"
+msgstr "Korting"
+
+#: includes/class-yaydp-i18n.php:88
+msgid ""
+"Cart discounts rules is used to create cart discount coupons that apply at "
+"checkout. You can also combine discount at Settings section."
+msgstr ""
+"Regels voor winkelwagenkortingen worden gebruikt om kortingsbonnen voor "
+"winkelwagentjes te maken die van toepassing zijn bij het afrekenen. U kunt "
+"de korting ook combineren in het gedeelte Instellingen."
+
+#: includes/class-yaydp-i18n.php:89
+msgid "Cart discounts"
+msgstr "Kortingen in winkelwagen"
+
+#: includes/class-yaydp-i18n.php:90
+msgid "Cart item - category"
+msgstr "Winkelwagen - categorie"
+
+#: includes/class-yaydp-i18n.php:91
+msgid "Cart item - product"
+msgstr "Winkelwagen - product"
+
+#: includes/class-yaydp-i18n.php:92
+msgid "Cart item - tag"
+msgstr "Winkelwagen item - tag"
+
+#: includes/class-yaydp-i18n.php:93
+msgid "Cart item - variation"
+msgstr "Winkelwagen - variatie"
+
+#: includes/class-yaydp-i18n.php:94
+msgid "Cart Items"
+msgstr "Cart Items"
+
+#: includes/class-yaydp-i18n.php:95
+msgid "Cart quantity"
+msgstr "Winkelwagen aantal"
+
+#: includes/class-yaydp-i18n.php:96
+msgid "Cart subtotal price"
+msgstr "Subtotaalprijs winkelwagen"
+
+#: includes/class-yaydp-i18n.php:97
+msgid "Cart total weight"
+msgstr "Totaal gewicht winkelwagen"
+
+#: includes/class-yaydp-i18n.php:98
+msgid "cart total"
+msgstr "Winkelwagen Totaal"
+
+#: includes/class-yaydp-i18n.php:99
+msgid "Cart"
+msgstr "Winkelwagen"
+
+#: includes/class-yaydp-i18n.php:100
+msgid "Cheapest one"
+msgstr "Goedkoopste"
+
+#: includes/class-yaydp-i18n.php:101
+msgid "Checkout Fee"
+msgstr "Afrekenkosten"
+
+#: includes/class-yaydp-i18n.php:102
+msgid "Choose file"
+msgstr "Bestand kiezen"
+
+#: includes/class-yaydp-i18n.php:103
+msgid "Choose your desired campaign"
+msgstr "Kies uw gewenste campagne"
+
+#: includes/class-yaydp-i18n.php:104
+msgid "Combination"
+msgstr "Combinatie"
+
+#: includes/class-yaydp-i18n.php:105
+msgid "Combine cart discounts"
+msgstr "Combineer winkelwagenkortingen"
+
+#: includes/class-yaydp-i18n.php:106
+msgid "Combined condition is empty, please"
+msgstr "Gecombineerde toestand is leeg, alstublieft"
+
+#: includes/class-yaydp-i18n.php:107
+msgid "Combined condition"
+msgstr "Gecombineerde conditie"
+
+#: includes/class-yaydp-i18n.php:108
+msgid "Combined conditions"
+msgstr "Gecombineerde voorwaarden"
+
+#: includes/class-yaydp-i18n.php:109
+msgid "Combined items"
+msgstr "Gecombineerde artikelen"
+
+#: includes/class-yaydp-i18n.php:110
+msgid "Completed"
+msgstr "Voltooid"
+
+#: includes/class-yaydp-i18n.php:111
+msgid "Conditions"
+msgstr "Voorwaarden"
+
+#: includes/class-yaydp-i18n.php:112
+msgid "Consider upgrading to"
+msgstr "Overweeg om te upgraden naar"
+
+#: includes/class-yaydp-i18n.php:113
+msgid ""
+"Contain a pitch of your products that your visitors go through and decide "
+"whether they want to buy."
+msgstr ""
+"Bevat een pitch van uw producten die uw bezoekers doorlopen en beslissen of "
+"ze willen kopen."
+
+#: includes/class-yaydp-i18n.php:114
+msgid "Contain all"
+msgstr "Bevat alles"
+
+#: includes/class-yaydp-i18n.php:115
+msgid "Contain in list"
+msgstr "Bevatten in lijst"
+
+#: includes/class-yaydp-i18n.php:116
+msgid "Copied"
+msgstr "Gekopieerd"
+
+#: includes/class-yaydp-i18n.php:117
+msgid "Count quantity by"
+msgstr "Tel de hoeveelheid op"
+
+#: includes/class-yaydp-i18n.php:118
+msgid "Countdown timer"
+msgstr "Afteltimer"
+
+#: includes/class-yaydp-i18n.php:119
+msgid "Coupon Exclusions"
+msgstr "Coupon uitsluitingen"
+
+#: includes/class-yaydp-i18n.php:120
+msgid ""
+"Create cart discount conditions that are restricted to those cart items. For "
+"example, minimum spend on specific product categories will get the discount"
+msgstr ""
+"Maak kortingsvoorwaarden voor winkelwagentjes die beperkt zijn tot die "
+"winkelwagenartikelen. Minimale besteding aan specifieke productcategorieën "
+"krijgt bijvoorbeeld de korting"
+
+#: includes/class-yaydp-i18n.php:121
+msgid ""
+"Create product pricing rules that affect price of products. You can also "
+"create product fee or discount."
+msgstr ""
+"Maak productprijsregels die van invloed zijn op de prijs van producten. U "
+"kunt ook productkosten of kortingen maken."
+
+#: includes/class-yaydp-i18n.php:122
+msgid ""
+"Create rule to decide which products will not be affected by Product pricing "
+"rules."
+msgstr ""
+"Maak een regel om te bepalen welke producten niet worden beïnvloed door "
+"productprijsregels."
+
+#: includes/class-yaydp-i18n.php:123
+msgid "Current discount tier"
+msgstr "Huidig kortingsniveau"
+
+#: includes/class-yaydp-i18n.php:124
+msgid "Current discounting product"
+msgstr "Huidig kortingsproduct"
+
+#: includes/class-yaydp-i18n.php:125
+msgid "Custom Fee"
+msgstr "Aangepaste kosten"
+
+#: includes/class-yaydp-i18n.php:126
+msgid "Custom fees"
+msgstr "Douanekosten"
+
+#: includes/class-yaydp-i18n.php:127
+msgid "Custom"
+msgstr "Aangepast"
+
+#: includes/class-yaydp-i18n.php:128
+msgid "Customer order count"
+msgstr "Aantal klantorders"
+
+#: includes/class-yaydp-i18n.php:129
+msgid "Customer role"
+msgstr "Rol van de klant"
+
+#: includes/class-yaydp-i18n.php:130
+msgid "Customer"
+msgstr "Klant"
+
+#: includes/class-yaydp-i18n.php:131
+msgid ""
+"Customers need to add the quantity of items specified below to their cart"
+msgstr ""
+"Klanten moeten het onderstaande aantal artikelen aan hun winkelwagentje "
+"toevoegen"
+
+#: includes/class-yaydp-i18n.php:132
+msgid "Default"
+msgstr "Standaard"
+
+#: includes/class-yaydp-i18n.php:133
+msgid "Description"
+msgstr "Omschrijving"
+
+#: includes/class-yaydp-i18n.php:134
+msgid "Disable product pricing rules when product is on sale"
+msgstr ""
+"Regels voor productprijzen uitschakelen wanneer het product in de uitverkoop "
+"is"
+
+#: includes/class-yaydp-i18n.php:135
+msgid "Discount [discount_value] all cart"
+msgstr "Korting [discount_value] alle winkelwagen"
+
+#: includes/class-yaydp-i18n.php:136
+msgid "Discount [discount_value] off from 3rd item"
+msgstr "Korting [discount_value] op 3e object"
+
+#: includes/class-yaydp-i18n.php:137
+msgid "Discount [discount_value] off"
+msgstr "Korting [discount_value] korting"
+
+#: includes/class-yaydp-i18n.php:138
+msgid "Discount 50% campaign"
+msgstr "Korting 50% campaign"
+
+#: includes/class-yaydp-i18n.php:139
+msgid "Discount 50% of the shipping cost"
+msgstr "Korting 50% o de verzendkosten"
+
+#: includes/class-yaydp-i18n.php:140
+msgid ""
+"Discount applies to the items specified below, starting from the cheapest one"
+msgstr ""
+"Korting is van toepassing op de hieronder gespecificeerde artikelen, vanaf "
+"de goedkoopste"
+
+#: includes/class-yaydp-i18n.php:141
+msgid ""
+"Discount applies to the items specified below, starting from the left to "
+"right"
+msgstr ""
+"Korting is van toepassing op de hieronder gespecificeerde artikelen, van "
+"links naar rechts"
+
+#: includes/class-yaydp-i18n.php:142
+msgid ""
+"Discount applies to the items specified below, starting from the most "
+"expensive one"
+msgstr ""
+"Korting is van toepassing op de hieronder gespecificeerde artikelen, "
+"beginnend bij de duurste"
+
+#: includes/class-yaydp-i18n.php:143
+msgid "Discount based on"
+msgstr "Korting op basis van"
+
+#: includes/class-yaydp-i18n.php:144
+msgid "Discount title"
+msgstr "Titel van de korting"
+
+#: includes/class-yaydp-i18n.php:145
+msgid "Discount type"
+msgstr "Kortingstype"
+
+#: includes/class-yaydp-i18n.php:146
+msgid "Discount value cap"
+msgstr "Limiet voor kortingswaarde"
+
+#: includes/class-yaydp-i18n.php:147
+msgid "Discount value"
+msgstr "Waarde Korting"
+
+#: includes/class-yaydp-i18n.php:148
+msgid "Discount will apply once or repeat"
+msgstr "Korting wordt één keer toegepast of wordt herhaald"
+
+#: includes/class-yaydp-i18n.php:149
+msgid "Discount"
+msgstr "Korting"
+
+#: includes/class-yaydp-i18n.php:150
+msgid "Discountable price range"
+msgstr "Kortingsbare prijsklasse"
+
+#: includes/class-yaydp-i18n.php:151
+msgid "Display a discount range tag on the sale tag"
+msgstr "Geef een label voor kortingsbereik weer op het label Sale"
+
+#: includes/class-yaydp-i18n.php:152
+msgid ""
+"Display a sale tag on product image on shop page and single product page"
+msgstr ""
+"Geef een verkooptag weer op de productafbeelding op de winkelpagina en op "
+"een enkele productpagina"
+
+#: includes/class-yaydp-i18n.php:153
+msgid "Do you want to remove"
+msgstr "Wilt u verwijderen"
+
+#: includes/class-yaydp-i18n.php:154
+msgid "Duplicate of"
+msgstr "Duplicaat van"
+
+#: includes/class-yaydp-i18n.php:155
+msgid "Duplicate"
+msgstr "Kopiëren"
+
+#: includes/class-yaydp-i18n.php:156
+msgid "Each single product/variable products"
+msgstr "Elk afzonderlijk product/variabel product"
+
+#: includes/class-yaydp-i18n.php:157
+msgid "Enable schedule"
+msgstr "Planning inschakelen"
+
+#: includes/class-yaydp-i18n.php:158
+msgid "Encourage notice"
+msgstr "Moedig kennisgeving aan"
+
+#: includes/class-yaydp-i18n.php:159
+msgid ""
+"Encouraged notice is used to motivate customers to buy more items in order "
+"to receive a discount or other promotional offer. It is a marketing strategy "
+"aimed at increasing sales and customer loyalty."
+msgstr ""
+"Aangemoedigde kennisgeving wordt gebruikt om klanten te motiveren meer "
+"artikelen te kopen om een korting of andere promotionele aanbieding te "
+"ontvangen. Het is een marketingstrategie gericht op het verhogen van de "
+"verkoop en klantloyaliteit."
+
+#: includes/class-yaydp-i18n.php:160
+msgid "Enter your description"
+msgstr "Vul je omschrijving in"
+
+#: includes/class-yaydp-i18n.php:161
+msgid "Enter your tooltip"
+msgstr "Voer uw knopinfo in"
+
+#: includes/class-yaydp-i18n.php:162
+msgid "Ex: Discount"
+msgstr "Bijv.: Korting"
+
+#: includes/class-yaydp-i18n.php:163
+msgid "Ex: Price"
+msgstr "Vb.: Prijs"
+
+#: includes/class-yaydp-i18n.php:164
+msgid "Ex: Quantity discounts"
+msgstr "Bijv.: Kwantumkortingen"
+
+#: includes/class-yaydp-i18n.php:165
+msgid "Ex: Quantity"
+msgstr "Bijv.: Hoeveelheid"
+
+#: includes/class-yaydp-i18n.php:166
+msgid "Exclude Rules (Product pricing)"
+msgstr "Regels uitsluiten (productprijzen)"
+
+#: includes/class-yaydp-i18n.php:167
+msgid "Exclude Rules"
+msgstr "Regels uitsluiten"
+
+#: includes/class-yaydp-i18n.php:168
+msgid "Exclude selected rules when these coupons are applied"
+msgstr ""
+"Geselecteerde regels uitsluiten wanneer deze kortingsbonnen worden toegepast"
+
+#: includes/class-yaydp-i18n.php:169
+msgid "Exclude those products that match"
+msgstr "Sluit de producten uit die overeenkomen"
+
+#: includes/class-yaydp-i18n.php:170
+msgid "Exclusions"
+msgstr "Uitzonderingen"
+
+#: includes/class-yaydp-i18n.php:171
+msgid "Export rules"
+msgstr "Regels exporteren"
+
+#: includes/class-yaydp-i18n.php:172
+msgid "Features"
+msgstr "Kenmerken"
+
+#: includes/class-yaydp-i18n.php:173
+msgid "Fee rules is used to affect fees that apply at checkout."
+msgstr ""
+"Kostenregels worden gebruikt om de kosten te beïnvloeden die van toepassing "
+"zijn bij het afrekenen."
+
+#: includes/class-yaydp-i18n.php:174
+msgid "fee to order"
+msgstr "Kosten om te bestellen"
+
+#: includes/class-yaydp-i18n.php:175
+msgid "Fee type"
+msgstr "Soort kosten"
+
+#: includes/class-yaydp-i18n.php:176
+msgid "Fee value"
+msgstr "Waarde vergoedingen"
+
+#: includes/class-yaydp-i18n.php:177
+msgid "Fixed Discount per Individual Cart Item"
+msgstr "Vaste korting per individueel winkelwagenitem"
+
+#: includes/class-yaydp-i18n.php:178
+msgid "Fixed Discount"
+msgstr "Vast bedrag korting"
+
+#: includes/class-yaydp-i18n.php:179
+msgid "Fixed Fee"
+msgstr "Vaste prijs"
+
+#: includes/class-yaydp-i18n.php:180
+msgid "Flat Price"
+msgstr "Vaste prijs"
+
+#: includes/class-yaydp-i18n.php:181
+msgid "Flexible shipping rules"
+msgstr "Flexibele verzendregels"
+
+#: includes/class-yaydp-i18n.php:182
+msgid "For example"
+msgstr "Bijvoorbeeld"
+
+#: includes/class-yaydp-i18n.php:183
+msgid "Free shipping fee"
+msgstr "Gratis verzendkosten"
+
+#: includes/class-yaydp-i18n.php:184
+msgid "Free shipping"
+msgstr "Gratis verzending"
+
+#: includes/class-yaydp-i18n.php:185
+#: includes/templates/cart-item-price/extra-item.php:14
+msgid "Free"
+msgstr "Gratis"
+
+#: includes/class-yaydp-i18n.php:186
+msgid "General"
+msgstr "Algemeen"
+
+#: includes/class-yaydp-i18n.php:187
+msgid "Get 10% off"
+msgstr "Ontvang 10% off"
+
+#: includes/class-yaydp-i18n.php:188
+msgid "Get free shipping"
+msgstr "Ontvang gratis verzending"
+
+#: includes/class-yaydp-i18n.php:189
+msgid "Get Products"
+msgstr "Producten ophalen"
+
+#: includes/class-yaydp-i18n.php:190
+msgid "Get this free when buy 3 item"
+msgstr "Krijg dit gratis bij aankoop van 3 items"
+
+#: includes/class-yaydp-i18n.php:191
+msgid "Get YayPricing Pro"
+msgstr "Koop YayPricing Pro"
+
+#: includes/class-yaydp-i18n.php:192
+msgid "Get"
+msgstr "Krijg"
+
+#: includes/class-yaydp-i18n.php:193
+msgid "Go Pro"
+msgstr "Stap over naar de Pro-versie"
+
+#: includes/class-yaydp-i18n.php:194
+msgid "Greater than or equal"
+msgstr "Groter dan of gelijk aan"
+
+#: includes/class-yaydp-i18n.php:195
+msgid "Greater than"
+msgstr "Groter dan"
+
+#: includes/class-yaydp-i18n.php:196
+msgid "How the rules are applied"
+msgstr "Hoe de regels worden toegepast"
+
+#: includes/class-yaydp-i18n.php:197
+msgid "if cart quantity is greater than 5"
+msgstr "als het aantal winkelwagentjes groter is dan 5"
+
+#: includes/class-yaydp-i18n.php:198
+msgid "if cart subtotal price is greater than"
+msgstr "Als de prijs van het subtotaal van de winkelwagen groter is dan"
+
+#: includes/class-yaydp-i18n.php:199
+msgid "if the customers have 10 orders in past"
+msgstr "als de klanten 10 bestellingen in het verleden hebben"
+
+#: includes/class-yaydp-i18n.php:200
+msgid "If you want to decide when this rule will be used, please"
+msgstr "Als u wilt beslissen wanneer deze regel wordt gebruikt, kunt u"
+
+#: includes/class-yaydp-i18n.php:201
+msgid "Import failed"
+msgstr "Importeren mislukt"
+
+#: includes/class-yaydp-i18n.php:202
+msgid "Import successfully"
+msgstr "Succesvol importeren"
+
+#: includes/class-yaydp-i18n.php:203
+msgid "Import"
+msgstr "Importeren"
+
+#: includes/class-yaydp-i18n.php:204
+msgid "Import/Export"
+msgstr "Importeren/Exporteren"
+
+#: includes/class-yaydp-i18n.php:205
+msgid "Imported rule"
+msgstr "Geïmporteerde regel"
+
+#: includes/class-yaydp-i18n.php:206
+msgid ""
+"In a combined condition, you must select the eligible products. Then, the "
+"values of cart amount and quantity of items are restricted to these filtered "
+"products in the same condition"
+msgstr ""
+"In een gecombineerde voorwaarde moet u de in aanmerking komende producten "
+"selecteren. Vervolgens worden de waarden van het aantal winkelwagentjes en "
+"het aantal artikelen beperkt tot deze gefilterde producten in dezelfde staat"
+
+#: includes/class-yaydp-i18n.php:207
+msgid "In list"
+msgstr "In lijst"
+
+#: includes/class-yaydp-i18n.php:208
+msgid "In range"
+msgstr "Binnen bereik"
+
+#: includes/class-yaydp-i18n.php:209
+msgid "In stock"
+msgstr "Op voorraad"
+
+#: includes/class-yaydp-i18n.php:210
+msgid "Inactive"
+msgstr "Inactief"
+
+#: includes/class-yaydp-i18n.php:211
+msgid "Is logged in customer"
+msgstr "Is ingelogd klant"
+
+#: includes/class-yaydp-i18n.php:212
+msgid "Is repeat"
+msgstr "Is herhalen"
+
+#: includes/class-yaydp-i18n.php:213
+msgid "Item get type"
+msgstr "Type item ophalen"
+
+#: includes/class-yaydp-i18n.php:214
+msgid "Item quantity in each cart line"
+msgstr "Artikelhoeveelheid in elke winkelwagenregel"
+
+#: includes/class-yaydp-i18n.php:215
+msgid "Items - Category"
+msgstr "Objecten - Categorie"
+
+#: includes/class-yaydp-i18n.php:216
+msgid "Items - Product"
+msgstr "Artikelen - Product"
+
+#: includes/class-yaydp-i18n.php:217
+msgid "Items - Quantity"
+msgstr "Artikelen - Aantal"
+
+#: includes/class-yaydp-i18n.php:218
+msgid "Items - Subtotal price"
+msgstr "Objecten - Subtotaalprijs"
+
+#: includes/class-yaydp-i18n.php:219
+msgid "Last 7 days"
+msgstr "Laatste 7 dagen"
+
+#: includes/class-yaydp-i18n.php:220
+msgid "Latest features & updates"
+msgstr "Nieuwste functies en updates"
+
+#: includes/class-yaydp-i18n.php:221
+msgid "Learn more"
+msgstr "Leer meer"
+
+#: includes/class-yaydp-i18n.php:222
+msgid "Less than or equal"
+msgstr "Kleiner dan of gelijk aan"
+
+#: includes/class-yaydp-i18n.php:223
+msgid "Less than"
+msgstr "Minder dan"
+
+#: includes/class-yaydp-i18n.php:224
+msgid "Loading products"
+msgstr "Producten laden"
+
+#: includes/class-yaydp-i18n.php:225
+msgid "Logged in"
+msgstr "Ingelogd"
+
+#: includes/class-yaydp-i18n.php:226
+msgid "Manage Cart Discounts Rule"
+msgstr "Regel voor winkelwagenkortingen beheren"
+
+#: includes/class-yaydp-i18n.php:227
+msgid "Manage Checkout Fees Rule"
+msgstr "Regel voor afrekenkosten beheren"
+
+#: includes/class-yaydp-i18n.php:228
+msgid "Manage Exclude Rule"
+msgstr "Uitsluitingsregel beheren"
+
+#: includes/class-yaydp-i18n.php:229
+msgid "Manage Product Pricing Rule"
+msgstr "Productprijsregel beheren"
+
+#: includes/class-yaydp-i18n.php:230
+msgid "Max use limit"
+msgstr "Maximale gebruikslimiet"
+
+#: includes/class-yaydp-i18n.php:231
+msgid "Max use reached"
+msgstr "Maximaal gebruik bereikt"
+
+#: includes/class-yaydp-i18n.php:232
+msgid "Maximum value"
+msgstr "Maximale waarde"
+
+#: includes/class-yaydp-i18n.php:233
+msgid "Month"
+msgstr "Maand"
+
+#: includes/class-yaydp-i18n.php:234
+msgid "More result"
+msgstr "Meer resultaat"
+
+#: includes/class-yaydp-i18n.php:235
+msgid "Most expensive one"
+msgstr "Duurste"
+
+#: includes/class-yaydp-i18n.php:236
+msgid "Name of the campaign"
+msgstr "Naam van de campagne"
+
+#: includes/class-yaydp-i18n.php:237
+msgid "Name"
+msgstr "Naam"
+
+#: includes/class-yaydp-i18n.php:238
+msgid "Next discount tier as if 1 more item is added"
+msgstr "Volgende kortingsniveau alsof er nog 1 artikel wordt toegevoegd"
+
+#: includes/class-yaydp-i18n.php:239
+msgid "No product excluded. Please"
+msgstr "Geen enkel product uitgesloten. Alstublieft"
+
+#: includes/class-yaydp-i18n.php:240
+msgid "No product excluded."
+msgstr "Geen enkel product uitgesloten."
+
+#: includes/class-yaydp-i18n.php:241
+msgid "No product matched"
+msgstr "Geen product gematcht"
+
+#: includes/class-yaydp-i18n.php:242
+msgid "None"
+msgstr "Geen"
+
+#: includes/class-yaydp-i18n.php:243
+msgid "Not contain in list"
+msgstr "Niet bevatten in lijst"
+
+#: includes/class-yaydp-i18n.php:244
+msgid "Not in list"
+msgstr "Niet in de lijst"
+
+#: includes/class-yaydp-i18n.php:245
+msgid "Not logged in"
+msgstr "Niet ingelogd"
+
+#: includes/class-yaydp-i18n.php:246
+msgid "Number of all the orders they have placed in the past."
+msgstr "Nummer van alle bestellingen die ze in het verleden hebben geplaatst."
+
+#: includes/class-yaydp-i18n.php:247
+msgid ""
+"Number of orders counted from the last time they got a discount from "
+"YayPricing."
+msgstr ""
+"Aantal bestellingen geteld vanaf de laatste keer dat ze korting kregen van "
+"YayPricing."
+
+#: includes/class-yaydp-i18n.php:248
+msgid "of these conditions is available."
+msgstr "van deze voorwaarden beschikbaar is."
+
+#: includes/class-yaydp-i18n.php:249
+msgid "of these filters"
+msgstr "van deze filters"
+
+#: includes/class-yaydp-i18n.php:250
+msgid "off"
+msgstr "uit"
+
+#: includes/class-yaydp-i18n.php:251
+msgid "OFF"
+msgstr "UIT"
+
+#: includes/class-yaydp-i18n.php:252
+msgid "Offer description for X"
+msgstr "Beschrijving van de aanbieding voor X"
+
+#: includes/class-yaydp-i18n.php:253
+msgid "Offer description for Y"
+msgstr "Beschrijving van de aanbieding voor Y"
+
+#: includes/class-yaydp-i18n.php:254
+msgid "On"
+msgstr "Aan"
+
+#: includes/class-yaydp-i18n.php:255
+msgid ""
+"Once the discount/pricing rule is applied in the completed order, it is "
+"counted as a discount use. The rule will no longer apply if its use count "
+"reaches this number"
+msgstr ""
+"Zodra de kortings-/prijsregel is toegepast op de voltooide bestelling, wordt "
+"deze geteld als een kortingsgebruik. De regel is niet langer van toepassing "
+"als het aantal gebruikers dit aantal bereikt"
+
+#: includes/class-yaydp-i18n.php:256
+msgid "Order count from last discount"
+msgstr "Aantal bestellingen vanaf de laatste korting"
+
+#: includes/class-yaydp-i18n.php:257
+msgid "Order history category"
+msgstr "Categorie Bestelgeschiedenis"
+
+#: includes/class-yaydp-i18n.php:258
+msgid "Order history product"
+msgstr "Bestelgeschiedenis product"
+
+#: includes/class-yaydp-i18n.php:259
+msgid "Others"
+msgstr "Anderen"
+
+#: includes/class-yaydp-i18n.php:260
+msgid "Payment method"
+msgstr "Betaalmethode"
+
+#: includes/class-yaydp-i18n.php:261
+msgid "Percentage Discount"
+msgstr "Kortingspercentage"
+
+#: includes/class-yaydp-i18n.php:262
+msgid "Percentage Fee"
+msgstr "Percentage vergoeding"
+
+#: includes/class-yaydp-i18n.php:263
+msgid "Please paste it in your promotion page to show list on sale products"
+msgstr ""
+"Plak het op uw promotiepagina om de lijst met afgeprijsde producten weer te "
+"geven"
+
+#: includes/class-yaydp-i18n.php:264
+msgid "Please"
+msgstr "Alsjeblieft"
+
+#: includes/class-yaydp-i18n.php:265
+msgid "Preview"
+msgstr "Voorbeeld"
+
+#: includes/class-yaydp-i18n.php:266
+msgid "Previous purchase date"
+msgstr "Vorige aankoopdatum"
+
+#: includes/class-yaydp-i18n.php:267
+msgid "Price title"
+msgstr "Prijs titel"
+
+#: includes/class-yaydp-i18n.php:268
+msgid "Price"
+msgstr "Prijs"
+
+#: includes/class-yaydp-i18n.php:269
+msgid "Pricing Ranges"
+msgstr "Prijsklassen"
+
+#: includes/class-yaydp-i18n.php:270
+msgid "Pricing table"
+msgstr "Prijslijst"
+
+#: includes/class-yaydp-i18n.php:271
+msgid "Pricing type"
+msgstr "Prijs type"
+
+#: includes/class-yaydp-i18n.php:272
+msgid "Pricing value"
+msgstr "Prijswaarde"
+
+#: includes/class-yaydp-i18n.php:273
+msgid "Pricing"
+msgstr "Prijzen"
+
+#: includes/class-yaydp-i18n.php:274
+msgid "Product Exclusions"
+msgstr "Product uitsluitingen"
+
+#: includes/class-yaydp-i18n.php:275
+msgid "Product meta end"
+msgstr "Product meta end"
+
+#: includes/class-yaydp-i18n.php:276
+msgid "Product meta start"
+msgstr "Product meta start"
+
+#: includes/class-yaydp-i18n.php:277
+msgid "Product price after discounting"
+msgstr "Productprijs na korting"
+
+#: includes/class-yaydp-i18n.php:278
+msgid "Product price display"
+msgstr "Weergave van productprijzen"
+
+#: includes/class-yaydp-i18n.php:279
+msgid "Product pricing conditions"
+msgstr "Voorwaarden voor productprijzen"
+
+#: includes/class-yaydp-i18n.php:280
+msgid "Product pricing"
+msgstr "Prijzen van het product"
+
+#: includes/class-yaydp-i18n.php:281
+msgid "Product Pricing"
+msgstr "Prijzen van het product"
+
+#: includes/class-yaydp-i18n.php:282
+msgid "Product sale display"
+msgstr "De vertoning van de productverkoop"
+
+#: includes/class-yaydp-i18n.php:283
+msgid "Product"
+msgstr "Product"
+
+#: includes/class-yaydp-i18n.php:284
+msgid "Purchase date of orders placed in the past."
+msgstr "Aankoopdatum van bestellingen die in het verleden zijn geplaatst."
+
+#: includes/class-yaydp-i18n.php:285
+msgid "Purchase history"
+msgstr "Aankoopgeschiedenis"
+
+#: includes/class-yaydp-i18n.php:286
+msgid "Purchased product categories in a specific order."
+msgstr "Gekochte productcategorieën in een specifieke volgorde."
+
+#: includes/class-yaydp-i18n.php:287
+msgid "Purchased products (lifetime)"
+msgstr "Gekochte producten (levenslang)"
+
+#: includes/class-yaydp-i18n.php:288
+msgid "Purchased products among all the orders they have placed in the past."
+msgstr ""
+"Gekochte producten tussen alle bestellingen die ze in het verleden hebben "
+"geplaatst."
+
+#: includes/class-yaydp-i18n.php:289
+msgid "Purchased products in a specific order."
+msgstr "Gekochte producten in een specifieke volgorde."
+
+#: includes/class-yaydp-i18n.php:290
+msgid "Quantity discounts"
+msgstr "Staffelkortingen"
+
+#: includes/class-yaydp-i18n.php:291
+msgid "Quantity title"
+msgstr "Titel Hoeveelheid"
+
+#: includes/class-yaydp-i18n.php:292
+msgid "Quantity"
+msgstr "Aantal"
+
+#: includes/class-yaydp-i18n.php:293
+msgid "Reduce 50% shipping fee for order below 100"
+msgstr "Verlaag de kosten van 50% shipping voor bestellingen onder de 100"
+
+#: includes/class-yaydp-i18n.php:294
+msgid "Reduce Shipping Fee"
+msgstr "Verlaag de verzendkosten"
+
+#: includes/class-yaydp-i18n.php:295
+msgid ""
+"Refer to this comparison table so that you will have an informeddecision"
+msgstr ""
+"Raadpleeg deze vergelijkingstabel zodat u een weloverwogen beslissing kunt "
+"nemen"
+
+#: includes/class-yaydp-i18n.php:296
+msgid ""
+"Regular price is displayed as strike-through text on cart page and checkout "
+"page"
+msgstr ""
+"De normale prijs wordt weergegeven als doorgestreepte tekst op de "
+"winkelwagenpagina en de afrekenpagina"
+
+#: includes/class-yaydp-i18n.php:297
+msgid "Regular price is displayed as strike-through text on product price"
+msgstr ""
+"Normale prijs wordt weergegeven als doorgestreepte tekst op de productprijs"
+
+#: includes/class-yaydp-i18n.php:298
+msgid "Remove all"
+msgstr "Verwijder alles"
+
+#: includes/class-yaydp-i18n.php:299
+msgid "Remove rule"
+msgstr "Regel verwijderen"
+
+#: includes/class-yaydp-i18n.php:300
+msgid "Remove"
+msgstr "Verwijderen"
+
+#: includes/class-yaydp-i18n.php:301
+msgid "Replace product price with the discounted one"
+msgstr "Vervang de productprijs door de prijs met korting"
+
+#: includes/class-yaydp-i18n.php:302
+msgid "Reset"
+msgstr "Reset"
+
+#: includes/class-yaydp-i18n.php:303
+msgid "Rule Name"
+msgstr "Regel Naam"
+
+#: includes/class-yaydp-i18n.php:304
+msgid "Rule type"
+msgstr "Regeltype"
+
+#: includes/class-yaydp-i18n.php:305
+msgid "Running"
+msgstr "Actief"
+
+#: includes/class-yaydp-i18n.php:306
+msgid "Sale [discount_value] all products"
+msgstr "Sale [discount_value] alle producten"
+
+#: includes/class-yaydp-i18n.php:307
+msgid "Sale 10"
+msgstr "Verkoop 10"
+
+#: includes/class-yaydp-i18n.php:308
+msgid "Sale 30% from the third item"
+msgstr "Sale 30% fvanaf het derde item"
+
+#: includes/class-yaydp-i18n.php:309
+msgid "Sale 30% OFF from the third item"
+msgstr "Sale 30% KORTING vanaf het derde item"
+
+#: includes/class-yaydp-i18n.php:310 includes/class-yaydp-i18n.php:311
+msgid "Sale 50% all products"
+msgstr "Sale 50% all producten"
+
+#: includes/class-yaydp-i18n.php:312
+msgid "Sale 50% OFF all products"
+msgstr "Sale 50% KORTING op alle producten"
+
+#: includes/class-yaydp-i18n.php:313
+msgid "Sale Tag"
+msgstr "Verkoop Tag"
+
+#: includes/class-yaydp-i18n.php:314
+msgid "Sale"
+msgstr "Sale"
+
+#: includes/class-yaydp-i18n.php:315
+msgid "Sales triggers"
+msgstr "Verkoop triggers"
+
+#: includes/class-yaydp-i18n.php:316
+msgid "Sample rule"
+msgstr "Voorbeeld van een regel"
+
+#: includes/class-yaydp-i18n.php:317
+msgid "Save failed"
+msgstr "Opslaan mislukt"
+
+#: includes/class-yaydp-i18n.php:318
+msgid "Scheduled discounts"
+msgstr "Geplande kortingen"
+
+#: includes/class-yaydp-i18n.php:319
+msgid "Scheduled"
+msgstr "Ingepland"
+
+#: includes/class-yaydp-i18n.php:320
+msgid "Select at least one attribute"
+msgstr "Selecteer ten minste één attribuut"
+
+#: includes/class-yaydp-i18n.php:321
+msgid "Select at least one category"
+msgstr "Selecteer ten minste één categorie"
+
+#: includes/class-yaydp-i18n.php:322 includes/class-yaydp-i18n.php:323
+msgid "Select at least one coupon"
+msgstr "Selecteer ten minste één kortingsbon"
+
+#: includes/class-yaydp-i18n.php:324
+msgid "Select at least one customer"
+msgstr "Selecteer ten minste één klant"
+
+#: includes/class-yaydp-i18n.php:325
+msgid "Select at least one payment"
+msgstr "Selecteer ten minste één betaling"
+
+#: includes/class-yaydp-i18n.php:326
+msgid "Select at least one product"
+msgstr "Selecteer ten minste één product"
+
+#: includes/class-yaydp-i18n.php:327
+msgid "Select at least one region"
+msgstr "Selecteer ten minste één regio"
+
+#: includes/class-yaydp-i18n.php:328
+msgid "Select at least one role"
+msgstr "Selecteer ten minste één rol"
+
+#: includes/class-yaydp-i18n.php:329
+msgid "Select at least one rule"
+msgstr "Selecteer ten minste één regel"
+
+#: includes/class-yaydp-i18n.php:330
+msgid "Select at least one tag"
+msgstr "Selecteer ten minste één tag"
+
+#: includes/class-yaydp-i18n.php:331
+msgid "Select at least one value"
+msgstr "Selecteer ten minste één waarde"
+
+#: includes/class-yaydp-i18n.php:332
+msgid "Select at least one variation"
+msgstr "Selecteer ten minste één variant"
+
+#: includes/class-yaydp-i18n.php:333
+msgid "Select one rule to exclude"
+msgstr "Selecteer één regel om uit te sluiten"
+
+#: includes/class-yaydp-i18n.php:334
+msgid "Select rules for on sale products"
+msgstr "Regels selecteren voor producten in de uitverkoop"
+
+#: includes/class-yaydp-i18n.php:335
+msgid "Selected products"
+msgstr "Geselecteerde producten"
+
+#: includes/class-yaydp-i18n.php:336
+msgid ""
+"Set up additional conditions that need to be met before the promotion is "
+"applied"
+msgstr ""
+"Stel aanvullende voorwaarden in waaraan moet worden voldaan voordat de "
+"promotie wordt toegepast"
+
+#: includes/class-yaydp-i18n.php:337
+msgid "Settings"
+msgstr "Instellingen"
+
+#: includes/class-yaydp-i18n.php:338
+msgid "Shipping region"
+msgstr "Regio verzending"
+
+#: includes/class-yaydp-i18n.php:339
+msgid "Shortcode copied"
+msgstr "Shortcode gekopieerd"
+
+#: includes/class-yaydp-i18n.php:340
+msgid "Shortcode to load all products which has discount through YayPricing"
+msgstr "Shortcode om alle producten te laden die korting hebben via YayPricing"
+
+#: includes/class-yaydp-i18n.php:341
+msgid "Shortcodes"
+msgstr "Shortcodes"
+
+#: includes/class-yaydp-i18n.php:342
+msgid ""
+"Show ad countdown timer to let customers know how much time is left until "
+"sales on products are over and helps boost your sale."
+msgstr ""
+"Geef de afteltimer voor advertenties weer om klanten te laten weten hoeveel "
+"tijd er nog over is voordat de verkoop van producten voorbij is en om uw "
+"verkoop te stimuleren."
+
+#: includes/class-yaydp-i18n.php:343
+msgid "Show countdown timer"
+msgstr "Afteltimer weergeven"
+
+#: includes/class-yaydp-i18n.php:344
+msgid "Show HTML source"
+msgstr "HTML-bron weergeven"
+
+#: includes/class-yaydp-i18n.php:345
+msgid "Show notices after product description to encourage purchasing"
+msgstr ""
+"Toon mededelingen na de productbeschrijving om aankopen aan te moedigen"
+
+#: includes/class-yaydp-i18n.php:346
+msgid "Show notices at bottom of Cart page to encourage purchasing"
+msgstr ""
+"Toon mededelingen onderaan de winkelwagenpagina om aankopen aan te moedigen"
+
+#: includes/class-yaydp-i18n.php:347
+msgid "Show notices at bottom of Checkout page to encourage purchasing"
+msgstr ""
+"Mededelingen onder aan de afrekenpagina weergeven om aankopen aan te moedigen"
+
+#: includes/class-yaydp-i18n.php:348
+msgid "Show offer description in product page"
+msgstr "Toon aanbiedingsbeschrijving op productpagina"
+
+#: includes/class-yaydp-i18n.php:349
+msgid "Show product discounted price"
+msgstr "Toon product gereduceerde prijs"
+
+#: includes/class-yaydp-i18n.php:350
+msgid "Show product regular price within discounted"
+msgstr "Toon product normale prijs binnen korting"
+
+#: includes/class-yaydp-i18n.php:351
+msgid "Show regular price on cart item"
+msgstr "Toon de normale prijs op het winkelwagenartikel"
+
+#: includes/class-yaydp-i18n.php:352
+msgid "Show sale off amount on the sale tag"
+msgstr "Toon het bedrag van de uitverkoop op het verkooplabel"
+
+#: includes/class-yaydp-i18n.php:353
+msgid "Show sale tag and discounted price as"
+msgstr "Verkooplabel en kortingsprijs weergeven als"
+
+#: includes/class-yaydp-i18n.php:354
+msgid "Show sale tag for sale products"
+msgstr "Verkooptag tonen voor afgeprijsde producten"
+
+#: includes/class-yaydp-i18n.php:355
+msgid "Show tooltip on cart discount"
+msgstr "Tooltip weergeven op winkelwagenkorting"
+
+#: includes/class-yaydp-i18n.php:356
+msgid "Show tooltip on cart item price"
+msgstr "Knopinfo weergeven voor de prijs van winkelwagenartikelen"
+
+#: includes/class-yaydp-i18n.php:357
+msgid "Show tooltip on checkout fee"
+msgstr "Tooltip weergeven bij afrekenkosten"
+
+#: includes/class-yaydp-i18n.php:358
+msgid "Simple Adjustment"
+msgstr "Eenvoudige aanpassing"
+
+#: includes/class-yaydp-i18n.php:359
+msgid "Source"
+msgstr "Bron"
+
+#: includes/class-yaydp-i18n.php:360
+msgid "Specific customer"
+msgstr "Specifieke klant"
+
+#: includes/class-yaydp-i18n.php:361
+msgid "Split rule"
+msgstr "Regel splitsen"
+
+#: includes/class-yaydp-i18n.php:362
+msgid "Status"
+msgstr "Status"
+
+#: includes/class-yaydp-i18n.php:363
+msgid "Style has been reset"
+msgstr "Stijl is gereset"
+
+#: includes/class-yaydp-i18n.php:364
+msgid "Table position"
+msgstr "Positie van de tafel"
+
+#: includes/class-yaydp-i18n.php:365
+msgid "Table title"
+msgstr "Tabel titel"
+
+#: includes/class-yaydp-i18n.php:366
+msgid ""
+"The action customer need to do to get the discount. Example: “buy more 100$” "
+"or “buy more 1 item of Product A” "
+msgstr ""
+"De actie die de klant moet doen om de korting te krijgen. Voorbeeld: \"koop "
+"meer 100$\" of \"koop meer 1 item van product A\" "
+
+#: includes/class-yaydp-i18n.php:367
+msgid "The calculated value of discount"
+msgstr "De berekende waarde van de korting"
+
+#: includes/class-yaydp-i18n.php:368
+msgid "The discount value. Example: “50%“ or “10$“"
+msgstr "De kortingswaarde. Voorbeeld: \"50%\" of \"10$\""
+
+#: includes/class-yaydp-i18n.php:369
+msgid "This adds a cap so that the discount amount will not exceed this amount"
+msgstr ""
+"Dit voegt een limiet toe zodat het kortingsbedrag dit bedrag niet "
+"overschrijdt"
+
+#: includes/class-yaydp-i18n.php:370
+msgid "This rule applies to those products that match"
+msgstr "Deze regel is van toepassing op producten die overeenkomen"
+
+#: includes/class-yaydp-i18n.php:372
+msgid "This rule is not assigned to any product. Please"
+msgstr "Deze regel wordt aan geen enkel product toegewezen. Alstublieft"
+
+#: includes/class-yaydp-i18n.php:373
+msgid "This rule will be used if"
+msgstr "Deze regel wordt gebruikt als"
+
+#: includes/class-yaydp-i18n.php:374
+msgid ""
+"This setting allows you to apply YayPricing's rules only if a WooCommerce "
+"coupon is not applied to the order"
+msgstr ""
+"Met deze instelling kun je de regels van YayPricing alleen toepassen als er "
+"geen WooCommerce-coupon op de bestelling wordt toegepast"
+
+#: includes/class-yaydp-i18n.php:375
+msgid "Time"
+msgstr "Tijd"
+
+#: includes/class-yaydp-i18n.php:376
+msgid "Timer clock, it will countdown to the schedule day"
+msgstr "Timerklok, deze telt af naar de geplande dag"
+
+#: includes/class-yaydp-i18n.php:377
+msgid "to assign it."
+msgstr "om het toe te wijzen."
+
+#: includes/class-yaydp-i18n.php:378
+msgid "to exclude."
+msgstr "uit te sluiten."
+
+#: includes/class-yaydp-i18n.php:379
+msgid "Today is Black Friday, so you will get 70% off when buy all products"
+msgstr ""
+"Vandaag is het Black Friday, dus je krijgt 70% off bij aankoop van alle "
+"producten"
+
+#: includes/class-yaydp-i18n.php:380
+msgid "Total shipping fee"
+msgstr "Totale verzendkosten"
+
+#: includes/class-yaydp-i18n.php:381
+msgid "Unlimited cart discount rules"
+msgstr "Onbeperkte kortingsregels voor winkelwagentjes"
+
+#: includes/class-yaydp-i18n.php:382
+msgid "Unlimited product discount rules"
+msgstr "Onbeperkte kortingsregels voor producten"
+
+#: includes/class-yaydp-i18n.php:383
+msgid "Upgrade to unlock this feature"
+msgstr "Upgrade om deze functie te ontgrendelen"
+
+#: includes/class-yaydp-i18n.php:384
+msgid "Upload Image"
+msgstr "Afbeelding uploaden"
+
+#: includes/class-yaydp-i18n.php:385
+msgid "Upselling notices"
+msgstr "Upselling-berichten"
+
+#: includes/class-yaydp-i18n.php:386
+msgid "Usage limits"
+msgstr "Gebruikslimieten"
+
+#: includes/class-yaydp-i18n.php:387
+msgid "Use discount ID as coupon code"
+msgstr "Gebruik kortings-ID als couponcode"
+
+#: includes/class-yaydp-i18n.php:388
+msgid ""
+"Use shortcode to output all discounted products on any WordPress page/post"
+msgstr ""
+"Gebruik shortcode om alle afgeprijsde producten op elke WordPress-pagina/"
+"post uit te voeren"
+
+#: includes/class-yaydp-i18n.php:389
+msgid "Used"
+msgstr "Gebruikt"
+
+#: includes/class-yaydp-i18n.php:390
+msgid "User role discounts"
+msgstr "Kortingen voor gebruikersrollen"
+
+#: includes/class-yaydp-i18n.php:391
+msgid "Variable list"
+msgstr "Lijst met variabelen"
+
+#: includes/class-yaydp-i18n.php:392
+msgid "Variables"
+msgstr "Variabelen"
+
+#: includes/class-yaydp-i18n.php:393
+msgid ""
+"View charts and analytics for your pricing rules. You can see how a "
+"promotion campaign performs in a date range"
+msgstr ""
+"Bekijk grafieken en analyses voor uw prijsregels. U kunt zien hoe een "
+"promotiecampagne presteert in een periode"
+
+#: includes/class-yaydp-i18n.php:394
+msgid "View selected products"
+msgstr "Bekijk geselecteerde producten"
+
+#: includes/class-yaydp-i18n.php:395
+msgid "VIP live chat support"
+msgstr "VIP live chat-ondersteuning"
+
+#: includes/class-yaydp-i18n.php:396
+msgid ""
+"When product is on sale, it will not be discounted by product pricing rule."
+msgstr ""
+"Wanneer het product in de uitverkoop is, wordt het niet verdisconteerd door "
+"de productprijsregel."
+
+#: includes/class-yaydp-i18n.php:397
+msgid ""
+"With conditions feature, you can decide when this rule will be used. It "
+"helps you create a product pricing more powerful"
+msgstr ""
+"Met de voorwaardenfunctie kunt u bepalen wanneer deze regel wordt gebruikt. "
+"Het helpt u bij het maken van een productprijsstelling krachtiger"
+
+#: includes/class-yaydp-i18n.php:398
+msgid "YayPricing Free"
+msgstr "YayPrijzen Gratis"
+
+#: includes/class-yaydp-i18n.php:399
+msgid "YayPricing Pro"
+msgstr "YayPricing Pro"
+
+#: includes/class-yaydp-i18n.php:400
+msgid "Year"
+msgstr "Jaar"
+
+#: includes/class-yaydp-i18n.php:401
+msgid ""
+"You don't have any <strong>Product Pricing</strong> rule to exclude. Please "
+"create a pricing to continue setting up this rule"
+msgstr ""
+"U hoeft geen <strong>productprijsregel</strong> uit te sluiten. Maak een "
+"prijs om door te gaan met het instellen van deze regel"
+
+#: includes/class-yaydp-i18n.php:402
+msgid ""
+"You don't have any rule to exclude. Please create one to continue setting up "
+"this rule"
+msgstr ""
+"Je hebt geen regel om uit te sluiten. Maak er een aan om door te gaan met "
+"het instellen van deze regel"
+
+#: includes/class-yaydp-i18n.php:403
+msgid "You have no pricing range, please"
+msgstr "U heeft geen prijsklasse, alstublieft"
+
+#: includes/class-yaydp-i18n.php:404
+msgid "You will get [discount_value] discount when buy 1 item of this product"
+msgstr ""
+"U krijgt [discount_value] korting bij aankoop van 1 artikel van dit product"
+
+#: includes/class-yaydp-i18n.php:405
+msgid "You will get 1 free item when buy 3 items of this product"
+msgstr "U krijgt 1 gratis artikel bij aankoop van 3 artikelen van dit product"
+
+#: includes/class-yaydp-i18n.php:406
+msgid "You will get 30% off when buy from 3 items"
+msgstr "Je krijgt 30% off bij aankoop van 3 items"
+
+#: includes/class-yaydp-i18n.php:407
+msgid "You will get 50% off when buy the this product"
+msgstr "U krijgt 50% off bij aankoop van dit product"
+
+#: includes/class-yaydp-i18n.php:408
+msgid "You're getting this discount: [discount_value] off for all products"
+msgstr "Je krijgt deze korting: [discount_value] korting op alle producten"
+
+#: includes/class-yaydp-i18n.php:409
+msgid "You're getting this discount: [discount_value] off"
+msgstr "Je krijgt deze korting: [discount_value] korting"
+
+#: includes/class-yaydp-i18n.php:410
+msgid "Your current"
+msgstr "Uw huidige"
+
+#: includes/class-yaydp-i18n.php:411
+msgid "Your own campaign"
+msgstr "Je eigen campagne"
+
+#: includes/class-yaydp-i18n.php:412
+msgid "Saving amount"
+msgstr "Spaarbedrag"
+
+#: includes/class-yaydp-i18n.php:413
+msgid "Show order saving amount"
+msgstr "Besparingsbedrag van bestelling weergeven"
+
+#: includes/class-yaydp-i18n.php:414
+msgid "Show products saving amount on cart page (Only for cart shortcode)"
+msgstr ""
+"Toon het besparingsbedrag van de producten op de winkelwagenpagina (Alleen "
+"voor de shortcode van de winkelwagen)"
+
+#: includes/class-yaydp-i18n.php:415
+msgid "Before order total"
+msgstr "Vóór het totaalbedrag van de bestelling"
+
+#: includes/class-yaydp-i18n.php:416
+msgid "After order total"
+msgstr "Totaal na bestelling"
+
+#: includes/class-yaydp-logger.php:27
+msgid "SYSTEM ERROR:"
+msgstr "SYSTEEM FOUT:"
+
+#: includes/class-yaydp-logger.php:44
+msgid "log-"
+msgstr "log-"
+
+#. Translators: link href.
+#: includes/class-yaypricing.php:113
+msgid "%1$s Settings %2$s"
+msgstr "%1$s Instellingen %2$s"
+
+#. Translators: link href.
+#: includes/class-yaypricing.php:129
+msgid "%1$s Docs %2$s"
+msgstr "%1$s Docs %2$s"
+
+#. Translators: link href.
+#: includes/class-yaypricing.php:131
+msgid "%1$s Support %2$s"
+msgstr "%1$s Ondersteuning %2$s"
+
+#: includes/core/manager/class-yaydp-cart-discount-manager.php:149
+#: includes/core/rule/cart-discount/class-yaydp-combined-discount.php:106
+msgid "%s"
+msgstr "%s"
+
+#: includes/core/manager/class-yaydp-product-pricing-manager.php:337
+msgid "Product discounts"
+msgstr "Kortingen op producten"
+
+#: includes/core/offer-description/class-yaydp-offer-description.php:194
+#: includes/core/offer-description/class-yaydp-offer-description.php:279
+#: includes/core/offer-description/class-yaydp-offer-description.php:356
+msgid "unlimited"
+msgstr "ongelimiteerd"
+
+#: includes/core/offer-description/class-yaydp-offer-description.php:203
+msgid ""
+"from %1$s to %2$s: <span data-variable=\"discount_value\" data-"
+"formula=\"%3$s\">%4$s</span>"
+msgstr ""
+"Van %1$s tot %2$s: <span data-variable=\"discount_value\" data-"
+"formula=\"%3$s\">%4$s</span>"
+
+#: includes/core/offer-description/class-yaydp-offer-description.php:225
+msgid ""
+"<span data-variable=\"discount_value\" data-formula=\"%1$s\">%2$s</span>"
+msgstr ""
+"<span data-variable=\"discount_value\" data-formula=\"%1$s\">%2$s</span>"
+
+#: includes/core/offer-description/class-yaydp-offer-description.php:256
+#: includes/core/offer-description/class-yaydp-offer-description.php:309
+msgid ""
+"<span data-variable=\"discount_amount\" data-formula=\"%1$s\">%2$s</span>"
+msgstr ""
+"<span data-variable=\"discount_amount\" data-formula=\"%1$s\">%2$s</span>"
+
+#: includes/core/offer-description/class-yaydp-offer-description.php:287
+msgid ""
+"from %1$s to %2$s: <span data-variable=\"discount_amount\" data-"
+"formula=\"%3$s\">%4$s</span>"
+msgstr ""
+"Van %1$s tot %2$s: <span data-variable=\"discount_amount\" data-"
+"formula=\"%3$s\">%4$s</span>"
+
+#: includes/core/offer-description/class-yaydp-offer-description.php:364
+msgid ""
+"from %1$s to %2$s: <span data-variable=\"discounted_price\" data-"
+"formula=\"%3$s\">%4$s</span>"
+msgstr ""
+"Van %1$s tot %2$s: <span data-variable=\"discounted_price\" data-"
+"formula=\"%3$s\">%4$s</span>"
+
+#: includes/core/offer-description/class-yaydp-offer-description.php:387
+msgid ""
+"<span data-variable=\"discounted_price\" data-formula=\"%1$s\">%2$s</span>"
+msgstr ""
+"<span data-variable=\"discounted_price\" data-formula=\"%1$s\">%2$s</span>"
+
+#. translators: %s Rule name.
+#: includes/core/use-time/class-yaydp-product-pricing-use-time.php:46
+msgid "%s has expired. Please reload the page to continue checkout."
+msgstr "%s is verlopen. Laad de pagina opnieuw om door te gaan met afrekenen."
+
+#: includes/helper/class-yaydp-helper.php:26
+msgid "Nonce is invalid"
+msgstr "Nonce is ongeldig"
+
+#: includes/noname/class-yaydp-pricing-table.php:104
+msgid "Unlimited"
+msgstr "Onbeperkt"
+
+#: includes/templates/product/yaydp-sale-tag.php:31
+msgid "SALE!"
+msgstr "TE KOOP!"
+
+#: includes/templates/product/yaydp-sale-tag.php:32
+msgid "Up to %s"
+msgstr "Tot aan %s"
+
+#: includes/yaycommercemenu/class-register-menu.php:70
+msgid "Help"
+msgstr "Help"
+
+#: includes/yaycommercemenu/class-register-menu.php:103
+msgid "Licenses"
+msgstr "Licenties"
+
+#: includes/yaycommercemenu/class-register-menu.php:112
+msgid "Other plugins"
+msgstr "Andere plugins"
+
+#: includes/yaydp-duplicate-fallback.php:24
+msgid ""
+"It looks like you have another YayPricing version installed, please delete "
+"it before activating this new version. All current settings and data are "
+"still preserved."
+msgstr ""
+"Het lijkt erop dat je een andere YayPricing-versie hebt geïnstalleerd, "
+"verwijder deze voordat je deze nieuwe versie activeert. Alle huidige "
+"instellingen en gegevens blijven behouden."
+
+#: includes/yaydp-duplicate-fallback.php:25
+msgid "Read more details."
+msgstr "Lees verder voor de details."

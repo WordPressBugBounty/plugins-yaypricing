@@ -1,0 +1,1834 @@
+# Copyright (C) 2024 YayCommerce
+# This file is distributed under the same license as the YayPricing Lite - WooCommerce Dynamic Pricing And Discounts plugin.
+msgid ""
+msgstr ""
+"Project-Id-Version: YayPricing Lite - WooCommerce Dynamic Pricing And "
+"Discounts 2.5\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/yaypricing-lite\n"
+"POT-Creation-Date: 2024-02-19T08:16:47+00:00\n"
+"PO-Revision-Date: 2024-02-19 15:23+0700\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: cs\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 3.4.1\n"
+"X-Domain: yaypricing\n"
+
+#. Plugin Name of the plugin
+msgid "YayPricing Lite - WooCommerce Dynamic Pricing And Discounts"
+msgstr "YayPricing Lite - WooCommerce dynamické ceny a slevy"
+
+#. Plugin URI of the plugin
+msgid "https://wordpress.org/plugins/yaypricing/"
+msgstr "https://wordpress.org/plugins/yaypricing/"
+
+#. Description of the plugin
+msgid ""
+"Create automatic product pricing rules and cart discounts to design a "
+"powerful marketing strategy for your WooCommerce store."
+msgstr ""
+"Vytvořte automatická pravidla pro tvorbu cen produktů a slevy v košíku a "
+"navrhněte výkonnou marketingovou strategii pro svůj obchod WooCommerce."
+
+#. Author of the plugin
+msgid "YayCommerce"
+msgstr "YayCommerce"
+
+#. Author URI of the plugin
+msgid "https://yaycommerce.com/"
+msgstr "https://yaycommerce.com/"
+
+#: includes/admin/class-yaydp-admin-menus.php:33
+#: includes/yaycommercemenu/class-register-menu.php:175
+msgid "YayPricing"
+msgstr "YayCeník"
+
+#: includes/admin/class-yaydp-admin-menus.php:41
+msgid "YayPricing Report"
+msgstr "Zpráva o cenách YayPricing"
+
+#. Translators: %s: search WooCommerce plugin link.
+#: includes/admin/views/html-notice-require-wc.php:5
+msgid ""
+"is enabled but not effective. It requires %1$sWooCommerce%2$s in order to "
+"work."
+msgstr ""
+"je povoleno, ale není účinné. Aby fungoval, vyžaduje %1$sWooCommerce%2$s."
+
+#. translators:
+#: includes/admin/views/html-require-php-version.php:15
+msgid ""
+"YayPricing requires PHP 5.6 to work and does not support your current PHP "
+"version %1$s. Please contact your host and request a PHP upgrade to the "
+"latest one."
+msgstr ""
+"YayPricing vyžaduje PHP 5.6, aby fungoval, a nepodporuje vaši aktuální verzi "
+"PHP %1$s. Obraťte se na svého hostitele a požádejte o upgrade PHP na "
+"nejnovější."
+
+#: includes/class-yaydp-ajax.php:31
+msgid "Verify nonce failed"
+msgstr "Ověření hodnoty nonce se nezdařilo."
+
+#: includes/class-yaydp-i18n.php:35
+msgid "After \"Add to cart\" button"
+msgstr "Za tlačítkem \"Přidat do košíku\""
+
+#: includes/class-yaydp-i18n.php:36
+msgid "Before \"Add to cart\" button"
+msgstr "Před tlačítkem \"Přidat do košíku\""
+
+#: includes/class-yaydp-i18n.php:37
+msgid "Add [discount_value] to the order"
+msgstr "Přidat [discount_value] do objednávky"
+
+#: includes/class-yaydp-i18n.php:38
+msgid "Add 10"
+msgstr "Přidat 10"
+
+#: includes/class-yaydp-i18n.php:39
+msgid "add a condition"
+msgstr "Přidání podmínky"
+
+#: includes/class-yaydp-i18n.php:40
+msgid "Add condition"
+msgstr "Přidat podmínku"
+
+#: includes/class-yaydp-i18n.php:41
+msgid "Add Custom Fee"
+msgstr "Přidat vlastní poplatek"
+
+#: includes/class-yaydp-i18n.php:42
+msgid ""
+"Add handling fees or charge extra fees based on shipping region, payment "
+"method, and other criteria"
+msgstr ""
+"Přidejte manipulační poplatky nebo si účtujte další poplatky na základě "
+"oblasti doručení, způsobu platby a dalších kritérií"
+
+#: includes/class-yaydp-i18n.php:43
+msgid "add one"
+msgstr "přidat jeden"
+
+#: includes/class-yaydp-i18n.php:44
+msgid "add product"
+msgstr "Přidat produkt"
+
+#: includes/class-yaydp-i18n.php:45
+msgid "Add Rule"
+msgstr "Přidat pravidlo"
+
+#: includes/class-yaydp-i18n.php:46
+msgid "Add Your First Rule"
+msgstr "Přidání prvního pravidla"
+
+#: includes/class-yaydp-i18n.php:47
+msgid "Add"
+msgstr "Přidat"
+
+#: includes/class-yaydp-i18n.php:48
+msgid "After Product short description"
+msgstr "Stručný popis produktu"
+
+#: includes/class-yaydp-i18n.php:49
+msgid "After"
+msgstr "Po"
+
+#: includes/class-yaydp-i18n.php:50
+msgid "All Cart Discount Rules"
+msgstr "Všechna pravidla slev na košík"
+
+#: includes/class-yaydp-i18n.php:51
+msgid "All Checkout Fee Rules"
+msgstr "Všechna pravidla pro placení poplatků"
+
+#: includes/class-yaydp-i18n.php:52
+msgid "All Product Pricing Rules"
+msgstr "Všechna pravidla pro stanovení cen produktů"
+
+#: includes/class-yaydp-i18n.php:53
+msgid "all products"
+msgstr "Všechny produkty"
+
+#: includes/class-yaydp-i18n.php:54
+msgid ""
+"All rules will be calculated and combined into a single rule to apply in cart"
+msgstr ""
+"Všechna pravidla budou vypočítána a sloučena do jednoho pravidla, které se "
+"použije v košíku"
+
+#: includes/class-yaydp-i18n.php:55
+msgid "All together"
+msgstr "Všechno dohromady"
+
+#: includes/class-yaydp-i18n.php:56
+msgid "All"
+msgstr "Vše"
+
+#: includes/class-yaydp-i18n.php:57
+msgid "Analytics & reports"
+msgstr "Analýzy a přehledy"
+
+#: includes/class-yaydp-i18n.php:58
+msgid "And much more"
+msgstr "A mnoho dalšího"
+
+#: includes/class-yaydp-i18n.php:59
+msgid "Any"
+msgstr "Jakýkolv"
+
+#: includes/class-yaydp-i18n.php:60
+msgid "Applied coupons"
+msgstr "Uplatněné kupóny"
+
+#: includes/class-yaydp-i18n.php:61
+msgid "Apply all applicable rules"
+msgstr "Použít všechna platná pravidla"
+
+#: includes/class-yaydp-i18n.php:62
+msgid "Apply the first applicable rule in your list"
+msgstr "Použití prvního použitelného pravidla v seznamu"
+
+#: includes/class-yaydp-i18n.php:63
+msgid "Apply the rule with maximum discount amount"
+msgstr "Použít pravidlo s maximální částkou slevy"
+
+#: includes/class-yaydp-i18n.php:64
+msgid "Apply the rule with minimum discount amount"
+msgstr "Použití pravidla s minimální částkou slevy"
+
+#: includes/class-yaydp-i18n.php:65
+msgid ""
+"Automatically add gift item(s) once the base product(s) are added to cart"
+msgstr ""
+"Automaticky přidat dárkové položky po přidání základního produktu (produktů) "
+"do košíku"
+
+#: includes/class-yaydp-i18n.php:66
+msgid ""
+"Automatically generate cart discount ID to be used as a coupon code in the "
+"admin order details"
+msgstr ""
+"Automaticky vygenerovat ID slevy košíku, které se použije jako kód kupónu v "
+"podrobnostech objednávky správce"
+
+#: includes/class-yaydp-i18n.php:67
+msgid "Before Product short description"
+msgstr "Před Stručný popis produktu"
+
+#: includes/class-yaydp-i18n.php:68
+msgid "Before"
+msgstr "Před"
+
+#: includes/class-yaydp-i18n.php:69
+msgid "Black Friday campaign"
+msgstr "Kampaň na Černý pátek"
+
+#: includes/class-yaydp-i18n.php:70
+msgid "Black friday discount! Discount [discount_value] all cart"
+msgstr "Sleva na Černý pátek! Sleva [discount_value] celý košík"
+
+#: includes/class-yaydp-i18n.php:71
+msgid "Black Friday"
+msgstr "Černý pátek"
+
+#: includes/class-yaydp-i18n.php:72
+msgid "BOGO (same product)"
+msgstr "BOGO (stejný produkt)"
+
+#: includes/class-yaydp-i18n.php:73
+msgid "BOGO"
+msgstr "BOGO"
+
+#: includes/class-yaydp-i18n.php:74
+msgid "Border color"
+msgstr "Barva ohraničení"
+
+#: includes/class-yaydp-i18n.php:75
+msgid "Bulk discounts"
+msgstr "Množstevní slevy"
+
+#: includes/class-yaydp-i18n.php:76
+msgid "Bulk Pricing"
+msgstr "Hromadné ceny"
+
+#: includes/class-yaydp-i18n.php:77
+msgid "Buy 3 get 1 free item"
+msgstr "Kupte 3 a získejte 1 položku zdarma"
+
+#: includes/class-yaydp-i18n.php:78
+msgid "Buy 3 Get 1 Free"
+msgstr "Kupte 3 a získejte 1 zdarma"
+
+#: includes/class-yaydp-i18n.php:79
+msgid "Buy Products"
+msgstr "Koupit produkty"
+
+#: includes/class-yaydp-i18n.php:80
+msgid "Buy X get X event"
+msgstr "Kupte si událost X a získejte X"
+
+#: includes/class-yaydp-i18n.php:81
+msgid "Buy X Get X"
+msgstr "Kup X a získej X"
+
+#: includes/class-yaydp-i18n.php:82
+msgid "Buy X get Y with discount"
+msgstr "Kupte X a získejte Y se slevou"
+
+#: includes/class-yaydp-i18n.php:83
+msgid "Buy X Get Y"
+msgstr "Koupit X Získat Y"
+
+#: includes/class-yaydp-i18n.php:84
+msgid "Buy"
+msgstr "Koupit"
+
+#: includes/class-yaydp-i18n.php:85
+msgid "campaign"
+msgstr "kampaň"
+
+#: includes/class-yaydp-i18n.php:86
+msgid "Campaigns"
+msgstr "Kampaně"
+
+#: includes/class-yaydp-i18n.php:87
+msgid "Cart Discount"
+msgstr "Sleva na košík"
+
+#: includes/class-yaydp-i18n.php:88
+msgid ""
+"Cart discounts rules is used to create cart discount coupons that apply at "
+"checkout. You can also combine discount at Settings section."
+msgstr ""
+"Pravidla slev v košíku se používají k vytvoření slevových kupónů košíku, "
+"které platí při placení. Slevu můžete také kombinovat v sekci Nastavení."
+
+#: includes/class-yaydp-i18n.php:89
+msgid "Cart discounts"
+msgstr "Slevy na košík"
+
+#: includes/class-yaydp-i18n.php:90
+msgid "Cart item - category"
+msgstr "Položka košíku - kategorie"
+
+#: includes/class-yaydp-i18n.php:91
+msgid "Cart item - product"
+msgstr "Položka košíku - produkt"
+
+#: includes/class-yaydp-i18n.php:92
+msgid "Cart item - tag"
+msgstr "Položka košíku - štítek"
+
+#: includes/class-yaydp-i18n.php:93
+msgid "Cart item - variation"
+msgstr "Položka v košíku - variace"
+
+#: includes/class-yaydp-i18n.php:94
+msgid "Cart Items"
+msgstr "Zvolené služby"
+
+#: includes/class-yaydp-i18n.php:95
+msgid "Cart quantity"
+msgstr "Množství košíku"
+
+#: includes/class-yaydp-i18n.php:96
+msgid "Cart subtotal price"
+msgstr "Mezisoučet ceny košíku"
+
+#: includes/class-yaydp-i18n.php:97
+msgid "Cart total weight"
+msgstr "Celková hmotnost vozíku"
+
+#: includes/class-yaydp-i18n.php:98
+msgid "cart total"
+msgstr "Košík celkem"
+
+#: includes/class-yaydp-i18n.php:99
+msgid "Cart"
+msgstr "Košík"
+
+#: includes/class-yaydp-i18n.php:100
+msgid "Cheapest one"
+msgstr "Nejlevnější"
+
+#: includes/class-yaydp-i18n.php:101
+msgid "Checkout Fee"
+msgstr "Poplatek za pokladnu"
+
+#: includes/class-yaydp-i18n.php:102
+msgid "Choose file"
+msgstr "Zvolte soubor"
+
+#: includes/class-yaydp-i18n.php:103
+msgid "Choose your desired campaign"
+msgstr "Vyberte požadovanou kampaň"
+
+#: includes/class-yaydp-i18n.php:104
+msgid "Combination"
+msgstr "Kombinace"
+
+#: includes/class-yaydp-i18n.php:105
+msgid "Combine cart discounts"
+msgstr "Kombinujte slevy v košíku"
+
+#: includes/class-yaydp-i18n.php:106
+msgid "Combined condition is empty, please"
+msgstr "Kombinovaný stav je prázdný, prosím"
+
+#: includes/class-yaydp-i18n.php:107
+msgid "Combined condition"
+msgstr "Kombinovaná podmínka"
+
+#: includes/class-yaydp-i18n.php:108
+msgid "Combined conditions"
+msgstr "Kombinované podmínky"
+
+#: includes/class-yaydp-i18n.php:109
+msgid "Combined items"
+msgstr "Kombinované položky"
+
+#: includes/class-yaydp-i18n.php:110
+msgid "Completed"
+msgstr "Dokončeno"
+
+#: includes/class-yaydp-i18n.php:111
+msgid "Conditions"
+msgstr "Podmínky"
+
+#: includes/class-yaydp-i18n.php:112
+msgid "Consider upgrading to"
+msgstr "Zvažte upgrade na"
+
+#: includes/class-yaydp-i18n.php:113
+msgid ""
+"Contain a pitch of your products that your visitors go through and decide "
+"whether they want to buy."
+msgstr ""
+"Obsahujte prezentaci svých produktů, kterou si návštěvníci projdou a "
+"rozhodnou se, zda si je chtějí koupit."
+
+#: includes/class-yaydp-i18n.php:114
+msgid "Contain all"
+msgstr "Obsahovat vše"
+
+#: includes/class-yaydp-i18n.php:115
+msgid "Contain in list"
+msgstr "Obsahovat v seznamu"
+
+#: includes/class-yaydp-i18n.php:116
+msgid "Copied"
+msgstr "Zkopírováno"
+
+#: includes/class-yaydp-i18n.php:117
+msgid "Count quantity by"
+msgstr "Spočítejte množství podle"
+
+#: includes/class-yaydp-i18n.php:118
+msgid "Countdown timer"
+msgstr "Odpočítávací časovač"
+
+#: includes/class-yaydp-i18n.php:119
+msgid "Coupon Exclusions"
+msgstr "Vyloučení kupónů"
+
+#: includes/class-yaydp-i18n.php:120
+msgid ""
+"Create cart discount conditions that are restricted to those cart items. For "
+"example, minimum spend on specific product categories will get the discount"
+msgstr ""
+"Vytvořte podmínky slevy v košíku, které jsou omezeny na tyto položky košíku. "
+"Slevu získáte například za minimální útratu za konkrétní kategorie produktů"
+
+#: includes/class-yaydp-i18n.php:121
+msgid ""
+"Create product pricing rules that affect price of products. You can also "
+"create product fee or discount."
+msgstr ""
+"Vytvořte pravidla pro stanovení cen produktů, která ovlivňují cenu produktů. "
+"Můžete také vytvořit poplatek za produkt nebo slevu."
+
+#: includes/class-yaydp-i18n.php:122
+msgid ""
+"Create rule to decide which products will not be affected by Product pricing "
+"rules."
+msgstr ""
+"Vytvořte pravidlo, které rozhodne, které produkty nebudou ovlivněny pravidly "
+"pro stanovení cen produktů."
+
+#: includes/class-yaydp-i18n.php:123
+msgid "Current discount tier"
+msgstr "Aktuální úroveň slevy"
+
+#: includes/class-yaydp-i18n.php:124
+msgid "Current discounting product"
+msgstr "Aktuální zlevněný produkt"
+
+#: includes/class-yaydp-i18n.php:125
+msgid "Custom Fee"
+msgstr "Vlastní poplatek"
+
+#: includes/class-yaydp-i18n.php:126
+msgid "Custom fees"
+msgstr "Vlastní příplatky"
+
+#: includes/class-yaydp-i18n.php:127
+msgid "Custom"
+msgstr "Vlastní"
+
+#: includes/class-yaydp-i18n.php:128
+msgid "Customer order count"
+msgstr "Počet objednávek zákazníků"
+
+#: includes/class-yaydp-i18n.php:129
+msgid "Customer role"
+msgstr "Role zákazníka"
+
+#: includes/class-yaydp-i18n.php:130
+msgid "Customer"
+msgstr "Zákazník"
+
+#: includes/class-yaydp-i18n.php:131
+msgid ""
+"Customers need to add the quantity of items specified below to their cart"
+msgstr "Zákazníci musí do košíku přidat níže uvedené množství položek"
+
+#: includes/class-yaydp-i18n.php:132
+msgid "Default"
+msgstr "Výchozí"
+
+#: includes/class-yaydp-i18n.php:133
+msgid "Description"
+msgstr "Popis"
+
+#: includes/class-yaydp-i18n.php:134
+msgid "Disable product pricing rules when product is on sale"
+msgstr "Zakázání pravidel pro stanovení cen produktů, když je produkt ve slevě"
+
+#: includes/class-yaydp-i18n.php:135
+msgid "Discount [discount_value] all cart"
+msgstr "Sleva [discount_value] celý košík"
+
+#: includes/class-yaydp-i18n.php:136
+msgid "Discount [discount_value] off from 3rd item"
+msgstr "Sleva [discount_value] od 3. položky"
+
+#: includes/class-yaydp-i18n.php:137
+msgid "Discount [discount_value] off"
+msgstr "Sleva [discount_value] sleva"
+
+#: includes/class-yaydp-i18n.php:138
+msgid "Discount 50% campaign"
+msgstr "Sleva 50% campaign"
+
+#: includes/class-yaydp-i18n.php:139
+msgid "Discount 50% of the shipping cost"
+msgstr "Sleva 50% o nákladů na dopravu"
+
+#: includes/class-yaydp-i18n.php:140
+msgid ""
+"Discount applies to the items specified below, starting from the cheapest one"
+msgstr "Sleva se vztahuje na níže uvedené položky, počínaje nejlevnějším"
+
+#: includes/class-yaydp-i18n.php:141
+msgid ""
+"Discount applies to the items specified below, starting from the left to "
+"right"
+msgstr "Sleva se vztahuje na níže uvedené položky, počínaje zleva doprava"
+
+#: includes/class-yaydp-i18n.php:142
+msgid ""
+"Discount applies to the items specified below, starting from the most "
+"expensive one"
+msgstr "Sleva se vztahuje na níže uvedené položky, počínaje nejdražším"
+
+#: includes/class-yaydp-i18n.php:143
+msgid "Discount based on"
+msgstr "Sleva na základě"
+
+#: includes/class-yaydp-i18n.php:144
+msgid "Discount title"
+msgstr "Název slevy"
+
+#: includes/class-yaydp-i18n.php:145
+msgid "Discount type"
+msgstr "Typ slevy"
+
+#: includes/class-yaydp-i18n.php:146
+msgid "Discount value cap"
+msgstr "Limit hodnoty slevy"
+
+#: includes/class-yaydp-i18n.php:147
+msgid "Discount value"
+msgstr "Hodnota slevy"
+
+#: includes/class-yaydp-i18n.php:148
+msgid "Discount will apply once or repeat"
+msgstr "Sleva se uplatní jednorázově nebo se opakuje"
+
+#: includes/class-yaydp-i18n.php:149
+msgid "Discount"
+msgstr "Sleva"
+
+#: includes/class-yaydp-i18n.php:150
+msgid "Discountable price range"
+msgstr "Zvýhodněné cenové rozpětí"
+
+#: includes/class-yaydp-i18n.php:151
+msgid "Display a discount range tag on the sale tag"
+msgstr "Zobrazení štítku rozsahu slev na štítku prodeje"
+
+#: includes/class-yaydp-i18n.php:152
+msgid ""
+"Display a sale tag on product image on shop page and single product page"
+msgstr ""
+"Zobrazení štítku prodeje na obrázku produktu na stránce obchodu a na stránce "
+"jednoho produktu"
+
+#: includes/class-yaydp-i18n.php:153
+msgid "Do you want to remove"
+msgstr "Chcete odstranit"
+
+#: includes/class-yaydp-i18n.php:154
+msgid "Duplicate of"
+msgstr "Duplikát k"
+
+#: includes/class-yaydp-i18n.php:155
+msgid "Duplicate"
+msgstr "Duplikovat"
+
+#: includes/class-yaydp-i18n.php:156
+msgid "Each single product/variable products"
+msgstr "Každý jednotlivý produkt/variabilní produkt"
+
+#: includes/class-yaydp-i18n.php:157
+msgid "Enable schedule"
+msgstr "Povolit plán"
+
+#: includes/class-yaydp-i18n.php:158
+msgid "Encourage notice"
+msgstr "Vybídněte k upozornění"
+
+#: includes/class-yaydp-i18n.php:159
+msgid ""
+"Encouraged notice is used to motivate customers to buy more items in order "
+"to receive a discount or other promotional offer. It is a marketing strategy "
+"aimed at increasing sales and customer loyalty."
+msgstr ""
+"Doporučené upozornění se používá k motivaci zákazníků k nákupu více položek, "
+"aby získali slevu nebo jinou propagační nabídku. Jedná se o marketingovou "
+"strategii zaměřenou na zvýšení prodeje a loajality zákazníků."
+
+#: includes/class-yaydp-i18n.php:160
+msgid "Enter your description"
+msgstr "Zadejte svůj popis"
+
+#: includes/class-yaydp-i18n.php:161
+msgid "Enter your tooltip"
+msgstr "Zadejte popisek"
+
+#: includes/class-yaydp-i18n.php:162
+msgid "Ex: Discount"
+msgstr "Příklad: Sleva"
+
+#: includes/class-yaydp-i18n.php:163
+msgid "Ex: Price"
+msgstr "Příklad: Cena"
+
+#: includes/class-yaydp-i18n.php:164
+msgid "Ex: Quantity discounts"
+msgstr "Příklad: Množstevní slevy"
+
+#: includes/class-yaydp-i18n.php:165
+msgid "Ex: Quantity"
+msgstr "Příklad: Množství"
+
+#: includes/class-yaydp-i18n.php:166
+msgid "Exclude Rules (Product pricing)"
+msgstr "Pravidla vyloučení (ceny produktů)"
+
+#: includes/class-yaydp-i18n.php:167
+msgid "Exclude Rules"
+msgstr "Vyloučit pravidla"
+
+#: includes/class-yaydp-i18n.php:168
+msgid "Exclude selected rules when these coupons are applied"
+msgstr "Vyloučit vybraná pravidla při použití těchto kupónů"
+
+#: includes/class-yaydp-i18n.php:169
+msgid "Exclude those products that match"
+msgstr "Vylučte produkty, které odpovídají"
+
+#: includes/class-yaydp-i18n.php:170
+msgid "Exclusions"
+msgstr "Výjimky"
+
+#: includes/class-yaydp-i18n.php:171
+msgid "Export rules"
+msgstr "Pravidla exportu"
+
+#: includes/class-yaydp-i18n.php:172
+msgid "Features"
+msgstr "Vlastnosti"
+
+#: includes/class-yaydp-i18n.php:173
+msgid "Fee rules is used to affect fees that apply at checkout."
+msgstr ""
+"Pravidla poplatků se používají k ovlivnění poplatků, které platí při placení."
+
+#: includes/class-yaydp-i18n.php:174
+msgid "fee to order"
+msgstr "poplatek za objednání"
+
+#: includes/class-yaydp-i18n.php:175
+msgid "Fee type"
+msgstr "Typ poplatku"
+
+#: includes/class-yaydp-i18n.php:176
+msgid "Fee value"
+msgstr "Hodnota poplatku"
+
+#: includes/class-yaydp-i18n.php:177
+msgid "Fixed Discount per Individual Cart Item"
+msgstr "Fixní sleva na jednotlivou položku v košíku"
+
+#: includes/class-yaydp-i18n.php:178
+msgid "Fixed Discount"
+msgstr "Fixní sleva"
+
+#: includes/class-yaydp-i18n.php:179
+msgid "Fixed Fee"
+msgstr "Fixní poplatek"
+
+#: includes/class-yaydp-i18n.php:180
+msgid "Flat Price"
+msgstr "Paušální cena"
+
+#: includes/class-yaydp-i18n.php:181
+msgid "Flexible shipping rules"
+msgstr "Flexibilní pravidla přepravy"
+
+#: includes/class-yaydp-i18n.php:182
+msgid "For example"
+msgstr "Například"
+
+#: includes/class-yaydp-i18n.php:183
+msgid "Free shipping fee"
+msgstr "Poplatek za dopravu zdarma"
+
+#: includes/class-yaydp-i18n.php:184
+msgid "Free shipping"
+msgstr "Doprava zdarma"
+
+#: includes/class-yaydp-i18n.php:185
+#: includes/templates/cart-item-price/extra-item.php:14
+msgid "Free"
+msgstr "Zdarma"
+
+#: includes/class-yaydp-i18n.php:186
+msgid "General"
+msgstr "Hlavní"
+
+#: includes/class-yaydp-i18n.php:187
+msgid "Get 10% off"
+msgstr "Získejte 10% off"
+
+#: includes/class-yaydp-i18n.php:188
+msgid "Get free shipping"
+msgstr "Získejte dopravu zdarma"
+
+#: includes/class-yaydp-i18n.php:189
+msgid "Get Products"
+msgstr "Získat produkty"
+
+#: includes/class-yaydp-i18n.php:190
+msgid "Get this free when buy 3 item"
+msgstr "Získejte to zdarma při nákupu 3 položek"
+
+#: includes/class-yaydp-i18n.php:191
+msgid "Get YayPricing Pro"
+msgstr "Získejte YayPricing Pro"
+
+#: includes/class-yaydp-i18n.php:192
+msgid "Get"
+msgstr "Získat"
+
+#: includes/class-yaydp-i18n.php:193
+msgid "Go Pro"
+msgstr "Získat verzi Pro"
+
+#: includes/class-yaydp-i18n.php:194
+msgid "Greater than or equal"
+msgstr "Větší než nebo rovno"
+
+#: includes/class-yaydp-i18n.php:195
+msgid "Greater than"
+msgstr "Větší než"
+
+#: includes/class-yaydp-i18n.php:196
+msgid "How the rules are applied"
+msgstr "Jak se pravidla uplatňují"
+
+#: includes/class-yaydp-i18n.php:197
+msgid "if cart quantity is greater than 5"
+msgstr "Pokud je množství v košíku větší než 5"
+
+#: includes/class-yaydp-i18n.php:198
+msgid "if cart subtotal price is greater than"
+msgstr "Pokud je mezisoučet košíku vyšší než"
+
+#: includes/class-yaydp-i18n.php:199
+msgid "if the customers have 10 orders in past"
+msgstr "pokud mají zákazníci v minulosti 10 objednávek"
+
+#: includes/class-yaydp-i18n.php:200
+msgid "If you want to decide when this rule will be used, please"
+msgstr "Chcete-li rozhodnout, kdy bude toto pravidlo použito, prosíme"
+
+#: includes/class-yaydp-i18n.php:201
+msgid "Import failed"
+msgstr "Import selhal"
+
+#: includes/class-yaydp-i18n.php:202
+msgid "Import successfully"
+msgstr "Úspěšný import"
+
+#: includes/class-yaydp-i18n.php:203
+msgid "Import"
+msgstr "Import"
+
+#: includes/class-yaydp-i18n.php:204
+msgid "Import/Export"
+msgstr "Import/Export"
+
+#: includes/class-yaydp-i18n.php:205
+msgid "Imported rule"
+msgstr "Importované pravidlo"
+
+#: includes/class-yaydp-i18n.php:206
+msgid ""
+"In a combined condition, you must select the eligible products. Then, the "
+"values of cart amount and quantity of items are restricted to these filtered "
+"products in the same condition"
+msgstr ""
+"V kombinovaném stavu musíte vybrat způsobilé produkty. Hodnoty množství v "
+"košíku a množství položek jsou pak omezeny na tyto filtrované produkty ve "
+"stejném stavu"
+
+#: includes/class-yaydp-i18n.php:207
+msgid "In list"
+msgstr "V seznamu"
+
+#: includes/class-yaydp-i18n.php:208
+msgid "In range"
+msgstr "V dosahu"
+
+#: includes/class-yaydp-i18n.php:209
+msgid "In stock"
+msgstr "Skladem"
+
+#: includes/class-yaydp-i18n.php:210
+msgid "Inactive"
+msgstr "Neaktivní"
+
+#: includes/class-yaydp-i18n.php:211
+msgid "Is logged in customer"
+msgstr "Je přihlášen zákazník"
+
+#: includes/class-yaydp-i18n.php:212
+msgid "Is repeat"
+msgstr "Je opakování"
+
+#: includes/class-yaydp-i18n.php:213
+msgid "Item get type"
+msgstr "Typ získání položky"
+
+#: includes/class-yaydp-i18n.php:214
+msgid "Item quantity in each cart line"
+msgstr "Množství položky v každém řádku košíku"
+
+#: includes/class-yaydp-i18n.php:215
+msgid "Items - Category"
+msgstr "Položky - Kategorie"
+
+#: includes/class-yaydp-i18n.php:216
+msgid "Items - Product"
+msgstr "Položky - Produkt"
+
+#: includes/class-yaydp-i18n.php:217
+msgid "Items - Quantity"
+msgstr "Položky - Množství"
+
+#: includes/class-yaydp-i18n.php:218
+msgid "Items - Subtotal price"
+msgstr "Položky - Mezisoučet cena"
+
+#: includes/class-yaydp-i18n.php:219
+msgid "Last 7 days"
+msgstr "Posledních 7 dní"
+
+#: includes/class-yaydp-i18n.php:220
+msgid "Latest features & updates"
+msgstr "Nejnovější funkce a aktualizace"
+
+#: includes/class-yaydp-i18n.php:221
+msgid "Learn more"
+msgstr "Zjistit více"
+
+#: includes/class-yaydp-i18n.php:222
+msgid "Less than or equal"
+msgstr "Méně než nebo rovno"
+
+#: includes/class-yaydp-i18n.php:223
+msgid "Less than"
+msgstr "Méně než"
+
+#: includes/class-yaydp-i18n.php:224
+msgid "Loading products"
+msgstr "Načítání produktů"
+
+#: includes/class-yaydp-i18n.php:225
+msgid "Logged in"
+msgstr "Přihlášení"
+
+#: includes/class-yaydp-i18n.php:226
+msgid "Manage Cart Discounts Rule"
+msgstr "Pravidlo Spravovat slevy v košíku"
+
+#: includes/class-yaydp-i18n.php:227
+msgid "Manage Checkout Fees Rule"
+msgstr "Pravidlo správy poplatků za pokladnu"
+
+#: includes/class-yaydp-i18n.php:228
+msgid "Manage Exclude Rule"
+msgstr "Spravovat pravidlo vyloučení"
+
+#: includes/class-yaydp-i18n.php:229
+msgid "Manage Product Pricing Rule"
+msgstr "Spravovat pravidlo pro stanovení cen produktů"
+
+#: includes/class-yaydp-i18n.php:230
+msgid "Max use limit"
+msgstr "Maximální limit použití"
+
+#: includes/class-yaydp-i18n.php:231
+msgid "Max use reached"
+msgstr "Maximální využití dosaženo"
+
+#: includes/class-yaydp-i18n.php:232
+msgid "Maximum value"
+msgstr "Maximální hodnota"
+
+#: includes/class-yaydp-i18n.php:233
+msgid "Month"
+msgstr "Měsíc"
+
+#: includes/class-yaydp-i18n.php:234
+msgid "More result"
+msgstr "Více výsledků"
+
+#: includes/class-yaydp-i18n.php:235
+msgid "Most expensive one"
+msgstr "Nejdražší"
+
+#: includes/class-yaydp-i18n.php:236
+msgid "Name of the campaign"
+msgstr "Název kampaně"
+
+#: includes/class-yaydp-i18n.php:237
+msgid "Name"
+msgstr "Jméno"
+
+#: includes/class-yaydp-i18n.php:238
+msgid "Next discount tier as if 1 more item is added"
+msgstr "Další slevová úroveň, jako by byla přidána 1 další položka"
+
+#: includes/class-yaydp-i18n.php:239
+msgid "No product excluded. Please"
+msgstr "Žádný produkt není vyloučen. Prosím"
+
+#: includes/class-yaydp-i18n.php:240
+msgid "No product excluded."
+msgstr "Žádný produkt není vyloučen."
+
+#: includes/class-yaydp-i18n.php:241
+msgid "No product matched"
+msgstr "Žádný produkt se neshoduje"
+
+#: includes/class-yaydp-i18n.php:242
+msgid "None"
+msgstr "Žádný"
+
+#: includes/class-yaydp-i18n.php:243
+msgid "Not contain in list"
+msgstr "Neobsahovat v seznamu"
+
+#: includes/class-yaydp-i18n.php:244
+msgid "Not in list"
+msgstr "Není v seznamu"
+
+#: includes/class-yaydp-i18n.php:245
+msgid "Not logged in"
+msgstr "Nepřihlášen"
+
+#: includes/class-yaydp-i18n.php:246
+msgid "Number of all the orders they have placed in the past."
+msgstr "Počet všech objednávek, které v minulosti zadali."
+
+#: includes/class-yaydp-i18n.php:247
+msgid ""
+"Number of orders counted from the last time they got a discount from "
+"YayPricing."
+msgstr ""
+"Počet objednávek započítaných od posledního získání slevy od YayPricing."
+
+#: includes/class-yaydp-i18n.php:248
+msgid "of these conditions is available."
+msgstr "těchto podmínek je k dispozici."
+
+#: includes/class-yaydp-i18n.php:249
+msgid "of these filters"
+msgstr "těchto filtrů"
+
+#: includes/class-yaydp-i18n.php:250
+msgid "off"
+msgstr "vypnuto"
+
+#: includes/class-yaydp-i18n.php:251
+msgid "OFF"
+msgstr "VYPNUT"
+
+#: includes/class-yaydp-i18n.php:252
+msgid "Offer description for X"
+msgstr "Popis nabídky pro X"
+
+#: includes/class-yaydp-i18n.php:253
+msgid "Offer description for Y"
+msgstr "Popis nabídky pro Y"
+
+#: includes/class-yaydp-i18n.php:254
+msgid "On"
+msgstr "Zapnuto"
+
+#: includes/class-yaydp-i18n.php:255
+msgid ""
+"Once the discount/pricing rule is applied in the completed order, it is "
+"counted as a discount use. The rule will no longer apply if its use count "
+"reaches this number"
+msgstr ""
+"Jakmile se pravidlo sleva/cena uplatní v dokončené objednávce, započítá se "
+"jako využití slevy. Pravidlo již nebude platit, pokud počet jeho použití "
+"dosáhne tohoto počtu"
+
+#: includes/class-yaydp-i18n.php:256
+msgid "Order count from last discount"
+msgstr "Počet objednávek od poslední slevy"
+
+#: includes/class-yaydp-i18n.php:257
+msgid "Order history category"
+msgstr "Kategorie historie objednávek"
+
+#: includes/class-yaydp-i18n.php:258
+msgid "Order history product"
+msgstr "Historie objednávek produkt"
+
+#: includes/class-yaydp-i18n.php:259
+msgid "Others"
+msgstr "Ostatní"
+
+#: includes/class-yaydp-i18n.php:260
+msgid "Payment method"
+msgstr "Způsob platby"
+
+#: includes/class-yaydp-i18n.php:261
+msgid "Percentage Discount"
+msgstr "Procentuální sleva"
+
+#: includes/class-yaydp-i18n.php:262
+msgid "Percentage Fee"
+msgstr "Procentuální poplatek"
+
+#: includes/class-yaydp-i18n.php:263
+msgid "Please paste it in your promotion page to show list on sale products"
+msgstr ""
+"Vložte jej prosím na svou propagační stránku, aby se zobrazil seznam "
+"produktů ve výprodeji"
+
+#: includes/class-yaydp-i18n.php:264
+msgid "Please"
+msgstr "Prosím"
+
+#: includes/class-yaydp-i18n.php:265
+msgid "Preview"
+msgstr "Náhled"
+
+#: includes/class-yaydp-i18n.php:266
+msgid "Previous purchase date"
+msgstr "Předchozí datum nákupu"
+
+#: includes/class-yaydp-i18n.php:267
+msgid "Price title"
+msgstr "Název ceny"
+
+#: includes/class-yaydp-i18n.php:268
+msgid "Price"
+msgstr "Cena"
+
+#: includes/class-yaydp-i18n.php:269
+msgid "Pricing Ranges"
+msgstr "Cenové rozpětí"
+
+#: includes/class-yaydp-i18n.php:270
+msgid "Pricing table"
+msgstr "Cenová tabulka"
+
+#: includes/class-yaydp-i18n.php:271
+msgid "Pricing type"
+msgstr "Cenový typ"
+
+#: includes/class-yaydp-i18n.php:272
+msgid "Pricing value"
+msgstr "Cenová hodnota"
+
+#: includes/class-yaydp-i18n.php:273
+msgid "Pricing"
+msgstr "Ceník"
+
+#: includes/class-yaydp-i18n.php:274
+msgid "Product Exclusions"
+msgstr "Vyloučení produktů"
+
+#: includes/class-yaydp-i18n.php:275
+msgid "Product meta end"
+msgstr "Meta konec produktu"
+
+#: includes/class-yaydp-i18n.php:276
+msgid "Product meta start"
+msgstr "Meta start produktu"
+
+#: includes/class-yaydp-i18n.php:277
+msgid "Product price after discounting"
+msgstr "Cena produktu po slevě"
+
+#: includes/class-yaydp-i18n.php:278
+msgid "Product price display"
+msgstr "Zobrazení ceny produktu"
+
+#: includes/class-yaydp-i18n.php:279
+msgid "Product pricing conditions"
+msgstr "Cenové podmínky produktu"
+
+#: includes/class-yaydp-i18n.php:280
+msgid "Product pricing"
+msgstr "Ceník produktů"
+
+#: includes/class-yaydp-i18n.php:281
+msgid "Product Pricing"
+msgstr "Ceny produktů"
+
+#: includes/class-yaydp-i18n.php:282
+msgid "Product sale display"
+msgstr "Zobrazení prodeje produktu"
+
+#: includes/class-yaydp-i18n.php:283
+msgid "Product"
+msgstr "Produkt"
+
+#: includes/class-yaydp-i18n.php:284
+msgid "Purchase date of orders placed in the past."
+msgstr "Datum nákupu objednávek zadaných v minulosti."
+
+#: includes/class-yaydp-i18n.php:285
+msgid "Purchase history"
+msgstr "Historie nákupů"
+
+#: includes/class-yaydp-i18n.php:286
+msgid "Purchased product categories in a specific order."
+msgstr "Zakoupené kategorie produktů v konkrétní objednávce."
+
+#: includes/class-yaydp-i18n.php:287
+msgid "Purchased products (lifetime)"
+msgstr "Zakoupené produkty (doživotní)"
+
+#: includes/class-yaydp-i18n.php:288
+msgid "Purchased products among all the orders they have placed in the past."
+msgstr "Zakoupené produkty mezi všemi objednávkami, které zadali v minulosti."
+
+#: includes/class-yaydp-i18n.php:289
+msgid "Purchased products in a specific order."
+msgstr "Zakoupené produkty v konkrétní objednávce."
+
+#: includes/class-yaydp-i18n.php:290
+msgid "Quantity discounts"
+msgstr "Množstevní slevy"
+
+#: includes/class-yaydp-i18n.php:291
+msgid "Quantity title"
+msgstr "Název množství"
+
+#: includes/class-yaydp-i18n.php:292
+msgid "Quantity"
+msgstr "Množství"
+
+#: includes/class-yaydp-i18n.php:293
+msgid "Reduce 50% shipping fee for order below 100"
+msgstr "Snižte poplatek 50% shipping za objednávku pod 100"
+
+#: includes/class-yaydp-i18n.php:294
+msgid "Reduce Shipping Fee"
+msgstr "Snižte poplatek za dopravu"
+
+#: includes/class-yaydp-i18n.php:295
+msgid ""
+"Refer to this comparison table so that you will have an informeddecision"
+msgstr ""
+"Podívejte se na tuto srovnávací tabulku, abyste měli informované rozhodnutí"
+
+#: includes/class-yaydp-i18n.php:296
+msgid ""
+"Regular price is displayed as strike-through text on cart page and checkout "
+"page"
+msgstr ""
+"Běžná cena se zobrazuje jako přeškrtnutý text na stránce košíku a na stránce "
+"pokladny"
+
+#: includes/class-yaydp-i18n.php:297
+msgid "Regular price is displayed as strike-through text on product price"
+msgstr "Běžná cena je zobrazena jako přeškrtnutý text na ceně produktu"
+
+#: includes/class-yaydp-i18n.php:298
+msgid "Remove all"
+msgstr "Odebrat vše"
+
+#: includes/class-yaydp-i18n.php:299
+msgid "Remove rule"
+msgstr "Odstranit pravidlo"
+
+#: includes/class-yaydp-i18n.php:300
+msgid "Remove"
+msgstr "Odstranit"
+
+#: includes/class-yaydp-i18n.php:301
+msgid "Replace product price with the discounted one"
+msgstr "Nahraďte cenu produktu zlevněnou"
+
+#: includes/class-yaydp-i18n.php:302
+msgid "Reset"
+msgstr "Resetovat"
+
+#: includes/class-yaydp-i18n.php:303
+msgid "Rule Name"
+msgstr "Název pravidla"
+
+#: includes/class-yaydp-i18n.php:304
+msgid "Rule type"
+msgstr "Typ pravidla"
+
+#: includes/class-yaydp-i18n.php:305
+msgid "Running"
+msgstr "Právě běží"
+
+#: includes/class-yaydp-i18n.php:306
+msgid "Sale [discount_value] all products"
+msgstr "Výprodej [discount_value] všechny produkty"
+
+#: includes/class-yaydp-i18n.php:307
+msgid "Sale 10"
+msgstr "Prodej 10"
+
+#: includes/class-yaydp-i18n.php:308
+msgid "Sale 30% from the third item"
+msgstr "Sleva 30% f třetí položka"
+
+#: includes/class-yaydp-i18n.php:309
+msgid "Sale 30% OFF from the third item"
+msgstr "Sleva 30% na třetí položku"
+
+#: includes/class-yaydp-i18n.php:310 includes/class-yaydp-i18n.php:311
+msgid "Sale 50% all products"
+msgstr "Výprodej 50% all produktů"
+
+#: includes/class-yaydp-i18n.php:312
+msgid "Sale 50% OFF all products"
+msgstr "Výprodej 50% SLEVA na všechny produkty"
+
+#: includes/class-yaydp-i18n.php:313
+msgid "Sale Tag"
+msgstr "Prodejní štítek"
+
+#: includes/class-yaydp-i18n.php:314
+msgid "Sale"
+msgstr "Sleva"
+
+#: includes/class-yaydp-i18n.php:315
+msgid "Sales triggers"
+msgstr "Spouštěče prodeje"
+
+#: includes/class-yaydp-i18n.php:316
+msgid "Sample rule"
+msgstr "Ukázkové pravidlo"
+
+#: includes/class-yaydp-i18n.php:317
+msgid "Save failed"
+msgstr "Uložení se nezdařilo"
+
+#: includes/class-yaydp-i18n.php:318
+msgid "Scheduled discounts"
+msgstr "Plánované slevy"
+
+#: includes/class-yaydp-i18n.php:319
+msgid "Scheduled"
+msgstr "Naplánované"
+
+#: includes/class-yaydp-i18n.php:320
+msgid "Select at least one attribute"
+msgstr "Vyberte alespoň jeden atribut"
+
+#: includes/class-yaydp-i18n.php:321
+msgid "Select at least one category"
+msgstr "Vyberte alespoň jednu kategorii"
+
+#: includes/class-yaydp-i18n.php:322 includes/class-yaydp-i18n.php:323
+msgid "Select at least one coupon"
+msgstr "Vyberte alespoň jeden kupón"
+
+#: includes/class-yaydp-i18n.php:324
+msgid "Select at least one customer"
+msgstr "Vyberte alespoň jednoho zákazníka"
+
+#: includes/class-yaydp-i18n.php:325
+msgid "Select at least one payment"
+msgstr "Vyberte alespoň jednu platbu"
+
+#: includes/class-yaydp-i18n.php:326
+msgid "Select at least one product"
+msgstr "Vyberte alespoň jeden produkt"
+
+#: includes/class-yaydp-i18n.php:327
+msgid "Select at least one region"
+msgstr "Vyberte alespoň jednu oblast"
+
+#: includes/class-yaydp-i18n.php:328
+msgid "Select at least one role"
+msgstr "Vyberte alespoň jednu roli"
+
+#: includes/class-yaydp-i18n.php:329
+msgid "Select at least one rule"
+msgstr "Vyberte alespoň jedno pravidlo"
+
+#: includes/class-yaydp-i18n.php:330
+msgid "Select at least one tag"
+msgstr "Vyberte alespoň jednu značku"
+
+#: includes/class-yaydp-i18n.php:331
+msgid "Select at least one value"
+msgstr "Vyberte alespoň jednu hodnotu"
+
+#: includes/class-yaydp-i18n.php:332
+msgid "Select at least one variation"
+msgstr "Vyberte alespoň jednu variantu"
+
+#: includes/class-yaydp-i18n.php:333
+msgid "Select one rule to exclude"
+msgstr "Vyberte jedno pravidlo, které chcete vyloučit"
+
+#: includes/class-yaydp-i18n.php:334
+msgid "Select rules for on sale products"
+msgstr "Vyberte pravidla pro produkty ve výprodeji"
+
+#: includes/class-yaydp-i18n.php:335
+msgid "Selected products"
+msgstr "Vybrané produkty"
+
+#: includes/class-yaydp-i18n.php:336
+msgid ""
+"Set up additional conditions that need to be met before the promotion is "
+"applied"
+msgstr ""
+"Nastavte další podmínky, které je třeba splnit před uplatněním propagační "
+"akce"
+
+#: includes/class-yaydp-i18n.php:337
+msgid "Settings"
+msgstr "Nastavení"
+
+#: includes/class-yaydp-i18n.php:338
+msgid "Shipping region"
+msgstr "Oblast přepravy"
+
+#: includes/class-yaydp-i18n.php:339
+msgid "Shortcode copied"
+msgstr "Zkrácený kód zkopírován"
+
+#: includes/class-yaydp-i18n.php:340
+msgid "Shortcode to load all products which has discount through YayPricing"
+msgstr ""
+"Krátký kód pro načtení všech produktů, které mají slevu prostřednictvím "
+"YayPricing"
+
+#: includes/class-yaydp-i18n.php:341
+msgid "Shortcodes"
+msgstr "Zkratky (Shortcodes)"
+
+#: includes/class-yaydp-i18n.php:342
+msgid ""
+"Show ad countdown timer to let customers know how much time is left until "
+"sales on products are over and helps boost your sale."
+msgstr ""
+"Zobrazte časovač odpočítávání reklam, abyste zákazníkům dali vědět, kolik "
+"času zbývá do konce prodeje produktů, a pomozte zvýšit prodej."
+
+#: includes/class-yaydp-i18n.php:343
+msgid "Show countdown timer"
+msgstr "Zobrazit odpočítávací časovač"
+
+#: includes/class-yaydp-i18n.php:344
+msgid "Show HTML source"
+msgstr "Zobrazit zdrojový kód HTML"
+
+#: includes/class-yaydp-i18n.php:345
+msgid "Show notices after product description to encourage purchasing"
+msgstr "Zobrazovat upozornění za popisem produktu, abyste podpořili nákup"
+
+#: includes/class-yaydp-i18n.php:346
+msgid "Show notices at bottom of Cart page to encourage purchasing"
+msgstr ""
+"Zobrazovat upozornění v dolní části stránky košíku, abyste podpořili nákup"
+
+#: includes/class-yaydp-i18n.php:347
+msgid "Show notices at bottom of Checkout page to encourage purchasing"
+msgstr ""
+"Zobrazovat upozornění v dolní části stránky pokladny, abyste podpořili nákup"
+
+#: includes/class-yaydp-i18n.php:348
+msgid "Show offer description in product page"
+msgstr "Zobrazit popis nabídky na stránce produktu"
+
+#: includes/class-yaydp-i18n.php:349
+msgid "Show product discounted price"
+msgstr "Zobrazit zvýhodněnou cenu produktu"
+
+#: includes/class-yaydp-i18n.php:350
+msgid "Show product regular price within discounted"
+msgstr "Zobrazit produkt za běžnou cenu ve zvýhodněné slevě"
+
+#: includes/class-yaydp-i18n.php:351
+msgid "Show regular price on cart item"
+msgstr "Zobrazit běžnou cenu na položce košíku"
+
+#: includes/class-yaydp-i18n.php:352
+msgid "Show sale off amount on the sale tag"
+msgstr "Zobrazit částku výprodeje na štítku prodeje"
+
+#: includes/class-yaydp-i18n.php:353
+msgid "Show sale tag and discounted price as"
+msgstr "Zobrazit štítek prodeje a zvýhodněnou cenu jako"
+
+#: includes/class-yaydp-i18n.php:354
+msgid "Show sale tag for sale products"
+msgstr "Zobrazit štítek prodeje pro prodej produktů"
+
+#: includes/class-yaydp-i18n.php:355
+msgid "Show tooltip on cart discount"
+msgstr "Zobrazit popisek ke slevě v košíku"
+
+#: includes/class-yaydp-i18n.php:356
+msgid "Show tooltip on cart item price"
+msgstr "Zobrazit popisek na ceně položky košíku"
+
+#: includes/class-yaydp-i18n.php:357
+msgid "Show tooltip on checkout fee"
+msgstr "Zobrazit popisek k poplatku za pokladnu"
+
+#: includes/class-yaydp-i18n.php:358
+msgid "Simple Adjustment"
+msgstr "Jednoduché nastavení"
+
+#: includes/class-yaydp-i18n.php:359
+msgid "Source"
+msgstr "Zdroj"
+
+#: includes/class-yaydp-i18n.php:360
+msgid "Specific customer"
+msgstr "Konkrétní zákazník"
+
+#: includes/class-yaydp-i18n.php:361
+msgid "Split rule"
+msgstr "Pravidlo rozdělení"
+
+#: includes/class-yaydp-i18n.php:362
+msgid "Status"
+msgstr "Stav"
+
+#: includes/class-yaydp-i18n.php:363
+msgid "Style has been reset"
+msgstr "Styl byl resetován"
+
+#: includes/class-yaydp-i18n.php:364
+msgid "Table position"
+msgstr "Umístění tabulky"
+
+#: includes/class-yaydp-i18n.php:365
+msgid "Table title"
+msgstr "Název tabulky"
+
+#: includes/class-yaydp-i18n.php:366
+msgid ""
+"The action customer need to do to get the discount. Example: “buy more 100$” "
+"or “buy more 1 item of Product A” "
+msgstr ""
+"Akce, kterou musí zákazník udělat, aby získal slevu. Příklad: \"koupit více "
+"100 $\" nebo \"koupit více 1 položku produktu A\" "
+
+#: includes/class-yaydp-i18n.php:367
+msgid "The calculated value of discount"
+msgstr "Vypočtená hodnota slevy"
+
+#: includes/class-yaydp-i18n.php:368
+msgid "The discount value. Example: “50%“ or “10$“"
+msgstr "Hodnota slevy. Příklad: \"50%\" nebo \"10$\""
+
+#: includes/class-yaydp-i18n.php:369
+msgid "This adds a cap so that the discount amount will not exceed this amount"
+msgstr "Tím se přidá limit, aby výše slevy nepřekročila tuto částku"
+
+#: includes/class-yaydp-i18n.php:370
+msgid "This rule applies to those products that match"
+msgstr "Toto pravidlo se vztahuje na produkty, které odpovídají"
+
+#: includes/class-yaydp-i18n.php:372
+msgid "This rule is not assigned to any product. Please"
+msgstr "Toto pravidlo není přiřazeno žádnému produktu. Prosím"
+
+#: includes/class-yaydp-i18n.php:373
+msgid "This rule will be used if"
+msgstr "Toto pravidlo se použije, pokud"
+
+#: includes/class-yaydp-i18n.php:374
+msgid ""
+"This setting allows you to apply YayPricing's rules only if a WooCommerce "
+"coupon is not applied to the order"
+msgstr ""
+"Toto nastavení vám umožňuje použít pravidla YayPricing pouze v případě, že "
+"na objednávku není uplatněn kupón WooCommerce"
+
+#: includes/class-yaydp-i18n.php:375
+msgid "Time"
+msgstr "Čas"
+
+#: includes/class-yaydp-i18n.php:376
+msgid "Timer clock, it will countdown to the schedule day"
+msgstr "Hodiny s časovačem, budou odpočítávat do plánovaného dne"
+
+#: includes/class-yaydp-i18n.php:377
+msgid "to assign it."
+msgstr "přiřadit."
+
+#: includes/class-yaydp-i18n.php:378
+msgid "to exclude."
+msgstr "vyloučit."
+
+#: includes/class-yaydp-i18n.php:379
+msgid "Today is Black Friday, so you will get 70% off when buy all products"
+msgstr "Dnes je Black Friday, takže při nákupu všech produktů získáte 70% off"
+
+#: includes/class-yaydp-i18n.php:380
+msgid "Total shipping fee"
+msgstr "Celkový poplatek za dopravu"
+
+#: includes/class-yaydp-i18n.php:381
+msgid "Unlimited cart discount rules"
+msgstr "Pravidla pro neomezené slevy v košíku"
+
+#: includes/class-yaydp-i18n.php:382
+msgid "Unlimited product discount rules"
+msgstr "Pravidla neomezených slev na produkty"
+
+#: includes/class-yaydp-i18n.php:383
+msgid "Upgrade to unlock this feature"
+msgstr "Upgrade pro odemknutí této funkce"
+
+#: includes/class-yaydp-i18n.php:384
+msgid "Upload Image"
+msgstr "Nahrát obrázek"
+
+#: includes/class-yaydp-i18n.php:385
+msgid "Upselling notices"
+msgstr "Oznámení o upsellingu"
+
+#: includes/class-yaydp-i18n.php:386
+msgid "Usage limits"
+msgstr "Omezení využití"
+
+#: includes/class-yaydp-i18n.php:387
+msgid "Use discount ID as coupon code"
+msgstr "Použijte ID slevy jako kód kupónu"
+
+#: includes/class-yaydp-i18n.php:388
+msgid ""
+"Use shortcode to output all discounted products on any WordPress page/post"
+msgstr ""
+"Použijte krátký kód k výstupu všech zlevněných produktů na jakoukoli "
+"stránku / příspěvek WordPress"
+
+#: includes/class-yaydp-i18n.php:389
+msgid "Used"
+msgstr "Použití"
+
+#: includes/class-yaydp-i18n.php:390
+msgid "User role discounts"
+msgstr "Slevy na role uživatele"
+
+#: includes/class-yaydp-i18n.php:391
+msgid "Variable list"
+msgstr "Seznam proměnných"
+
+#: includes/class-yaydp-i18n.php:392
+msgid "Variables"
+msgstr "Proměnné"
+
+#: includes/class-yaydp-i18n.php:393
+msgid ""
+"View charts and analytics for your pricing rules. You can see how a "
+"promotion campaign performs in a date range"
+msgstr ""
+"Prohlédněte si grafy a analýzy cenových pravidel. Můžete se podívat, jak si "
+"propagační kampaň vede v určitém časovém období"
+
+#: includes/class-yaydp-i18n.php:394
+msgid "View selected products"
+msgstr "Zobrazit vybrané produkty"
+
+#: includes/class-yaydp-i18n.php:395
+msgid "VIP live chat support"
+msgstr "Podpora VIP živého chatu"
+
+#: includes/class-yaydp-i18n.php:396
+msgid ""
+"When product is on sale, it will not be discounted by product pricing rule."
+msgstr "Když je produkt ve slevě, nebude zlevněn podle pravidla ceny produktu."
+
+#: includes/class-yaydp-i18n.php:397
+msgid ""
+"With conditions feature, you can decide when this rule will be used. It "
+"helps you create a product pricing more powerful"
+msgstr ""
+"Pomocí funkce podmínek se můžete rozhodnout, kdy bude toto pravidlo použito. "
+"Pomůže vám vytvořit výkonnější cenu produktu"
+
+#: includes/class-yaydp-i18n.php:398
+msgid "YayPricing Free"
+msgstr "YayPricing Zdarma"
+
+#: includes/class-yaydp-i18n.php:399
+msgid "YayPricing Pro"
+msgstr "YayPricing Pro"
+
+#: includes/class-yaydp-i18n.php:400
+msgid "Year"
+msgstr "Rok"
+
+#: includes/class-yaydp-i18n.php:401
+msgid ""
+"You don't have any <strong>Product Pricing</strong> rule to exclude. Please "
+"create a pricing to continue setting up this rule"
+msgstr ""
+"Nemáte žádné pravidlo <strong>pro stanovení cen produktů</strong> , které "
+"byste mohli vyloučit. Chcete-li pokračovat v nastavování tohoto pravidla, "
+"vytvořte si cenu"
+
+#: includes/class-yaydp-i18n.php:402
+msgid ""
+"You don't have any rule to exclude. Please create one to continue setting up "
+"this rule"
+msgstr ""
+"Nemáte žádné pravidlo, které byste mohli vyloučit. Chcete-li pokračovat v "
+"nastavování tohoto pravidla, vytvořte si ho"
+
+#: includes/class-yaydp-i18n.php:403
+msgid "You have no pricing range, please"
+msgstr "Nemáte žádné cenové rozpětí, prosím"
+
+#: includes/class-yaydp-i18n.php:404
+msgid "You will get [discount_value] discount when buy 1 item of this product"
+msgstr "Slevu [discount_value] získáte při nákupu 1 kusu tohoto produktu"
+
+#: includes/class-yaydp-i18n.php:405
+msgid "You will get 1 free item when buy 3 items of this product"
+msgstr "Při nákupu 3 kusů tohoto produktu získáte 1 položku zdarma"
+
+#: includes/class-yaydp-i18n.php:406
+msgid "You will get 30% off when buy from 3 items"
+msgstr "Při nákupu od 3 položek získáte 30% off"
+
+#: includes/class-yaydp-i18n.php:407
+msgid "You will get 50% off when buy the this product"
+msgstr "Při zakoupení tohoto produktu získáte 50% off"
+
+#: includes/class-yaydp-i18n.php:408
+msgid "You're getting this discount: [discount_value] off for all products"
+msgstr "Získáváte tuto slevu: [discount_value] sleva na všechny produkty"
+
+#: includes/class-yaydp-i18n.php:409
+msgid "You're getting this discount: [discount_value] off"
+msgstr "Získáváte tuto slevu: [discount_value] sleva"
+
+#: includes/class-yaydp-i18n.php:410
+msgid "Your current"
+msgstr "Vaše aktuální"
+
+#: includes/class-yaydp-i18n.php:411
+msgid "Your own campaign"
+msgstr "Vaše vlastní kampaň"
+
+#: includes/class-yaydp-i18n.php:412
+msgid "Saving amount"
+msgstr "Úsporná částka"
+
+#: includes/class-yaydp-i18n.php:413
+msgid "Show order saving amount"
+msgstr "Zobrazit úspornou částku objednávky"
+
+#: includes/class-yaydp-i18n.php:414
+msgid "Show products saving amount on cart page (Only for cart shortcode)"
+msgstr ""
+"Zobrazit částku úspory produktů na stránce košíku (Pouze pro krátký kód "
+"košíku)"
+
+#: includes/class-yaydp-i18n.php:415
+msgid "Before order total"
+msgstr "Před shrnutím objednávky"
+
+#: includes/class-yaydp-i18n.php:416
+msgid "After order total"
+msgstr "Po shrnutí objednávce"
+
+#: includes/class-yaydp-logger.php:27
+msgid "SYSTEM ERROR:"
+msgstr "SYSTÉMOVÁ CHYBA:"
+
+#: includes/class-yaydp-logger.php:44
+msgid "log-"
+msgstr "kláda-"
+
+#. Translators: link href.
+#: includes/class-yaypricing.php:113
+msgid "%1$s Settings %2$s"
+msgstr "%1$s Nastavení %2$s"
+
+#. Translators: link href.
+#: includes/class-yaypricing.php:129
+msgid "%1$s Docs %2$s"
+msgstr "%1$s Dokumenty %2$s"
+
+#. Translators: link href.
+#: includes/class-yaypricing.php:131
+msgid "%1$s Support %2$s"
+msgstr "%1$s podpora %2$s"
+
+#: includes/core/manager/class-yaydp-cart-discount-manager.php:149
+#: includes/core/rule/cart-discount/class-yaydp-combined-discount.php:106
+msgid "%s"
+msgstr "%s"
+
+#: includes/core/manager/class-yaydp-product-pricing-manager.php:337
+msgid "Product discounts"
+msgstr "Slevy na produkty"
+
+#: includes/core/offer-description/class-yaydp-offer-description.php:194
+#: includes/core/offer-description/class-yaydp-offer-description.php:279
+#: includes/core/offer-description/class-yaydp-offer-description.php:356
+msgid "unlimited"
+msgstr "neomezeno"
+
+#: includes/core/offer-description/class-yaydp-offer-description.php:203
+msgid ""
+"from %1$s to %2$s: <span data-variable=\"discount_value\" data-"
+"formula=\"%3$s\">%4$s</span>"
+msgstr ""
+"od do %1$s %2$s: <span data-variable=\"discount_value\" data-"
+"formula=\"%3$s\">%4$s</span>"
+
+#: includes/core/offer-description/class-yaydp-offer-description.php:225
+msgid ""
+"<span data-variable=\"discount_value\" data-formula=\"%1$s\">%2$s</span>"
+msgstr ""
+"<span data-variable=\"discount_value\" data-formula=\"%1$s\">%2$s</span>"
+
+#: includes/core/offer-description/class-yaydp-offer-description.php:256
+#: includes/core/offer-description/class-yaydp-offer-description.php:309
+msgid ""
+"<span data-variable=\"discount_amount\" data-formula=\"%1$s\">%2$s</span>"
+msgstr ""
+"<span data-variable=\"discount_amount\" data-formula=\"%1$s\">%2$s</span>"
+
+#: includes/core/offer-description/class-yaydp-offer-description.php:287
+msgid ""
+"from %1$s to %2$s: <span data-variable=\"discount_amount\" data-"
+"formula=\"%3$s\">%4$s</span>"
+msgstr ""
+"od do %1$s %2$s: <span data-variable=\"discount_amount\" data-"
+"formula=\"%3$s\">%4$s</span>"
+
+#: includes/core/offer-description/class-yaydp-offer-description.php:364
+msgid ""
+"from %1$s to %2$s: <span data-variable=\"discounted_price\" data-"
+"formula=\"%3$s\">%4$s</span>"
+msgstr ""
+"od do %1$s %2$s: <span data-variable=\"discounted_price\" data-"
+"formula=\"%3$s\">%4$s</span>"
+
+#: includes/core/offer-description/class-yaydp-offer-description.php:387
+msgid ""
+"<span data-variable=\"discounted_price\" data-formula=\"%1$s\">%2$s</span>"
+msgstr ""
+"<span data-variable=\"discounted_price\" data-formula=\"%1$s\">%2$s</span>"
+
+#. translators: %s Rule name.
+#: includes/core/use-time/class-yaydp-product-pricing-use-time.php:46
+msgid "%s has expired. Please reload the page to continue checkout."
+msgstr "%s vypršela. Chcete-li pokračovat v placení, znovu načtěte stránku."
+
+#: includes/helper/class-yaydp-helper.php:26
+msgid "Nonce is invalid"
+msgstr "Nonce je neplatná."
+
+#: includes/noname/class-yaydp-pricing-table.php:104
+msgid "Unlimited"
+msgstr "Neomezeno"
+
+#: includes/templates/product/yaydp-sale-tag.php:31
+msgid "SALE!"
+msgstr "PRODEJ!"
+
+#: includes/templates/product/yaydp-sale-tag.php:32
+msgid "Up to %s"
+msgstr "Až %s"
+
+#: includes/yaycommercemenu/class-register-menu.php:70
+msgid "Help"
+msgstr "Pomoc"
+
+#: includes/yaycommercemenu/class-register-menu.php:103
+msgid "Licenses"
+msgstr "Licence"
+
+#: includes/yaycommercemenu/class-register-menu.php:112
+msgid "Other plugins"
+msgstr "Další pluginy"
+
+#: includes/yaydp-duplicate-fallback.php:24
+msgid ""
+"It looks like you have another YayPricing version installed, please delete "
+"it before activating this new version. All current settings and data are "
+"still preserved."
+msgstr ""
+"Vypadá to, že máte nainstalovanou jinou verzi YayPricing, před aktivací této "
+"nové verze ji prosím odstraňte. Všechna aktuální nastavení a data zůstanou "
+"zachována."
+
+#: includes/yaydp-duplicate-fallback.php:25
+msgid "Read more details."
+msgstr "Přečtěte si další podrobnosti."
