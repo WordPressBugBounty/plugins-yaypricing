@@ -93,6 +93,11 @@ class YAYDP_Helper {
 	 * @return array
 	 */
 	public static function check_applicability( $filters, $product, $match_type = 'any', $item_key = null ) {
+
+		if ( \yaydp_product_pricing_is_applied_to_non_discount_product() && \YAYDP\Core\Discounted_Products\YAYDP_Discounted_Products::get_instance()->is_discounted( $product ) ) {
+			return false;
+		}
+
 		$disable_applying_when_on_sale = \YAYDP\Settings\YAYDP_Product_Pricing_Settings::get_instance()->disable_when_on_sale();
 
 		if ( $disable_applying_when_on_sale && $product->is_on_sale() ) {

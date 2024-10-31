@@ -52,7 +52,10 @@ class YAYDP_ACF_Integration {
 	}
 
 	public function get_taxonomies() {
-		$cache_key = acf_cache_key( 'acf_get_taxonomy_posts' );
+		$cache_key = '';
+		if ( function_exists( 'acf_cache_key' ) ) {
+			$cache_key = \acf_cache_key( 'acf_get_taxonomy_posts' );
+		}
 		$post_ids  = wp_cache_get( $cache_key, 'acf' ); // TODO: Do we need to change the group at all?
 
 		if ( $post_ids === false ) {
@@ -65,7 +68,10 @@ class YAYDP_ACF_Integration {
 
 		foreach ( $post_ids as $post_id ) {
 			$post          = get_post( $post_id );
-			$taxonomy_info = acf_maybe_unserialize( $post->post_content );
+			$taxonomy_info = $post->post_content;
+			if ( function_exists( 'acf_maybe_unserialize' ) ) {
+				$taxonomy_info = acf_maybe_unserialize( $post->post_content );	
+			}
 			$return[]      = get_taxonomy( $taxonomy_info['taxonomy'] );
 		}
 
@@ -139,6 +145,9 @@ class YAYDP_ACF_Integration {
 				$cat          = $item;
 				while ( ! empty( $cat->parent ) ) {
 					$parent        = get_term( $cat->parent );
+					if ( is_null( $parent ) || is_wp_error( $parent ) ) {
+						continue;
+					}
 					$parent_label .= $parent->name . ' ⇒ ';
 					$cat           = $parent;
 				}

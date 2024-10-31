@@ -272,4 +272,15 @@ class YAYDP_Product_Pricing_Settings {
 		$encouraged_notice_settings = $this->get_encouraged_notice_settings();
 		return isset( $encouraged_notice_settings['enable'] ) ? $encouraged_notice_settings['enable'] : false;
 	}
+
+	/**
+	 * Returns whether show original subtotal price
+	 *
+	 * @since 3.4
+	 *
+	 * @return bool
+	 */
+	public function show_original_subtotal_price() {
+		return isset( $this->settings['show_original_subtotal_price'] ) ? $this->settings['show_original_subtotal_price'] : true;
+	}
 }

@@ -265,6 +265,9 @@ class YAYDP_Buy_X_Get_Y extends \YAYDP\Abstracts\YAYDP_Product_Pricing_Rule {
 				if ( $is_get_free_item ) {
 					$product  = $receive_data['item'];
 					$new_item = $cart->add_free_item( $product, $receive_quantity );
+					if ( $new_item == null ) {
+						continue;
+					}
 					$modifier = array(
 						'rule'              => $this,
 						'modify_quantity'   => $receive_quantity,
@@ -288,6 +291,10 @@ class YAYDP_Buy_X_Get_Y extends \YAYDP\Abstracts\YAYDP_Product_Pricing_Rule {
 						'item'              => $item,
 					);
 					$item->add_modifier( $modifier );
+					$item_product = $item->get_product();
+					if ( \yaydp_product_pricing_is_applied_to_non_discount_product() && $item_product ) {
+						\YAYDP\Core\Discounted_Products\YAYDP_Discounted_Products::get_instance()->add_product( $item_product );
+					}
 				}
 			}
 		}
@@ -510,7 +517,7 @@ class YAYDP_Buy_X_Get_Y extends \YAYDP\Abstracts\YAYDP_Product_Pricing_Rule {
 				continue;
 			}
 			$item_product = $item->get_product();
-			if ( ! is_null( $product ) ) {
+			if ( ! empty( $product ) ) {
 				if ( \yaydp_is_variable_product( $product ) ) {
 					if ( ! in_array( $item_product->get_id(), $product->get_children(), true ) ) {
 						continue;

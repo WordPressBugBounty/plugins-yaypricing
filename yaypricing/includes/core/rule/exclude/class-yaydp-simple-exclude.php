@@ -51,7 +51,7 @@ class YAYDP_Simple_Exclude extends \YAYDP\Abstracts\YAYDP_Exclude_Rule {
 	 */
 	public function check_exclude( $rule, $product = null ) {
 
-		if ( is_null( $product ) ) {
+		if ( empty( $product ) ) {
 			return false;
 		}
 

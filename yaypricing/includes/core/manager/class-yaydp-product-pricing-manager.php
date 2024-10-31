@@ -27,6 +27,7 @@ class YAYDP_Product_Pricing_Manager {
 
 		// Change cart item HTML.
 		add_filter( 'woocommerce_cart_item_price', array( $this, 'change_cart_item_price_html' ), 10, 3 );
+		add_filter( 'woocommerce_cart_item_subtotal', array( $this, 'change_cart_item_subtotal_html' ), 10, 3 );
 		add_filter( 'woocommerce_widget_cart_item_quantity', array( $this, 'change_cart_item_price_html' ), 10, 3 );
 		add_filter( 'woocommerce_cart_item_remove_link', array( $this, 'hide_extra_cart_item_remove_link' ), 10, 2 );
 		add_filter( 'woocommerce_quantity_input_args', array( $this, 'disable_extra_cart_item_quantity_input' ), 10, 1 );
@@ -46,6 +47,27 @@ class YAYDP_Product_Pricing_Manager {
 			},
 			1000,
 			3
+		);
+
+		add_action(
+			'woocommerce_add_to_cart',
+			function( $key ) {
+				$cart_item = \WC()->cart->get_cart_item( $key );
+
+				if ( empty( $cart_item ) ) {
+					return;
+				}
+
+				if ( empty( $cart_item['is_extra'] ) ) {
+					return;
+				}
+
+				$cart_item['data']->set_price( 0 );
+				if ( \yaydp_product_pricing_is_discount_based_on_regular_price() ) {
+					$cart_item['data']->set_regular_price( 0 );
+				}
+				return;
+			}
 		);
 
 		// Add offer description.
@@ -79,7 +101,11 @@ class YAYDP_Product_Pricing_Manager {
 		add_filter( 'yaydp_prevent_recalculate_cart', '__return_true' );
 		foreach ( \WC()->cart->get_cart() as $cart_item_key => $cart_item ) {
 			if ( \yaydp_is_extra_wc_cart_item( $cart_item ) ) {
-				\WC()->cart->remove_cart_item( $cart_item_key );
+				// \WC()->cart->remove_cart_item( $cart_item_key );
+				if ( isset( \WC()->cart->removed_cart_contents[ $cart_item_key ] ) ) {
+					unset( \WC()->cart->removed_cart_contents[ $cart_item_key ]['data'] );
+				}
+				unset( \WC()->cart->cart_contents[ $cart_item_key ] );
 				continue;
 			}
 			if ( isset( $cart_item['extra_data'] ) ) {
@@ -119,7 +145,8 @@ class YAYDP_Product_Pricing_Manager {
 		do_action( 'yaydp_before_calculate_product_pricing' );
 
 		global $yaydp_cart;
-		$yaydp_cart                  = new \YAYDP\Core\YAYDP_Cart();
+		$yaydp_cart = new \YAYDP\Core\YAYDP_Cart();
+		\YAYDP\Core\Discounted_Products\YAYDP_Discounted_Products::get_instance()->clear_products();
 		$product_pricing_adjustments = new \YAYDP\Core\Adjustments\YAYDP_Product_Pricing_Adjustments( $yaydp_cart );
 		$product_pricing_adjustments->do_stuff();
 		$yaydp_cart->publish();
@@ -209,7 +236,7 @@ class YAYDP_Product_Pricing_Manager {
 		foreach ( $running_rules as $rule ) {
 			$filters = $rule->get_buy_filters();
 			if ( \yaydp_is_buy_x_get_y( $rule ) ) {
-				if ( $rule->can_apply_adjustment( $product, $filters ) ) {
+				if ( $rule->can_apply_adjustment( $product, $filters, $rule->get_match_type_of_buy_filters() ) ) {
 					$offer_description = $rule->get_offer_description( $product, 'buy_content' );
 					if ( $offer_description->can_display() ) {
 						$offer_descriptions[] = $offer_description;
@@ -343,7 +370,7 @@ class YAYDP_Product_Pricing_Manager {
 	public function show_saving_amount() {
 		global $yaydp_cart;
 		if ( ! is_null( $yaydp_cart ) ) {
-			$saved_amount = $yaydp_cart->get_cart_origin_total( false ) - $yaydp_cart->get_cart_total( false );
+			$saved_amount = $yaydp_cart->get_cart_origin_total( false ) - $yaydp_cart->get_cart_subtotal( false );
 			if ( empty( $saved_amount ) ) {
 				return;
 			}
@@ -354,6 +381,33 @@ class YAYDP_Product_Pricing_Manager {
 		</tr>
 			<?php
 		}
+	}
+
+	/**
+	 * Change cart item price
+	 *
+	 * @param string $html Current item price html.
+	 * @param array  $cart_item Cart item.
+	 *
+	 * @since 3.4
+	 */
+	public function change_cart_item_subtotal_html( $html, $cart_item ) {
+		if ( ! \YAYDP\Settings\YAYDP_Product_Pricing_Settings::get_instance()->show_original_subtotal_price() ) {
+			return $html;
+		}
+		$yaydp_cart_item    = new \YAYDP\Core\YAYDP_Cart_Item( $cart_item );
+		$item_initial_price = $yaydp_cart_item->get_initial_price();
+		$item_quantity      = $yaydp_cart_item->get_quantity();
+		if ( $yaydp_cart_item->can_modify() ) {
+			ob_start();
+			?>
+			<del><?php echo wp_kses_post( \wc_price( $item_initial_price * $item_quantity ) ); ?></del>
+			<?php
+			$extra_html = ob_get_contents();
+			ob_end_clean();
+			$html = '<div class="price">' . $extra_html . $html . '</div>';
+		}
+		return apply_filters( 'yaydp_cart_item_price_html', $html, $cart_item );
 	}
 
 }

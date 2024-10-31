@@ -371,7 +371,7 @@ class YAYDP_Bulk_Pricing extends \YAYDP\Abstracts\YAYDP_Product_Pricing_Rule {
 				continue;
 			}
 			$item_product = $item->get_product();
-			if ( ! is_null( $product ) ) {
+			if ( ! empty( $product ) ) {
 				if ( \yaydp_is_variable_product( $product ) ) {
 					if ( ! in_array( $item_product->get_id(), $product->get_children(), true ) ) {
 						continue;

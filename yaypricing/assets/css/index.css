@@ -50,6 +50,14 @@
   border-radius: 3px;
   color: #fff;
 }
-.variation_gzd_modified+.price.yaydp-discounted-price {
+.variation_gzd_modified + .price.yaydp-discounted-price {
+  display: none;
+}
+
+/** support blocksy */
+.quantity:has(input[readonly="readonly"]) .ct-increase {
+  display: none;
+}
+.quantity:has(input[readonly="readonly"]) .ct-decrease {
   display: none;
 }

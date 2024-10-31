@@ -179,7 +179,7 @@ class YAYDP_Condition_Helper {
 		foreach ( $cart_items as $cart_item ) {
 
 			$cart_item_quantity = $cart_item->get_quantity();
-			$cart_item_price    = $cart_item->get_price();
+			$cart_item_price    = $cart_item->get_store_price(); // TODO: split settings to overlappsed rules
 			$subtotal          += $cart_item_quantity * $cart_item_price;
 
 		}

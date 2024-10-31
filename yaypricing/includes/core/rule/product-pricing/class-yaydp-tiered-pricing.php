@@ -250,6 +250,20 @@ class YAYDP_Tiered_Pricing extends \YAYDP\Abstracts\YAYDP_Product_Pricing_Rule {
 		return min( $item_price, $adjustment_amount );
 	}
 
+	protected function get_item_adjust_value( $pricing_type, $pricing_value, $item_price, $maximum_value = null ) {
+		$the_maximum = $maximum_value ?? $item_price;
+		if ( yaydp_is_flat_pricing_type( $pricing_type ) ) {
+			$the_maximum = $item_price;
+		}
+		$adj_val = \YAYDP\Helper\YAYDP_Pricing_Helper::calculate_adjustment_amount( $item_price, $pricing_type, $pricing_value, $the_maximum );
+
+		if ( yaydp_is_flat_pricing_type( $pricing_type ) ) {
+			$adj_val = max( 0, $item_price - $adj_val );
+		}
+
+		return $adj_val;
+	}
+
 	public function discount_item( $adjustment ) {
 		$adjustment_values = array();
 		if ( $this->is_individual_line_item_discount() ) {
@@ -264,10 +278,10 @@ class YAYDP_Tiered_Pricing extends \YAYDP\Abstracts\YAYDP_Product_Pricing_Rule {
 					foreach ( $ranges as $range_k => $range ) {
 						$from_quantity    = $range['from_quantity'];
 						$to_quantity      = $range['to_quantity'];
-						$discount_value   = $range['pricing']['value'];
 						$current_quantity = $i + 1;
 						if ( $current_quantity >= $from_quantity && ( $to_quantity === null || $current_quantity <= $to_quantity ) ) {
-							$adj_val                     = \YAYDP\Helper\YAYDP_Pricing_Helper::calculate_adjustment_amount( $item_price, $range['pricing']['type'], $discount_value );
+							
+							$adj_val = $this->get_item_adjust_value( $range['pricing']['type'], $range['pricing']['value'], $item_price, $range['pricing']['maximum_value'] );
 							$total_discount             += $adj_val;
 							$adjustment_values[ $i + 1 ] = $adj_val;
 							break;
@@ -299,10 +313,9 @@ class YAYDP_Tiered_Pricing extends \YAYDP\Abstracts\YAYDP_Product_Pricing_Rule {
 					foreach ( $ranges as $range ) {
 						$from_quantity  = $range['from_quantity'];
 						$to_quantity    = $range['to_quantity'];
-						$discount_value = $range['pricing']['value'];
 
 						if ( $current_quantity >= $from_quantity && ( $to_quantity === null || $current_quantity <= $to_quantity ) ) {
-							$adj_val                     = \YAYDP\Helper\YAYDP_Pricing_Helper::calculate_adjustment_amount( $item_price, $range['pricing']['type'], $discount_value );
+							$adj_val = $this->get_item_adjust_value( $range['pricing']['type'], $range['pricing']['value'], $item_price, $range['pricing']['maximum_value'] );
 							$total_discount             += $adj_val;
 							$adjustment_values[ $i + 1 ] = $adj_val;
 							break;
@@ -342,10 +355,9 @@ class YAYDP_Tiered_Pricing extends \YAYDP\Abstracts\YAYDP_Product_Pricing_Rule {
 					foreach ( $ranges as $range_k => $range ) {
 						$from_quantity  = $range['from_quantity'];
 						$to_quantity    = $range['to_quantity'];
-						$discount_value = $range['pricing']['value'];
 
 						if ( $current_quantity >= $from_quantity && ( $to_quantity === null || $current_quantity <= $to_quantity ) ) {
-							$adjust_val                  = \YAYDP\Helper\YAYDP_Pricing_Helper::calculate_adjustment_amount( $item_price, $range['pricing']['type'], $discount_value );
+							$adjust_val = $this->get_item_adjust_value( $range['pricing']['type'], $range['pricing']['value'], $item_price, $range['pricing']['maximum_value'] );
 							$total_discount             += $adjust_val;
 							$adjustment_values[ $i + 1 ] = $adjust_val;
 							break;
@@ -461,7 +473,7 @@ class YAYDP_Tiered_Pricing extends \YAYDP\Abstracts\YAYDP_Product_Pricing_Rule {
 				continue;
 			}
 			$item_product = $item->get_product();
-			if ( ! is_null( $product ) ) {
+			if ( ! empty( $product ) ) {
 				if ( \yaydp_is_variable_product( $product ) ) {
 					if ( ! in_array( $item_product->get_id(), $product->get_children(), true ) ) {
 						continue;

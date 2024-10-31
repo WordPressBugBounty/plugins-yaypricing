@@ -44,6 +44,15 @@ class YAYDP_Filter_Discount {
 		if ( ! is_array( $free_chosen_products ) ) {
 			$free_chosen_products = array();
 		}
+		if ( count( $matching_items ) > 1 && apply_filters( 'yaydp_randomize_free_items', true ) ) {
+			$current_hour   = gmdate( 'H' );
+			$current_date   = gmdate( 'd' );
+			$lucky_number   = intval( $current_hour ) + intval( $current_date );
+			$target_point   = intval( $lucky_number ) % ( count( $matching_items ) + 1 );
+			$target_point   = min( $target_point, count( $matching_items ) );
+			$new_items      = array_merge( array_slice( $matching_items, $target_point ), array_slice( $matching_items, 0, $target_point - 1 ) );
+			$matching_items = $new_items;
+		}
 		foreach ( $matching_items as $product_id ) {
 			if ( empty( $receive_quantity ) ) {
 				break;

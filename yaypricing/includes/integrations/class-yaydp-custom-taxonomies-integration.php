@@ -136,6 +136,9 @@ class YAYDP_Custom_Taxonomies_Integration {
 				$cat          = $item;
 				while ( ! empty( $cat->parent ) ) {
 					$parent        = get_term( $cat->parent );
+					if ( is_null( $parent ) || is_wp_error( $parent ) ) {
+						continue;
+					}
 					$parent_label .= $parent->name . ' ⇒ ';
 					$cat           = $parent;
 				}

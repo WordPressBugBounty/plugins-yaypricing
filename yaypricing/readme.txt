@@ -3,8 +3,8 @@ Contributors: YayCommerce
 Donate link: https://yaycommerce.com/yaypricing-woocommerce-dynamic-pricing-and-discounts/
 Tags: dynamic pricing, discounts, cart fee, buy one get one, coupon
 Requires at least: 3.0
-Tested up to: 6.6.2
-Stable tag: 3.3
+Tested up to: 6.7
+Stable tag: 3.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -14,7 +14,7 @@ Create WooCommerce Dynamic Pricing & Discounts rules without coding.
 
 YayPricing is an **all-purpose pricing and discounts plugin** for your WooCommerce store. It helps you create promotional campaigns based on different conditions.
 
-Create a WooCommerce dynamic pricing strategy in 4 steps:
+💪 Master WooCommerce Dynamic Pricing in Just 4 Easy Steps:
 
 - Select a pricing type and define its discount rules.
 - Apply the pricing rules to a product or a category of products.
@@ -25,7 +25,7 @@ Create a WooCommerce dynamic pricing strategy in 4 steps:
 
 [youtube https://youtu.be/DSxsCxnXv_g]
 
-[Documentation](https://docs.yaycommerce.com/yaypricing/how-it-works/product-pricing) | [Woo integrations](https://docs.yaycommerce.com/yaypricing/compatibility)
+[Documentation](https://docs.yaycommerce.com/yaypricing/how-it-works/product-pricing) | [WooCommerce.com version](https://woocommerce.com/products/dynamic-pricing-discounts/)
 
 Supported WooCommerce discount rules:
 
@@ -124,6 +124,19 @@ A big yes! YayPricing is compliant with GDPR. It doesn't collect your WooCommerc
 6. Gift item of "Buy one get one free" promotion automatically added to cart page
 
 == Changelog ==
+= Nov 1, 2024 - Version 3.4 =
+- Added: All on-sale shortcode (display on sale WC and on sale YayPricing) yaydp-all-on-sale-products
+- Added: Apply rule only to first matching products ( setting on product pricing rule )
+- Added: Apply discount to non-discount product ( Disable product pricing rules when the product is discounted by other rule )
+- Added: Save amount block
+- Added: Randomize free items in specific period
+- Added: Setting allow enable calculating tax in checkout fee
+- Added: Integrate with WooCommerce Composite Products Plugin
+- Added: Integrate with WPClever Product Bundles Plugin
+- Updated: Admin layout
+- Fixed: Admin HTML editor cannot enter link with internal open link
+- Fixed: Admin prevent texts selected when sorting rule
+- Fixed: Elementor cart automatically open
 
 = Sep 15, 2024 - Version 3.3 =
 - Added: Product Fee rule

@@ -101,3 +101,15 @@ if ( ! function_exists( 'yaydp_product_pricing_is_discount_based_on_regular_pric
 	}
 }
 
+if ( ! function_exists( 'yaydp_product_pricing_is_applied_to_non_discount_product' ) ) {
+	/**
+	 * Check whether how to apply settings is "apply maximum amount"
+	 *
+	 * @since 3.4
+	 */
+	function yaydp_product_pricing_is_applied_to_non_discount_product() {
+		$settings = \YAYDP\Settings\YAYDP_Product_Pricing_Settings::get_instance();
+		return 'apply_to_non_discount_product' === $settings->get_how_to_apply();
+	}
+}
+

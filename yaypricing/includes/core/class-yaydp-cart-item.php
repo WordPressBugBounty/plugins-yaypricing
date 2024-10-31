@@ -61,6 +61,26 @@ class YAYDP_Cart_Item {
 	protected $initial_price = 0;
 
 	/**
+	 * Initial item regular price
+	 * The initial one
+	 * @since 3.4
+	 */
+	protected $regular_price = 0;
+
+	/**
+	 * Initial item sale price
+	 * The initial one
+	 * @since 3.4
+	 */
+	protected $sale_price = 0;
+
+	/**
+	 * Initial item price display on store
+	 * @since 3.4
+	 */
+	protected $store_price = 0;
+
+	/**
 	 * Contains item's modifiers.
 	 *
 	 * @var array
@@ -95,13 +115,16 @@ class YAYDP_Cart_Item {
 
 		$this->product = $cart_item_data['data'];
 
-		if ( ! empty( $cart_item_data['custom_price'] ) ) {
+		if ( isset( $cart_item_data['custom_price'] ) ) {
 			$initial_price = $cart_item_data['custom_price'];
 		} else {
 			$initial_price = \YAYDP\Helper\YAYDP_Pricing_Helper::get_product_price( $this->product );
 		}
 		$this->initial_price = apply_filters( 'yaydp_initial_cart_item_price', $initial_price, $cart_item_data );
 		$this->price         = $this->initial_price;
+		$this->regular_price = \YAYDP\Helper\YAYDP_Pricing_Helper::get_product_specific_price( $this->product, 'regular' );
+		$this->sale_price = \YAYDP\Helper\YAYDP_Pricing_Helper::get_product_specific_price( $this->product, 'sale' );
+		$this->store_price = \YAYDP\Helper\YAYDP_Pricing_Helper::get_store_product_price( $this->product );
 
 		if ( isset( $cart_item_data['yaydp_adjustment_values'] ) && is_array( $cart_item_data['yaydp_adjustment_values'] ) ) {
 			$this->adjustment_values = $cart_item_data['yaydp_adjustment_values'];
@@ -344,6 +367,30 @@ class YAYDP_Cart_Item {
 
 	public function get_variation() {
 		return $this->variation;
+	}
+
+	/**
+	 * Returns item product initial regular price
+	 * @since 3.4
+	 */
+	public function get_regular_price() {
+		return $this->regular_price;
+	}
+
+	/**
+	 * Returns item product initial sale price
+	 * @since 3.4
+	 */
+	public function get_sale_price() {
+		return $this->sale_price;
+	}
+
+	/**
+	 * Returns item product price display on store
+	 * @since 3.4
+	 */
+	public function get_store_price() {
+		return $this->store_price;
 	}
 
 }

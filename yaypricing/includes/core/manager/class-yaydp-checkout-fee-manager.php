@@ -21,6 +21,7 @@ class YAYDP_Checkout_Fee_Manager {
 	 */
 	private function __construct() {
 		add_action( 'woocommerce_cart_calculate_fees', array( $this, 'calculate_pricings' ), 9 );
+		add_action( 'wc_ajax_update_shipping_method', array( $this, 'calculate_pricings' ), 9 );
 		add_action( 'yaydp_before_calculate_checkout_fee', array( $this, 'before_calculate_pricings' ), 10 );
 		add_action( 'yaydp_after_calculate_checkout_fee', array( $this, 'after_calculate_pricings' ), 10 );
 

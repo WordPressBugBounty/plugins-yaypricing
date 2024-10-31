@@ -76,6 +76,16 @@ class YAYDP_Cart_Discount_Manager {
 					continue;
 				}
 			}
+
+			if ( empty( $running_rules ) ) {
+				foreach ( \yaydp_get_cart_discount_rules() as $rule ) {
+					if ( $rule->is_match_coupon( $coupon_code ) ) {
+						\WC()->cart->remove_coupon( $coupon_code );
+						continue;
+					}
+				}
+			}
+
 		}
 		remove_filter( 'yaydp_prevent_recalculate_cart_discount', '__return_true' );
 	}
@@ -98,11 +108,11 @@ class YAYDP_Cart_Discount_Manager {
 	 */
 	public function calculate_pricings() {
 
-		// remove_action( 'woocommerce_before_calculate_totals', array( self::get_instance(), 'calculate_pricings' ), 111 );
+		remove_action( 'woocommerce_before_calculate_totals', array( self::get_instance(), 'calculate_pricings' ), 111 );
 
-		if ( apply_filters( 'yaydp_prevent_recalculate_cart_discount', false ) ) {
-			return;
-		}
+		// if ( apply_filters( 'yaydp_prevent_recalculate_cart_discount', false ) ) {
+		// 	return;
+		// }
 
 		do_action( 'yaydp_before_calculate_cart_discount' );
 

@@ -38,7 +38,13 @@ class YAYDP_Product_Pricing_Adjustments extends \YAYDP\Abstracts\YAYDP_Adjustmen
 		foreach ( $running_rules as $rule ) {
 			$adjustment = $rule->create_possible_adjustment_from_cart( $this->cart );
 			if ( ! empty( $adjustment ) ) {
-				parent::add_adjustment( new \YAYDP\Core\Single_Adjustment\YAYDP_Product_Pricing_Adjustment( $adjustment, $this->cart ) );
+				$adjustment_instance = new \YAYDP\Core\Single_Adjustment\YAYDP_Product_Pricing_Adjustment( $adjustment, $this->cart );
+				if ( ! $adjustment_instance->check_conditions() ) {
+					continue;
+				}
+
+				$this->marks_discounted_products( $adjustment );
+				parent::add_adjustment( $adjustment_instance );
 			}
 		}
 
@@ -88,6 +94,20 @@ class YAYDP_Product_Pricing_Adjustments extends \YAYDP\Abstracts\YAYDP_Adjustmen
 	 */
 	public function get_cart() {
 		return $this->cart;
+	}
+
+	public function marks_discounted_products( $adjustment ) {
+
+		if ( ! \yaydp_product_pricing_is_applied_to_non_discount_product() ) {
+			return;
+		}
+
+		$discountable_items = $adjustment['discountable_items'] ?? array();
+
+		foreach ( $discountable_items as $item ) {
+			$product = $item->get_product();
+			\YAYDP\Core\Discounted_Products\YAYDP_Discounted_Products::get_instance()->add_product( $product );
+		}
 	}
 
 }

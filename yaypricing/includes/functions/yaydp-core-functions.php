@@ -364,3 +364,19 @@ if ( ! function_exists( 'yaydp_get_timezone_offset' ) ) {
 		return $time->format( 'P' );
 	}
 }
+
+if ( ! function_exists( 'yaydp_get_saved_amount' ) ) {
+	function yaydp_get_saved_amount() {
+		global $yaydp_cart;
+		$yaydp_cart = new \YAYDP\Core\YAYDP_Cart();
+		$product_pricing_adjustments = new \YAYDP\Core\Adjustments\YAYDP_Product_Pricing_Adjustments( $yaydp_cart );
+		$product_pricing_adjustments->do_stuff();
+		$saved_amount = $yaydp_cart->get_cart_origin_total( false ) - $yaydp_cart->get_cart_subtotal( false );
+
+		if ( empty( $saved_amount ) ) {
+			return 0;
+		}
+
+		return $saved_amount;
+	}
+}

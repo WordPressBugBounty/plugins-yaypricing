@@ -83,6 +83,7 @@ class YAYDP_Enqueue_Frontend {
 			YAYDP_VERSION,
 			true
 		);
+		wp_enqueue_script('accounting');
 	}
 
 	/**

@@ -25,6 +25,7 @@ class YAYDP_Setting_Model {
 					'disable_when_on_sale'               => false,
 					'discount_base_on'                   => 'regular_price',
 					'show_regular_price'                 => true,
+					'show_original_subtotal_price'       => true,
 					'show_sale_tag'                      => true,
 					'show_discounted_price'              => false,
 					'show_order_saving_amount'           => false,

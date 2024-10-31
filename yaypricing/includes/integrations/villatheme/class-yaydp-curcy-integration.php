@@ -51,8 +51,8 @@ class YAYDP_CURCY_Integration {
 	 * @return float The original price as a float value
 	 */
 	public static function reverse_price( $price ) {
-		if ( function_exists( 'wmc_revert_price' ) ) {
-			$setting          = \WOOMULTI_CURRENCY_F_Data::get_ins();
+		if ( function_exists( 'wmc_revert_price' ) && class_exists( 'WOOMULTI_CURRENCY_Data' ) ) {
+			$setting          = \WOOMULTI_CURRENCY_Data::get_ins();
 			$default_currency = $setting->get_default_currency();
 			$current_currency = $setting->get_current_currency();
 			if ( $current_currency !== $default_currency ) {

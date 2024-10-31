@@ -59,6 +59,8 @@ class YayPricing {
 		 */
 		include_once YAYDP_ABSPATH . 'includes/class-yaydp-integrations.php';
 
+		include_once YAYDP_ABSPATH . 'blocks/blocks.php';
+
 		/**
 		 * Include this file only when the user is on an admin page
 		 */

@@ -93,6 +93,42 @@ class YAYDP_Product_Pricing_Adjustment extends \YAYDP\Abstracts\YAYDP_Adjustment
 	 * Apply this adjustment to the cart
 	 */
 	public function apply_to_cart() {
+
+		$rule_data                    = $this->rule->get_data();
+		$is_applying_to_first_product = $rule_data['apply_to_first_matching_product'] ?? false;
+		if ( $is_applying_to_first_product ) {
+			$this->discountable_items = array_slice( $this->discountable_items, 0, 1 );
+			if ( ! empty( $this->receive_cases['case'] ) ) {
+				foreach ( $this->receive_cases['case'] as $index => $case ) {
+					$this->receive_cases['case'][ $index ]['items'] = array_slice( $this->receive_cases['case'][ $index ]['items'] ?? array(), 0, 1 );
+				}
+			}
+		}
+
+		if ( \yaydp_product_pricing_is_applied_to_non_discount_product() ) {
+			if ( isset( $this->receive_cases['case'] ) ) {
+				$this->receive_cases['case'] = array_map(
+					function( $case ) {
+						$case['items'] = array_filter(
+							$case['items'],
+							function( $item ) {
+								$item_product = null;
+								if ( $item instanceof \YAYDP\Core\YAYDP_Cart_Item ) {
+									$item_product = $item->get_product();
+								}
+								if ( is_numeric( $item ) || is_string( $item ) ) {
+									$item_product = \wc_get_product( $item );
+								}
+								return $item_product && ! \YAYDP\Core\Discounted_Products\YAYDP_Discounted_Products::get_instance()->is_discounted( $item_product );
+							}
+						);
+						return $case;
+					},
+					$this->receive_cases['case']
+				);
+			}
+		}
+
 		if ( \yaydp_is_bogo( $this->rule ) || \yaydp_is_buy_x_get_y( $this->rule ) ) {
 			$this->rule->discount_items( $this );
 		} elseif ( \yaydp_is_product_bundle( $this->rule ) ) {

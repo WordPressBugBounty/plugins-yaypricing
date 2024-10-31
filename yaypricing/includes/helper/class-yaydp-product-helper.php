@@ -95,8 +95,20 @@ class YAYDP_Product_Helper {
 	 * @return boolean
 	 */
 	public static function check_price( $product, $filter ) {
-		$product_price = (float) \YAYDP\Helper\YAYDP_Pricing_Helper::get_product_price( $product );
-		$check         = \yaydp_compare_numeric( $product_price, $filter['value'], $filter['comparation'] );
+		if ( yaydp_is_variable_product( $product ) ) {
+			$settings                  = \YAYDP\Settings\YAYDP_Product_Pricing_Settings::get_instance();
+			$is_based_on_regular_price = 'regular_price' === $settings->get_discount_base_on();
+			$sale_price                = $product->get_variation_sale_price( 'min' );
+			$regular_price             = $product->get_variation_regular_price( 'min' );
+			if ( $is_based_on_regular_price ) {
+				$product_price = $regular_price;
+			} else {
+				$product_price = ! empty( $sale_price ) ? $sale_price : $regular_price;
+			}
+		} else {
+			$product_price = (float) \YAYDP\Helper\YAYDP_Pricing_Helper::get_product_price( $product );
+		}
+		$check = \yaydp_compare_numeric( $product_price, $filter['value'], $filter['comparation'] );
 		return $check;
 	}
 
@@ -186,6 +198,9 @@ class YAYDP_Product_Helper {
 		$list_attributes   = array();
 		foreach ( $list_attribute_id as $attribute_id ) {
 			$term              = get_term( $attribute_id );
+			if ( is_null( $term ) || is_wp_error( $term ) ) {
+				continue;
+			}
 			$list_attributes[] = array(
 				'taxonomy'  => $term->taxonomy,
 				'attribute' => $term->slug,
@@ -213,6 +228,9 @@ class YAYDP_Product_Helper {
 				if ( $attribute_information['taxonomy'] === $taxonomy && $attribute instanceof \WC_Product_Attribute ) {
 					foreach ( $attribute->get_options() as $term_id ) {
 						$term = get_term( $term_id );
+						if ( is_null( $term ) || is_wp_error( $term ) ) {
+							continue;
+						}
 						if ( $term != null && ! is_wp_error( $term ) && $term->slug === $attribute_information['attribute'] ) {
 							$in_list = true;
 							break 3;

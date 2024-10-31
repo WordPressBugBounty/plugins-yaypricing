@@ -268,7 +268,7 @@ class YAYDP_Product_Bundle extends \YAYDP\Abstracts\YAYDP_Product_Pricing_Rule {
 			}
 
 			$item_product = $item->get_product();
-			if ( ! is_null( $product ) ) {
+			if ( ! empty( $product ) ) {
 				if ( \yaydp_is_variable_product( $product ) ) {
 					if ( ! in_array( $item_product->get_id(), $product->get_children(), true ) ) {
 						continue;

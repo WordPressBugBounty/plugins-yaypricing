@@ -271,6 +271,10 @@ class YAYDP_Product_Sale {
 	private function get_relative_min_max_discounted_price() {
 		$product = $this->product;
 
+		if ( empty( $product ) ) {
+			return null;
+		}
+
 		if ( \yaydp_is_variable_product( $product ) ) {
 			$min_price      = \yaydp_get_variable_product_min_price( $product );
 			$max_price      = \yaydp_get_variable_product_max_price( $product );
@@ -287,6 +291,9 @@ class YAYDP_Product_Sale {
 				$children_id
 			);
 			foreach ( $children as $child ) {
+				if ( empty( $child ) ) {
+					continue;
+				}
 				$sub = $this->get_relative_min_max_discounted_price_per_product( $child );
 				if ( is_null( $sub ) ) {
 					continue;
@@ -328,6 +335,10 @@ class YAYDP_Product_Sale {
 	private function get_absolute_min_max_discounted_price() {
 		$product = $this->product;
 
+		if ( empty( $product ) ) {
+			return null;
+		}
+
 		if ( \yaydp_is_variable_product( $product ) ) {
 			$result         = array(
 				'min' => null,
@@ -342,6 +353,9 @@ class YAYDP_Product_Sale {
 			);
 			$has_discounted = false;
 			foreach ( $children as $child ) {
+				if ( empty( $child ) ) {
+					continue;
+				}
 				$sub = $this->get_absolute_min_max_discounted_price_per_product( $child );
 				if ( is_null( $sub ) ) {
 					if ( is_null( $result['min'] ) ) {

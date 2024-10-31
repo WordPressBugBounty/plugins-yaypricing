@@ -37,6 +37,7 @@ class YAYDP_Integrations {
 		\YAYDP\Integrations\Aelia\YAYDP_Aelia_Currency_Integration::get_instance();
 		\YAYDP\Integrations\WooCommerce\YAYDP_WooCommerce_Subscriptions_Integration::get_instance();
 		\YAYDP\Integrations\WooCommerce\YAYDP_WooCommerce_Brands_Integration::get_instance();
+		\YAYDP\Integrations\WooCommerce\YAYDP_WooCommerce_Composite_Products_Integration::get_instance();
 		\YAYDP\Integrations\Ademti\YAYDP_WC_Google_Product_Feed_Integration::get_instance();
 		\YAYDP\Integrations\MarketPress\YAYDP_B2B_Market_Integration::get_instance();
 		\YAYDP\Integrations\WooCommerce\YAYDP_WC_Listing_Ads_Integration::get_instance();
@@ -54,6 +55,8 @@ class YAYDP_Integrations {
 		YAYDP_Role_Based_Pricing::get_instance();
 
 		YAYDP_DIBS_Integration::get_instance();
+
+		\YAYDP\Integrations\WPClever\YAYDP_WPC_Product_Bundles_Integration::get_instance();
 	}
 
 }

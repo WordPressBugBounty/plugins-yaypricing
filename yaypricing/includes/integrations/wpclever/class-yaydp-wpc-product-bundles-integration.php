@@ -1,11 +1,11 @@
 <?php
 /**
- * Handles the integration of YITH WooCommerce Brands plugin with our system
+ * Handles the integration of WPClever Product Bundles plugin with our system
  *
  * @package YayPricing\Integrations
  */
 
-namespace YAYDP\Integrations\YITH;
+namespace YAYDP\Integrations\WPClever;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -14,14 +14,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Declare class
  */
-class YAYDP_YITH_Product_Bundles_Integration {
+class YAYDP_WPC_Product_Bundles_Integration {
 	use \YAYDP\Traits\YAYDP_Singleton;
 
 	/**
 	 * Constructor
 	 */
 	protected function __construct() {
-		if ( ! function_exists( 'yith_wcpb_pr_init' ) && ! function_exists( 'yith_wcpb_install' ) ) {
+		if ( ! function_exists( 'woosb_init' ) ) {
 			return;
 		}
 
@@ -30,7 +30,7 @@ class YAYDP_YITH_Product_Bundles_Integration {
 
 	public function remove_initial_bundled_items( $items ) {
 		foreach ( $items as $key => $item ) {
-			if ( ! empty( $item['bundled_by'] ) ) {
+			if ( ! empty( $item['woosb_parent_id'] ) ) {
 				unset( $items[$key] );
 			}
 		}
