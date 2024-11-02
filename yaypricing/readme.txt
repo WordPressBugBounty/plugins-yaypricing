@@ -4,7 +4,7 @@ Donate link: https://yaycommerce.com/yaypricing-woocommerce-dynamic-pricing-and-
 Tags: dynamic pricing, discounts, cart fee, buy one get one, coupon
 Requires at least: 3.0
 Tested up to: 6.7
-Stable tag: 3.4
+Stable tag: 3.4.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -124,6 +124,9 @@ A big yes! YayPricing is compliant with GDPR. It doesn't collect your WooCommerc
 6. Gift item of "Buy one get one free" promotion automatically added to cart page
 
 == Changelog ==
+= Nov 3, 2024 - Version 3.4.1 =
+- Fixed: Warning of save amount block
+
 = Nov 1, 2024 - Version 3.4 =
 - Added: All on-sale shortcode (display on sale WC and on sale YayPricing) yaydp-all-on-sale-products
 - Added: Apply rule only to first matching products ( setting on product pricing rule )
