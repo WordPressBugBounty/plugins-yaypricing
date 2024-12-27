@@ -31,7 +31,7 @@ class YAYDP_YITH_Product_Bundles_Integration {
 	public function remove_initial_bundled_items( $items ) {
 		foreach ( $items as $key => $item ) {
 			if ( ! empty( $item['bundled_by'] ) ) {
-				unset( $items[$key] );
+				unset( $items[ $key ] );
 			}
 		}
 		return $items;

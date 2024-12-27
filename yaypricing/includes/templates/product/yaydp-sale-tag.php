@@ -28,12 +28,14 @@ $percent_discounts = array_filter(
 	}
 );
 
-$sale_text  = apply_filters( 'yaydp_sale_tag_text', __( 'SALE!', 'yaypricing' ), empty( $matching_rules ) ? array() : $matching_rules );
-$up_to_text = apply_filters( 'yaydp_sale_tag_up_to_text', __( 'Up to %s', 'yaypricing' ), empty( $matching_rules ) ? array() : $matching_rules );
+$sale_text        = apply_filters( 'yaydp_sale_tag_text', __( 'SALE!', 'yaypricing' ), empty( $matching_rules ) ? array() : $matching_rules );
+$up_to_text       = apply_filters( 'yaydp_sale_tag_up_to_text', __( 'Up to %s', 'yaypricing' ), empty( $matching_rules ) ? array() : $matching_rules );
+$background_color = \YAYDP\Settings\YAYDP_Product_Pricing_Settings::get_instance()->get_sale_tag_bg_color();
+$text_color       = \YAYDP\Settings\YAYDP_Product_Pricing_Settings::get_instance()->get_sale_tag_text_color();
 
 ?>
-<div class="yaydp-sale-tag" style="<?php echo esc_attr( $has_image_gallery ? 'right: 50px;' : '' ); ?>">
-	<div><?php esc_html_e( $sale_text, 'yaypricing' ); ?></div>
+<div class="yaydp-sale-tag<?php echo empty( $is_custom ) ? '' : ' yaydp-custom-sale-tag'; ?>" style="<?php echo esc_attr( $has_image_gallery ? 'right: 50px;' : '' ); ?>;background-color:<?php echo esc_attr( $background_color ); ?>;border-color:<?php echo esc_attr( $background_color ); ?>;color:<?php echo esc_attr( $text_color ); ?>;">
+	<div><?php echo esc_html( $sale_text ); ?></div>
 	<?php
 	if ( ! empty( $percent_discounts ) && $show_sale_off_amount ) :
 		\yaydp_sort_array( $percent_discounts );
@@ -50,9 +52,9 @@ $up_to_text = apply_filters( 'yaydp_sale_tag_up_to_text', __( 'Up to %s', 'yaypr
 			<?php
 				// Translators: max percent discount.
 			if ( $show_up_to ) {
-				echo wp_kses_post( sprintf( __( $up_to_text, 'yaypricing' ), "$round_value%" ) );
+				echo wp_kses_post( sprintf( $up_to_text, "$round_value%" ) );
 			} else {
-				echo "$round_value%";
+				echo esc_html( "$round_value%" );
 			}
 			?>
 		</div>

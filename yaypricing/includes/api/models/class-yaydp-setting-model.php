@@ -50,6 +50,10 @@ class YAYDP_Setting_Model {
 					'how_to_apply'      => 'all',
 					'countdown_timer'   => \YAYDP\Constants\YAYDP_Countdown_Timer::get_default(),
 					'encouraged_notice' => \YAYDP\Constants\YAYDP_Encouraged_Notice::get_default( 'checkout_fee' ),
+					'include_tax'       => false,
+				),
+				'general'         => array(
+					'sync_with_coupon_individual_use_only' => true,
 				),
 			);
 		}

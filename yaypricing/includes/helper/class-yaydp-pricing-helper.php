@@ -23,8 +23,8 @@ class YAYDP_Pricing_Helper {
 	 * @param float  $the_maximum       The maximum of the discount amount.
 	 */
 	public static function calculate_adjustment_amount( $price, $adjustment_type, $adjustment_value, $the_maximum = PHP_INT_MAX ) {
-		if ( \is_null( $the_maximum ) || 
-		! in_array( $adjustment_type, [ 'fixed_product', 'percentage_discount', 'percentage_fee' ], true ) ) {
+		if ( \is_null( $the_maximum ) ||
+		! in_array( $adjustment_type, array( 'fixed_product', 'percentage_discount', 'percentage_fee' ), true ) ) {
 			$the_maximum = PHP_INT_MAX;
 		}
 		switch ( $adjustment_type ) {
@@ -78,21 +78,22 @@ class YAYDP_Pricing_Helper {
 
 	/**
 	 * Get product specific price
+	 *
 	 * @since 3.4
 	 */
 	public static function get_product_specific_price( $product, $type = 'regular' ) {
 		if ( empty( $product ) ) {
 			return 0;
 		}
-		$type === 'regular';
-		$price_context             = 'original';
+
+		$price_context = 'original';
 
 		if ( 'regular' === $type ) {
 			$product_price = $product->get_regular_price( $price_context );
 		} else {
 			$product_price = $product->get_sale_price( $price_context );
 		}
-		if ( ! empty( $product_price )  ) {
+		if ( ! empty( $product_price ) ) {
 			$product_price = self::get_product_fixed_price( $product_price, $product );
 		} else {
 			$product_price = null;
@@ -156,15 +157,16 @@ class YAYDP_Pricing_Helper {
 
 	/**
 	 * Get product price not affected by any YayPricing settings
+	 *
 	 * @since 3.4
 	 */
 	public static function get_store_product_price( $product ) {
 		if ( empty( $product ) ) {
 			return 0;
 		}
-		$price_context             = 'original';
-		$product_price             = $product->get_price( $price_context );
-		$product_price             = self::get_product_fixed_price( $product_price, $product );
+		$price_context = 'original';
+		$product_price = $product->get_price( $price_context );
+		$product_price = self::get_product_fixed_price( $product_price, $product );
 		// $product_price = \wc_get_price_to_display($product, ['price' => $product_price]);
 		return apply_filters( 'yaydp_initial_product_price', floatval( $product_price ), $product );
 	}

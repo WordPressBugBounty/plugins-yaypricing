@@ -36,8 +36,8 @@ class YAYDP_Product_Sale {
 
 		$product_id = $this->product->get_id();
 
-		if ( isset( $yaydp_products_discount_percents[ $product_id ] ) && isset( $yaydp_products_discount_percents[ $product_id ] ) ) {
-			return $yaydp_products_discount_percents;
+		if ( isset( $yaydp_products_discount_percents[ $product_id ] ) ) {
+			return $yaydp_products_discount_percents[ $product_id ];
 		}
 
 		$settings = \YAYDP\Settings\YAYDP_Product_Pricing_Settings::get_instance();

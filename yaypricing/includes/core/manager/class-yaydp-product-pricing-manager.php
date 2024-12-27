@@ -20,7 +20,7 @@ class YAYDP_Product_Pricing_Manager {
 	 * Constructor
 	 */
 	private function __construct() {
-		add_action( 'woocommerce_before_calculate_totals', array( $this, 'calculate_pricings' ), 110 );
+		add_action( 'woocommerce_before_calculate_totals', array( $this, 'calculate_pricings' ), YAYDP_PRODUCT_CALCULATE_PRIORITY );
 		add_action( 'yaydp_before_calculate_product_pricing', array( $this, 'before_calculate_pricings' ), 10 );
 		add_action( 'yaydp_after_calculate_product_pricing', array( $this, 'after_calculate_pricings' ), 10 );
 		add_action( 'woocommerce_before_mini_cart', array( $this, 'recalculate_mini_cart' ), 10 );
@@ -72,6 +72,7 @@ class YAYDP_Product_Pricing_Manager {
 
 		// Add offer description.
 		add_action( 'woocommerce_before_add_to_cart_form', array( $this, 'add_offer_description' ), 9 );
+		add_action( 'yaydp_product_offer_description', array( $this, 'add_offer_description' ), 9 );
 
 		$this->handle_saving_amount();
 
@@ -300,6 +301,7 @@ class YAYDP_Product_Pricing_Manager {
 			default:
 				break;
 		}
+		add_action( 'yaydp_product_pricing_table', array( $this, 'add_pricing_table' ) );
 	}
 
 	/**
@@ -376,8 +378,8 @@ class YAYDP_Product_Pricing_Manager {
 			}
 			?>
 		<tr>
-			<th><?php _e( 'Product discounts', 'yaypricing' ); ?></th>
-			<td><?php echo \wc_price( $saved_amount ); ?></td>
+			<th><?php esc_html_e( 'Product discounts', 'yaypricing' ); ?></th>
+			<td><?php echo wp_kses_post( \wc_price( $saved_amount ) ); ?></td>
 		</tr>
 			<?php
 		}
@@ -395,13 +397,24 @@ class YAYDP_Product_Pricing_Manager {
 		if ( ! \YAYDP\Settings\YAYDP_Product_Pricing_Settings::get_instance()->show_original_subtotal_price() ) {
 			return $html;
 		}
-		$yaydp_cart_item    = new \YAYDP\Core\YAYDP_Cart_Item( $cart_item );
-		$item_initial_price = $yaydp_cart_item->get_initial_price();
-		$item_quantity      = $yaydp_cart_item->get_quantity();
+		$yaydp_cart_item = new \YAYDP\Core\YAYDP_Cart_Item( $cart_item );
 		if ( $yaydp_cart_item->can_modify() ) {
+
+			$product            = $yaydp_cart_item->get_product();
+			$item_initial_price = $yaydp_cart_item->get_initial_price();
+			$item_quantity      = $yaydp_cart_item->get_quantity();
+			$subtotal           = \wc_get_price_to_display(
+				$product,
+				array(
+					'price'           => $item_initial_price,
+					'qty'             => $item_quantity,
+					'display_context' => 'cart',
+				)
+			);
+
 			ob_start();
 			?>
-			<del><?php echo wp_kses_post( \wc_price( $item_initial_price * $item_quantity ) ); ?></del>
+			<del><?php echo \wc_price( \YAYDP\Helper\YAYDP_Pricing_Helper::convert_price( $subtotal ) ); ?></del>
 			<?php
 			$extra_html = ob_get_contents();
 			ob_end_clean();

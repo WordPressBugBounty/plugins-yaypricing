@@ -38,7 +38,7 @@ class YAYDP_Sale_Tag {
 	/**
 	 * Get content of the sale tag that displays on product
 	 */
-	public function get_content() {
+	public function get_content( $show_sale_off_amount = null, $is_custom = false ) {
 		$product                   = $this->product;
 		$product_sale              = new \YAYDP\Core\Sale_Display\YAYDP_Product_Sale( $product );
 		$min_max_percent_discounts = $product_sale->get_min_max_discounts_percent(); // Get min max discount percentage.
@@ -50,8 +50,12 @@ class YAYDP_Sale_Tag {
 
 		$min_percent_discount = $min_max_percent_discounts['min'];
 		$max_percent_discount = $min_max_percent_discounts['max'];
-		$show_sale_off_amount = \YAYDP\Settings\YAYDP_Product_Pricing_Settings::get_instance()->show_sale_off_amount();
-		$has_image_gallery    = ! empty( $product->get_gallery_image_ids() );
+
+		if ( is_null( $show_sale_off_amount ) ) {
+			$show_sale_off_amount = \YAYDP\Settings\YAYDP_Product_Pricing_Settings::get_instance()->show_sale_off_amount();
+		}
+
+		$has_image_gallery = ! empty( $product->get_gallery_image_ids() );
 
 		$running_rules = \yaydp_get_running_product_pricing_rules();
 
@@ -80,6 +84,7 @@ class YAYDP_Sale_Tag {
 				'has_image_gallery'    => $has_image_gallery,
 				'product'              => $product,
 				'matching_rules'       => $matching_rules,
+				'is_custom'            => $is_custom,
 			),
 			'',
 			YAYDP_PLUGIN_PATH . 'includes/templates/'

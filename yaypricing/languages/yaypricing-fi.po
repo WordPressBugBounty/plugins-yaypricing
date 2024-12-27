@@ -5,8 +5,8 @@ msgstr ""
 "Project-Id-Version: Plugins - YayPricing &#8211; WooCommerce Dynamic Pricing "
 "&amp; Discounts - Stable (latest release)\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/yaypricing-lite\n"
-"POT-Creation-Date: 2024-10-28T09:16:17+00:00\n"
-"PO-Revision-Date: 2024-10-28 16:29+0700\n"
+"POT-Creation-Date: 2024-12-06T02:19:02+00:00\n"
+"PO-Revision-Date: 2024-12-06 09:32+0700\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fi\n"
@@ -14,7 +14,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Poedit 3.4.1\n"
+"X-Generator: Poedit 3.5\n"
 
 #. Plugin Name of the plugin
 msgid "YayPricing Lite - WooCommerce Dynamic Pricing And Discounts"
@@ -104,228 +104,111 @@ msgid "Split rule"
 msgstr "Jaa sääntö"
 
 #: includes/class-yaydp-i18n.php:41
-#, fuzzy
-msgid "./components sync recursive ^\\.\\/locale\\/.+_.+\\.tsx?$"
-msgstr "./components sync rekursiivinen ^\\.\\/locale\\/.+_.+\\.tsx?$"
-
-#: includes/class-yaydp-i18n.php:42
 msgid "Fixed Discount"
 msgstr "Kiinteä alennus"
 
-#: includes/class-yaydp-i18n.php:43
+#: includes/class-yaydp-i18n.php:42
 msgid "Percentage Discount"
 msgstr "Prosenttialennus"
 
-#: includes/class-yaydp-i18n.php:44
+#: includes/class-yaydp-i18n.php:43
 msgid "Fixed Fee"
 msgstr "Kiinteä maksu"
 
-#: includes/class-yaydp-i18n.php:45
+#: includes/class-yaydp-i18n.php:44
 msgid "Percentage Fee"
 msgstr "Prosenttimaksu"
 
-#: includes/class-yaydp-i18n.php:46
+#: includes/class-yaydp-i18n.php:45
 msgid "Reduce Shipping Fee"
 msgstr "Vähennä toimituskuluja"
 
-#: includes/class-yaydp-i18n.php:47
+#: includes/class-yaydp-i18n.php:46
 msgid "Add Custom Fee"
 msgstr "Lisää mukautettu maksu"
 
-#: includes/class-yaydp-i18n.php:48
+#: includes/class-yaydp-i18n.php:47
 #, fuzzy
 msgid "Add Custom Fee based on Shipping Fee"
 msgstr "Lisää toimitusmaksuun perustuva mukautettu maksu"
 
-#: includes/class-yaydp-i18n.php:49
+#: includes/class-yaydp-i18n.php:48
 msgid "Sample rule"
 msgstr "Mallisääntö"
 
-#: includes/class-yaydp-i18n.php:50
+#: includes/class-yaydp-i18n.php:49
 msgid "You"
 msgstr "Sinä"
 
-#: includes/class-yaydp-i18n.php:51
-msgid "Sale 50% all products"
-msgstr "Alennus 50% kaikista tuotteista"
-
-#: includes/class-yaydp-i18n.php:52
-msgid "Sale"
-msgstr "Alennus"
-
-#: includes/class-yaydp-i18n.php:53
-msgid "all products"
-msgstr "kaikki tuotteet"
-
-#: includes/class-yaydp-i18n.php:54
-msgid "Sale [discount_value] all products"
-msgstr "Alennus [discount_value] kaikista tuotteista"
-
-#: includes/class-yaydp-i18n.php:55
-msgid "Get this free when buy 3 item"
-msgstr "Saat tämän ilmaiseksi, kun ostat kolme tuotetta"
-
-#: includes/class-yaydp-i18n.php:56
-msgid "Buy X get Y with discount"
-msgstr "Osta X, saa Y alennuksella"
-
-#: includes/class-yaydp-i18n.php:57
-msgid "Discount [discount_value] off"
-msgstr "Alennus [discount_value] pois"
-
-#: includes/class-yaydp-i18n.php:58
-msgid "You will get [discount_value] discount when buy 1 item of this product"
-msgstr "Saat [discount_value] alennuksen, kun ostat yhden tätä tuotetta"
-
-#: includes/class-yaydp-i18n.php:59
-msgid "Sale 30% from the third item"
-msgstr "Alennus 30% kolmannesta tuotteesta"
-
-#: includes/class-yaydp-i18n.php:60
-msgid "Discount [discount_value] off from 3rd item"
-msgstr "Alennus [discount_value] pois kolmannesta tuotteesta"
-
-#: includes/class-yaydp-i18n.php:61
-msgid "You will get 30% off when buy from 3 items"
-msgstr "Saat 30% pois, kun ostat kolme tuotetta"
-
-#: includes/class-yaydp-i18n.php:62
-msgid "Black Friday"
-msgstr "Black Friday"
-
-#: includes/class-yaydp-i18n.php:63
-msgid "Today is Black Friday, so you will get 70% off when buy all products"
-msgstr "Tänään on Black Friday, joten saat 70% pois kaikista tuotteista."
-
-#: includes/class-yaydp-i18n.php:64
-msgid "Buy X get X event"
-msgstr "Osta X, saa X tapahtuma"
-
-#: includes/class-yaydp-i18n.php:65
-msgid "You will get 50% off when buy the this product"
-msgstr "Saat 50% pois, kun ostat tämän tuotteen"
-
-#: includes/class-yaydp-i18n.php:66
-msgid "Discount 50% campaign"
-msgstr "Alennus 50% kampanja"
-
-#: includes/class-yaydp-i18n.php:67
-msgid "Discount [discount_value] all cart"
-msgstr "Alennus [discount_value] koko ostoskorista"
-
-#: includes/class-yaydp-i18n.php:68
-msgid "Discount"
-msgstr "Alennus"
-
-#: includes/class-yaydp-i18n.php:69
-msgid "campaign"
-msgstr "kampanja"
-
-#: includes/class-yaydp-i18n.php:70
-msgid "Black Friday campaign"
-msgstr "Black Friday kampanja"
-
-#: includes/class-yaydp-i18n.php:71
-msgid "Black friday discount! Discount [discount_value] all cart"
-msgstr "Black friday alennus! Alennus [discount_value] koko ostoskorista"
-
-#: includes/class-yaydp-i18n.php:72
-msgid "Free shipping fee"
-msgstr "Maksuton toimitusmaksu"
-
-#: includes/class-yaydp-i18n.php:73
-msgid "Get free shipping"
-msgstr "Saat maksuttoman toimituksen"
-
-#: includes/class-yaydp-i18n.php:74
-msgid "Reduce 50% shipping fee for order below 100"
-msgstr "Vähennä 50% toimituskuluista alle 100 ostoksille"
-
-#: includes/class-yaydp-i18n.php:75
-msgid "Discount 50% of the shipping cost"
-msgstr "50% alennus toimituskuluista"
-
-#: includes/class-yaydp-i18n.php:76
-msgid "Add"
-msgstr "Lisää"
-
-#: includes/class-yaydp-i18n.php:77
-msgid "fee to order"
-msgstr "maksu tilaukselle"
-
-#: includes/class-yaydp-i18n.php:78
-msgid "Add [discount_value] to the order"
-msgstr "Lisää [discount_value] tilaukselle"
-
-#: includes/class-yaydp-i18n.php:79
+#: includes/class-yaydp-i18n.php:50
 msgid "Simple Adjustment"
 msgstr "Yksinkertainen säätö"
 
-#: includes/class-yaydp-i18n.php:80
+#: includes/class-yaydp-i18n.php:51
 msgid "Bulk Pricing"
 msgstr "Massahinnoittelu"
 
-#: includes/class-yaydp-i18n.php:81
+#: includes/class-yaydp-i18n.php:52
 msgid "Product Bundle"
 msgstr "Tuotepaketti"
 
-#: includes/class-yaydp-i18n.php:82
+#: includes/class-yaydp-i18n.php:53
 msgid "BOGO (same product)"
 msgstr "Osta yksi, saa yksi (sama tuote)"
 
-#: includes/class-yaydp-i18n.php:83
+#: includes/class-yaydp-i18n.php:54
 #, fuzzy
 #| msgid "Buy X Get Y"
 msgid "Buy X get Y"
 msgstr "Osta X, saa Y"
 
-#: includes/class-yaydp-i18n.php:84
+#: includes/class-yaydp-i18n.php:55
 #, fuzzy
 #| msgid "Product Pricing"
 msgid "Tiered Pricing"
 msgstr "Tuotehinnoittelu"
 
-#: includes/class-yaydp-i18n.php:85
+#: includes/class-yaydp-i18n.php:56
 #, fuzzy
 #| msgid "Product"
 msgid "Product Fee"
 msgstr "Tuote"
 
-#: includes/class-yaydp-i18n.php:86
+#: includes/class-yaydp-i18n.php:57
 msgid "Flat Price"
 msgstr "Tasahinta"
 
-#: includes/class-yaydp-i18n.php:87
+#: includes/class-yaydp-i18n.php:58
 msgid "All together"
 msgstr "Kaikki yhteensä"
 
-#: includes/class-yaydp-i18n.php:88
+#: includes/class-yaydp-i18n.php:59
 #, fuzzy
 msgid "Item quantity in each cart line"
 msgstr "Kunkin ostoskoririvin nimikemäärä"
 
-#: includes/class-yaydp-i18n.php:89
+#: includes/class-yaydp-i18n.php:60
 msgid "Each single product/variable products"
 msgstr "Jokainen yksittäinen tuote/variaatiotuote"
 
-#: includes/class-yaydp-i18n.php:90
+#: includes/class-yaydp-i18n.php:61
 msgid "Purchase history"
 msgstr "Ostohistoria"
 
-#: includes/class-yaydp-i18n.php:91
+#: includes/class-yaydp-i18n.php:62
 msgid "Customer order count"
 msgstr "Asiakkaan tilausten lukumäärä"
 
-#: includes/class-yaydp-i18n.php:92
+#: includes/class-yaydp-i18n.php:63
 msgid "Number of all the orders they have placed in the past."
 msgstr "Kaikkien tilausten lukumäärä, mitä he ovat tilanneet."
 
-#: includes/class-yaydp-i18n.php:93
+#: includes/class-yaydp-i18n.php:64
 #, fuzzy
 msgid "Order count from last discount"
 msgstr "Tilausten määrä viimeisestä alennuksesta"
 
-#: includes/class-yaydp-i18n.php:94
+#: includes/class-yaydp-i18n.php:65
 #, fuzzy
 msgid ""
 "Number of orders counted from the last time they got a discount from "
@@ -334,514 +217,1070 @@ msgstr ""
 "Tilausten määrä laskettu viimeisestä kerrasta, kun he saivat alennuksen "
 "YayPricingiltä."
 
-#: includes/class-yaydp-i18n.php:95
+#: includes/class-yaydp-i18n.php:66
 msgid "Previous purchase date"
 msgstr "Edellinen ostopäivä"
 
-#: includes/class-yaydp-i18n.php:96
+#: includes/class-yaydp-i18n.php:67
 #, fuzzy
 msgid "Purchase date of orders placed in the past."
 msgstr "Aiemmin tehtyjen tilausten ostopäivä."
 
-#: includes/class-yaydp-i18n.php:97
+#: includes/class-yaydp-i18n.php:68
 msgid "Order history product"
 msgstr "Tuotteen tilaushistoria"
 
-#: includes/class-yaydp-i18n.php:98
+#: includes/class-yaydp-i18n.php:69
 msgid "Purchased products in a specific order."
 msgstr "Ostetut tuotteet tietyssä järjestyksessä."
 
-#: includes/class-yaydp-i18n.php:99
+#: includes/class-yaydp-i18n.php:70
 msgid "Order history category"
 msgstr "Kategorian tilaushistoria"
 
-#: includes/class-yaydp-i18n.php:100
+#: includes/class-yaydp-i18n.php:71
 #, fuzzy
 msgid "Purchased product categories in a specific order."
 msgstr "Ostetut tuoteluokat tietyssä järjestyksessä."
 
-#: includes/class-yaydp-i18n.php:101
+#: includes/class-yaydp-i18n.php:72
 msgid "Purchased products (lifetime)"
 msgstr "Ostetut tuotteet (elinaikana)"
 
-#: includes/class-yaydp-i18n.php:102
+#: includes/class-yaydp-i18n.php:73
 #, fuzzy
 msgid "Purchased products among all the orders they have placed in the past."
 msgstr "Ostetut tuotteet kaikkien aiemmin tekemiensä tilausten joukossa."
 
-#: includes/class-yaydp-i18n.php:103
+#: includes/class-yaydp-i18n.php:74
+#, fuzzy
+msgid "Account create time"
+msgstr "Tilin luontiaika"
+
+#: includes/class-yaydp-i18n.php:75
+#, fuzzy
+msgid "Account lifetime from the time they are created"
+msgstr "Tilin elinkaari niiden luomisesta"
+
+#: includes/class-yaydp-i18n.php:76
 msgid "Cart"
 msgstr "Ostoskori"
 
-#: includes/class-yaydp-i18n.php:104
+#: includes/class-yaydp-i18n.php:77
 msgid "Cart subtotal price"
 msgstr "Ostoskorin välisumma"
 
-#: includes/class-yaydp-i18n.php:105
+#: includes/class-yaydp-i18n.php:78
 msgid "Cart quantity"
 msgstr "Ostoskorin tuotemäärä"
 
-#: includes/class-yaydp-i18n.php:106
+#: includes/class-yaydp-i18n.php:79
 msgid "Cart total weight"
 msgstr "Ostoskorin yhteispaino"
 
-#: includes/class-yaydp-i18n.php:107
+#: includes/class-yaydp-i18n.php:80
 msgid "Cart Items"
 msgstr "Ostoskorin tuotteet"
 
-#: includes/class-yaydp-i18n.php:108
+#: includes/class-yaydp-i18n.php:81
 msgid "Cart item - product"
 msgstr "Ostoskorin tuote - tuote"
 
-#: includes/class-yaydp-i18n.php:109
+#: includes/class-yaydp-i18n.php:82
 msgid "Cart item - variation"
 msgstr "Ostoskorin tuote - variaatio"
 
-#: includes/class-yaydp-i18n.php:110
+#: includes/class-yaydp-i18n.php:83
+#, fuzzy
+#| msgid "Cart item - variation"
+msgid "Cart item - attribute taxonomies"
+msgstr "Ostoskorin tuote - variaatio"
+
+#: includes/class-yaydp-i18n.php:84
 msgid "Cart item - category"
 msgstr "Ostoskorin tuote - kategoria"
 
-#: includes/class-yaydp-i18n.php:111
+#: includes/class-yaydp-i18n.php:85
 msgid "Cart item - tag"
 msgstr "Ostoskorin tuote - avainsana"
 
-#: includes/class-yaydp-i18n.php:112
+#: includes/class-yaydp-i18n.php:86
 msgid "Customer"
 msgstr "Asiakas"
 
-#: includes/class-yaydp-i18n.php:113
+#: includes/class-yaydp-i18n.php:87
 msgid "Is logged in customer"
 msgstr "Asiakas on kirjautunut sisään"
 
-#: includes/class-yaydp-i18n.php:114
+#: includes/class-yaydp-i18n.php:88
 msgid "Customer role"
 msgstr "Asiakkaan rooli"
 
-#: includes/class-yaydp-i18n.php:115
+#: includes/class-yaydp-i18n.php:89
 msgid "Specific customer"
 msgstr "Tietty asiakas"
 
-#: includes/class-yaydp-i18n.php:116
+#: includes/class-yaydp-i18n.php:90
 msgid "Others"
 msgstr "Muut"
 
-#: includes/class-yaydp-i18n.php:117
+#: includes/class-yaydp-i18n.php:91
 msgid "Shipping region"
 msgstr "Toimitusalue"
 
-#: includes/class-yaydp-i18n.php:118
+#: includes/class-yaydp-i18n.php:92
+#, fuzzy
+#| msgid "Shipping region"
+msgid "Billing region"
+msgstr "Toimitusalue"
+
+#: includes/class-yaydp-i18n.php:93
 msgid "Payment method"
 msgstr "Maksutapa"
 
-#: includes/class-yaydp-i18n.php:119
+#: includes/class-yaydp-i18n.php:94
 msgid "Combination"
 msgstr "Yhdistelmä"
 
-#: includes/class-yaydp-i18n.php:120
+#: includes/class-yaydp-i18n.php:95
 msgid "Combined condition"
 msgstr "Yhdistetty ehto"
 
-#: includes/class-yaydp-i18n.php:121
+#: includes/class-yaydp-i18n.php:96
 msgid "Applied coupons"
 msgstr "Käytetyt kupongit"
 
-#: includes/class-yaydp-i18n.php:122
+#: includes/class-yaydp-i18n.php:97
 msgid "Total shipping fee"
 msgstr "Toimitusmaksu yhteensä"
 
-#: includes/class-yaydp-i18n.php:123
+#: includes/class-yaydp-i18n.php:98
 msgid "Items - Product"
 msgstr "Tuotteet - Tuote"
 
-#: includes/class-yaydp-i18n.php:124
+#: includes/class-yaydp-i18n.php:99
 msgid "Items - Category"
 msgstr "Tuotteet - Kategoria"
 
-#: includes/class-yaydp-i18n.php:125
+#: includes/class-yaydp-i18n.php:100
 msgid "Combined items"
 msgstr "Yhdistetyt tuotteet"
 
-#: includes/class-yaydp-i18n.php:126
+#: includes/class-yaydp-i18n.php:101
 msgid "Items - Quantity"
 msgstr "Tuotteet - Määrä"
 
-#: includes/class-yaydp-i18n.php:127
+#: includes/class-yaydp-i18n.php:102
 msgid "Items - Subtotal price"
 msgstr "Tuotteet - Välisumma"
 
-#: includes/class-yaydp-i18n.php:128
+#: includes/class-yaydp-i18n.php:103
 msgid "Contain all"
 msgstr "Sisältää kaikki"
 
-#: includes/class-yaydp-i18n.php:129
+#: includes/class-yaydp-i18n.php:104
 msgid "Contain in list"
 msgstr "Löytyy listalta"
 
-#: includes/class-yaydp-i18n.php:130
+#: includes/class-yaydp-i18n.php:105
 msgid "Not contain in list"
 msgstr "Ei sisälly listaan"
 
-#: includes/class-yaydp-i18n.php:131
+#: includes/class-yaydp-i18n.php:106
 msgid "Greater than"
 msgstr "Enemmän kuin"
 
-#: includes/class-yaydp-i18n.php:132
+#: includes/class-yaydp-i18n.php:107
 msgid "Less than"
 msgstr "Vähemmän kuin"
 
-#: includes/class-yaydp-i18n.php:133
+#: includes/class-yaydp-i18n.php:108
 msgid "Greater than or equal"
 msgstr "Enemmän kuin tai yhtä paljon"
 
-#: includes/class-yaydp-i18n.php:134
+#: includes/class-yaydp-i18n.php:109
 msgid "Less than or equal"
 msgstr "Vähemmän kuin tai yhtä paljon"
 
-#: includes/class-yaydp-i18n.php:135
+#: includes/class-yaydp-i18n.php:110
 msgid "In list"
 msgstr "Listalla"
 
-#: includes/class-yaydp-i18n.php:136
+#: includes/class-yaydp-i18n.php:111
 msgid "Not in list"
 msgstr "Ei listalla"
 
-#: includes/class-yaydp-i18n.php:137
+#: includes/class-yaydp-i18n.php:112
 msgid "Logged in"
 msgstr "Kirjautunut sisään"
 
-#: includes/class-yaydp-i18n.php:138
+#: includes/class-yaydp-i18n.php:113
 msgid "Not logged in"
 msgstr "Ei kirjautunut sisään"
 
-#: includes/class-yaydp-i18n.php:139
+#: includes/class-yaydp-i18n.php:114
 msgid "Before"
 msgstr "Ennen"
 
-#: includes/class-yaydp-i18n.php:140
+#: includes/class-yaydp-i18n.php:115
 msgid "After"
 msgstr "Jälkeen"
 
-#: includes/class-yaydp-i18n.php:141
+#: includes/class-yaydp-i18n.php:116
 msgid "On"
 msgstr "Käytössä"
 
-#: includes/class-yaydp-i18n.php:142
+#: includes/class-yaydp-i18n.php:117
 msgid "In range"
 msgstr "Haarukassa"
 
-#: includes/class-yaydp-i18n.php:143
+#: includes/class-yaydp-i18n.php:118
+#, fuzzy
+#| msgid "Less than"
+msgid "Longer than"
+msgstr "Vähemmän kuin"
+
+#: includes/class-yaydp-i18n.php:119
+msgid "Within"
+msgstr "Välillä"
+
+#: includes/class-yaydp-i18n.php:120
 msgid "Off"
 msgstr "Pois"
 
-#: includes/class-yaydp-i18n.php:144
+#: includes/class-yaydp-i18n.php:121
 msgid "Weekly"
 msgstr "Viikoittain"
 
-#: includes/class-yaydp-i18n.php:145
+#: includes/class-yaydp-i18n.php:122
 msgid "Monthly"
 msgstr "Kuukausittain"
 
-#: includes/class-yaydp-i18n.php:146
+#: includes/class-yaydp-i18n.php:123
 msgid "Yearly"
 msgstr "Vuosittain"
 
-#: includes/class-yaydp-i18n.php:147
+#: includes/class-yaydp-i18n.php:124
 msgid "Product exclusions"
 msgstr "Poissuljetut tuotteet"
 
-#: includes/class-yaydp-i18n.php:148
+#: includes/class-yaydp-i18n.php:125
 #, fuzzy
 #| msgid "Coupon Exclusions"
 msgid "Coupon exclusions"
 msgstr "Poissuljetut kupongit"
 
-#: includes/class-yaydp-i18n.php:149
+#: includes/class-yaydp-i18n.php:126
 msgid "Fixed Discount per Individual Cart Item"
 msgstr "Kiinteä alennus per yksittäinen ostoskorin tuote"
 
+#: includes/class-yaydp-i18n.php:127
+msgid "Your own campaign"
+msgstr "Sinun oma kampanjasi"
+
+#: includes/class-yaydp-i18n.php:128
+#, fuzzy
+msgid ""
+"Refers to a tailored pricing or promotional strategy designed specifically "
+"for your business or product offerings"
+msgstr ""
+"Viittaa räätälöityyn hinnoittelu- tai myynninedistämisstrategiaan, joka on "
+"suunniteltu erityisesti yritystäsi tai tuotetarjontaasi varten"
+
+#: includes/class-yaydp-i18n.php:129
+#, fuzzy
+msgid ""
+"You want to run a special promotional campaign offering 50% off every item "
+"in your store."
+msgstr ""
+"Haluat suorittaa erityisen myynninedistämiskampanjan, joka tarjoaa 50% off "
+"jokaista myymäläsi tuotetta."
+
+#: includes/class-yaydp-i18n.php:130
+#, fuzzy
+msgid ""
+"When the promotion is activated, all products in your store automatically "
+"receive a 50% discount when added to cart"
+msgstr ""
+"Kun tarjous on aktivoitu, kaikki kauppasi tuotteet saavat automaattisesti "
+"50% discountin, kun ne lisätään ostoskoriin"
+
+#: includes/class-yaydp-i18n.php:131
+#, fuzzy
+msgid "Eg:"
+msgstr "Esim:"
+
+#: includes/class-yaydp-i18n.php:132
+#, fuzzy
+msgid "T-shirt:"
+msgstr "T-paita:"
+
+#: includes/class-yaydp-i18n.php:133
+#, fuzzy
+msgid "Hoodie:"
+msgstr "Huppari:"
+
+#: includes/class-yaydp-i18n.php:134
+#, fuzzy
+msgid "Belt:"
+msgstr "Vyö:"
+
+#: includes/class-yaydp-i18n.php:135
+msgid "Sale 50% all products"
+msgstr "Alennus 50% kaikista tuotteista"
+
+#: includes/class-yaydp-i18n.php:136
+#, fuzzy
+#| msgid "Sale 50% all products"
+msgid "Sale 10$ all products"
+msgstr "Alennus 50% kaikista tuotteista"
+
+#: includes/class-yaydp-i18n.php:137
+msgid "Sale [discount_value] all products"
+msgstr "Alennus [discount_value] kaikista tuotteista"
+
+#: includes/class-yaydp-i18n.php:138
+#, fuzzy
+msgid ""
+"You want to run a special promotional campaign offering 10$ off every item "
+"in your store."
+msgstr ""
+"Haluat suorittaa erityisen myynninedistämiskampanjan, joka tarjoaa 10 "
+"dollarin alennuksen jokaisesta myymäläsi tuotteesta."
+
+#: includes/class-yaydp-i18n.php:139
+#, fuzzy
+msgid ""
+"When the promotion is activated, all products in your store automatically "
+"receive a 10$ discount when added to cart"
+msgstr ""
+"Kun kampanja on aktivoitu, kaikki kauppasi tuotteet saavat automaattisesti "
+"10$ alennuksen, kun ne lisätään ostoskoriin"
+
+#: includes/class-yaydp-i18n.php:140
+#, fuzzy
+msgid "Hoodie"
+msgstr "Huppari"
+
+#: includes/class-yaydp-i18n.php:141
+#, fuzzy
+msgid "Belt"
+msgstr "Vyö"
+
+#: includes/class-yaydp-i18n.php:142
+msgid "Buy 3 get 1 free item"
+msgstr "Osta 3, saa 1 ilmainen tuote"
+
+#: includes/class-yaydp-i18n.php:143
+msgid "Get this free when buy 3 item"
+msgstr "Saat tämän ilmaiseksi, kun ostat kolme tuotetta"
+
+#: includes/class-yaydp-i18n.php:144
+#, fuzzy
+msgid ""
+"Rewards customers with a free item after purchasing a specified quantity of "
+"products."
+msgstr ""
+"Palkitsee asiakkaat ilmaisella tuotteella tietyn tuotemäärän ostamisen "
+"jälkeen."
+
+#: includes/class-yaydp-i18n.php:145
+#, fuzzy
+msgid ""
+"In this case, customers who buy 3 items will receive an additional item for "
+"free."
+msgstr ""
+"Tässä tapauksessa asiakkaat, jotka ostavat 3 tuotetta, saavat ylimääräisen "
+"tuotteen ilmaiseksi."
+
+#: includes/class-yaydp-i18n.php:146
+#, fuzzy
+msgid ""
+"For every 3 clothing purchased, a free same type clothing is added to the "
+"cart automatically."
+msgstr ""
+"Jokaista ostettua 3 vaatetta kohden ostoskoriin lisätään automaattisesti "
+"ilmainen samantyyppinen vaate."
+
+#: includes/class-yaydp-i18n.php:147
+#, fuzzy
+msgid "Total items in cart:"
+msgstr "Ostoskorissa olevat tuotteet yhteensä:"
+
+#: includes/class-yaydp-i18n.php:148
+msgid "Gift"
+msgstr "Lahja"
+
+#: includes/class-yaydp-i18n.php:149
+msgid "Sale 30% from the third item"
+msgstr "Alennus 30% kolmannesta tuotteesta"
+
 #: includes/class-yaydp-i18n.php:150
+msgid "Discount [discount_value] off from 3rd item"
+msgstr "Alennus [discount_value] pois kolmannesta tuotteesta"
+
+#: includes/class-yaydp-i18n.php:151
+msgid "You will get 30% off when buy from 3 items"
+msgstr "Saat 30% pois, kun ostat kolme tuotetta"
+
+#: includes/class-yaydp-i18n.php:152
+#, fuzzy
+msgid ""
+"Provides a 30% discount on specific product when they purchase 3 or more "
+"items."
+msgstr ""
+"Tarjoaa 30% dmäärän tietylle tuotteelle, kun he ostavat vähintään 3 tuotetta."
+
+#: includes/class-yaydp-i18n.php:153
+#, fuzzy
+msgid ""
+"An store could offer a 30% discount for a purchased clothing type when "
+"customers buy 3 or more."
+msgstr ""
+"Kauppa voi tarjota 30% discountin ostetulle vaatetyypille, kun asiakkaat "
+"ostavat 3 tai enemmän."
+
+#: includes/class-yaydp-i18n.php:154
+#, fuzzy
+#| msgid "Discount"
+msgid "Discounted"
+msgstr "Alennus"
+
+#: includes/class-yaydp-i18n.php:155
+#, fuzzy
+#| msgid "Black Friday"
+msgid "Black Friday Event"
+msgstr "Black Friday"
+
+#: includes/class-yaydp-i18n.php:156
+msgid "Today is Black Friday, so you will get 70% off when buy all products"
+msgstr "Tänään on Black Friday, joten saat 70% pois kaikista tuotteista."
+
+#: includes/class-yaydp-i18n.php:157
+#, fuzzy
+msgid ""
+"The Black Friday Event campaign is a one-time, annual promotion that starts "
+"on the next Black Friday (the Friday after Thanksgiving this year)."
+msgstr ""
+"Black Friday Event -kampanja on kertaluonteinen vuosittainen kampanja, joka "
+"alkaa seuraavana Black Fridayna (tänä vuonna kiitospäivän jälkeisenä "
+"perjantaina)."
+
+#: includes/class-yaydp-i18n.php:158
+#, fuzzy
+msgid ""
+"Campaign will add a schedule in this rule to detect the next Black Friday."
+msgstr ""
+"Kampanja lisää tähän sääntöön aikataulun seuraavan Black Fridayn "
+"havaitsemiseksi."
+
+#: includes/class-yaydp-i18n.php:159
+#, fuzzy
+msgid ""
+"A clothing store could offer up to 70% off on all items and run flash sales "
+"on accessories like scarves and gloves."
+msgstr ""
+"Vaatekauppa voisi tarjota jopa 70% off kaikista tuotteista ja järjestää "
+"flashmyyntiä lisävarusteille, kuten huiveille ja käsineille."
+
+#: includes/class-yaydp-i18n.php:160
+#, fuzzy
+msgid "Buy 1 get 50% off the second one"
+msgstr "Osta 1, saat 50% off toisen"
+
+#: includes/class-yaydp-i18n.php:161
+msgid "You will get 50% off when buy the this product"
+msgstr "Saat 50% pois, kun ostat tämän tuotteen"
+
+#: includes/class-yaydp-i18n.php:162
+#, fuzzy
+msgid ""
+"Promotion that allows customers to purchase one item at full price and "
+"receive a same second item at 50% off."
+msgstr ""
+"Kampanja, jonka avulla asiakkaat voivat ostaa yhden tuotteen täydellä "
+"hinnalla ja saada saman toisen tuotteen hintaan 50% off."
+
+#: includes/class-yaydp-i18n.php:163
+#, fuzzy
+msgid "Customers buy 1 T-Shirt at full price and get a second one at 50% off."
+msgstr ""
+"Asiakkaat ostavat 1 T-paidan täydellä hinnalla ja saavat toisen hintaan 50% "
+"off."
+
+#: includes/class-yaydp-i18n.php:164
+msgid "Buy X get Y with discount"
+msgstr "Osta X, saa Y alennuksella"
+
+#: includes/class-yaydp-i18n.php:165
+msgid "Discount [discount_value] off"
+msgstr "Alennus [discount_value] pois"
+
+#: includes/class-yaydp-i18n.php:166
+msgid "You will get [discount_value] discount when buy 1 item of this product"
+msgstr "Saat [discount_value] alennuksen, kun ostat yhden tätä tuotetta"
+
+#: includes/class-yaydp-i18n.php:167
+#, fuzzy
+msgid ""
+"Campaign allows customers to purchase a specific product (X) and receive a "
+"second product (Y) at a discounted price."
+msgstr ""
+"Osta X, saat Y -sääntö tarjoaa asiakkaille strategisen kannustimen ostaa "
+"tietty määrä yhtä tuotetta (X) saadakseen toisen tuotteen (Y) alennuksella "
+"tai ilmaiseksi."
+
+#: includes/class-yaydp-i18n.php:168
+#, fuzzy
+msgid "Buy a Hoodie (Product X) and get a T-shirt (Product Y) at 10$ off."
+msgstr "Osta huppari (tuote X) ja hanki T-paita (tuote Y) hintaan 10$ alennus."
+
+#: includes/class-yaydp-i18n.php:169
+#, fuzzy
+msgid ""
+"For a limited time, get 50% off when you purchase any 3 selected items in a "
+"package."
+msgstr "Saat rajoitetun ajan 50% off, kun ostat paketin 3 valittua tuotetta."
+
+#: includes/class-yaydp-i18n.php:170
+#, fuzzy
+msgid ""
+"Select 3 items from our curated package options and receive 50% off the "
+"regular price of the 3 items in the package."
+msgstr ""
+"Valitse 3 tuotetta kuratoiduista pakettivaihtoehdoistamme ja saat 50% off "
+"paketin 3 tuotteen normaalihinnan."
+
+#: includes/class-yaydp-i18n.php:171
+#, fuzzy
+msgid "Package includes Hoodie, T-Shirt, Cap, ..."
+msgstr "Paketti sisältää hupparin, T-paidan, lippiksen, ..."
+
+#: includes/class-yaydp-i18n.php:172
+#, fuzzy
+msgid "Sale 50% off 3 items in package"
+msgstr "Ale 50% off 3 tuotetta paketissa"
+
+#: includes/class-yaydp-i18n.php:173
+#, fuzzy
+#| msgid "Sale 30% from the third item"
+msgid "Sale 30% on the third item"
+msgstr "Alennus 30% kolmannesta tuotteesta"
+
+#: includes/class-yaydp-i18n.php:174
+#, fuzzy
+msgid ""
+"Provides a 30% discount on a customer’s entire order when they purchase 3 or "
+"more items."
+msgstr ""
+"Tarjoaa 30% dmäärän asiakkaan koko tilauksesta, kun hän ostaa vähintään 3 "
+"tuotetta."
+
+#: includes/class-yaydp-i18n.php:175
+#, fuzzy
+msgid "Store could offer a 30% discount for the 3rd purchased T-Shirt or Cap"
+msgstr ""
+"Kauppa voisi tarjota 30% discountin 3. ostetulle T-paidalle tai lippikselle"
+
+#: includes/class-yaydp-i18n.php:176
+#, fuzzy
+msgid ""
+"Flexible promotional offer that allows you to apply a discount to the entire "
+"shopping cart based on custom rules that you define."
+msgstr ""
+"Joustava kampanjatarjous, jonka avulla voit soveltaa alennusta koko "
+"ostoskoriin määrittämiesi mukautettujen sääntöjen perusteella."
+
+#: includes/class-yaydp-i18n.php:177
+#, fuzzy
+#| msgid "Add [discount_value] to the order"
+msgid "Apply 100$ discount to the whole cart."
+msgstr "Lisää [discount_value] tilaukselle"
+
+#: includes/class-yaydp-i18n.php:178
+#, fuzzy
+#| msgid "Cart subtotal price"
+msgid "Cart subtotal:"
+msgstr "Ostoskorin välisumma"
+
+#: includes/class-yaydp-i18n.php:179
+msgid "Discount:"
+msgstr "Alennus:"
+
+#: includes/class-yaydp-i18n.php:180
+#, fuzzy
+#| msgid "cart total"
+msgid "Final total:"
+msgstr "ostoskori yhteensä"
+
+#: includes/class-yaydp-i18n.php:181
+msgid "Discount 50% campaign"
+msgstr "Alennus 50% kampanja"
+
+#: includes/class-yaydp-i18n.php:182
+msgid "Discount [discount_value] all cart"
+msgstr "Alennus [discount_value] koko ostoskorista"
+
+#: includes/class-yaydp-i18n.php:183
+#, fuzzy
+msgid ""
+"Provides customers with a 50% discount on the total value of their shopping "
+"cart"
+msgstr "Tarjoaa asiakkaille 50% darvon ostoskorin kokonaisarvosta"
+
+#: includes/class-yaydp-i18n.php:184
+#, fuzzy
+msgid "Customer will receive a 50% discount."
+msgstr "Asiakas saa 50% discountin."
+
+#: includes/class-yaydp-i18n.php:185
+msgid "Discount"
+msgstr "Alennus"
+
+#: includes/class-yaydp-i18n.php:186
+msgid "campaign"
+msgstr "kampanja"
+
+#: includes/class-yaydp-i18n.php:187
+#, fuzzy
+msgid ""
+"Provides customers with a 10$ discount on the total value of their shopping "
+"cart"
+msgstr "Tarjoaa asiakkaille 10$ alennuksen ostoskorin kokonaisarvosta"
+
+#: includes/class-yaydp-i18n.php:188
+#, fuzzy
+#| msgid "Customer order count"
+msgid "Customer will receive a 10$ discount"
+msgstr "Asiakkaan tilausten lukumäärä"
+
+#: includes/class-yaydp-i18n.php:189
+msgid "Black Friday campaign"
+msgstr "Black Friday kampanja"
+
+#: includes/class-yaydp-i18n.php:190
+msgid "Black friday discount! Discount [discount_value] all cart"
+msgstr "Black friday alennus! Alennus [discount_value] koko ostoskorista"
+
+#: includes/class-yaydp-i18n.php:191
+#, fuzzy
+msgid "A clothing store could offer up to 100$ off cart totals on Black Friday"
+msgstr ""
+"Vaatekauppa voi tarjota jopa 100 dollarin ostoskorin kokonaissummat Black "
+"Fridayna"
+
+#: includes/class-yaydp-i18n.php:192
+#, fuzzy
+msgid "Discount 10$ on the total when spending 100$"
+msgstr "Alennus 10$ kokonaismäärästä, kun käytät 100$"
+
+#: includes/class-yaydp-i18n.php:193
+#, fuzzy
+msgid ""
+"Provides customers with a 10$ discount on the total value of their shopping "
+"cart when spending 100$"
+msgstr ""
+"Tarjoaa asiakkaille 10$ alennuksen ostoskorinsa kokonaisarvosta, kun he "
+"käyttävät 100$"
+
+#: includes/class-yaydp-i18n.php:194
+#, fuzzy
+msgid ""
+"If the customer has items worth $100 in their cart, they will receive a 10$ "
+"discount, making their final cart total $90."
+msgstr ""
+"Jos asiakkaalla on ostoskorissaan tuotteita, joiden arvo on 100 dollaria, "
+"hän saa 10 dollarin alennuksen, jolloin lopullinen ostoskori on yhteensä 90 "
+"dollaria."
+
+#: includes/class-yaydp-i18n.php:195
+#, fuzzy
+msgid ""
+"Promotion that allows you to apply a customized fee at checkout based on "
+"specific rules that you define. Unlike typical discounts, this campaign lets "
+"you add a fee to a customer’s order under certain conditions."
+msgstr ""
+"Kampanja, jonka avulla voit periä kassalla mukautetun maksun määrittämiesi "
+"sääntöjen perusteella. Toisin kuin tyypilliset alennukset, tässä kampanjassa "
+"voit lisätä maksun asiakkaan tilaukseen tietyin ehdoin."
+
+#: includes/class-yaydp-i18n.php:196
+#, fuzzy
+msgid "Apply 10$ extra fee to the order"
+msgstr "Käytä tilaukseen 10$ lisämaksua"
+
+#: includes/class-yaydp-i18n.php:197
+#, fuzzy
+msgid "Fee:"
+msgstr "Maksu:"
+
+#: includes/class-yaydp-i18n.php:198
+msgid "Free shipping fee"
+msgstr "Maksuton toimitusmaksu"
+
+#: includes/class-yaydp-i18n.php:199
+msgid "Get free shipping"
+msgstr "Saat maksuttoman toimituksen"
+
+#: includes/class-yaydp-i18n.php:200
+#, fuzzy
+msgid ""
+"Offers customers free delivery on their orders under certain conditions."
+msgstr "Tarjoaa asiakkaille ilmaisen toimituksen tilauksilleen tietyin ehdoin."
+
+#: includes/class-yaydp-i18n.php:201
+#, fuzzy
+msgid "Reduce shipping fee in order to customers get free on shipping."
+msgstr "Alenna toimitusmaksua, jotta asiakkaat saavat ilmaisen toimituksen."
+
+#: includes/class-yaydp-i18n.php:202
+#, fuzzy
+#| msgid "Free shipping fee"
+msgid "Shipping fee:"
+msgstr "Maksuton toimitusmaksu"
+
+#: includes/class-yaydp-i18n.php:203
+#, fuzzy
+#| msgid "Reduce 50% shipping fee for order below 100"
+msgid "Reduce 50% shipping fee for order below"
+msgstr "Vähennä 50% toimituskuluista alle 100 ostoksille"
+
+#: includes/class-yaydp-i18n.php:204
+msgid "Discount 50% of the shipping cost"
+msgstr "50% alennus toimituskuluista"
+
+#: includes/class-yaydp-i18n.php:205
+#, fuzzy
+msgid ""
+"Offers a 50% discount on the shipping fee for customers who place orders "
+"with a total value below $100."
+msgstr ""
+"Tarjoaa 50% dsumman toimitusmaksusta asiakkaille, jotka tekevät tilauksia, "
+"joiden kokonaisarvo on alle 100 dollaria."
+
+#: includes/class-yaydp-i18n.php:206
+#, fuzzy
+msgid ""
+"A customer spending $80 on kitchen utensils could have their $12 shipping "
+"fee reduced to $6, which would encourage them to complete the checkout."
+msgstr ""
+"Asiakkaan, joka käyttää 80 dollaria keittiövälineisiin, 12 dollarin "
+"toimitusmaksu voidaan alentaa 6 dollariin, mikä kannustaisi heitä "
+"suorittamaan kassan."
+
+#: includes/class-yaydp-i18n.php:207
+msgid "Add"
+msgstr "Lisää"
+
+#: includes/class-yaydp-i18n.php:208
+msgid "fee to order"
+msgstr "maksu tilaukselle"
+
+#: includes/class-yaydp-i18n.php:209
+msgid "Add [discount_value] to the order"
+msgstr "Lisää [discount_value] tilaukselle"
+
+#: includes/class-yaydp-i18n.php:210
+#, fuzzy
+msgid "Automatically apply a $10 fee to a customer"
+msgstr "10 dollarin maksun veloittaminen asiakkaalta automaattisesti"
+
+#: includes/class-yaydp-i18n.php:211
+#, fuzzy
+msgid "A $10 fee is automatically added to the order."
+msgstr "Tilaukseen lisätään automaattisesti 10 dollarin maksu."
+
+#: includes/class-yaydp-i18n.php:212
+#, fuzzy
+msgid "Extra fee:"
+msgstr "Lisämaksu:"
+
+#: includes/class-yaydp-i18n.php:213
+msgid "Upgrade"
+msgstr "Päivitä"
+
+#: includes/class-yaydp-i18n.php:214
 msgid "Duplicate of"
 msgstr "Kopio"
 
-#: includes/class-yaydp-i18n.php:151
+#: includes/class-yaydp-i18n.php:215
 #, fuzzy
 #| msgid "Before"
 msgid "Before "
 msgstr "Ennen"
 
-#: includes/class-yaydp-i18n.php:152
+#: includes/class-yaydp-i18n.php:216
 #, fuzzy
 #| msgid "After"
 msgid "After "
 msgstr "Jälkeen"
 
-#: includes/class-yaydp-i18n.php:153
+#: includes/class-yaydp-i18n.php:217
 msgid "Before Product short description"
 msgstr "Ennen tuotteen lyhyttä kuvausta"
 
-#: includes/class-yaydp-i18n.php:154
+#: includes/class-yaydp-i18n.php:218
 msgid "After Product short description"
 msgstr "Tuotteen lyhyen kuvauksen jälkeen"
 
-#: includes/class-yaydp-i18n.php:155
+#: includes/class-yaydp-i18n.php:219
 msgid "Product meta start"
 msgstr "Tuotteen metatieto alkaa"
 
-#: includes/class-yaydp-i18n.php:156
+#: includes/class-yaydp-i18n.php:220
 msgid "Product meta end"
 msgstr "Tuotteen metatieto päättyy"
 
-#: includes/class-yaydp-i18n.php:157
+#: includes/class-yaydp-i18n.php:221
 msgid "None"
 msgstr "Ei mitään"
 
-#: includes/class-yaydp-i18n.php:158
+#: includes/class-yaydp-i18n.php:222
 msgid "Style has been reset"
 msgstr "Tyyli on nollattu"
 
-#: includes/class-yaydp-i18n.php:159
+#: includes/class-yaydp-i18n.php:223
 msgid "Quantity discounts"
 msgstr "Määräalennukset"
 
-#: includes/class-yaydp-i18n.php:160
+#: includes/class-yaydp-i18n.php:224
 msgid "Quantity"
 msgstr "Määrä"
 
-#: includes/class-yaydp-i18n.php:161
+#: includes/class-yaydp-i18n.php:225
 msgid "Price"
 msgstr "Hinta"
 
-#: includes/class-yaydp-i18n.php:162
+#: includes/class-yaydp-i18n.php:226
+msgid "Pricing table"
+msgstr "Hinnoittelutaulukko"
+
+#: includes/class-yaydp-i18n.php:227
 msgid "Table position"
 msgstr "Taulukon sijainti"
 
-#: includes/class-yaydp-i18n.php:163
+#: includes/class-yaydp-i18n.php:228
 msgid "Table title"
 msgstr "Taulukon otsikko"
 
-#: includes/class-yaydp-i18n.php:164
+#: includes/class-yaydp-i18n.php:229
 #, fuzzy
 msgid "Ex: Quantity discounts"
 msgstr "Esimerkki: Määräalennukset"
 
-#: includes/class-yaydp-i18n.php:165
+#: includes/class-yaydp-i18n.php:230
 msgid "Quantity title"
 msgstr "Määrän otsikko"
 
-#: includes/class-yaydp-i18n.php:166
+#: includes/class-yaydp-i18n.php:231
 msgid "Ex: Quantity"
 msgstr "Esim. määrä"
 
-#: includes/class-yaydp-i18n.php:167
+#: includes/class-yaydp-i18n.php:232
 msgid "Discount title"
 msgstr "Alennuksen otsikko"
 
-#: includes/class-yaydp-i18n.php:168
+#: includes/class-yaydp-i18n.php:233
 #, fuzzy
 msgid "Ex: Discount"
 msgstr "Esimerkki: Alennus"
 
-#: includes/class-yaydp-i18n.php:169
+#: includes/class-yaydp-i18n.php:234
 msgid "Price title"
 msgstr "Hinnan otsikko"
 
-#: includes/class-yaydp-i18n.php:170
+#: includes/class-yaydp-i18n.php:235
 msgid "Ex: Price"
 msgstr "Esim. hinta"
 
-#: includes/class-yaydp-i18n.php:171
+#: includes/class-yaydp-i18n.php:236
 msgid "Border color"
 msgstr "Reunan väritys"
 
-#: includes/class-yaydp-i18n.php:172
+#: includes/class-yaydp-i18n.php:237
 msgid "Preview"
 msgstr "Esikatselu"
 
-#: includes/class-yaydp-i18n.php:173
+#: includes/class-yaydp-i18n.php:238
 msgid "Reset"
 msgstr "Tyhjennä"
 
-#: includes/class-yaydp-i18n.php:174
-msgid "Product pricing"
-msgstr "Tuotteen hinnoittelu"
+#: includes/class-yaydp-i18n.php:239
+msgid "Encourage notice"
+msgstr "Kannustushuomautus"
 
-#: includes/class-yaydp-i18n.php:175
+#: includes/class-yaydp-i18n.php:240
 #, fuzzy
 msgid "Show notices after product description to encourage purchasing"
 msgstr "Näytä ilmoitukset tuotekuvauksen jälkeen kannustaaksesi ostamaan"
 
-#: includes/class-yaydp-i18n.php:176
-msgid "Cart discounts"
-msgstr "Ostoskorin alennukset"
-
-#: includes/class-yaydp-i18n.php:177
+#: includes/class-yaydp-i18n.php:241
 #, fuzzy
 msgid "Show notices at bottom of Cart page to encourage purchasing"
 msgstr "Näytä ilmoitukset ostoskorisivun alareunassa kannustaaksesi ostamaan"
 
-#: includes/class-yaydp-i18n.php:178
-#, fuzzy
-#| msgid "Checkout Fee"
-msgid "Checkout fee"
-msgstr "Kassamaksu"
-
-#: includes/class-yaydp-i18n.php:179
+#: includes/class-yaydp-i18n.php:242
 #, fuzzy
 msgid "Show notices at bottom of Checkout page to encourage purchasing"
 msgstr "Näytä ilmoitukset kassasivun alareunassa kannustaaksesi ostamaan"
 
-#: includes/class-yaydp-i18n.php:180
-#, fuzzy
-#| msgid "Cart discounts"
-msgid "Cart discount"
-msgstr "Ostoskorin alennukset"
-
-#: includes/class-yaydp-i18n.php:181
+#: includes/class-yaydp-i18n.php:243
 msgid "Import successfully"
 msgstr "Tuotu onnistuneesti"
 
-#: includes/class-yaydp-i18n.php:182
+#: includes/class-yaydp-i18n.php:244
 msgid "Import failed"
 msgstr "Tuonti epäonnistui"
 
-#: includes/class-yaydp-i18n.php:183
+#: includes/class-yaydp-i18n.php:245
+msgid "Import/Export"
+msgstr "Tuonti ja vienti"
+
+#: includes/class-yaydp-i18n.php:246
 msgid "Export rules"
 msgstr "Viennin säännöt"
 
-#: includes/class-yaydp-i18n.php:184
+#: includes/class-yaydp-i18n.php:247
 msgid "Choose file"
 msgstr "Valitse tiedosto"
 
-#: includes/class-yaydp-i18n.php:185
+#: includes/class-yaydp-i18n.php:248
 msgid "Import"
 msgstr "Tuo"
 
-#: includes/class-yaydp-i18n.php:186
+#: includes/class-yaydp-i18n.php:249
+msgid "Countdown timer"
+msgstr "Alaspäin laskeva ajastin"
+
+#: includes/class-yaydp-i18n.php:250
 msgid "Show countdown timer"
 msgstr "Näytä alaspäin laskeva ajastin"
 
-#: includes/class-yaydp-i18n.php:187
+#: includes/class-yaydp-i18n.php:251
 msgid "Discountable price range"
 msgstr "Alennettava hintahaarukka"
 
-#: includes/class-yaydp-i18n.php:188
+#: includes/class-yaydp-i18n.php:252
 msgid "Current discount tier"
 msgstr "Nykyinen alennusporras"
 
-#: includes/class-yaydp-i18n.php:189
+#: includes/class-yaydp-i18n.php:253
 msgid "Next discount tier as if 1 more item is added"
 msgstr "Seuraava alennusporras, mikäli yksi tuote on lisätty"
 
-#: includes/class-yaydp-i18n.php:190
+#: includes/class-yaydp-i18n.php:254
+msgid "Product sale display"
+msgstr "Tuotteen alennusnäyttö"
+
+#: includes/class-yaydp-i18n.php:255
 msgid "Show sale tag and discounted price as"
 msgstr "Näytä ale-lappu ja alennettu hinta"
 
-#: includes/class-yaydp-i18n.php:191
-msgid "Sale Tag"
-msgstr "Ale-lappu"
-
-#: includes/class-yaydp-i18n.php:192
-msgid "Show sale tag for sale products"
-msgstr "Näytä ale-lappu alennuksessa olevissa tuotteissa"
-
-#: includes/class-yaydp-i18n.php:193
-msgid ""
-"Display a sale tag on product image on shop page and single product page"
-msgstr "Näytä ale-tagi tuotekuvassa kaupan sivulla ja tuotteen sivulla"
-
-#: includes/class-yaydp-i18n.php:194
-msgid "Show sale off amount on the sale tag"
-msgstr "Näytä alennuksen määrä ale-lapussa"
-
-#: includes/class-yaydp-i18n.php:195
-msgid "Display a discount range tag on the sale tag"
-msgstr "Näytä alennushaarukka ale-tagissa"
-
-#: includes/class-yaydp-i18n.php:196
+#: includes/class-yaydp-i18n.php:256
 msgid "Product price display"
 msgstr "Tuotteen hintanäyttö"
 
-#: includes/class-yaydp-i18n.php:197
+#: includes/class-yaydp-i18n.php:257
 msgid "Show product discounted price"
 msgstr "Näytä tuotteen alennettu hinta"
 
-#: includes/class-yaydp-i18n.php:198
+#: includes/class-yaydp-i18n.php:258
 msgid "Replace product price with the discounted one"
 msgstr "Korvaa tuotteen hinta alennetulla"
 
-#: includes/class-yaydp-i18n.php:199
+#: includes/class-yaydp-i18n.php:259
 msgid "Show product regular price within discounted"
 msgstr "Näytä tuotteen normaalihinta alennetun hinnan yhteydessä"
 
-#: includes/class-yaydp-i18n.php:200
+#: includes/class-yaydp-i18n.php:260
 msgid "Regular price is displayed as strike-through text on product price"
 msgstr "Normaali hinta näytetään yliviivattuna tuotteen hinnassa"
 
-#: includes/class-yaydp-i18n.php:201
+#: includes/class-yaydp-i18n.php:261
 #, fuzzy
 msgid "Saving amount"
 msgstr "Säästösumma"
 
-#: includes/class-yaydp-i18n.php:202
+#: includes/class-yaydp-i18n.php:262
 #, fuzzy
 msgid "Show order saving amount"
 msgstr "Näytä tilauksen säästösumma"
 
-#: includes/class-yaydp-i18n.php:203
+#: includes/class-yaydp-i18n.php:263
 #, fuzzy
 msgid "Show products saving amount on cart page (Only for cart shortcode)."
 msgstr "Näytä säästösumma ostoskorisivulla (vain ostoskorin lyhytkoodille)"
 
-#: includes/class-yaydp-i18n.php:204
+#: includes/class-yaydp-i18n.php:264
 msgid "Position"
 msgstr "Asemointi"
 
-#: includes/class-yaydp-i18n.php:205
+#: includes/class-yaydp-i18n.php:265
 #, fuzzy
 #| msgid "Border color"
 msgid "Before order total"
 msgstr "Reunan väritys"
 
-#: includes/class-yaydp-i18n.php:206
+#: includes/class-yaydp-i18n.php:266
 #, fuzzy
 #| msgid "Customer order count"
 msgid "After order total"
 msgstr "Asiakkaan tilausten lukumäärä"
 
-#: includes/class-yaydp-i18n.php:207
+#: includes/class-yaydp-i18n.php:267
+msgid "General"
+msgstr "Yleinen"
+
+#: includes/class-yaydp-i18n.php:268
 msgid "Discount based on"
 msgstr "Alennus perustuu"
 
-#: includes/class-yaydp-i18n.php:208
+#: includes/class-yaydp-i18n.php:269
 #, fuzzy
 msgid "Disable product pricing rules when product is on sale"
 msgstr ""
 "Poista tuotteiden hinnoittelusäännöt käytöstä, kun tuote on alennuksessa"
 
-#: includes/class-yaydp-i18n.php:209
+#: includes/class-yaydp-i18n.php:270
 #, fuzzy
 msgid ""
 "When product is on sale, it will not be discounted by product pricing rule."
 msgstr ""
 "Kun tuote on alennuksessa, sitä ei alenneta tuotteen hinnoittelusäännöllä."
 
-#: includes/class-yaydp-i18n.php:210
+#: includes/class-yaydp-i18n.php:271
+#, fuzzy
+msgid "Prevent cart discount applied when Single use WC Coupon applied"
+msgstr ""
+"Estä ostoskorialennuksen soveltaminen, kun kertakäyttöistä WC-kuponkia "
+"käytetään"
+
+#: includes/class-yaydp-i18n.php:272
+#, fuzzy
+msgid ""
+"WC coupon cannot be applied when it is single use and cart items have "
+"discounted by YayPricing"
+msgstr ""
+"WC-kuponkia ei voi käyttää, kun se on kertakäyttöinen ja YayPricing on "
+"alentanut ostoskorituotteita"
+
+#: includes/class-yaydp-i18n.php:273
 msgid "Show regular price on cart item"
 msgstr "Näytä normaali hinta ostoskorissa olevassa tuotteessa"
 
-#: includes/class-yaydp-i18n.php:211
+#: includes/class-yaydp-i18n.php:274
 msgid ""
 "Regular price is displayed as strike-through text on cart page and checkout "
 "page"
 msgstr "Normaali hinta näytetään yliviivattuna ostoskorissa ja kassalla"
 
-#: includes/class-yaydp-i18n.php:212
+#: includes/class-yaydp-i18n.php:275
 #, fuzzy
 #| msgid "Show regular price on cart item"
 msgid "Show original subtotal price on cart item"
 msgstr "Näytä normaali hinta ostoskorissa olevassa tuotteessa"
 
-#: includes/class-yaydp-i18n.php:213
+#: includes/class-yaydp-i18n.php:276
 #, fuzzy
 #| msgid ""
 #| "Regular price is displayed as strike-through text on cart page and "
@@ -851,11 +1290,11 @@ msgid ""
 "cannot affect to WC Block"
 msgstr "Normaali hinta näytetään yliviivattuna ostoskorissa ja kassalla"
 
-#: includes/class-yaydp-i18n.php:214
+#: includes/class-yaydp-i18n.php:277
 msgid "Combine cart discounts"
 msgstr "Yhdistä ostoskorin alennukset"
 
-#: includes/class-yaydp-i18n.php:215
+#: includes/class-yaydp-i18n.php:278
 #, fuzzy
 msgid ""
 "All rules will be calculated and combined into a single rule to apply in cart"
@@ -863,11 +1302,11 @@ msgstr ""
 "Kaikki säännöt lasketaan ja yhdistetään yhdeksi korissa sovellettavaksi "
 "säännöksi"
 
-#: includes/class-yaydp-i18n.php:216
+#: includes/class-yaydp-i18n.php:279
 msgid "Use discount ID as coupon code"
 msgstr "Käytä alennuksen tunnistetta alennuskoodina"
 
-#: includes/class-yaydp-i18n.php:217
+#: includes/class-yaydp-i18n.php:280
 #, fuzzy
 msgid ""
 "Automatically generate cart discount ID to be used as a coupon code in the "
@@ -876,131 +1315,162 @@ msgstr ""
 "Luo ostoskorin alennustunnus automaattisesti käytettäväksi kuponkikoodina "
 "järjestelmänvalvojan tilauksen tiedoissa"
 
-#: includes/class-yaydp-i18n.php:218
+#: includes/class-yaydp-i18n.php:281
 #, fuzzy
-#| msgid "All Product Pricing Rules"
-msgid "All Product Pricing rules"
-msgstr "Kaikki tuotteiden hinnoittelusäännöt"
+msgid "Use cart discount together with Single use WC Coupon"
+msgstr "Käytä ostoskorialennusta yhdessä kertakäyttöisen WC-kupongin kanssa"
 
-#: includes/class-yaydp-i18n.php:219
-#, fuzzy
-msgid "Display order saved amount"
-msgstr "Näytä tilauksen säästösumma"
+#: includes/class-yaydp-i18n.php:282
+msgid "Sale Tag"
+msgstr "Ale-lappu"
 
-#: includes/class-yaydp-i18n.php:220
-#, fuzzy
+#: includes/class-yaydp-i18n.php:283
+msgid "Show sale tag for sale products"
+msgstr "Näytä ale-lappu alennuksessa olevissa tuotteissa"
+
+#: includes/class-yaydp-i18n.php:284
 msgid ""
-"All sale products (includes WooCommerce sale products and YayPricing "
-"discountable products)"
-msgstr ""
-"Kaikki myyntituotteet (sisältää WooCommerce-alennustuotteet ja YayPricing -"
-"alennustuotteet)"
+"Display a sale tag on product image on shop page and single product page"
+msgstr "Näytä ale-tagi tuotekuvassa kaupan sivulla ja tuotteen sivulla"
 
-#: includes/class-yaydp-i18n.php:221
+#: includes/class-yaydp-i18n.php:285
+msgid "Show sale off amount on the sale tag"
+msgstr "Näytä alennuksen määrä ale-lapussa"
+
+#: includes/class-yaydp-i18n.php:286
+msgid "Display a discount range tag on the sale tag"
+msgstr "Näytä alennushaarukka ale-tagissa"
+
+#: includes/class-yaydp-i18n.php:287
+msgid "Background color"
+msgstr "Taustaväri"
+
+#: includes/class-yaydp-i18n.php:288
+msgid "Text color"
+msgstr "Tekstin väri"
+
+#: includes/class-yaydp-i18n.php:289
+#: includes/templates/product/yaydp-sale-tag.php:31
+msgid "SALE!"
+msgstr "ALE!"
+
+#: includes/class-yaydp-i18n.php:290
+#: includes/templates/product/yaydp-sale-tag.php:32
+msgid "Up to %s"
+msgstr "%s asti"
+
+#: includes/class-yaydp-i18n.php:291
+#, fuzzy
+msgid "What"
+msgstr "Mikä"
+
+#: includes/class-yaydp-i18n.php:292
+msgid "Version"
+msgstr "Versio"
+
+#: includes/class-yaydp-i18n.php:293
+msgid "Shortcodes"
+msgstr "Lyhytkoodit"
+
+#: includes/class-yaydp-i18n.php:294
 #, fuzzy
 msgid "Shortcode to load all products which has discount through YayPricing"
 msgstr ""
 "Lyhytkoodi ladata kaikki tuotteet, joilla on alennus YayPricing -palvelun "
 "kautta"
 
-#: includes/class-yaydp-i18n.php:222
+#: includes/class-yaydp-i18n.php:295
 #, fuzzy
 msgid "Please paste it in your promotion page to show list on sale products"
 msgstr "Liitä se kampanjasivullesi näyttääksesi luettelon alennustuotteista"
 
-#: includes/class-yaydp-i18n.php:223
+#: includes/class-yaydp-i18n.php:296
 msgid "Select rules for on sale products"
 msgstr "Valitse säännöt alennetuille tuotteille"
 
-#: includes/class-yaydp-i18n.php:224
-#, fuzzy
-#| msgid "Shortcodes"
-msgid "Other shortcodes"
-msgstr "Lyhytkoodit"
-
-#: includes/class-yaydp-i18n.php:225
-msgid "Description"
-msgstr "Kuvaus"
-
-#: includes/class-yaydp-i18n.php:226
+#: includes/class-yaydp-i18n.php:297
 msgid "Apply all applicable rules"
 msgstr "Käytä kaikki sovellettavat säännöt"
 
-#: includes/class-yaydp-i18n.php:227
+#: includes/class-yaydp-i18n.php:298
 msgid "Apply the first applicable rule in your list"
 msgstr "Käytä ensimmäistä sovellettavaa sääntöä listalla"
 
-#: includes/class-yaydp-i18n.php:228
+#: includes/class-yaydp-i18n.php:299
 #, fuzzy
 msgid "Apply the rule with minimum discount amount"
 msgstr "Käytä sääntöä pienimmällä alennussummalla"
 
-#: includes/class-yaydp-i18n.php:229
+#: includes/class-yaydp-i18n.php:300
 #, fuzzy
 msgid "Apply the rule with maximum discount amount"
 msgstr "Käytä sääntöä, jolla on enimmäisalennussumma"
 
-#: includes/class-yaydp-i18n.php:230
+#: includes/class-yaydp-i18n.php:301
+msgid "How the rules are applied"
+msgstr "Kuinka säännöt on käytössä"
+
+#: includes/class-yaydp-i18n.php:302
 #, fuzzy
 #| msgid "Current discounting product"
 msgid "Apply to non discount product"
 msgstr "Nykyinen alennettava tuote"
 
-#: includes/class-yaydp-i18n.php:231
+#: includes/class-yaydp-i18n.php:303
 msgid "Count quantity by"
 msgstr "Laske määrä"
 
-#: includes/class-yaydp-i18n.php:232
+#: includes/class-yaydp-i18n.php:304
 msgid "Is repeat"
 msgstr "Toistuva"
 
-#: includes/class-yaydp-i18n.php:233
+#: includes/class-yaydp-i18n.php:305
 #, fuzzy
 #| msgid "Discount will apply once or repeat"
 msgid "Discount will apply once or repeat after each quantities matching"
 msgstr "Alennusta sovelletaan kerran tai toistuvasti"
 
-#: includes/class-yaydp-i18n.php:234
+#: includes/class-yaydp-i18n.php:306
 msgid "Buy"
 msgstr "Osta"
 
-#: includes/class-yaydp-i18n.php:235
+#: includes/class-yaydp-i18n.php:307
 msgid "Get"
 msgstr "Saat"
 
-#: includes/class-yaydp-i18n.php:236
+#: includes/class-yaydp-i18n.php:308
 #: includes/templates/cart-item-price/extra-item.php:14
 msgid "Free"
 msgstr "Ilmainen"
 
-#: includes/class-yaydp-i18n.php:237
+#: includes/class-yaydp-i18n.php:309
 msgid "Pricing type"
 msgstr "Hinnoittelutyyppi"
 
-#: includes/class-yaydp-i18n.php:238
+#: includes/class-yaydp-i18n.php:310
 #, fuzzy
 msgid ""
 "Fact: The maximum allowable flat price will be limited to the product price."
 msgstr "Fakta: Suurin sallittu kiinteä hinta rajoittuu tuotteen hintaan."
 
-#: includes/class-yaydp-i18n.php:239
+#: includes/class-yaydp-i18n.php:311
 msgid "Pricing value"
 msgstr "Hinnoitteluarvo"
 
-#: includes/class-yaydp-i18n.php:240
+#: includes/class-yaydp-i18n.php:312
 msgid "Maximum value"
 msgstr "Maksimi arvo"
 
-#: includes/class-yaydp-i18n.php:241
+#: includes/class-yaydp-i18n.php:313
 msgid "This adds a cap so that the discount amount will not exceed this amount"
 msgstr "Tämä lisää ylärajan, jotta alennuksen määrä ei ylitä tätä summaa"
 
-#: includes/class-yaydp-i18n.php:242
+#: includes/class-yaydp-i18n.php:314
 #, fuzzy
 msgid "Using formula"
 msgstr "Kaavan käyttäminen"
 
-#: includes/class-yaydp-i18n.php:243
+#: includes/class-yaydp-i18n.php:315
 #, fuzzy
 msgid ""
 "E.g: quantity: {n}*2, pricing: {n}*10 => Buy 2 items get 10$ discount. 4 "
@@ -1011,79 +1481,45 @@ msgstr ""
 "alennuksen. 4 tuotetta saa 20$ alennuksen jne. Tulkinta: {n} on ostettujen "
 "tuotteiden määrä yhdelle tuotteelle. "
 
-#: includes/class-yaydp-i18n.php:244
-msgid "Add 10"
-msgstr "Lisää 10"
+#: includes/class-yaydp-i18n.php:316
+#, fuzzy
+#| msgid "Scheduled discounts"
+msgid "Simple discount"
+msgstr "Ajastetut alennukset"
 
-#: includes/class-yaydp-i18n.php:245
-msgid "Campaigns"
-msgstr "Kampanjat"
+#: includes/class-yaydp-i18n.php:317
+#, fuzzy
+#| msgid "Product exclusions"
+msgid "Product Collection"
+msgstr "Poissuljetut tuotteet"
 
-#: includes/class-yaydp-i18n.php:246
+#: includes/class-yaydp-i18n.php:318
 msgid "Choose your desired campaign"
 msgstr "Valitse haluamasi kampanja"
 
-#: includes/class-yaydp-i18n.php:247
-msgid "Your own campaign"
-msgstr "Sinun oma kampanjasi"
+#: includes/class-yaydp-i18n.php:319
+msgid "Cancel"
+msgstr "Peruuta"
 
-#: includes/class-yaydp-i18n.php:248
-msgid "Sale 50% OFF all products"
-msgstr "Alennus 50% pois kaikista tuotteista"
+#: includes/class-yaydp-i18n.php:320
+msgid "Add Campaign"
+msgstr "Luo kampanja"
 
-#: includes/class-yaydp-i18n.php:249
-msgid "Sale 10"
-msgstr "Ale 10"
-
-#: includes/class-yaydp-i18n.php:250
-msgid "OFF"
-msgstr "Pois"
-
-#: includes/class-yaydp-i18n.php:251
-msgid "Buy 3 Get 1 Free"
-msgstr "Osta 3, saa 1 ilmaiseksi"
-
-#: includes/class-yaydp-i18n.php:252
-msgid "Buy X Get X"
-msgstr "Osta X, saa X"
-
-#: includes/class-yaydp-i18n.php:253
-msgid "Sale 30% OFF from the third item"
-msgstr "Alennus 30% pois kolmannesta tuotteesta"
-
-#: includes/class-yaydp-i18n.php:254
-msgid "Buy X Get Y"
-msgstr "Osta X, saa Y"
-
-#: includes/class-yaydp-i18n.php:255
+#: includes/class-yaydp-i18n.php:321
 #, fuzzy
-#| msgid "Discount 50% campaign"
-msgid "Discount 50% cart total"
-msgstr "Alennus 50% kampanja"
+#| msgid "campaign"
+msgid "No campaign found"
+msgstr "kampanja"
 
-#: includes/class-yaydp-i18n.php:256
-#, fuzzy
-#| msgid "Discount"
-msgid "Discount 10"
-msgstr "Alennus"
-
-#: includes/class-yaydp-i18n.php:257
-msgid "cart total"
-msgstr "ostoskori yhteensä"
-
-#: includes/class-yaydp-i18n.php:258
-msgid "Free shipping"
-msgstr "Maksuton toimitus"
-
-#: includes/class-yaydp-i18n.php:259
+#: includes/class-yaydp-i18n.php:322
 msgid "From"
 msgstr "Lähettäjä"
 
-#: includes/class-yaydp-i18n.php:260
+#: includes/class-yaydp-i18n.php:323
 msgid "to"
 msgstr "-"
 
-#: includes/class-yaydp-i18n.php:261
+#: includes/class-yaydp-i18n.php:324
 #, fuzzy
 msgid ""
 "Leaving this blank means there will be no restriction on the number of items "
@@ -1092,7 +1528,7 @@ msgstr ""
 "Tämän tyhjän jättäminen tarkoittaa, että tarkastettavien kohteiden määrää ei "
 "rajoiteta."
 
-#: includes/class-yaydp-i18n.php:262
+#: includes/class-yaydp-i18n.php:325
 #, fuzzy
 msgid ""
 "Discount will apply to single item. E.g: Buy 4 items, then discount 5$ each "
@@ -1102,41 +1538,44 @@ msgstr ""
 "sitten 5$ jokaisesta tuotteesta. Tai osta 4 tuotetta, niin jokaisella "
 "tuotteella on kiinteä hinta 5$"
 
-#: includes/class-yaydp-i18n.php:263
+#: includes/class-yaydp-i18n.php:326
 msgid "Pricing Ranges"
 msgstr "Hinnoittelualueet"
 
-#: includes/class-yaydp-i18n.php:264
+#: includes/class-yaydp-i18n.php:327
+msgid "Import Data"
+msgstr "Tuo Tuotetietoja"
+
+#: includes/class-yaydp-i18n.php:328
+msgid "You have no pricing range, please"
+msgstr "Sinulla ei ole hintahaarukkaa, ole hyvä ja"
+
+#: includes/class-yaydp-i18n.php:329
+msgid "add one"
+msgstr "lisää yksi"
+
+#: includes/class-yaydp-i18n.php:330
 #, fuzzy
 msgid "Tiered Pricing Data Import"
 msgstr "Porrastettu hinnoittelutietojen tuonti"
 
-#: includes/class-yaydp-i18n.php:265
-msgid "You have no pricing range, please"
-msgstr "Sinulla ei ole hintahaarukkaa, ole hyvä ja"
-
-#: includes/class-yaydp-i18n.php:266
-msgid "add one"
-msgstr "lisää yksi"
-
-#: includes/class-yaydp-i18n.php:267
+#: includes/class-yaydp-i18n.php:331
 #, fuzzy
 #| msgid "Bulk Pricing"
 msgid "Bulk Pricing Data Import"
 msgstr "Massahinnoittelu"
 
-#: includes/class-yaydp-i18n.php:268
+#: includes/class-yaydp-i18n.php:332
 #, fuzzy
 msgid "Number of items required to be classified as a bundle"
 msgstr "Niiden tuotteiden lukumäärä, jotka on luokiteltava nipuksi"
 
-#: includes/class-yaydp-i18n.php:269
+#: includes/class-yaydp-i18n.php:333
 #, fuzzy
-#| msgid "Add [discount_value] to the order"
-msgid "Apply discount to whole bundle"
-msgstr "Lisää [discount_value] tilaukselle"
+msgid "Affected Items:"
+msgstr "Kohteet, joita asia koskee:"
 
-#: includes/class-yaydp-i18n.php:270
+#: includes/class-yaydp-i18n.php:334
 #, fuzzy
 msgid ""
 "E.g: Apply amount 50$ discount to whole bundle instead of 50$ to each bundle "
@@ -1145,7 +1584,16 @@ msgstr ""
 "Esimerkiksi: Käytä summaa 50$ alennus koko nippuun 50$ sijaan jokaiseen "
 "nipputuotteeseen."
 
-#: includes/class-yaydp-i18n.php:271
+#: includes/class-yaydp-i18n.php:335
+msgid "Single item"
+msgstr "Yksittäinen kohde"
+
+#: includes/class-yaydp-i18n.php:336
+#, fuzzy
+msgid "Whole bundle"
+msgstr "Koko nippu"
+
+#: includes/class-yaydp-i18n.php:337
 #, fuzzy
 msgid ""
 "E.g: quantity: {n}*2, pricing: {n}*10 => Buy 2 items get 10$ discount. 4 "
@@ -1156,50 +1604,54 @@ msgstr ""
 "alennuksen. 4 tuotetta saa 20$ alennuksen jne. Tulkinta: {n} on aika, "
 "jolloin paketti ostetaan. "
 
-#: includes/class-yaydp-i18n.php:272
+#: includes/class-yaydp-i18n.php:338
+msgid "Filter"
+msgstr "Suodatin"
+
+#: includes/class-yaydp-i18n.php:339
 #, fuzzy
 msgid "Apply discount to only first matching product"
 msgstr "Käytä alennusta vain ensimmäiseen vastaavaan tuotteeseen"
 
-#: includes/class-yaydp-i18n.php:273
+#: includes/class-yaydp-i18n.php:340
 msgid "Show offer description in product page"
 msgstr "Näytä tarjouksen kuvaus tuotesivulla"
 
-#: includes/class-yaydp-i18n.php:274
+#: includes/class-yaydp-i18n.php:341
 msgid "Offer description for X"
 msgstr "Tarjouksen kuvaus X:lle"
 
-#: includes/class-yaydp-i18n.php:275
+#: includes/class-yaydp-i18n.php:342
 msgid "Offer description for Y"
 msgstr "Tarjouksen kuvaus Y:lle"
 
-#: includes/class-yaydp-i18n.php:276
+#: includes/class-yaydp-i18n.php:343
 msgid "Show tooltip on cart item price"
 msgstr "Näytä vihjeteksti ostoskorissa olevan tuotteen hinnassa"
 
-#: includes/class-yaydp-i18n.php:277
+#: includes/class-yaydp-i18n.php:344
 msgid "Enter your tooltip"
 msgstr "Anna vihjeteksti"
 
-#: includes/class-yaydp-i18n.php:278
+#: includes/class-yaydp-i18n.php:345
 msgid "Enable schedule"
 msgstr "Ota käyttöön ajastus"
 
-#: includes/class-yaydp-i18n.php:279
+#: includes/class-yaydp-i18n.php:346
 msgid "Recurring"
 msgstr "Toistuva"
 
-#: includes/class-yaydp-i18n.php:280
+#: includes/class-yaydp-i18n.php:347
 #, fuzzy
 #| msgid "This rule will be used if"
 msgid "This will grab the start/end "
 msgstr "Tätä sääntöä käytetään, jos"
 
-#: includes/class-yaydp-i18n.php:281
+#: includes/class-yaydp-i18n.php:348
 msgid "Usage limits"
 msgstr "Käyttörajoitukset"
 
-#: includes/class-yaydp-i18n.php:282
+#: includes/class-yaydp-i18n.php:349
 #, fuzzy
 msgid ""
 "Once the discount/pricing rule is applied in the completed order, it is "
@@ -1210,37 +1662,37 @@ msgstr ""
 "lasketaan alennuskäytöksi. Sääntöä ei enää sovelleta, jos sen käyttömäärä "
 "saavuttaa tämän määrän"
 
-#: includes/class-yaydp-i18n.php:283
+#: includes/class-yaydp-i18n.php:350
 msgid "off"
 msgstr "pois"
 
-#: includes/class-yaydp-i18n.php:284
+#: includes/class-yaydp-i18n.php:351
 #, fuzzy
 #| msgid "if cart subtotal price is greater than"
 msgid "if cart subtotal price is greater than 200"
 msgstr "mikäli ostoskorin välisumma on enemmän kuin"
 
-#: includes/class-yaydp-i18n.php:285
+#: includes/class-yaydp-i18n.php:352
 msgid "Get 10% off"
 msgstr "Saat 10% alennusta"
 
-#: includes/class-yaydp-i18n.php:286
+#: includes/class-yaydp-i18n.php:353
 msgid "if cart quantity is greater than 5"
 msgstr "mikäli ostoskorin tuotteiden kappalemäärä on enemmän kuin 5"
 
-#: includes/class-yaydp-i18n.php:287
+#: includes/class-yaydp-i18n.php:354
 msgid "if the customers have 10 orders in past"
 msgstr "mikäli asiakkailla on 10 tilausta ennestään"
 
-#: includes/class-yaydp-i18n.php:288
+#: includes/class-yaydp-i18n.php:355
 msgid "And much more"
 msgstr "Ja paljon muuta"
 
-#: includes/class-yaydp-i18n.php:289
+#: includes/class-yaydp-i18n.php:356
 msgid "Conditions"
 msgstr "Ehdot"
 
-#: includes/class-yaydp-i18n.php:290
+#: includes/class-yaydp-i18n.php:357
 #, fuzzy
 msgid ""
 "With conditions feature, you can decide when this rule will be used. It "
@@ -1249,23 +1701,23 @@ msgstr ""
 "Ehtotoiminnon avulla voit päättää, milloin tätä sääntöä käytetään. Se auttaa "
 "sinua luomaan tehokkaamman tuotteen hinnoittelun"
 
-#: includes/class-yaydp-i18n.php:291
+#: includes/class-yaydp-i18n.php:358
 msgid "For example"
 msgstr "Esimerkiksi"
 
-#: includes/class-yaydp-i18n.php:292
+#: includes/class-yaydp-i18n.php:359
 msgid "Upgrade to unlock this feature"
 msgstr "Päivitä, jotta tämä ominaisuus toimi"
 
-#: includes/class-yaydp-i18n.php:293
+#: includes/class-yaydp-i18n.php:360
 msgid "Pricing"
 msgstr "Hinnoittelu"
 
-#: includes/class-yaydp-i18n.php:294
+#: includes/class-yaydp-i18n.php:361
 msgid "Settings"
 msgstr "Asetukset"
 
-#: includes/class-yaydp-i18n.php:295
+#: includes/class-yaydp-i18n.php:362
 #, fuzzy
 msgid ""
 "The Simple Discount enables you to set a fixed amount or percentage off the "
@@ -1274,7 +1726,7 @@ msgstr ""
 "Yksinkertaisen alennuksen avulla voit asettaa kiinteän summan tai "
 "prosenttiosuuden alkuperäisestä hinnasta."
 
-#: includes/class-yaydp-i18n.php:296
+#: includes/class-yaydp-i18n.php:363
 #, fuzzy
 msgid ""
 "The Bulk Pricing rule incentivizes customers to purchase larger quantities "
@@ -1283,7 +1735,7 @@ msgstr ""
 "Joukkohinnoittelusääntö kannustaa asiakkaita ostamaan suurempia määriä "
 "tuotetta tarjoamalla porrastettuja alennuksia ostetun määrän perusteella."
 
-#: includes/class-yaydp-i18n.php:297
+#: includes/class-yaydp-i18n.php:364
 #, fuzzy
 msgid ""
 "The Bundle Discount rule allows customers to save by purchasing multiple "
@@ -1292,7 +1744,7 @@ msgstr ""
 "Pakettialennussäännön avulla asiakkaat voivat säästää ostamalla useita "
 "toisiinsa liittyviä tuotteita yhdessä pakettina."
 
-#: includes/class-yaydp-i18n.php:298
+#: includes/class-yaydp-i18n.php:365
 #, fuzzy
 msgid ""
 "The BOGO (Buy One, Get One) rule entices customers by offering a free or "
@@ -1301,7 +1753,7 @@ msgstr ""
 "BOGO (Buy One, Get One) -sääntö houkuttelee asiakkaita tarjoamalla ilmaisen "
 "tai alennetun tuotteen, kun he ostavat tietyn tuotteen."
 
-#: includes/class-yaydp-i18n.php:299
+#: includes/class-yaydp-i18n.php:366
 #, fuzzy
 msgid ""
 "The Buy X, Get Y rule offers customers a strategic incentive to purchase a "
@@ -1312,7 +1764,7 @@ msgstr ""
 "tietty määrä yhtä tuotetta (X) saadakseen toisen tuotteen (Y) alennuksella "
 "tai ilmaiseksi."
 
-#: includes/class-yaydp-i18n.php:300
+#: includes/class-yaydp-i18n.php:367
 #, fuzzy
 msgid ""
 "The Tiered Pricing rule enables businesses to set distinct price levels for "
@@ -1323,191 +1775,272 @@ msgstr ""
 "tuotteelle erilliset hintatasot tiettyjen määräalueiden perusteella "
 "soveltamatta alennuksia määriin, jotka eivät vastaa näitä alueita."
 
-#: includes/class-yaydp-i18n.php:301
+#: includes/class-yaydp-i18n.php:368
 msgid "Name"
 msgstr "Nimi"
 
-#: includes/class-yaydp-i18n.php:302
+#: includes/class-yaydp-i18n.php:369
 msgid "Rule name"
 msgstr "Säännön nimi"
 
-#: includes/class-yaydp-i18n.php:303
+#: includes/class-yaydp-i18n.php:370
 msgid "Rule type"
 msgstr "Säännön tyyppi"
 
-#: includes/class-yaydp-i18n.php:304
+#: includes/class-yaydp-i18n.php:371
 msgid "Upload Image"
 msgstr "Siirrä kuva"
 
-#: includes/class-yaydp-i18n.php:305
+#: includes/class-yaydp-i18n.php:372
 msgid "Source"
 msgstr "Lähde"
 
-#: includes/class-yaydp-i18n.php:306
+#: includes/class-yaydp-i18n.php:373
 msgid "Show HTML source"
 msgstr "Näytä HTML lähdekoodi"
 
-#: includes/class-yaydp-i18n.php:307
+#: includes/class-yaydp-i18n.php:374
 msgid "Enter your description"
 msgstr "Anna kuvaus"
 
-#: includes/class-yaydp-i18n.php:308
+#: includes/class-yaydp-i18n.php:375
 msgid "Inactive"
 msgstr "Ei käytössä"
 
-#: includes/class-yaydp-i18n.php:309
+#: includes/class-yaydp-i18n.php:376
 msgid "Running"
 msgstr "Käynnissä"
 
-#: includes/class-yaydp-i18n.php:310
+#: includes/class-yaydp-i18n.php:377
 msgid "Max use reached"
 msgstr "Maksimi käyttömäärä saavutettu"
 
-#: includes/class-yaydp-i18n.php:311
+#: includes/class-yaydp-i18n.php:378
 msgid "Completed"
 msgstr "Suoritettu"
 
-#: includes/class-yaydp-i18n.php:312
+#: includes/class-yaydp-i18n.php:379
 msgid "Scheduled"
 msgstr "Ajastettu"
 
-#: includes/class-yaydp-i18n.php:313
+#: includes/class-yaydp-i18n.php:380
 msgid "Remove rule"
 msgstr "Poista sääntö"
 
-#: includes/class-yaydp-i18n.php:314
+#: includes/class-yaydp-i18n.php:381
 msgid "Do you want to remove"
 msgstr "Haluatko poistaa"
 
-#: includes/class-yaydp-i18n.php:315
-msgid "Cancel"
-msgstr "Peruuta"
-
-#: includes/class-yaydp-i18n.php:316
+#: includes/class-yaydp-i18n.php:382
 msgid "Remove"
 msgstr "Poista"
 
-#: includes/class-yaydp-i18n.php:317
+#: includes/class-yaydp-i18n.php:383
 msgid "Duplicate"
 msgstr "Monista"
 
-#: includes/class-yaydp-i18n.php:318
+#: includes/class-yaydp-i18n.php:384
 msgid "Combined condition is empty, please"
 msgstr "Yhdistetyt ehto on tyhjä, ole hyvä"
 
-#: includes/class-yaydp-i18n.php:319
+#: includes/class-yaydp-i18n.php:385
+#, fuzzy
+#| msgid "All Product Pricing Rules"
+msgid "All Product Pricing rules"
+msgstr "Kaikki tuotteiden hinnoittelusäännöt"
+
+#: includes/class-yaydp-i18n.php:386
 msgid "Exclude Rules (Product pricing)"
 msgstr "Poissulkemissäännöt (Tuotehinnoittelu)"
 
-#: includes/class-yaydp-i18n.php:320
+#: includes/class-yaydp-i18n.php:387
 #, fuzzy
 msgid "You don"
 msgstr "Sinä et"
 
-#: includes/class-yaydp-i18n.php:321
+#: includes/class-yaydp-i18n.php:388
 msgid "Select at least one rule"
 msgstr "Valitse vähintään yksi sääntö"
 
-#: includes/class-yaydp-i18n.php:322
+#: includes/class-yaydp-i18n.php:389
+#, fuzzy
+#| msgid "Exclude Rules"
+msgid "Exclude by coupons"
+msgstr "Poissulkemissäännöt"
+
+#: includes/class-yaydp-i18n.php:390
+#, fuzzy
+msgid "Prevent product pricing rules being applied when specific coupons added"
+msgstr ""
+"Poista tuotteiden hinnoittelusäännöt käytöstä, kun tuote on alennuksessa"
+
+#: includes/class-yaydp-i18n.php:391
+msgid "Learn more"
+msgstr "Opi lisää"
+
+#: includes/class-yaydp-i18n.php:392
 msgid "Coupons"
 msgstr "Kupongit"
 
-#: includes/class-yaydp-i18n.php:323
+#: includes/class-yaydp-i18n.php:393
 msgid "Exclude selected rules when these coupons are applied"
 msgstr "Poissulje valitut säännöt, kun näitä kuponkeja käytetään"
 
-#: includes/class-yaydp-i18n.php:324
+#: includes/class-yaydp-i18n.php:394
+msgid "All coupons"
+msgstr "Kaikki kupongit"
+
+#: includes/class-yaydp-i18n.php:395
 msgid "Select at least one coupon"
 msgstr "Valitse vähintään yksi kuponki"
 
-#: includes/class-yaydp-i18n.php:325
+#: includes/class-yaydp-i18n.php:396
 msgid "Exclude Rules"
 msgstr "Poissulkemissäännöt"
 
-#: includes/class-yaydp-i18n.php:326
+#: includes/class-yaydp-i18n.php:397
 msgid "Select one rule to exclude"
 msgstr "Valitse yksi poissulkeva sääntö"
 
-#: includes/class-yaydp-i18n.php:327
+#: includes/class-yaydp-i18n.php:398
 msgid "All Product Pricing Rules"
 msgstr "Kaikki tuotteiden hinnoittelusäännöt"
 
-#: includes/class-yaydp-i18n.php:328
+#: includes/class-yaydp-i18n.php:399
 msgid "All Cart Discount Rules"
 msgstr "Kaikki ostoskorialennus-säännöt"
 
-#: includes/class-yaydp-i18n.php:329
+#: includes/class-yaydp-i18n.php:400
 msgid "All Checkout Fee Rules"
 msgstr "Kaikki kassamaksu-säännöt"
 
-#: includes/class-yaydp-i18n.php:330
+#: includes/class-yaydp-i18n.php:401
 #, fuzzy
 #| msgid "This rule will be used if"
 msgid "This rule is always used"
 msgstr "Tätä sääntöä käytetään, jos"
 
-#: includes/class-yaydp-i18n.php:331
+#: includes/class-yaydp-i18n.php:402
 msgid "If you want to decide when this rule will be used, please"
 msgstr "Mikäli haluat päättää, milloin tätä sääntöä käytetään, ole hyvä"
 
-#: includes/class-yaydp-i18n.php:332
+#: includes/class-yaydp-i18n.php:403
 msgid "add a condition"
 msgstr "lisää ehto"
 
-#: includes/class-yaydp-i18n.php:333
+#: includes/class-yaydp-i18n.php:404
 msgid "This rule will be used if"
 msgstr "Tätä sääntöä käytetään, jos"
 
-#: includes/class-yaydp-i18n.php:334
+#: includes/class-yaydp-i18n.php:405
 msgid "Any"
 msgstr "Mikä tahansa"
 
-#: includes/class-yaydp-i18n.php:335
+#: includes/class-yaydp-i18n.php:406
 msgid "All"
 msgstr "Kaikki"
 
-#: includes/class-yaydp-i18n.php:336
+#: includes/class-yaydp-i18n.php:407
 #, fuzzy
 msgid "of these conditions is available."
 msgstr "näistä ehdoista on saatavilla."
 
-#: includes/class-yaydp-i18n.php:337
+#: includes/class-yaydp-i18n.php:408
 msgid "Exclusions"
 msgstr "Poissulkevat"
 
-#: includes/class-yaydp-i18n.php:338 includes/class-yaypricing.php:123
+#: includes/class-yaydp-i18n.php:409
+#, fuzzy
+#| msgid "Product exclusions"
+msgid "Product Collections"
+msgstr "Poissuljetut tuotteet"
+
+#: includes/class-yaydp-i18n.php:410 includes/class-yaypricing.php:125
 msgid "Go Pro"
 msgstr "Päivitä Pro-versioon"
 
-#: includes/class-yaydp-i18n.php:339
+#: includes/class-yaydp-i18n.php:411
+#, fuzzy
+#| msgid "all products"
+msgid "On sale products"
+msgstr "kaikki tuotteet"
+
+#: includes/class-yaydp-i18n.php:412
+#, fuzzy
+#| msgid "Select rules for on sale products"
+msgid "All on sale products"
+msgstr "Valitse säännöt alennetuille tuotteille"
+
+#: includes/class-yaydp-i18n.php:413
+#, fuzzy
+msgid "Order saved amount"
+msgstr "Näytä tilauksen säästösumma"
+
+#: includes/class-yaydp-i18n.php:414
+#, fuzzy
+#| msgid "Product pricing conditions"
+msgid "Product pricing countdowns"
+msgstr "Tuotteen hinnoitteluehdot"
+
+#: includes/class-yaydp-i18n.php:415
+#, fuzzy
+#| msgid "Cart discounts"
+msgid "Cart discount countdowns"
+msgstr "Ostoskorin alennukset"
+
+#: includes/class-yaydp-i18n.php:416
+#, fuzzy
+#| msgid "Checkout Fee"
+msgid "Checkout fee countdowns"
+msgstr "Kassamaksu"
+
+#: includes/class-yaydp-i18n.php:417
+#, fuzzy
+#| msgid "After Product short description"
+msgid "Product offer description"
+msgstr "Tuotteen lyhyen kuvauksen jälkeen"
+
+#: includes/class-yaydp-i18n.php:418
+#, fuzzy
+#| msgid "Product sale display"
+msgid "Product sale tag"
+msgstr "Tuotteen alennusnäyttö"
+
+#: includes/class-yaydp-i18n.php:419
+#, fuzzy
+#| msgid "Shortcode copied"
+msgid "Shortcode generator"
+msgstr "Lyhytkoodi kopioitu"
+
+#: includes/class-yaydp-i18n.php:420
+msgid "Generate shortcode"
+msgstr "Luo lyhytkoodi"
+
+#: includes/class-yaydp-i18n.php:421
 msgid "Product"
 msgstr "Tuote"
 
-#: includes/class-yaydp-i18n.php:340
+#: includes/class-yaydp-i18n.php:422
 msgid "Status"
 msgstr "Tila"
 
-#: includes/class-yaydp-i18n.php:341
+#: includes/class-yaydp-i18n.php:423
 msgid "In stock"
 msgstr "Varastossa"
 
-#: includes/class-yaydp-i18n.php:342
+#: includes/class-yaydp-i18n.php:424
 msgid "Selected products"
 msgstr "Valitut tuotteet"
 
-#: includes/class-yaydp-i18n.php:343
+#: includes/class-yaydp-i18n.php:425
 msgid "Loading products"
 msgstr "Ladataan tuotteita"
 
-#: includes/class-yaydp-i18n.php:344
+#: includes/class-yaydp-i18n.php:426
 msgid "No product matched"
 msgstr "Ei tuoteosumia"
 
-#: includes/class-yaydp-i18n.php:345
-msgid "Countdown timer"
-msgstr "Alaspäin laskeva ajastin"
-
-#: includes/class-yaydp-i18n.php:346
+#: includes/class-yaydp-i18n.php:427
 #, fuzzy
 msgid ""
 "Show ad countdown timer to let customers know how much time is left until "
@@ -1516,15 +2049,7 @@ msgstr ""
 "Näytä mainosten ajastin, joka kertoo asiakkaille, kuinka paljon aikaa on "
 "jäljellä tuotteiden myynnin päättymiseen, ja auttaa lisäämään myyntiäsi."
 
-#: includes/class-yaydp-i18n.php:347
-msgid "Learn more"
-msgstr "Opi lisää"
-
-#: includes/class-yaydp-i18n.php:348
-msgid "Shortcodes"
-msgstr "Lyhytkoodit"
-
-#: includes/class-yaydp-i18n.php:349
+#: includes/class-yaydp-i18n.php:428
 #, fuzzy
 msgid ""
 "Contain a pitch of your products that your visitors go through and decide "
@@ -1533,11 +2058,7 @@ msgstr ""
 "Sisällytä myyntipuhe tuotteistasi, jotka kävijäsi käyvät läpi, ja päätä, "
 "haluavatko he ostaa."
 
-#: includes/class-yaydp-i18n.php:350
-msgid "Encourage notice"
-msgstr "Kannustushuomautus"
-
-#: includes/class-yaydp-i18n.php:351
+#: includes/class-yaydp-i18n.php:429
 #, fuzzy
 msgid ""
 "Encouraged notice is used to motivate customers to buy more items in order "
@@ -1549,19 +2070,19 @@ msgstr ""
 "markkinointistrategia, jolla pyritään lisäämään myyntiä ja "
 "asiakasuskollisuutta."
 
-#: includes/class-yaydp-i18n.php:352
+#: includes/class-yaydp-i18n.php:430
 msgid "Shortcode copied"
 msgstr "Lyhytkoodi kopioitu"
 
-#: includes/class-yaydp-i18n.php:353
+#: includes/class-yaydp-i18n.php:431
 msgid "Discount type"
 msgstr "Alennuksen tyyppi"
 
-#: includes/class-yaydp-i18n.php:354
+#: includes/class-yaydp-i18n.php:432
 msgid "Discount value"
 msgstr "Alennuksen arvo"
 
-#: includes/class-yaydp-i18n.php:355
+#: includes/class-yaydp-i18n.php:433
 #, fuzzy
 #| msgid ""
 #| "This adds a cap so that the discount amount will not exceed this amount"
@@ -1570,109 +2091,109 @@ msgid ""
 "When discount type is "
 msgstr "Tämä lisää ylärajan, jotta alennuksen määrä ei ylitä tätä summaa"
 
-#: includes/class-yaydp-i18n.php:356
+#: includes/class-yaydp-i18n.php:434
 msgid "Show tooltip on cart discount"
 msgstr "Näytä vihjeteksti ostoskorialennuksessa"
 
-#: includes/class-yaydp-i18n.php:357
+#: includes/class-yaydp-i18n.php:435
 msgid "Used"
 msgstr "Käytetty"
 
-#: includes/class-yaydp-i18n.php:358
+#: includes/class-yaydp-i18n.php:436
 msgid "Add condition"
 msgstr "Lisää ehto"
 
-#: includes/class-yaydp-i18n.php:359
+#: includes/class-yaydp-i18n.php:437
 msgid "Default"
 msgstr "Oletus"
 
-#: includes/class-yaydp-i18n.php:360
+#: includes/class-yaydp-i18n.php:438
 msgid ""
 "Discount applies to the items specified below, starting from the left to "
 "right"
 msgstr ""
 "Alennusta käytetään kaikissa tuotteissa alla, alkaen vasemmalta oikealle"
 
-#: includes/class-yaydp-i18n.php:361
+#: includes/class-yaydp-i18n.php:439
 msgid "Cheapest one"
 msgstr "Halvin"
 
-#: includes/class-yaydp-i18n.php:362
+#: includes/class-yaydp-i18n.php:440
 msgid ""
 "Discount applies to the items specified below, starting from the cheapest one"
 msgstr "Alennusta käytetään kaikissa tuotteissa alla, alkaen edullisimmasta"
 
-#: includes/class-yaydp-i18n.php:363
+#: includes/class-yaydp-i18n.php:441
 msgid "Most expensive one"
 msgstr "Kallein"
 
-#: includes/class-yaydp-i18n.php:364
+#: includes/class-yaydp-i18n.php:442
 msgid ""
 "Discount applies to the items specified below, starting from the most "
 "expensive one"
 msgstr "Alennusta käytetään kaikissa tuotteissa alla, alkaen kalleimmasta"
 
-#: includes/class-yaydp-i18n.php:365
+#: includes/class-yaydp-i18n.php:443
 msgid "Buy Products"
 msgstr "Osta tuotteita"
 
-#: includes/class-yaydp-i18n.php:366
+#: includes/class-yaydp-i18n.php:444
 msgid "Get Products"
 msgstr "Saa tuotteita"
 
-#: includes/class-yaydp-i18n.php:367
+#: includes/class-yaydp-i18n.php:445
 #, fuzzy
 msgid "(Which products will get discount?)"
 msgstr "(Mitkä tuotteet saavat alennuksen?)"
 
-#: includes/class-yaydp-i18n.php:368
+#: includes/class-yaydp-i18n.php:446
 #, fuzzy
 #| msgid "Buy Products"
 msgid "(X Products)"
 msgstr "Osta tuotteita"
 
-#: includes/class-yaydp-i18n.php:369
+#: includes/class-yaydp-i18n.php:447
 #, fuzzy
 msgid "Item get type"
 msgstr "Kohteen hakutyyppi"
 
-#: includes/class-yaydp-i18n.php:370
+#: includes/class-yaydp-i18n.php:448
 msgid "No product excluded. Please"
 msgstr "Ei poissuljettuja tuotteita. Ole hyvä"
 
-#: includes/class-yaydp-i18n.php:371
+#: includes/class-yaydp-i18n.php:449
 msgid "add product"
 msgstr "lisää tuote"
 
-#: includes/class-yaydp-i18n.php:372
+#: includes/class-yaydp-i18n.php:450
 msgid "to exclude."
 msgstr "poissuljettavana."
 
-#: includes/class-yaydp-i18n.php:373
+#: includes/class-yaydp-i18n.php:451
 msgid "This rule is not assigned to any product. Please"
 msgstr "Tämä sääntö ei ole valittu yhteenkään tuotteeseen. Ole hyvä ja"
 
-#: includes/class-yaydp-i18n.php:374
+#: includes/class-yaydp-i18n.php:452
 msgid "to assign it."
 msgstr "asettaaksesi sen."
 
-#: includes/class-yaydp-i18n.php:375
+#: includes/class-yaydp-i18n.php:453
 msgid "Exclude those products that match"
 msgstr "Poissulje tuotteet, jotka osuvat"
 
-#: includes/class-yaydp-i18n.php:376
+#: includes/class-yaydp-i18n.php:454
 msgid "This rule applies to those products that match"
 msgstr "Tätä sääntöä käytetään kaikissa tuotteissa, jotka osuvat"
 
-#: includes/class-yaydp-i18n.php:377
+#: includes/class-yaydp-i18n.php:455
 msgid "of these filters"
 msgstr "näistä suodattimista"
 
-#: includes/class-yaydp-i18n.php:378
+#: includes/class-yaydp-i18n.php:456
 msgid "View selected products"
 msgstr "Näytä valitut tuotteet"
 
-#: includes/class-yaydp-i18n.php:379
+#: includes/class-yaydp-i18n.php:457
 #, fuzzy
 msgid ""
 "In a combined condition, you must select the eligible products. Then, the "
@@ -1683,27 +2204,27 @@ msgstr ""
 "jälkeen ostoskorin summan ja nimikkeiden määrän arvot rajoitetaan näihin "
 "suodatettuihin tuotteisiin samassa kunnossa"
 
-#: includes/class-yaydp-i18n.php:380
+#: includes/class-yaydp-i18n.php:458
 msgid "The discount value. Example: “50%“ or “10$“"
 msgstr "Alennuksen arvo. Esim. \"50%\" tai \"10€\""
 
-#: includes/class-yaydp-i18n.php:381
+#: includes/class-yaydp-i18n.php:459
 msgid "The calculated value of discount"
 msgstr "Alennuksen laskettu arvo"
 
-#: includes/class-yaydp-i18n.php:382
+#: includes/class-yaydp-i18n.php:460
 msgid "Product price after discounting"
 msgstr "Tuotteen hinta alennuksen jälkeen"
 
-#: includes/class-yaydp-i18n.php:383
+#: includes/class-yaydp-i18n.php:461
 msgid "Name of the campaign"
 msgstr "Kampanjan nimi"
 
-#: includes/class-yaydp-i18n.php:384
+#: includes/class-yaydp-i18n.php:462
 msgid "Timer clock, it will countdown to the schedule day"
 msgstr "Ajastinkello, joka laskee alaspäin ajastuspäivään"
 
-#: includes/class-yaydp-i18n.php:385
+#: includes/class-yaydp-i18n.php:463
 msgid ""
 "The action customer need to do to get the discount. Example: “buy more 100$” "
 "or “buy more 1 item of Product A” "
@@ -1711,132 +2232,142 @@ msgstr ""
 "Toiminto, joka asiakkaan tulee tehdä, saadakseen alennuksen. Esimerkiksi: "
 "\"osta enemmän kuin 100€\" tai \"osta enemmän kuin 1 nimike tuotetta A\" "
 
-#: includes/class-yaydp-i18n.php:386
+#: includes/class-yaydp-i18n.php:464
 msgid "Current discounting product"
 msgstr "Nykyinen alennettava tuote"
 
-#: includes/class-yaydp-i18n.php:387
+#: includes/class-yaydp-i18n.php:465
 msgid "Copied"
 msgstr "Kopioitu"
 
-#: includes/class-yaydp-i18n.php:388
+#: includes/class-yaydp-i18n.php:466
+msgid "Description"
+msgstr "Kuvaus"
+
+#: includes/class-yaydp-i18n.php:467
 msgid "Variables"
 msgstr "Muuttujat"
 
-#: includes/class-yaydp-i18n.php:389
+#: includes/class-yaydp-i18n.php:468
 msgid "Variable list"
 msgstr "Muuttujalistaus"
 
-#: includes/class-yaydp-i18n.php:390
+#: includes/class-yaydp-i18n.php:469
 #, fuzzy
 msgid ""
 "Automatically add gift item(s) once the base product(s) are added to cart"
 msgstr ""
 "Lisää lahjatuotteet automaattisesti, kun perustuotteet on lisätty ostoskoriin"
 
-#: includes/class-yaydp-i18n.php:391
+#: includes/class-yaydp-i18n.php:470
 #, fuzzy
 msgid ""
 "Customers need to add the quantity of items specified below to their cart"
 msgstr "Asiakkaiden on lisättävä alla määritetty määrä tuotteita ostoskoriinsa"
 
-#: includes/class-yaydp-i18n.php:392
+#: includes/class-yaydp-i18n.php:471
 msgid "More result"
 msgstr "Lisää tuloksia"
 
-#: includes/class-yaydp-i18n.php:393
+#: includes/class-yaydp-i18n.php:472
 msgid "Select at least one product"
 msgstr "Valitse vähintään yksi tuote"
 
-#: includes/class-yaydp-i18n.php:394
+#: includes/class-yaydp-i18n.php:473
 msgid "Select at least one variation"
 msgstr "Valitse vähintään yksi variaatio"
 
-#: includes/class-yaydp-i18n.php:395
+#: includes/class-yaydp-i18n.php:474
 msgid "Select at least one category"
 msgstr "Valitse vähintään yksi kategoria"
 
-#: includes/class-yaydp-i18n.php:396
+#: includes/class-yaydp-i18n.php:475
 msgid "Select at least one attribute"
 msgstr "Valitse vähintään yksi ominaisuus"
 
-#: includes/class-yaydp-i18n.php:397
+#: includes/class-yaydp-i18n.php:476
+#, fuzzy
+#| msgid "Select at least one tag"
+msgid "Select at least one taxonomy"
+msgstr "Valitse vähintään yksi avainsana"
+
+#: includes/class-yaydp-i18n.php:477
 msgid "Select at least one tag"
 msgstr "Valitse vähintään yksi avainsana"
 
-#: includes/class-yaydp-i18n.php:398
+#: includes/class-yaydp-i18n.php:478
 msgid "Select at least one role"
 msgstr "Valitse vähintään yksi rooli"
 
-#: includes/class-yaydp-i18n.php:399
+#: includes/class-yaydp-i18n.php:479
 msgid "Select at least one customer"
 msgstr "Valitse vähintään yksi asiakas"
 
-#: includes/class-yaydp-i18n.php:400
+#: includes/class-yaydp-i18n.php:480
 msgid "Select at least one region"
 msgstr "Valitse vähintään yksi alue"
 
-#: includes/class-yaydp-i18n.php:401
+#: includes/class-yaydp-i18n.php:481
 msgid "Select at least one payment"
 msgstr "Valitse vähintään yksi maksutapa"
 
-#: includes/class-yaydp-i18n.php:402
+#: includes/class-yaydp-i18n.php:482
 msgid "Select at least one value"
 msgstr "Valitse vähintään yksi arvo"
 
-#: includes/class-yaydp-i18n.php:403
+#: includes/class-yaydp-i18n.php:483
 msgid "Fee type"
 msgstr "Maksun tyyppi"
 
-#: includes/class-yaydp-i18n.php:404
+#: includes/class-yaydp-i18n.php:484
 msgid "Fee value"
 msgstr "Maksun arvo"
 
-#: includes/class-yaydp-i18n.php:405
+#: includes/class-yaydp-i18n.php:485
 msgid "Show tooltip on checkout fee"
 msgstr "Näytä vihjeteksti kassamaksussa"
 
-#: includes/class-yaydp-i18n.php:406
+#: includes/class-yaydp-i18n.php:486
 #, fuzzy
 #| msgid "Free shipping"
 msgid "Apply to shipping"
 msgstr "Maksuton toimitus"
 
-#: includes/class-yaydp-i18n.php:407
+#: includes/class-yaydp-i18n.php:487
 msgid "Custom Fee"
 msgstr "Mukautettu maksu"
 
-#: includes/class-yaydp-i18n.php:408
+#: includes/class-yaydp-i18n.php:488
 msgid "Features"
 msgstr "Ominaisuudet"
 
-#: includes/class-yaydp-i18n.php:409
+#: includes/class-yaydp-i18n.php:489
 msgid "YayPricing Free"
 msgstr "YayPricing maksuton"
 
-#: includes/class-yaydp-i18n.php:410
+#: includes/class-yaydp-i18n.php:490
 msgid "YayPricing Pro"
 msgstr "YayPricing Pro"
 
-#: includes/class-yaydp-i18n.php:411
+#: includes/class-yaydp-i18n.php:491
 #, fuzzy
 msgid "Allow switching gift products on cart page"
 msgstr "Salli lahjatuotteiden vaihtaminen ostoskorisivulla"
 
-#: includes/class-yaydp-i18n.php:412
+#: includes/class-yaydp-i18n.php:492
 msgid "Coupon Exclusions"
 msgstr "Poissuljetut kupongit"
 
-#: includes/class-yaydp-i18n.php:413
+#: includes/class-yaydp-i18n.php:493
 #, fuzzy
 msgid "This setting allows you to apply YayPricing"
 msgstr "Tämän asetuksen avulla voit käyttää YayPricing -asetusta"
 
-#: includes/class-yaydp-i18n.php:414
+#: includes/class-yaydp-i18n.php:494
 msgid "Analytics & reports"
 msgstr "Analytiikka ja raportointi"
 
-#: includes/class-yaydp-i18n.php:415
+#: includes/class-yaydp-i18n.php:495
 #, fuzzy
 msgid ""
 "View charts and analytics for your pricing rules. You can see how a "
@@ -1845,24 +2376,24 @@ msgstr ""
 "Tarkastele hinnoittelusääntöjen kaavioita ja analyysejä. Voit nähdä, miten "
 "tehokas kampanjakampanja on tietyllä ajanjaksolla"
 
-#: includes/class-yaydp-i18n.php:416
+#: includes/class-yaydp-i18n.php:496
 #, fuzzy
 #| msgid "Product"
 msgid "Product fee"
 msgstr "Tuote"
 
-#: includes/class-yaydp-i18n.php:417
+#: includes/class-yaydp-i18n.php:497
 #, fuzzy
 msgid "Add handling fees or charge extra fees for product"
 msgstr ""
 "Lisää käsittelymaksuja tai veloita lisämaksuja toimitusalueen, maksutavan ja "
 "muiden kriteerien perusteella"
 
-#: includes/class-yaydp-i18n.php:418
+#: includes/class-yaydp-i18n.php:498
 msgid "Custom fees"
 msgstr "Mukautetut maksut"
 
-#: includes/class-yaydp-i18n.php:419
+#: includes/class-yaydp-i18n.php:499
 #, fuzzy
 msgid ""
 "Add handling fees or charge extra fees based on shipping region, payment "
@@ -1871,22 +2402,22 @@ msgstr ""
 "Lisää käsittelymaksuja tai veloita lisämaksuja toimitusalueen, maksutavan ja "
 "muiden kriteerien perusteella"
 
-#: includes/class-yaydp-i18n.php:420
+#: includes/class-yaydp-i18n.php:500
 #, fuzzy
 #| msgid "Free shipping fee"
 msgid "Custom Fee based on Shipping Fee"
 msgstr "Maksuton toimitusmaksu"
 
-#: includes/class-yaydp-i18n.php:421
+#: includes/class-yaydp-i18n.php:501
 #, fuzzy
 msgid "Add handling fees which is calculated based on Shipping fee"
 msgstr "Lisää käsittelymaksut, jotka lasketaan toimitusmaksun perusteella"
 
-#: includes/class-yaydp-i18n.php:422
+#: includes/class-yaydp-i18n.php:502
 msgid "Product pricing conditions"
 msgstr "Tuotteen hinnoitteluehdot"
 
-#: includes/class-yaydp-i18n.php:423
+#: includes/class-yaydp-i18n.php:503
 #, fuzzy
 msgid ""
 "Set up additional conditions that need to be met before the promotion is "
@@ -1894,11 +2425,11 @@ msgid ""
 msgstr ""
 "Määritä lisäehdot, joiden on täytyttävä, ennen kuin kampanjaa käytetään"
 
-#: includes/class-yaydp-i18n.php:424
+#: includes/class-yaydp-i18n.php:504
 msgid "Combined conditions"
 msgstr "Yhdistetyt ehdot"
 
-#: includes/class-yaydp-i18n.php:425
+#: includes/class-yaydp-i18n.php:505
 #, fuzzy
 msgid ""
 "Create cart discount conditions that are restricted to those cart items. For "
@@ -1908,69 +2439,77 @@ msgstr ""
 "ostoskorinimikkeisiin. Esimerkiksi tiettyjen tuoteluokkien vähimmäiskulutus "
 "saa alennuksen"
 
-#: includes/class-yaydp-i18n.php:426
+#: includes/class-yaydp-i18n.php:506
 msgid ""
 "Use shortcode to output all discounted products on any WordPress page/post"
 msgstr ""
 "Käytä lyhytkoodia tulostaaksesi kaikki alennetut tuotteet mille tahansa "
 "WordPressin sivulle/artikkeliin"
 
-#: includes/class-yaydp-i18n.php:427
+#: includes/class-yaydp-i18n.php:507
 msgid "Sales triggers"
 msgstr "Alennuslaukaisimet"
 
-#: includes/class-yaydp-i18n.php:428
+#: includes/class-yaydp-i18n.php:508
 msgid "Upselling notices"
 msgstr "Lisämyynnin huomautukset"
 
-#: includes/class-yaydp-i18n.php:429
+#: includes/class-yaydp-i18n.php:509
 msgid "VIP live chat support"
 msgstr "VIP reaaliaikainen chat tuki"
 
-#: includes/class-yaydp-i18n.php:430
+#: includes/class-yaydp-i18n.php:510
 msgid "Latest features & updates"
 msgstr "Uusimmat toiminnot & päivitykset"
 
-#: includes/class-yaydp-i18n.php:431
+#: includes/class-yaydp-i18n.php:511
 msgid "BOGO"
 msgstr "Osta yksi, saa yksi"
 
-#: includes/class-yaydp-i18n.php:432
+#: includes/class-yaydp-i18n.php:512
+msgid "Buy X Get Y"
+msgstr "Osta X, saa Y"
+
+#: includes/class-yaydp-i18n.php:513
 msgid "Bulk discounts"
 msgstr "Massa-alennukset"
 
-#: includes/class-yaydp-i18n.php:433
+#: includes/class-yaydp-i18n.php:514
 msgid "Scheduled discounts"
 msgstr "Ajastetut alennukset"
 
-#: includes/class-yaydp-i18n.php:434
+#: includes/class-yaydp-i18n.php:515
 msgid "User role discounts"
 msgstr "Käyttäjäroolien alennukset"
 
-#: includes/class-yaydp-i18n.php:435
+#: includes/class-yaydp-i18n.php:516
+msgid "Free shipping"
+msgstr "Maksuton toimitus"
+
+#: includes/class-yaydp-i18n.php:517
 msgid "Your current"
 msgstr "Sinun nykyinen"
 
-#: includes/class-yaydp-i18n.php:436
+#: includes/class-yaydp-i18n.php:518
 msgid "Get YayPricing Pro"
 msgstr "Hae YayPricing Pro"
 
-#: includes/class-yaydp-i18n.php:437
+#: includes/class-yaydp-i18n.php:519
 msgid "Consider upgrading to"
 msgstr "Harkitse päivittämistä"
 
-#: includes/class-yaydp-i18n.php:438
+#: includes/class-yaydp-i18n.php:520
 #, fuzzy
 msgid ""
 "It would be the best move you can make for your ecommerce store. Check it "
 "out!"
 msgstr "Se olisi paras liike, jonka voit tehdä verkkokaupallesi. Tarkista se!"
 
-#: includes/class-yaydp-i18n.php:439
+#: includes/class-yaydp-i18n.php:521
 msgid "Manage Exclude Rule"
 msgstr "Hallinnoi poissulkemissääntöä"
 
-#: includes/class-yaydp-i18n.php:440
+#: includes/class-yaydp-i18n.php:522
 #, fuzzy
 msgid ""
 "Create rule to decide which products will not be affected by Product pricing "
@@ -1979,19 +2518,19 @@ msgstr ""
 "Luo sääntö, joka päättää, mihin tuotteisiin tuotteiden hinnoittelusäännöt "
 "eivät vaikuta."
 
-#: includes/class-yaydp-i18n.php:441
+#: includes/class-yaydp-i18n.php:523
 msgid "Add Your First Rule"
 msgstr "Lisää ensimmäinen sääntösi"
 
-#: includes/class-yaydp-i18n.php:442
+#: includes/class-yaydp-i18n.php:524
 msgid "Add Rule"
 msgstr "Lisää sääntö"
 
-#: includes/class-yaydp-i18n.php:443
+#: includes/class-yaydp-i18n.php:525
 msgid "Manage Cart Discounts Rule"
 msgstr "Hallinnoi ostoskorialennusten sääntöä"
 
-#: includes/class-yaydp-i18n.php:444
+#: includes/class-yaydp-i18n.php:526
 #, fuzzy
 msgid ""
 "Cart discounts rules is used to create cart discount coupons that apply at "
@@ -2000,11 +2539,11 @@ msgstr ""
 "Ostoskorialennussääntöjen avulla luodaan ostoskorialennuskuponkeja, joita "
 "sovelletaan kassalla. Voit myös yhdistää alennuksen Asetukset-osiossa."
 
-#: includes/class-yaydp-i18n.php:445
+#: includes/class-yaydp-i18n.php:527
 msgid "Manage Product Pricing Rule"
 msgstr "Hallinnoi tuotteen hinnoittelusääntöä"
 
-#: includes/class-yaydp-i18n.php:446
+#: includes/class-yaydp-i18n.php:528
 #, fuzzy
 msgid ""
 "Create product pricing rules that affect price of products. You can also "
@@ -2013,49 +2552,38 @@ msgstr ""
 "Luo tuotteiden hinnoittelusääntöjä, jotka vaikuttavat tuotteiden hintaan. "
 "Voit myös luoda tuotemaksun tai alennuksen."
 
-#: includes/class-yaydp-i18n.php:447
+#: includes/class-yaydp-i18n.php:529
 msgid "Manage Checkout Fees Rule"
 msgstr "Hallinnoi kassamaksujen sääntöä"
 
-#: includes/class-yaydp-i18n.php:448
+#: includes/class-yaydp-i18n.php:530
 #, fuzzy
 msgid "Fee rules is used to affect fees that apply at checkout."
 msgstr ""
 "Maksusääntöjä käytetään vaikuttamaan kassalla sovellettaviin maksuihin."
 
-#: includes/class-yaydp-i18n.php:449
+#: includes/class-yaydp-i18n.php:531
 msgid "Save failed"
 msgstr "Tallennus epäonnistui"
 
-#: includes/class-yaydp-i18n.php:450
+#: includes/class-yaydp-i18n.php:532
 msgid "Saved"
 msgstr "Tallennettu"
 
-#: includes/class-yaydp-i18n.php:451
+#: includes/class-yaydp-i18n.php:533
 msgid "Save"
 msgstr "Tallenna"
 
-#: includes/class-yaydp-i18n.php:452
-msgid "General"
-msgstr "Yleinen"
+#: includes/class-yaydp-i18n.php:534
+#, fuzzy
+msgid ""
+"With Product Collections, you can easily create and manage groups of product "
+"filters, allowing you to apply multiple filters with a single click."
+msgstr ""
+"Tuotekokoelmien avulla voit helposti luoda ja hallita tuotesuodatinryhmiä, "
+"jolloin voit käyttää useita suodattimia yhdellä napsautuksella."
 
-#: includes/class-yaydp-i18n.php:453
-msgid "How the rules are applied"
-msgstr "Kuinka säännöt on käytössä"
-
-#: includes/class-yaydp-i18n.php:454
-msgid "Product sale display"
-msgstr "Tuotteen alennusnäyttö"
-
-#: includes/class-yaydp-i18n.php:455
-msgid "Pricing table"
-msgstr "Hinnoittelutaulukko"
-
-#: includes/class-yaydp-i18n.php:456
-msgid "Import/Export"
-msgstr "Tuonti ja vienti"
-
-#: includes/class-yaydp-i18n.php:457
+#: includes/class-yaydp-i18n.php:535
 msgid "Imported rule"
 msgstr "Tuotu sääntö"
 
@@ -2068,38 +2596,59 @@ msgid "log-"
 msgstr "log-"
 
 #. Translators: link href.
-#: includes/class-yaypricing.php:117
+#: includes/class-yaypricing.php:119
 msgid "%1$s Settings %2$s"
 msgstr "%1$s asetukset %2$s"
 
 #. Translators: link href.
-#: includes/class-yaypricing.php:138
+#: includes/class-yaypricing.php:140
 msgid "%1$s Docs %2$s"
 msgstr "%1$s dokumentaatio %2$s"
 
 #. Translators: link href.
-#: includes/class-yaypricing.php:140
+#: includes/class-yaypricing.php:142
 msgid "%1$s Support %2$s"
 msgstr "%1$s tuki %2$s"
 
-#: includes/core/manager/class-yaydp-cart-discount-manager.php:168
+#: includes/constants/class-yaydp-admin-settings.php:176
+#, fuzzy
+msgid "WooCommerce on sale status"
+msgstr "WooCommerce myynnissä"
+
+#: includes/constants/class-yaydp-admin-settings.php:180
+#, fuzzy
+msgid "On sale"
+msgstr "Myynnissä"
+
+#: includes/constants/class-yaydp-admin-settings.php:184
+#, fuzzy
+#| msgid "Not in list"
+msgid "Not on sale"
+msgstr "Ei listalla"
+
+#: includes/core/manager/class-yaydp-cart-discount-manager.php:176
 #: includes/core/rule/cart-discount/class-yaydp-combined-discount.php:106
 msgid "%s"
 msgstr "%s"
 
-#: includes/core/manager/class-yaydp-product-pricing-manager.php:379
+#: includes/core/manager/class-yaydp-product-pricing-manager.php:381
 #, fuzzy
 #| msgid "Cart discounts"
 msgid "Product discounts"
 msgstr "Ostoskorin alennukset"
 
-#: includes/core/offer-description/class-yaydp-offer-description.php:194
-#: includes/core/offer-description/class-yaydp-offer-description.php:279
-#: includes/core/offer-description/class-yaydp-offer-description.php:356
+#: includes/core/manager/class-yaydp-wc-coupon-manager.php:121
+#, fuzzy
+msgid "Coupon cannot be used in combination with other discounts."
+msgstr "Kuponkia ei voi käyttää yhdessä muiden alennusten kanssa."
+
+#: includes/core/offer-description/class-yaydp-offer-description.php:199
+#: includes/core/offer-description/class-yaydp-offer-description.php:292
+#: includes/core/offer-description/class-yaydp-offer-description.php:374
 msgid "unlimited"
 msgstr "rajoittamaton"
 
-#: includes/core/offer-description/class-yaydp-offer-description.php:203
+#: includes/core/offer-description/class-yaydp-offer-description.php:208
 msgid ""
 "from %1$s to %2$s: <span data-variable=\"discount_value\" data-"
 "formula=\"%3$s\">%4$s</span>"
@@ -2107,20 +2656,20 @@ msgstr ""
 "%1$s – %2$s: <span data-variable=\"discount_value\" data-"
 "formula=\"%3$s\">%4$s</span>"
 
-#: includes/core/offer-description/class-yaydp-offer-description.php:225
+#: includes/core/offer-description/class-yaydp-offer-description.php:235
 msgid ""
 "<span data-variable=\"discount_value\" data-formula=\"%1$s\">%2$s</span>"
 msgstr ""
 "<span data-variable=\"discount_value\" data-formula=\"%1$s\">%2$s</span>"
 
-#: includes/core/offer-description/class-yaydp-offer-description.php:256
-#: includes/core/offer-description/class-yaydp-offer-description.php:309
+#: includes/core/offer-description/class-yaydp-offer-description.php:266
+#: includes/core/offer-description/class-yaydp-offer-description.php:325
 msgid ""
 "<span data-variable=\"discount_amount\" data-formula=\"%1$s\">%2$s</span>"
 msgstr ""
 "<span data-variable=\"discount_amount\" data-formula=\"%1$s\">%2$s</span>"
 
-#: includes/core/offer-description/class-yaydp-offer-description.php:287
+#: includes/core/offer-description/class-yaydp-offer-description.php:300
 msgid ""
 "from %1$s to %2$s: <span data-variable=\"discount_amount\" data-"
 "formula=\"%3$s\">%4$s</span>"
@@ -2128,7 +2677,7 @@ msgstr ""
 "%1$s – %2$s: <span data-variable=\"discount_amount\" data-"
 "formula=\"%3$s\">%4$s</span>"
 
-#: includes/core/offer-description/class-yaydp-offer-description.php:364
+#: includes/core/offer-description/class-yaydp-offer-description.php:382
 msgid ""
 "from %1$s to %2$s: <span data-variable=\"discounted_price\" data-"
 "formula=\"%3$s\">%4$s</span>"
@@ -2136,7 +2685,7 @@ msgstr ""
 "%1$s – %2$s: <span data-variable=\"discounted_price\" data-"
 "formula=\"%3$s\">%4$s</span>"
 
-#: includes/core/offer-description/class-yaydp-offer-description.php:387
+#: includes/core/offer-description/class-yaydp-offer-description.php:405
 msgid ""
 "<span data-variable=\"discounted_price\" data-formula=\"%1$s\">%2$s</span>"
 msgstr ""
@@ -2154,14 +2703,6 @@ msgstr "Kertakäyttöavain ei kelpaa"
 #: includes/noname/class-yaydp-pricing-table.php:104
 msgid "Unlimited"
 msgstr "Rajoittamaton"
-
-#: includes/templates/product/yaydp-sale-tag.php:31
-msgid "SALE!"
-msgstr "ALE!"
-
-#: includes/templates/product/yaydp-sale-tag.php:32
-msgid "Up to %s"
-msgstr "%s asti"
 
 #: includes/yaycommercemenu/class-register-menu.php:70
 msgid "Help"
@@ -2189,14 +2730,68 @@ msgstr ""
 msgid "Read more details."
 msgstr "Lue lisää"
 
+#, fuzzy
+#~ msgid "./components sync recursive ^\\.\\/locale\\/.+_.+\\.tsx?$"
+#~ msgstr "./components sync rekursiivinen ^\\.\\/locale\\/.+_.+\\.tsx?$"
+
+#~ msgid "Sale"
+#~ msgstr "Alennus"
+
+#~ msgid "Buy X get X event"
+#~ msgstr "Osta X, saa X tapahtuma"
+
+#~ msgid "Product pricing"
+#~ msgstr "Tuotteen hinnoittelu"
+
+#, fuzzy
+#~| msgid "Cart discounts"
+#~ msgid "Cart discount"
+#~ msgstr "Ostoskorin alennukset"
+
+#, fuzzy
+#~ msgid ""
+#~ "All sale products (includes WooCommerce sale products and YayPricing "
+#~ "discountable products)"
+#~ msgstr ""
+#~ "Kaikki myyntituotteet (sisältää WooCommerce-alennustuotteet ja YayPricing "
+#~ "-alennustuotteet)"
+
+#~ msgid "Add 10"
+#~ msgstr "Lisää 10"
+
+#~ msgid "Sale 50% OFF all products"
+#~ msgstr "Alennus 50% pois kaikista tuotteista"
+
+#~ msgid "Sale 10"
+#~ msgstr "Ale 10"
+
+#~ msgid "OFF"
+#~ msgstr "Pois"
+
+#~ msgid "Buy 3 Get 1 Free"
+#~ msgstr "Osta 3, saa 1 ilmaiseksi"
+
+#~ msgid "Buy X Get X"
+#~ msgstr "Osta X, saa X"
+
+#~ msgid "Sale 30% OFF from the third item"
+#~ msgstr "Alennus 30% pois kolmannesta tuotteesta"
+
+#, fuzzy
+#~| msgid "Discount 50% campaign"
+#~ msgid "Discount 50% cart total"
+#~ msgstr "Alennus 50% kampanja"
+
+#, fuzzy
+#~| msgid "Discount"
+#~ msgid "Discount 10"
+#~ msgstr "Alennus"
+
 #~ msgid "After \"Add to cart\" button"
 #~ msgstr "\"Lisää koriin\" painikkeen jälkeen"
 
 #~ msgid "Before \"Add to cart\" button"
 #~ msgstr "Ennen \"Lisää koriin\" painiketta"
-
-#~ msgid "Buy 3 get 1 free item"
-#~ msgstr "Osta 3, saa 1 ilmainen tuote"
 
 #~ msgid "Custom"
 #~ msgstr "Mukautettu"

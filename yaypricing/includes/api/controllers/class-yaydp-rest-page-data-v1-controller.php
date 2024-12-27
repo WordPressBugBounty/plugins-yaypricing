@@ -133,6 +133,17 @@ class YAYDP_REST_PAGE_DATA_V1_CONTROLLER {
 		);
 		register_rest_route(
 			$this->namespace,
+			"/{$this->rest_base}/billing-regions",
+			array(
+				array(
+					'methods'             => \WP_REST_Server::READABLE,
+					'callback'            => array( $this, 'get_billing_regions' ),
+					'permission_callback' => array( $this, 'permission_callback' ),
+				),
+			)
+		);
+		register_rest_route(
+			$this->namespace,
 			"/{$this->rest_base}/payment-methods",
 			array(
 				array(
@@ -264,6 +275,7 @@ class YAYDP_REST_PAGE_DATA_V1_CONTROLLER {
 			update_option( 'yaydp_cart_discount_rules', $body['rules']['cart_discount'] );
 			update_option( 'yaydp_checkout_fee_rules', $body['rules']['checkout_fee'] );
 			update_option( 'yaydp_exclude_rules', $body['rules']['exclude'] );
+			update_option( 'yaydp_product_collections_rules', $body['rules']['product_collections'] ?? array() );
 			update_option( 'yaydp_core_settings', $body['settings'] );
 
 			do_action( 'yaydp_after_saving_data', $body );
@@ -528,5 +540,28 @@ class YAYDP_REST_PAGE_DATA_V1_CONTROLLER {
 	 */
 	public function permission_callback() {
 		return true;
+	}
+
+	/**
+	 * Retrieves billing regions from the database based on the specified parameters
+	 *
+	 * @param \WP_REST_Request $request Rest request.
+	 *
+	 * @since 3.4.2
+	 */
+	public function get_billing_regions( \WP_REST_Request $request ) {
+		if ( ! \YAYDP\Helper\YAYDP_Helper::verify_rest_nonce( $request ) ) {
+			return \YAYDP\Helper\YAYDP_Helper::get_verify_rest_nonce_failure_response();
+		}
+		$search_text = ! is_null( $request->get_param( 'search' ) ) ? $request->get_param( 'search' ) : '';
+		$page        = ! is_null( $request->get_param( 'page' ) ) ? $request->get_param( 'page' ) : 1;
+		$limit       = ! is_null( $request->get_param( 'limit' ) ) ? $request->get_param( 'limit' ) : YAYDP_SEARCH_LIMIT;
+		$tags        = \YAYDP\API\Models\YAYDP_Data_Model::get_billing_regions( $search_text, $page, $limit );
+		return new \WP_REST_Response(
+			array(
+				'success'  => true,
+				'data_arr' => $tags,
+			)
+		);
 	}
 }

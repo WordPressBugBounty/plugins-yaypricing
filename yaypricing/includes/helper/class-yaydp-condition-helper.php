@@ -27,10 +27,10 @@ class YAYDP_Condition_Helper {
 		$match_type = $rule->get_condition_match_type();
 		$conditions = $rule->get_conditions();
 		$cart_items = $cart->get_items();
-		return self::check_list_conditions( $conditions, $match_type, $cart_items );
+		return self::check_list_conditions( $conditions, $match_type, $cart_items, $rule );
 	}
 
-	public static function check_list_conditions( $conditions, $match_type, $cart_items ) {
+	public static function check_list_conditions( $conditions, $match_type, $cart_items, $rule = null ) {
 		$check = true;
 		foreach ( $conditions as $condition ) {
 			switch ( $condition['type'] ) {
@@ -97,6 +97,12 @@ class YAYDP_Condition_Helper {
 				case 'shipping_region':
 					$check = self::check_shipping_region( $condition );
 					break;
+				/**
+				 * @since 3.4.2
+				 */
+				case 'billing_region':
+					$check = self::check_billing_region( $condition );
+					break;
 				case 'payment_method':
 					$check = self::check_payment_method( $condition );
 					break;
@@ -148,6 +154,20 @@ class YAYDP_Condition_Helper {
 				 */
 				case 'previous_order_in':
 					$check = self::check_previous_order_in( $condition );
+					break;
+				/**
+				 * Check account created time
+				 *
+				 * @since 3.4.2
+				 */
+				case 'account_create_time':
+					$check = self::check_account_create_time( $condition );
+					break;
+				/**
+				 * @since 3.4.1
+				 */
+				case 'product_attribute_taxonomies':
+					$check = self::check_product_attribute_taxonomies( $cart_items, $condition );
 					break;
 				default:
 					$check = apply_filters( 'yaydp_check_' . $condition['type'] . '_condition', false, $condition );
@@ -820,7 +840,11 @@ class YAYDP_Condition_Helper {
 	 * @return bool
 	 */
 	public static function check_applied_coupons( $condition ) {
-		$coupons = \WC()->cart->get_applied_coupons();
+		if ( ! empty( \WC()->cart ) ) {
+			$coupons = \WC()->cart->get_applied_coupons();
+		} else {
+			$coupons = array();
+		}
 
 		if ( empty( $coupons ) && 'in_list' !== $condition['comparation'] ) {
 			return false;
@@ -929,5 +953,115 @@ class YAYDP_Condition_Helper {
 		$last_order = $orders[0];
 
 		return ! empty( $orders );
+	}
+
+	/**
+	 * @since 3.4.1
+	 */
+	public static function check_product_attribute_taxonomies( $cart_items, $condition ) {
+
+		$list_attribute_id = \YAYDP\Helper\YAYDP_Helper::map_filter_value( $condition );
+
+		$cart_attributes = array();
+
+		foreach ( $cart_items as $item ) {
+			$item_product       = $item->get_product();
+			$product_attributes = $item_product->get_attributes();
+			if ( \yaydp_is_variation_product( $item_product ) ) {
+				$parent_id = $item_product->get_parent_id();
+				$parent    = \wc_get_product( $parent_id );
+				if ( $parent ) {
+					$parent_attributes = $parent->get_attributes();
+					foreach ( $parent_attributes as $attribute ) {
+						if ( $attribute instanceof \WC_Product_Attribute && $attribute['visible'] && ! $attribute['variation'] ) {
+							$product_attributes[ $attribute['name'] ] = $attribute;
+						}
+					}
+				}
+			}
+
+			$cart_attributes = array_merge( $cart_attributes, array_keys( $product_attributes ) );
+		}
+
+		$cart_attributes = array_unique( $cart_attributes );
+
+		$array_intersect = array_intersect( $cart_attributes, $list_attribute_id );
+
+		if ( 'contain_all' === $condition['comparation'] ) {
+			return count( $array_intersect ) === count( $list_attribute_id );
+		}
+
+		return 'contain' === $condition['comparation'] ? ! empty( $array_intersect ) : empty( $array_intersect );
+
+	}
+
+	/**
+	 * Check billing region.
+	 *
+	 * @param array $condition Checking condition.
+	 *
+	 * @return bool
+	 */
+	public static function check_billing_region( $condition ) {
+		$country_code   = strtoupper( \wc_clean( \WC()->customer->get_billing_country() ) );
+		$state_code     = strtoupper( \wc_clean( \WC()->customer->get_billing_state() ) );
+		$continent_code = strtoupper( \wc_clean( \WC()->countries->get_continent_code_for_country( $country_code ) ) );
+
+		$country_name   = ! empty( $country_code ) ? 'country:' . esc_attr( $country_code ) : '';
+		$state_name     = ! empty( $state_code ) ? 'state:' . esc_attr( $country_code . ':' . $state_code ) : '';
+		$continent_name = ! empty( $continent_code ) ? 'continent:' . esc_attr( $continent_code ) : '';
+
+		$in_list = false;
+
+		foreach ( $condition['value'] as $value ) {
+			if ( str_contains( $value, 'continent' ) ) {
+				if ( $value === $continent_name ) {
+					$in_list = true;
+				}
+			}
+			if ( str_contains( $value, 'country' ) ) {
+				if ( $value === $country_name ) {
+					$in_list = true;
+				}
+			}
+			if ( str_contains( $value, 'state' ) ) {
+				if ( $value === $state_name ) {
+					$in_list = true;
+				}
+			}
+		}
+
+		return 'in_list' === $condition['comparation'] ? $in_list : ! $in_list;
+	}
+
+	/**
+	 * Check account created time
+	 *
+	 * @param array $condition Checking condition.
+	 *
+	 * @since 3.4.2
+	 * @return bool
+	 */
+	public static function check_account_create_time( $condition ) {
+		if ( ! is_user_logged_in() ) {
+			return false;
+		}
+
+		$condition_value     = floatval( $condition['value'] );
+		$condition_value     = max( 0, $condition_value );
+		$check_date          = new \DateTime( "- $condition_value day" );
+		$current_user_id     = get_current_user_id();
+		$current_user_data   = get_userdata( $current_user_id );
+		$account_create_date = new \DateTime( $current_user_data->user_registered );
+
+		if ( 'greater_than' === $condition['comparation'] ) {
+			return $account_create_date < $check_date;
+		}
+		if ( 'less_than' === $condition['comparation'] ) {
+			return $account_create_date > $check_date;
+		}
+
+		return false;
+
 	}
 }

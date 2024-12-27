@@ -87,9 +87,9 @@ class Vite {
 		}
 
 		if ( constant( 'YAYDP_DEVELOPMENT' ) ) {
-			wp_enqueue_script( 'module/yaydp/vite', "http://localhost:$port/@vite/client", array(), 1.0, false );
+			wp_enqueue_script( 'module/yaydp/vite', "http://localhost:$port/@vite/client", array(), YAYDP_VERSION, false );
 		}
-		wp_register_script( "module/yaydp/$entry", $url, false, true, true );
+		wp_register_script( "module/yaydp/$entry", $url, false, YAYDP_DEVELOPMENT ? true : time(), true );
 		wp_enqueue_script( "module/yaydp/$entry" );
 	}
 

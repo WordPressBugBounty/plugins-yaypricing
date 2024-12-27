@@ -88,4 +88,15 @@ class YAYDP_Cart_Discount_Settings {
 		return isset( $encouraged_notice_settings['enable'] ) ? $encouraged_notice_settings['enable'] : false;
 	}
 
+	/**
+	 * Returns use cart discount together with single use coupon
+	 *
+	 * @since 2.4
+	 *
+	 * @return bool
+	 */
+	public function can_use_together_with_single_use_coupon() {
+		return isset( $this->settings['discount_together_with_single_use_coupon'] ) ? $this->settings['discount_together_with_single_use_coupon'] : true;
+	}
+
 }

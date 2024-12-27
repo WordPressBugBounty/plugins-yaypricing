@@ -31,6 +31,7 @@ class YAYDP_Integrations {
 		\YAYDP\Integrations\YITH\YAYDP_YITH_WC_Brands_Integration::get_instance();
 		\YAYDP\Integrations\YITH\YAYDP_YITH_Gift_Card_Integration::get_instance();
 		\YAYDP\Integrations\YITH\YAYDP_YITH_Product_Add_On_Integration::get_instance();
+		\YAYDP\Integrations\YITH\YAYDP_YITH_Request_A_Quote_Integration::get_instance();
 		YAYDP_YITH_Product_Bundles_Integration::get_instance();
 		\YAYDP\Integrations\VillaTheme\YAYDP_CURCY_Integration::get_instance();
 		\YAYDP\Integrations\Themes\YAYDP_Astra_Theme_Integration::get_instance();
@@ -57,6 +58,13 @@ class YAYDP_Integrations {
 		YAYDP_DIBS_Integration::get_instance();
 
 		\YAYDP\Integrations\WPClever\YAYDP_WPC_Product_Bundles_Integration::get_instance();
+
+		\YAYDP\Integrations\Iconic\YAYDP_Iconic_Attribute_Swatches_Integration::get_instance();
+
+		\YAYDP\Integrations\CartFlows\YAYDP_Order_Bumps_Integration::get_instance();
+
+		\YAYDP\Integrations\Geiger\YAYDP_GTM_Integration::get_instance();
+		\YAYDP\Integrations\ThemeHigh\YAYDP_WooCommerce_Extra_Product_Options_Integration::get_instance();
 	}
 
 }

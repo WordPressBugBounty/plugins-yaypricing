@@ -18,11 +18,13 @@ class YAYDP_Rule_Model {
 	 * Get all rules in database
 	 */
 	public static function get_all() {
-		$rules = array(
-			'product_pricing' => get_option( 'yaydp_product_pricing_rules', array() ),
-			'cart_discount'   => get_option( 'yaydp_cart_discount_rules', array() ),
-			'checkout_fee'    => get_option( 'yaydp_checkout_fee_rules', array() ),
-			'exclude'         => get_option( 'yaydp_exclude_rules', array() ),
+		$collections = get_option( 'yaydp_product_collections_rules', array() );
+		$rules       = array(
+			'product_pricing'     => get_option( 'yaydp_product_pricing_rules', array() ),
+			'cart_discount'       => get_option( 'yaydp_cart_discount_rules', array() ),
+			'checkout_fee'        => get_option( 'yaydp_checkout_fee_rules', array() ),
+			'exclude'             => get_option( 'yaydp_exclude_rules', array() ),
+			'product_collections' => empty( $collections ) ? array() : $collections,
 		);
 		return $rules;
 	}

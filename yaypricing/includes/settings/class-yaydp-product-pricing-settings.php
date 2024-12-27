@@ -283,4 +283,27 @@ class YAYDP_Product_Pricing_Settings {
 	public function show_original_subtotal_price() {
 		return isset( $this->settings['show_original_subtotal_price'] ) ? $this->settings['show_original_subtotal_price'] : true;
 	}
+
+
+	/**
+	 * Returns sale tag background color
+	 *
+	 * @since 3.4.2
+	 *
+	 * @return bool
+	 */
+	public function get_sale_tag_bg_color() {
+		return $this->settings['sale_tag_bg_color'] ?? '#cf2f2f';
+	}
+
+	/**
+	 * Returns sale tag text color
+	 *
+	 * @since 3.4.2
+	 *
+	 * @return bool
+	 */
+	public function get_sale_tag_text_color() {
+		return $this->settings['sale_tag_text_color'] ?? '#ffffff';
+	}
 }

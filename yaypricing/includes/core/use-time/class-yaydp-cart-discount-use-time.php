@@ -34,9 +34,13 @@ class YAYDP_Cart_Discount_Use_Time extends \YAYDP\Abstracts\YAYDP_Use_Time {
 	 * @param string $order_id The id of current order.
 	 */
 	public function checkout_order_processed( $order_id ) {
-		$list_rule_id    = array();
-		$applied_coupons = \WC()->cart->get_applied_coupons();
-		$running_rules   = \yaydp_get_running_cart_discount_rules();
+		$list_rule_id = array();
+		if ( ! empty( \WC()->cart ) ) {
+			$applied_coupons = \WC()->cart->get_applied_coupons();
+		} else {
+			$applied_coupons = array();
+		}
+		$running_rules = \yaydp_get_running_cart_discount_rules();
 		foreach ( $applied_coupons as $coupon_code ) {
 			foreach ( $running_rules as $rule ) {
 				if ( $rule->is_match_coupon( $coupon_code ) ) {

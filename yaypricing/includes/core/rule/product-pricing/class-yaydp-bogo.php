@@ -180,7 +180,7 @@ class YAYDP_Bogo extends \YAYDP\Abstracts\YAYDP_Product_Pricing_Rule {
 						'variation' => isset( $receive_data['cart_item'] ) ? $receive_data['cart_item']->get_variation() : array(),
 					)
 				);
-				if ( $new_item == null ) {
+				if ( null == $new_item ) {
 					continue;
 				}
 				$modifier = array(
@@ -245,13 +245,6 @@ class YAYDP_Bogo extends \YAYDP\Abstracts\YAYDP_Product_Pricing_Rule {
 	 * @param \WC_Product $product Product.
 	 */
 	public function get_min_discount( $product ) {
-		if ( ! empty( $this->get_conditions() ) ) {
-			return array(
-				'pricing_value' => 0,
-				'pricing_type'  => 'fixed_discount',
-				'maximum'       => 0,
-			);
-		}
 		if ( $this->is_get_free_item() ) {
 			return array(
 				'pricing_value' => 0,

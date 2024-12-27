@@ -1,0 +1,2756 @@
+# Copyright (C) 2024 YayCommerce
+# This file is distributed under the same license as the YayPricing Lite - WooCommerce Dynamic Pricing And Discounts plugin.
+msgid ""
+msgstr ""
+"Project-Id-Version: YayPricing Lite - WooCommerce Dynamic Pricing And "
+"Discounts 3.4.1\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/yaypricing-lite\n"
+"POT-Creation-Date: 2024-12-06T02:19:02+00:00\n"
+"PO-Revision-Date: 2024-12-06 09:35+0700\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: zh_CN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 3.5\n"
+"X-Domain: yaypricing\n"
+
+#. Plugin Name of the plugin
+#, fuzzy
+msgid "YayPricing Lite - WooCommerce Dynamic Pricing And Discounts"
+msgstr "YayPricing Lite - WooCommerce 动态定价和折扣"
+
+#. Plugin URI of the plugin
+#, fuzzy
+msgid "https://wordpress.org/plugins/yaypricing/"
+msgstr "https://wordpress.org/plugins/yaypricing/"
+
+#. Description of the plugin
+#, fuzzy
+msgid ""
+"Create automatic product pricing rules and cart discounts to design a "
+"powerful marketing strategy for your WooCommerce store."
+msgstr ""
+"创建自动产品定价规则和购物车折扣，为您的 WooCommerce 商店设计强大的营销策略。"
+
+#. Author of the plugin
+#, fuzzy
+msgid "YayCommerce"
+msgstr "雅商"
+
+#. Author URI of the plugin
+#, fuzzy
+msgid "https://yaycommerce.com/"
+msgstr "https://yaycommerce.com/"
+
+#: includes/admin/class-yaydp-admin-menus.php:33
+#: includes/yaycommercemenu/class-register-menu.php:175
+#, fuzzy
+msgid "YayPricing"
+msgstr "Yay定价"
+
+#: includes/admin/class-yaydp-admin-menus.php:41
+#, fuzzy
+msgid "YayPricing Report"
+msgstr "YayPricing 报告"
+
+#: includes/admin/class-yaydp-order-manager.php:32
+#, fuzzy
+msgid "YayPricing applied rules:"
+msgstr "YayPricing 应用规则："
+
+#. Translators: %s: search WooCommerce plugin link.
+#: includes/admin/views/html-notice-require-wc.php:5
+msgid ""
+"is enabled but not effective. It requires %1$sWooCommerce%2$s in order to "
+"work."
+msgstr "启用但无效。它需要%1$s商业%2$s才能工作。"
+
+#. translators:
+#: includes/admin/views/html-require-php-version.php:15
+#, fuzzy
+msgid ""
+"YayPricing requires PHP 5.6 to work and does not support your current PHP "
+"version %1$s. Please contact your host and request a PHP upgrade to the "
+"latest one."
+msgstr ""
+"YayPricing 需要 PHP 5.6 才能工作，并且不支持您当前的 PHP 版本%1$s。请联系您的"
+"主机并请求将 PHP 升级到最新版本。"
+
+#: includes/class-yaydp-ajax.php:31
+msgid "Verify nonce failed"
+msgstr "验证 nonce 失败"
+
+#: includes/class-yaydp-i18n.php:35
+#, fuzzy
+msgid "Last 7 days"
+msgstr "最近7天"
+
+#: includes/class-yaydp-i18n.php:36
+msgid "Product Pricing"
+msgstr "产品定价"
+
+#: includes/class-yaydp-i18n.php:37
+msgid "Cart Discount"
+msgstr "购物车折扣"
+
+#: includes/class-yaydp-i18n.php:38
+msgid "Checkout Fee"
+msgstr "结账费"
+
+#: includes/class-yaydp-i18n.php:39
+msgid "Time"
+msgstr "时间"
+
+#: includes/class-yaydp-i18n.php:40
+#, fuzzy
+msgid "Split rule"
+msgstr "拆分规则"
+
+#: includes/class-yaydp-i18n.php:41
+msgid "Fixed Discount"
+msgstr "固定折扣"
+
+#: includes/class-yaydp-i18n.php:42
+msgid "Percentage Discount"
+msgstr "折扣的百分比"
+
+#: includes/class-yaydp-i18n.php:43
+msgid "Fixed Fee"
+msgstr "固定费用"
+
+#: includes/class-yaydp-i18n.php:44
+#, fuzzy
+msgid "Percentage Fee"
+msgstr "百分比费用"
+
+#: includes/class-yaydp-i18n.php:45
+#, fuzzy
+msgid "Reduce Shipping Fee"
+msgstr "降低运费"
+
+#: includes/class-yaydp-i18n.php:46
+#, fuzzy
+msgid "Add Custom Fee"
+msgstr "添加自定义费用"
+
+#: includes/class-yaydp-i18n.php:47
+#, fuzzy
+msgid "Add Custom Fee based on Shipping Fee"
+msgstr "根据运费添加海关费用"
+
+#: includes/class-yaydp-i18n.php:48
+#, fuzzy
+msgid "Sample rule"
+msgstr "示例规则"
+
+#: includes/class-yaydp-i18n.php:49
+msgid "You"
+msgstr "你"
+
+#: includes/class-yaydp-i18n.php:50
+#, fuzzy
+msgid "Simple Adjustment"
+msgstr "简单调整"
+
+#: includes/class-yaydp-i18n.php:51
+#, fuzzy
+msgid "Bulk Pricing"
+msgstr "批量定价"
+
+#: includes/class-yaydp-i18n.php:52
+msgid "Product Bundle"
+msgstr "商品捆绑"
+
+#: includes/class-yaydp-i18n.php:53
+#, fuzzy
+msgid "BOGO (same product)"
+msgstr "BOGO （同产品）"
+
+#: includes/class-yaydp-i18n.php:54
+msgid "Buy X get Y"
+msgstr "买x送y"
+
+#: includes/class-yaydp-i18n.php:55
+msgid "Tiered Pricing"
+msgstr "阶梯价"
+
+#: includes/class-yaydp-i18n.php:56
+#, fuzzy
+msgid "Product Fee"
+msgstr "产品费用"
+
+#: includes/class-yaydp-i18n.php:57
+#, fuzzy
+msgid "Flat Price"
+msgstr "统一价格"
+
+#: includes/class-yaydp-i18n.php:58
+#, fuzzy
+msgid "All together"
+msgstr "一起"
+
+#: includes/class-yaydp-i18n.php:59
+#, fuzzy
+msgid "Item quantity in each cart line"
+msgstr "每个购物车行中的物料数量"
+
+#: includes/class-yaydp-i18n.php:60
+#, fuzzy
+msgid "Each single product/variable products"
+msgstr "每个单品/可变产品"
+
+#: includes/class-yaydp-i18n.php:61
+msgid "Purchase history"
+msgstr "购买历史记录"
+
+#: includes/class-yaydp-i18n.php:62
+msgid "Customer order count"
+msgstr "客户订单计数"
+
+#: includes/class-yaydp-i18n.php:63
+#, fuzzy
+msgid "Number of all the orders they have placed in the past."
+msgstr "他们过去下达的所有订单的数量。"
+
+#: includes/class-yaydp-i18n.php:64
+#, fuzzy
+msgid "Order count from last discount"
+msgstr "上次折扣的订单计数"
+
+#: includes/class-yaydp-i18n.php:65
+#, fuzzy
+msgid ""
+"Number of orders counted from the last time they got a discount from "
+"YayPricing."
+msgstr "从他们上次从 YayPricing 获得折扣开始计算的订单数。"
+
+#: includes/class-yaydp-i18n.php:66
+#, fuzzy
+msgid "Previous purchase date"
+msgstr "上一次购买日期"
+
+#: includes/class-yaydp-i18n.php:67
+#, fuzzy
+msgid "Purchase date of orders placed in the past."
+msgstr "过去所下订单的购买日期。"
+
+#: includes/class-yaydp-i18n.php:68
+#, fuzzy
+msgid "Order history product"
+msgstr "产品订单历史"
+
+#: includes/class-yaydp-i18n.php:69
+#, fuzzy
+msgid "Purchased products in a specific order."
+msgstr "按特定顺序购买的产品。"
+
+#: includes/class-yaydp-i18n.php:70
+#, fuzzy
+msgid "Order history category"
+msgstr "订单历史类别"
+
+#: includes/class-yaydp-i18n.php:71
+#, fuzzy
+msgid "Purchased product categories in a specific order."
+msgstr "按特定顺序购买的产品类别。"
+
+#: includes/class-yaydp-i18n.php:72
+#, fuzzy
+msgid "Purchased products (lifetime)"
+msgstr "购买的产品（终身）"
+
+#: includes/class-yaydp-i18n.php:73
+#, fuzzy
+msgid "Purchased products among all the orders they have placed in the past."
+msgstr "在他们过去下的所有订单中购买了产品。"
+
+#: includes/class-yaydp-i18n.php:74
+#, fuzzy
+msgid "Account create time"
+msgstr "帐户创建时间"
+
+#: includes/class-yaydp-i18n.php:75
+#, fuzzy
+msgid "Account lifetime from the time they are created"
+msgstr "帐户生命周期（从创建之时起）"
+
+#: includes/class-yaydp-i18n.php:76
+msgid "Cart"
+msgstr "购物车"
+
+#: includes/class-yaydp-i18n.php:77
+#, fuzzy
+msgid "Cart subtotal price"
+msgstr "购物车小计价格"
+
+#: includes/class-yaydp-i18n.php:78
+#, fuzzy
+msgid "Cart quantity"
+msgstr "购物车数量"
+
+#: includes/class-yaydp-i18n.php:79
+msgid "Cart total weight"
+msgstr "购物车总重"
+
+#: includes/class-yaydp-i18n.php:80
+msgid "Cart Items"
+msgstr "购物车项目"
+
+#: includes/class-yaydp-i18n.php:81
+#, fuzzy
+msgid "Cart item - product"
+msgstr "购物车项目 - 产品"
+
+#: includes/class-yaydp-i18n.php:82
+#, fuzzy
+msgid "Cart item - variation"
+msgstr "购物车商品 - 变体"
+
+#: includes/class-yaydp-i18n.php:83
+#, fuzzy
+msgid "Cart item - attribute taxonomies"
+msgstr "购物车商品 - 属性分类"
+
+#: includes/class-yaydp-i18n.php:84
+#, fuzzy
+msgid "Cart item - category"
+msgstr "购物车商品 - 类别"
+
+#: includes/class-yaydp-i18n.php:85
+#, fuzzy
+msgid "Cart item - tag"
+msgstr "购物车项目 - 标签"
+
+#: includes/class-yaydp-i18n.php:86
+msgid "Customer"
+msgstr "客户"
+
+#: includes/class-yaydp-i18n.php:87
+#, fuzzy
+msgid "Is logged in customer"
+msgstr "已登录客户"
+
+#: includes/class-yaydp-i18n.php:88
+msgid "Customer role"
+msgstr "客户角色"
+
+#: includes/class-yaydp-i18n.php:89
+#, fuzzy
+msgid "Specific customer"
+msgstr "特定客户"
+
+#: includes/class-yaydp-i18n.php:90
+msgid "Others"
+msgstr "其他"
+
+#: includes/class-yaydp-i18n.php:91
+msgid "Shipping region"
+msgstr "航运区域"
+
+#: includes/class-yaydp-i18n.php:92
+#, fuzzy
+msgid "Billing region"
+msgstr "计费区域"
+
+#: includes/class-yaydp-i18n.php:93
+msgid "Payment method"
+msgstr "支付方式"
+
+#: includes/class-yaydp-i18n.php:94
+msgid "Combination"
+msgstr "组合"
+
+#: includes/class-yaydp-i18n.php:95
+#, fuzzy
+msgid "Combined condition"
+msgstr "组合条件"
+
+#: includes/class-yaydp-i18n.php:96
+msgid "Applied coupons"
+msgstr "已申请优惠券"
+
+#: includes/class-yaydp-i18n.php:97
+#, fuzzy
+msgid "Total shipping fee"
+msgstr "总运费"
+
+#: includes/class-yaydp-i18n.php:98
+#, fuzzy
+msgid "Items - Product"
+msgstr "项目 - 产品"
+
+#: includes/class-yaydp-i18n.php:99
+#, fuzzy
+msgid "Items - Category"
+msgstr "项目 - 类别"
+
+#: includes/class-yaydp-i18n.php:100
+#, fuzzy
+msgid "Combined items"
+msgstr "组合项目"
+
+#: includes/class-yaydp-i18n.php:101
+#, fuzzy
+msgid "Items - Quantity"
+msgstr "项目 - 数量"
+
+#: includes/class-yaydp-i18n.php:102
+#, fuzzy
+msgid "Items - Subtotal price"
+msgstr "项目 - 小计价格"
+
+#: includes/class-yaydp-i18n.php:103
+#, fuzzy
+msgid "Contain all"
+msgstr "包含全部"
+
+#: includes/class-yaydp-i18n.php:104
+#, fuzzy
+msgid "Contain in list"
+msgstr "包含在列表中"
+
+#: includes/class-yaydp-i18n.php:105
+#, fuzzy
+msgid "Not contain in list"
+msgstr "不包含在列表中"
+
+#: includes/class-yaydp-i18n.php:106
+msgid "Greater than"
+msgstr "大于"
+
+#: includes/class-yaydp-i18n.php:107
+msgid "Less than"
+msgstr "小于"
+
+#: includes/class-yaydp-i18n.php:108
+msgid "Greater than or equal"
+msgstr "大于或等于"
+
+#: includes/class-yaydp-i18n.php:109
+msgid "Less than or equal"
+msgstr "请输入小于或等于{0}的值"
+
+#: includes/class-yaydp-i18n.php:110
+msgid "In list"
+msgstr "包括"
+
+#: includes/class-yaydp-i18n.php:111
+#, fuzzy
+msgid "Not in list"
+msgstr "此列表没有可用的表单!"
+
+#: includes/class-yaydp-i18n.php:112
+msgid "Logged in"
+msgstr "登录"
+
+#: includes/class-yaydp-i18n.php:113
+msgid "Not logged in"
+msgstr "未登录"
+
+#: includes/class-yaydp-i18n.php:114
+msgid "Before"
+msgstr "之前"
+
+#: includes/class-yaydp-i18n.php:115
+msgid "After"
+msgstr "之后"
+
+#: includes/class-yaydp-i18n.php:116
+msgid "On"
+msgstr "开启"
+
+#: includes/class-yaydp-i18n.php:117
+msgid "In range"
+msgstr "时间范围"
+
+#: includes/class-yaydp-i18n.php:118
+msgid "Longer than"
+msgstr "长于"
+
+#: includes/class-yaydp-i18n.php:119
+msgid "Within"
+msgstr "内部"
+
+#: includes/class-yaydp-i18n.php:120
+msgid "Off"
+msgstr "关闭"
+
+#: includes/class-yaydp-i18n.php:121
+msgid "Weekly"
+msgstr "每周"
+
+#: includes/class-yaydp-i18n.php:122
+msgid "Monthly"
+msgstr "每月"
+
+#: includes/class-yaydp-i18n.php:123
+msgid "Yearly"
+msgstr "每年"
+
+#: includes/class-yaydp-i18n.php:124
+msgid "Product exclusions"
+msgstr "产品排除"
+
+#: includes/class-yaydp-i18n.php:125
+#, fuzzy
+msgid "Coupon exclusions"
+msgstr "优惠券排除"
+
+#: includes/class-yaydp-i18n.php:126
+#, fuzzy
+msgid "Fixed Discount per Individual Cart Item"
+msgstr "每个单独的购物车商品的固定折扣"
+
+#: includes/class-yaydp-i18n.php:127
+#, fuzzy
+msgid "Your own campaign"
+msgstr "您自己的广告系列"
+
+#: includes/class-yaydp-i18n.php:128
+#, fuzzy
+msgid ""
+"Refers to a tailored pricing or promotional strategy designed specifically "
+"for your business or product offerings"
+msgstr "指专为您的业务或产品/服务设计的定制定价或促销策略"
+
+#: includes/class-yaydp-i18n.php:129
+#, fuzzy
+msgid ""
+"You want to run a special promotional campaign offering 50% off every item "
+"in your store."
+msgstr "您想开展一项特殊的促销活动，为您的商店中的每件商品提供 50% off。"
+
+#: includes/class-yaydp-i18n.php:130
+#, fuzzy
+msgid ""
+"When the promotion is activated, all products in your store automatically "
+"receive a 50% discount when added to cart"
+msgstr ""
+"激活促销活动后，您商店中的所有产品在添加到购物车时都会自动获得 50% discount"
+
+#: includes/class-yaydp-i18n.php:131
+#, fuzzy
+msgid "Eg:"
+msgstr "例如："
+
+#: includes/class-yaydp-i18n.php:132
+#, fuzzy
+msgid "T-shirt:"
+msgstr "体恤衫："
+
+#: includes/class-yaydp-i18n.php:133
+#, fuzzy
+msgid "Hoodie:"
+msgstr "帽 衫："
+
+#: includes/class-yaydp-i18n.php:134
+#, fuzzy
+msgid "Belt:"
+msgstr "带："
+
+#: includes/class-yaydp-i18n.php:135
+#, fuzzy
+msgid "Sale 50% all products"
+msgstr "销售 50% all 产品"
+
+#: includes/class-yaydp-i18n.php:136
+#, fuzzy
+msgid "Sale 10$ all products"
+msgstr "促销 10 美元 所有产品"
+
+#: includes/class-yaydp-i18n.php:137
+#, fuzzy
+msgid "Sale [discount_value] all products"
+msgstr "销售 [discount_value] 所有产品"
+
+#: includes/class-yaydp-i18n.php:138
+#, fuzzy
+msgid ""
+"You want to run a special promotional campaign offering 10$ off every item "
+"in your store."
+msgstr "您想开展一项特殊的促销活动，为您的商店中的每件商品提供 10 美元的折扣。"
+
+#: includes/class-yaydp-i18n.php:139
+#, fuzzy
+msgid ""
+"When the promotion is activated, all products in your store automatically "
+"receive a 10$ discount when added to cart"
+msgstr ""
+"激活促销活动后，您商店中的所有产品在添加到购物车时都会自动获得 10 美元的折扣"
+
+#: includes/class-yaydp-i18n.php:140
+msgid "Hoodie"
+msgstr "连帽衫"
+
+#: includes/class-yaydp-i18n.php:141
+msgid "Belt"
+msgstr "腰带"
+
+#: includes/class-yaydp-i18n.php:142
+#, fuzzy
+msgid "Buy 3 get 1 free item"
+msgstr "买 3 送 1 件"
+
+#: includes/class-yaydp-i18n.php:143
+#, fuzzy
+msgid "Get this free when buy 3 item"
+msgstr "购买 3 件即可免费获得此商品"
+
+#: includes/class-yaydp-i18n.php:144
+#, fuzzy
+msgid ""
+"Rewards customers with a free item after purchasing a specified quantity of "
+"products."
+msgstr "在购买指定数量的产品后，客户将获得免费物品作为奖励。"
+
+#: includes/class-yaydp-i18n.php:145
+#, fuzzy
+msgid ""
+"In this case, customers who buy 3 items will receive an additional item for "
+"free."
+msgstr "在这种情况下，购买 3 件商品的顾客将免费获得一件额外的商品。"
+
+#: includes/class-yaydp-i18n.php:146
+#, fuzzy
+msgid ""
+"For every 3 clothing purchased, a free same type clothing is added to the "
+"cart automatically."
+msgstr "每购买 3 件服装，就会自动将一件免费的同类型服装添加到购物车中。"
+
+#: includes/class-yaydp-i18n.php:147
+#, fuzzy
+msgid "Total items in cart:"
+msgstr "购物车中的商品总数："
+
+#: includes/class-yaydp-i18n.php:148
+msgid "Gift"
+msgstr "礼品"
+
+#: includes/class-yaydp-i18n.php:149
+#, fuzzy
+msgid "Sale 30% from the third item"
+msgstr "Sale 30% f 第三项"
+
+#: includes/class-yaydp-i18n.php:150
+#, fuzzy
+msgid "Discount [discount_value] off from 3rd item"
+msgstr "第 3 件商品的折扣 [discount_value]"
+
+#: includes/class-yaydp-i18n.php:151
+#, fuzzy
+msgid "You will get 30% off when buy from 3 items"
+msgstr "从 30 件商品中购买时，您将获得 30% off"
+
+#: includes/class-yaydp-i18n.php:152
+#, fuzzy
+msgid ""
+"Provides a 30% discount on specific product when they purchase 3 or more "
+"items."
+msgstr "当他们购买 30 件或更多商品时，提供对特定产品的 3% discount 。"
+
+#: includes/class-yaydp-i18n.php:153
+#, fuzzy
+msgid ""
+"An store could offer a 30% discount for a purchased clothing type when "
+"customers buy 3 or more."
+msgstr ""
+"当客户购买 3 件或更多服装时，商店可以为购买的服装类型提供 30% discount。"
+
+#: includes/class-yaydp-i18n.php:154
+msgid "Discounted"
+msgstr "折扣"
+
+#: includes/class-yaydp-i18n.php:155
+#, fuzzy
+msgid "Black Friday Event"
+msgstr "黑色星期五活动"
+
+#: includes/class-yaydp-i18n.php:156
+#, fuzzy
+msgid "Today is Black Friday, so you will get 70% off when buy all products"
+msgstr "今天是黑色星期五，所以购买所有产品将获得 70% off"
+
+#: includes/class-yaydp-i18n.php:157
+#, fuzzy
+msgid ""
+"The Black Friday Event campaign is a one-time, annual promotion that starts "
+"on the next Black Friday (the Friday after Thanksgiving this year)."
+msgstr ""
+"黑色星期五活动活动是一项一次性的年度促销活动，从下一个黑色星期五（今年感恩节"
+"后的星期五）开始。"
+
+#: includes/class-yaydp-i18n.php:158
+#, fuzzy
+msgid ""
+"Campaign will add a schedule in this rule to detect the next Black Friday."
+msgstr "Campaign 将在此规则中添加一个计划，以检测下一个黑色星期五。"
+
+#: includes/class-yaydp-i18n.php:159
+#, fuzzy
+msgid ""
+"A clothing store could offer up to 70% off on all items and run flash sales "
+"on accessories like scarves and gloves."
+msgstr ""
+"服装店可以为所有商品提供高达 70% off 的折扣，并对围巾和手套等配饰进行限时抢"
+"购。"
+
+#: includes/class-yaydp-i18n.php:160
+#, fuzzy
+msgid "Buy 1 get 50% off the second one"
+msgstr "买 1 送 50% off 第二个"
+
+#: includes/class-yaydp-i18n.php:161
+#, fuzzy
+msgid "You will get 50% off when buy the this product"
+msgstr "购买此产品时，您将获得 50% off"
+
+#: includes/class-yaydp-i18n.php:162
+#, fuzzy
+msgid ""
+"Promotion that allows customers to purchase one item at full price and "
+"receive a same second item at 50% off."
+msgstr ""
+"允许买家以全价购买一件商品，并以 50% off 的价格获得相同的第二件商品的促销活"
+"动。"
+
+#: includes/class-yaydp-i18n.php:163
+#, fuzzy
+msgid "Customers buy 1 T-Shirt at full price and get a second one at 50% off."
+msgstr "客户以全价购买 1 件 T 恤，并以 50% off 的价格购买第二件 T 恤。"
+
+#: includes/class-yaydp-i18n.php:164
+#, fuzzy
+msgid "Buy X get Y with discount"
+msgstr "买 X 送 Y 优惠"
+
+#: includes/class-yaydp-i18n.php:165
+#, fuzzy
+msgid "Discount [discount_value] off"
+msgstr "折扣 [discount_value] 关闭"
+
+#: includes/class-yaydp-i18n.php:166
+#, fuzzy
+msgid "You will get [discount_value] discount when buy 1 item of this product"
+msgstr "购买 1 件此产品时，您将获得 [discount_value] 折扣"
+
+#: includes/class-yaydp-i18n.php:167
+#, fuzzy
+msgid ""
+"Campaign allows customers to purchase a specific product (X) and receive a "
+"second product (Y) at a discounted price."
+msgstr "Campaign 允许客户以折扣价购买特定产品 （X） 并接收第二种产品 （Y）。"
+
+#: includes/class-yaydp-i18n.php:168
+#, fuzzy
+msgid "Buy a Hoodie (Product X) and get a T-shirt (Product Y) at 10$ off."
+msgstr "购买连帽衫（产品 X）并获得 T 恤（产品 Y），立减 10 美元。"
+
+#: includes/class-yaydp-i18n.php:169
+#, fuzzy
+msgid ""
+"For a limited time, get 50% off when you purchase any 3 selected items in a "
+"package."
+msgstr "在有限的时间内，当您在包裹中购买任意 50 件选定物品时，可获得 3% off。"
+
+#: includes/class-yaydp-i18n.php:170
+#, fuzzy
+msgid ""
+"Select 3 items from our curated package options and receive 50% off the "
+"regular price of the 3 items in the package."
+msgstr ""
+"从我们精心策划的套餐选项中选择 3 件商品，即可获得套餐中 3 件商品正常价格的 "
+"50% off。"
+
+#: includes/class-yaydp-i18n.php:171
+#, fuzzy
+msgid "Package includes Hoodie, T-Shirt, Cap, ..."
+msgstr "包装包括连帽衫、T 恤、帽子......"
+
+#: includes/class-yaydp-i18n.php:172
+#, fuzzy
+msgid "Sale 50% off 3 items in package"
+msgstr "Sale 50% off 3 件装"
+
+#: includes/class-yaydp-i18n.php:173
+#, fuzzy
+msgid "Sale 30% on the third item"
+msgstr "促销 30% on 第 3 件"
+
+#: includes/class-yaydp-i18n.php:174
+#, fuzzy
+msgid ""
+"Provides a 30% discount on a customer’s entire order when they purchase 3 or "
+"more items."
+msgstr "当客户购买 3 件或更多商品时，提供客户整个订单的 30% discount 值。"
+
+#: includes/class-yaydp-i18n.php:175
+#, fuzzy
+msgid "Store could offer a 30% discount for the 3rd purchased T-Shirt or Cap"
+msgstr "商店可以为第 3 件购买的 T 恤或帽子提供 30% d 的折扣"
+
+#: includes/class-yaydp-i18n.php:176
+#, fuzzy
+msgid ""
+"Flexible promotional offer that allows you to apply a discount to the entire "
+"shopping cart based on custom rules that you define."
+msgstr "灵活的促销优惠，允许您根据您定义的自定义规则将折扣应用于整个购物车。"
+
+#: includes/class-yaydp-i18n.php:177
+#, fuzzy
+msgid "Apply 100$ discount to the whole cart."
+msgstr "将 100 美元的折扣应用于整个购物车。"
+
+#: includes/class-yaydp-i18n.php:178
+msgid "Cart subtotal:"
+msgstr "购物车小计:"
+
+#: includes/class-yaydp-i18n.php:179
+msgid "Discount:"
+msgstr "折扣:"
+
+#: includes/class-yaydp-i18n.php:180
+#, fuzzy
+msgid "Final total:"
+msgstr "最终总计："
+
+#: includes/class-yaydp-i18n.php:181
+#, fuzzy
+msgid "Discount 50% campaign"
+msgstr "折扣 50% campaign"
+
+#: includes/class-yaydp-i18n.php:182
+#, fuzzy
+msgid "Discount [discount_value] all cart"
+msgstr "折扣 [discount_value] 所有购物车"
+
+#: includes/class-yaydp-i18n.php:183
+#, fuzzy
+msgid ""
+"Provides customers with a 50% discount on the total value of their shopping "
+"cart"
+msgstr "为客户提供购物车总价值的 50% discount"
+
+#: includes/class-yaydp-i18n.php:184
+#, fuzzy
+msgid "Customer will receive a 50% discount."
+msgstr "客户将收到 50% discount。"
+
+#: includes/class-yaydp-i18n.php:185
+msgid "Discount"
+msgstr "折扣"
+
+#: includes/class-yaydp-i18n.php:186
+msgid "campaign"
+msgstr "活动"
+
+#: includes/class-yaydp-i18n.php:187
+#, fuzzy
+msgid ""
+"Provides customers with a 10$ discount on the total value of their shopping "
+"cart"
+msgstr "为客户提供购物车总价值 10 美元的折扣"
+
+#: includes/class-yaydp-i18n.php:188
+#, fuzzy
+msgid "Customer will receive a 10$ discount"
+msgstr "客户将获得 10 美元的折扣"
+
+#: includes/class-yaydp-i18n.php:189
+#, fuzzy
+msgid "Black Friday campaign"
+msgstr "黑色星期五活动"
+
+#: includes/class-yaydp-i18n.php:190
+#, fuzzy
+msgid "Black friday discount! Discount [discount_value] all cart"
+msgstr "Black Friday 折扣！折扣 [discount_value] 所有购物车"
+
+#: includes/class-yaydp-i18n.php:191
+#, fuzzy
+msgid "A clothing store could offer up to 100$ off cart totals on Black Friday"
+msgstr "服装店可以在黑色星期五提供高达 100 美元的购物车总额折扣"
+
+#: includes/class-yaydp-i18n.php:192
+#, fuzzy
+msgid "Discount 10$ on the total when spending 100$"
+msgstr "消费 10 美元时，总金额可享受 100 美元的折扣"
+
+#: includes/class-yaydp-i18n.php:193
+#, fuzzy
+msgid ""
+"Provides customers with a 10$ discount on the total value of their shopping "
+"cart when spending 100$"
+msgstr "当客户消费 10 美元时，为其购物车总价值提供 100 美元的折扣"
+
+#: includes/class-yaydp-i18n.php:194
+#, fuzzy
+msgid ""
+"If the customer has items worth $100 in their cart, they will receive a 10$ "
+"discount, making their final cart total $90."
+msgstr ""
+"如果客户的购物车中有价值 100 美元的商品，他们将获得 10 美元的折扣，即他们的最"
+"终购物车总金额为 90 美元。"
+
+#: includes/class-yaydp-i18n.php:195
+#, fuzzy
+msgid ""
+"Promotion that allows you to apply a customized fee at checkout based on "
+"specific rules that you define. Unlike typical discounts, this campaign lets "
+"you add a fee to a customer’s order under certain conditions."
+msgstr ""
+"允许您根据您定义的特定规则在结账时应用自定义费用的促销活动。与典型的折扣不"
+"同，此活动允许您在特定条件下为客户的订单添加费用。"
+
+#: includes/class-yaydp-i18n.php:196
+#, fuzzy
+msgid "Apply 10$ extra fee to the order"
+msgstr "对订单收取 10 美元的额外费用"
+
+#: includes/class-yaydp-i18n.php:197
+msgid "Fee:"
+msgstr "费用:"
+
+#: includes/class-yaydp-i18n.php:198
+#, fuzzy
+msgid "Free shipping fee"
+msgstr "免运费"
+
+#: includes/class-yaydp-i18n.php:199
+#, fuzzy
+msgid "Get free shipping"
+msgstr "享受免费送货服务"
+
+#: includes/class-yaydp-i18n.php:200
+#, fuzzy
+msgid ""
+"Offers customers free delivery on their orders under certain conditions."
+msgstr "在特定条件下为买家提供订单免费送货服务。"
+
+#: includes/class-yaydp-i18n.php:201
+#, fuzzy
+msgid "Reduce shipping fee in order to customers get free on shipping."
+msgstr "降低运费，以便客户免运费。"
+
+#: includes/class-yaydp-i18n.php:202
+msgid "Shipping fee:"
+msgstr "配送费用"
+
+#: includes/class-yaydp-i18n.php:203
+#, fuzzy
+msgid "Reduce 50% shipping fee for order below"
+msgstr "以下订单减免 50% s 的运费"
+
+#: includes/class-yaydp-i18n.php:204
+#, fuzzy
+msgid "Discount 50% of the shipping cost"
+msgstr "运费的 50% of 折扣"
+
+#: includes/class-yaydp-i18n.php:205
+#, fuzzy
+msgid ""
+"Offers a 50% discount on the shipping fee for customers who place orders "
+"with a total value below $100."
+msgstr "为下订单总价值低于 100 美元的客户提供 50% discount 的运费。"
+
+#: includes/class-yaydp-i18n.php:206
+#, fuzzy
+msgid ""
+"A customer spending $80 on kitchen utensils could have their $12 shipping "
+"fee reduced to $6, which would encourage them to complete the checkout."
+msgstr "买家在厨房用具上花费 $80 的运费可能会降至 $6，这将鼓励他们完成结账。"
+
+#: includes/class-yaydp-i18n.php:207
+msgid "Add"
+msgstr "添加"
+
+#: includes/class-yaydp-i18n.php:208
+#, fuzzy
+msgid "fee to order"
+msgstr "订购费用"
+
+#: includes/class-yaydp-i18n.php:209
+#, fuzzy
+msgid "Add [discount_value] to the order"
+msgstr "将 [discount_value] 添加到订单中"
+
+#: includes/class-yaydp-i18n.php:210
+#, fuzzy
+msgid "Automatically apply a $10 fee to a customer"
+msgstr "自动向客户收取 $10 的费用"
+
+#: includes/class-yaydp-i18n.php:211
+#, fuzzy
+msgid "A $10 fee is automatically added to the order."
+msgstr "订单中会自动添加 10 USD 的费用。"
+
+#: includes/class-yaydp-i18n.php:212
+#, fuzzy
+msgid "Extra fee:"
+msgstr "额外费用："
+
+#: includes/class-yaydp-i18n.php:213
+msgid "Upgrade"
+msgstr "升级"
+
+#: includes/class-yaydp-i18n.php:214
+msgid "Duplicate of"
+msgstr "重复的"
+
+#: includes/class-yaydp-i18n.php:215
+msgid "Before "
+msgstr "之前 "
+
+#: includes/class-yaydp-i18n.php:216
+msgid "After "
+msgstr "后 "
+
+#: includes/class-yaydp-i18n.php:217
+#, fuzzy
+msgid "Before Product short description"
+msgstr "之前 产品简介"
+
+#: includes/class-yaydp-i18n.php:218
+#, fuzzy
+msgid "After Product short description"
+msgstr "产品后简短描述"
+
+#: includes/class-yaydp-i18n.php:219
+msgid "Product meta start"
+msgstr "产品元之前"
+
+#: includes/class-yaydp-i18n.php:220
+msgid "Product meta end"
+msgstr "产品元之后"
+
+#: includes/class-yaydp-i18n.php:221
+msgid "None"
+msgstr "无"
+
+#: includes/class-yaydp-i18n.php:222
+#, fuzzy
+msgid "Style has been reset"
+msgstr "样式已重置"
+
+#: includes/class-yaydp-i18n.php:223
+msgid "Quantity discounts"
+msgstr "数量优惠"
+
+#: includes/class-yaydp-i18n.php:224
+msgid "Quantity"
+msgstr "数量"
+
+#: includes/class-yaydp-i18n.php:225
+msgid "Price"
+msgstr "价格"
+
+#: includes/class-yaydp-i18n.php:226
+msgid "Pricing table"
+msgstr "价格表"
+
+#: includes/class-yaydp-i18n.php:227
+msgid "Table position"
+msgstr "表格位置"
+
+#: includes/class-yaydp-i18n.php:228
+msgid "Table title"
+msgstr "表格标题"
+
+#: includes/class-yaydp-i18n.php:229
+#, fuzzy
+msgid "Ex: Quantity discounts"
+msgstr "例如： 数量折扣"
+
+#: includes/class-yaydp-i18n.php:230
+msgid "Quantity title"
+msgstr "数量标题"
+
+#: includes/class-yaydp-i18n.php:231
+#, fuzzy
+msgid "Ex: Quantity"
+msgstr "例如：数量"
+
+#: includes/class-yaydp-i18n.php:232
+#, fuzzy
+msgid "Discount title"
+msgstr "折扣标题"
+
+#: includes/class-yaydp-i18n.php:233
+#, fuzzy
+msgid "Ex: Discount"
+msgstr "例：折扣"
+
+#: includes/class-yaydp-i18n.php:234
+msgid "Price title"
+msgstr "价格标题"
+
+#: includes/class-yaydp-i18n.php:235
+#, fuzzy
+msgid "Ex: Price"
+msgstr "例：价格"
+
+#: includes/class-yaydp-i18n.php:236
+msgid "Border color"
+msgstr "边框颜色"
+
+#: includes/class-yaydp-i18n.php:237
+msgid "Preview"
+msgstr "预览"
+
+#: includes/class-yaydp-i18n.php:238
+msgid "Reset"
+msgstr "重置"
+
+#: includes/class-yaydp-i18n.php:239
+#, fuzzy
+msgid "Encourage notice"
+msgstr "鼓励通知"
+
+#: includes/class-yaydp-i18n.php:240
+#, fuzzy
+msgid "Show notices after product description to encourage purchasing"
+msgstr "在产品描述后显示通知以鼓励购买"
+
+#: includes/class-yaydp-i18n.php:241
+#, fuzzy
+msgid "Show notices at bottom of Cart page to encourage purchasing"
+msgstr "在购物车页面底部显示通知以鼓励购买"
+
+#: includes/class-yaydp-i18n.php:242
+#, fuzzy
+msgid "Show notices at bottom of Checkout page to encourage purchasing"
+msgstr "在结帐页面底部显示通知以鼓励购买"
+
+#: includes/class-yaydp-i18n.php:243
+msgid "Import successfully"
+msgstr "导入成功"
+
+#: includes/class-yaydp-i18n.php:244
+msgid "Import failed"
+msgstr "导入失败"
+
+#: includes/class-yaydp-i18n.php:245
+msgid "Import/Export"
+msgstr "导入/导出"
+
+#: includes/class-yaydp-i18n.php:246
+#, fuzzy
+msgid "Export rules"
+msgstr "导出规则"
+
+#: includes/class-yaydp-i18n.php:247
+msgid "Choose file"
+msgstr "选择文件"
+
+#: includes/class-yaydp-i18n.php:248
+msgid "Import"
+msgstr "导入"
+
+#: includes/class-yaydp-i18n.php:249
+msgid "Countdown timer"
+msgstr "倒数计时器"
+
+#: includes/class-yaydp-i18n.php:250
+#, fuzzy
+msgid "Show countdown timer"
+msgstr "显示倒数计时器"
+
+#: includes/class-yaydp-i18n.php:251
+#, fuzzy
+msgid "Discountable price range"
+msgstr "可折扣价格范围"
+
+#: includes/class-yaydp-i18n.php:252
+#, fuzzy
+msgid "Current discount tier"
+msgstr "当前折扣等级"
+
+#: includes/class-yaydp-i18n.php:253
+#, fuzzy
+msgid "Next discount tier as if 1 more item is added"
+msgstr "下一个折扣等级，就像多添加了 1 件商品一样"
+
+#: includes/class-yaydp-i18n.php:254
+#, fuzzy
+msgid "Product sale display"
+msgstr "产品销售展示"
+
+#: includes/class-yaydp-i18n.php:255
+#, fuzzy
+msgid "Show sale tag and discounted price as"
+msgstr "将销售标签和折扣价显示为"
+
+#: includes/class-yaydp-i18n.php:256
+#, fuzzy
+msgid "Product price display"
+msgstr "产品价格显示"
+
+#: includes/class-yaydp-i18n.php:257
+#, fuzzy
+msgid "Show product discounted price"
+msgstr "显示产品折扣价"
+
+#: includes/class-yaydp-i18n.php:258
+#, fuzzy
+msgid "Replace product price with the discounted one"
+msgstr "将产品价格替换为打折后的价格"
+
+#: includes/class-yaydp-i18n.php:259
+#, fuzzy
+msgid "Show product regular price within discounted"
+msgstr "在折扣范围内显示产品正常价格"
+
+#: includes/class-yaydp-i18n.php:260
+#, fuzzy
+msgid "Regular price is displayed as strike-through text on product price"
+msgstr "正常价格在商品价格上显示为删除线文本"
+
+#: includes/class-yaydp-i18n.php:261
+#, fuzzy
+msgid "Saving amount"
+msgstr "储蓄金额"
+
+#: includes/class-yaydp-i18n.php:262
+#, fuzzy
+msgid "Show order saving amount"
+msgstr "显示订单节省金额"
+
+#: includes/class-yaydp-i18n.php:263
+#, fuzzy
+msgid "Show products saving amount on cart page (Only for cart shortcode)."
+msgstr "在购物车页面上显示产品节省金额（仅适用于购物车短代码）。"
+
+#: includes/class-yaydp-i18n.php:264
+msgid "Position"
+msgstr "位置"
+
+#: includes/class-yaydp-i18n.php:265
+#, fuzzy
+msgid "Before order total"
+msgstr "订单总计前"
+
+#: includes/class-yaydp-i18n.php:266
+#, fuzzy
+msgid "After order total"
+msgstr "订单合计后"
+
+#: includes/class-yaydp-i18n.php:267
+msgid "General"
+msgstr "常规"
+
+#: includes/class-yaydp-i18n.php:268
+msgid "Discount based on"
+msgstr "折扣基于"
+
+#: includes/class-yaydp-i18n.php:269
+#, fuzzy
+msgid "Disable product pricing rules when product is on sale"
+msgstr "在产品打折时禁用产品定价规则"
+
+#: includes/class-yaydp-i18n.php:270
+#, fuzzy
+msgid ""
+"When product is on sale, it will not be discounted by product pricing rule."
+msgstr "当产品打折时，产品定价规则不会打折。"
+
+#: includes/class-yaydp-i18n.php:271
+#, fuzzy
+msgid "Prevent cart discount applied when Single use WC Coupon applied"
+msgstr "防止在应用一次性 WC 优惠券时应用购物车折扣"
+
+#: includes/class-yaydp-i18n.php:272
+#, fuzzy
+msgid ""
+"WC coupon cannot be applied when it is single use and cart items have "
+"discounted by YayPricing"
+msgstr "WC 优惠券不能使用一次性使用，并且购物车商品已通过 YayPricing 打折"
+
+#: includes/class-yaydp-i18n.php:273
+#, fuzzy
+msgid "Show regular price on cart item"
+msgstr "在购物车商品上显示正常价格"
+
+#: includes/class-yaydp-i18n.php:274
+#, fuzzy
+msgid ""
+"Regular price is displayed as strike-through text on cart page and checkout "
+"page"
+msgstr "正常价格在购物车页面和结帐页面上显示为删除线文本"
+
+#: includes/class-yaydp-i18n.php:275
+#, fuzzy
+msgid "Show original subtotal price on cart item"
+msgstr "显示购物车商品的原始小计价格"
+
+#: includes/class-yaydp-i18n.php:276
+#, fuzzy
+msgid ""
+"Original subtotal price is displayed as strike-through text. This setting "
+"cannot affect to WC Block"
+msgstr "原始小计价格显示为删除线文本。此设置不会影响 WC Block"
+
+#: includes/class-yaydp-i18n.php:277
+#, fuzzy
+msgid "Combine cart discounts"
+msgstr "组合购物车折扣"
+
+#: includes/class-yaydp-i18n.php:278
+#, fuzzy
+msgid ""
+"All rules will be calculated and combined into a single rule to apply in cart"
+msgstr "所有规则都将被计算并合并为一条规则，以应用于购物车"
+
+#: includes/class-yaydp-i18n.php:279
+#, fuzzy
+msgid "Use discount ID as coupon code"
+msgstr "使用折扣 ID 作为优惠券代码"
+
+#: includes/class-yaydp-i18n.php:280
+#, fuzzy
+msgid ""
+"Automatically generate cart discount ID to be used as a coupon code in the "
+"admin order details"
+msgstr "自动生成购物车折扣 ID，用作管理订单详细信息中的优惠券代码"
+
+#: includes/class-yaydp-i18n.php:281
+#, fuzzy
+msgid "Use cart discount together with Single use WC Coupon"
+msgstr "使用购物车折扣和一次性 WC 优惠券"
+
+#: includes/class-yaydp-i18n.php:282
+msgid "Sale Tag"
+msgstr "促销标签"
+
+#: includes/class-yaydp-i18n.php:283
+#, fuzzy
+msgid "Show sale tag for sale products"
+msgstr "显示销售商品的销售标签"
+
+#: includes/class-yaydp-i18n.php:284
+#, fuzzy
+msgid ""
+"Display a sale tag on product image on shop page and single product page"
+msgstr "在商店页面和单个产品页面的产品图片上显示销售标签"
+
+#: includes/class-yaydp-i18n.php:285
+#, fuzzy
+msgid "Show sale off amount on the sale tag"
+msgstr "在销售标签上显示销售金额"
+
+#: includes/class-yaydp-i18n.php:286
+#, fuzzy
+msgid "Display a discount range tag on the sale tag"
+msgstr "在销售标签上显示折扣范围标签"
+
+#: includes/class-yaydp-i18n.php:287
+msgid "Background color"
+msgstr "背景颜色"
+
+#: includes/class-yaydp-i18n.php:288
+msgid "Text color"
+msgstr "文本颜色"
+
+#: includes/class-yaydp-i18n.php:289
+#: includes/templates/product/yaydp-sale-tag.php:31
+msgid "SALE!"
+msgstr "促销！"
+
+#: includes/class-yaydp-i18n.php:290
+#: includes/templates/product/yaydp-sale-tag.php:32
+msgid "Up to %s"
+msgstr "高达 %s"
+
+#: includes/class-yaydp-i18n.php:291
+msgid "What"
+msgstr "什么"
+
+#: includes/class-yaydp-i18n.php:292
+msgid "Version"
+msgstr "版本"
+
+#: includes/class-yaydp-i18n.php:293
+msgid "Shortcodes"
+msgstr "简码"
+
+#: includes/class-yaydp-i18n.php:294
+#, fuzzy
+msgid "Shortcode to load all products which has discount through YayPricing"
+msgstr "通过 YayPricing 加载所有有折扣的产品的简码"
+
+#: includes/class-yaydp-i18n.php:295
+#, fuzzy
+msgid "Please paste it in your promotion page to show list on sale products"
+msgstr "请将其粘贴到您的促销页面中，以显示特价商品列表"
+
+#: includes/class-yaydp-i18n.php:296
+#, fuzzy
+msgid "Select rules for on sale products"
+msgstr "选择促销商品的规则"
+
+#: includes/class-yaydp-i18n.php:297
+msgid "Apply all applicable rules"
+msgstr "应用所有适用规则"
+
+#: includes/class-yaydp-i18n.php:298
+#, fuzzy
+msgid "Apply the first applicable rule in your list"
+msgstr "应用列表中的第一个适用规则"
+
+#: includes/class-yaydp-i18n.php:299
+#, fuzzy
+msgid "Apply the rule with minimum discount amount"
+msgstr "应用具有最小折扣金额的规则"
+
+#: includes/class-yaydp-i18n.php:300
+#, fuzzy
+msgid "Apply the rule with maximum discount amount"
+msgstr "应用具有最大折扣金额的规则"
+
+#: includes/class-yaydp-i18n.php:301
+#, fuzzy
+msgid "How the rules are applied"
+msgstr "规则是如何应用的"
+
+#: includes/class-yaydp-i18n.php:302
+#, fuzzy
+msgid "Apply to non discount product"
+msgstr "适用于非折扣产品"
+
+#: includes/class-yaydp-i18n.php:303
+#, fuzzy
+msgid "Count quantity by"
+msgstr "计数数量依据"
+
+#: includes/class-yaydp-i18n.php:304
+#, fuzzy
+msgid "Is repeat"
+msgstr "是重复"
+
+#: includes/class-yaydp-i18n.php:305
+#, fuzzy
+msgid "Discount will apply once or repeat after each quantities matching"
+msgstr "折扣将适用一次，或在每次数量匹配后重复"
+
+#: includes/class-yaydp-i18n.php:306
+msgid "Buy"
+msgstr "购买"
+
+#: includes/class-yaydp-i18n.php:307
+msgid "Get"
+msgstr "获取"
+
+#: includes/class-yaydp-i18n.php:308
+#: includes/templates/cart-item-price/extra-item.php:14
+msgid "Free"
+msgstr "免费"
+
+#: includes/class-yaydp-i18n.php:309
+msgid "Pricing type"
+msgstr "价格分类"
+
+#: includes/class-yaydp-i18n.php:310
+#, fuzzy
+msgid ""
+"Fact: The maximum allowable flat price will be limited to the product price."
+msgstr "事实： 允许的最高固定价格将限制为产品价格。"
+
+#: includes/class-yaydp-i18n.php:311
+#, fuzzy
+msgid "Pricing value"
+msgstr "定价价值"
+
+#: includes/class-yaydp-i18n.php:312
+msgid "Maximum value"
+msgstr "最大值"
+
+#: includes/class-yaydp-i18n.php:313
+#, fuzzy
+msgid "This adds a cap so that the discount amount will not exceed this amount"
+msgstr "这会增加一个上限，以便折扣金额不会超过此金额"
+
+#: includes/class-yaydp-i18n.php:314
+#, fuzzy
+msgid "Using formula"
+msgstr "使用公式"
+
+#: includes/class-yaydp-i18n.php:315
+#, fuzzy
+msgid ""
+"E.g: quantity: {n}*2, pricing: {n}*10 => Buy 2 items get 10$ discount. 4 "
+"items get 20$ discount, etc. Interpretation: {n} is the quantity of "
+"purchased items for a single product. "
+msgstr ""
+"例如：数量：{n}*2，定价：{n}*10 => 买 2 件商品可享受 10 美元的折扣。4 件商品"
+"可享受 20 美元的折扣，以此类推。解释： {n} 是单个产品的购买商品数量。"
+
+#: includes/class-yaydp-i18n.php:316
+msgid "Simple discount"
+msgstr "简单折扣"
+
+#: includes/class-yaydp-i18n.php:317
+msgid "Product Collection"
+msgstr "产品系列"
+
+#: includes/class-yaydp-i18n.php:318
+#, fuzzy
+msgid "Choose your desired campaign"
+msgstr "选择您想要的广告活动"
+
+#: includes/class-yaydp-i18n.php:319
+msgid "Cancel"
+msgstr "取消"
+
+#: includes/class-yaydp-i18n.php:320
+msgid "Add Campaign"
+msgstr "添加活动"
+
+#: includes/class-yaydp-i18n.php:321
+#, fuzzy
+msgid "No campaign found"
+msgstr "未找到推广活动"
+
+#: includes/class-yaydp-i18n.php:322
+msgid "From"
+msgstr "从"
+
+#: includes/class-yaydp-i18n.php:323
+msgid "to"
+msgstr "到"
+
+#: includes/class-yaydp-i18n.php:324
+#, fuzzy
+msgid ""
+"Leaving this blank means there will be no restriction on the number of items "
+"checked."
+msgstr "将此字段留空意味着对检查的项目数量没有限制。"
+
+#: includes/class-yaydp-i18n.php:325
+#, fuzzy
+msgid ""
+"Discount will apply to single item. E.g: Buy 4 items, then discount 5$ each "
+"item. Or Buy 4 items, then each item has flat price 5$"
+msgstr ""
+"折扣将适用于单件商品。例：买 4 件商品，然后每件商品折扣 5 美元。或者买 4 件商"
+"品，然后每件商品的统一价格为 5 美元"
+
+#: includes/class-yaydp-i18n.php:326
+#, fuzzy
+msgid "Pricing Ranges"
+msgstr "定价范围"
+
+#: includes/class-yaydp-i18n.php:327
+msgid "Import Data"
+msgstr "导入数据"
+
+#: includes/class-yaydp-i18n.php:328
+#, fuzzy
+msgid "You have no pricing range, please"
+msgstr "您没有价格范围，请"
+
+#: includes/class-yaydp-i18n.php:329
+msgid "add one"
+msgstr "添加"
+
+#: includes/class-yaydp-i18n.php:330
+#, fuzzy
+msgid "Tiered Pricing Data Import"
+msgstr "分级定价数据导入"
+
+#: includes/class-yaydp-i18n.php:331
+#, fuzzy
+msgid "Bulk Pricing Data Import"
+msgstr "批量定价数据导入"
+
+#: includes/class-yaydp-i18n.php:332
+#, fuzzy
+msgid "Number of items required to be classified as a bundle"
+msgstr "需要归类为捆绑商品的商品数量"
+
+#: includes/class-yaydp-i18n.php:333
+#, fuzzy
+msgid "Affected Items:"
+msgstr "受影响的项目："
+
+#: includes/class-yaydp-i18n.php:334
+#, fuzzy
+msgid ""
+"E.g: Apply amount 50$ discount to whole bundle instead of 50$ to each bundle "
+"item."
+msgstr "例如：将 50 美元的折扣应用于整个捆绑包，而不是每个捆绑包项目 50 美元。"
+
+#: includes/class-yaydp-i18n.php:335
+msgid "Single item"
+msgstr "单个项目"
+
+#: includes/class-yaydp-i18n.php:336
+#, fuzzy
+msgid "Whole bundle"
+msgstr "整捆"
+
+#: includes/class-yaydp-i18n.php:337
+#, fuzzy
+msgid ""
+"E.g: quantity: {n}*2, pricing: {n}*10 => Buy 2 items get 10$ discount. 4 "
+"items get 20$ discount, etc. Interpretation: {n} is the time when the bundle "
+"is purchased. "
+msgstr ""
+"例如：数量：{n}*2，定价：{n}*10 => 买 2 件商品可享受 10 美元的折扣。4 件商品"
+"可享受 20 美元的折扣，以此类推。解释：{n}是购买捆绑包的时间。"
+
+#: includes/class-yaydp-i18n.php:338
+msgid "Filter"
+msgstr "筛选"
+
+#: includes/class-yaydp-i18n.php:339
+#, fuzzy
+msgid "Apply discount to only first matching product"
+msgstr "仅将折扣应用于第一个匹配的产品"
+
+#: includes/class-yaydp-i18n.php:340
+#, fuzzy
+msgid "Show offer description in product page"
+msgstr "在产品页面中显示优惠描述"
+
+#: includes/class-yaydp-i18n.php:341
+#, fuzzy
+msgid "Offer description for X"
+msgstr "X 的产品/服务说明"
+
+#: includes/class-yaydp-i18n.php:342
+#, fuzzy
+msgid "Offer description for Y"
+msgstr "Y 的产品/服务说明"
+
+#: includes/class-yaydp-i18n.php:343
+#, fuzzy
+msgid "Show tooltip on cart item price"
+msgstr "在购物车商品价格上显示提示框"
+
+#: includes/class-yaydp-i18n.php:344
+#, fuzzy
+msgid "Enter your tooltip"
+msgstr "输入工具提示"
+
+#: includes/class-yaydp-i18n.php:345
+#, fuzzy
+msgid "Enable schedule"
+msgstr "启用计划"
+
+#: includes/class-yaydp-i18n.php:346
+msgid "Recurring"
+msgstr "定期"
+
+#: includes/class-yaydp-i18n.php:347
+#, fuzzy
+msgid "This will grab the start/end "
+msgstr "这将获取开始/结束"
+
+#: includes/class-yaydp-i18n.php:348
+msgid "Usage limits"
+msgstr "使用限制"
+
+#: includes/class-yaydp-i18n.php:349
+#, fuzzy
+msgid ""
+"Once the discount/pricing rule is applied in the completed order, it is "
+"counted as a discount use. The rule will no longer apply if its use count "
+"reaches this number"
+msgstr ""
+"在已完成的订单中应用折扣/定价规则后，该规则将计为一次折扣使用。如果该规则的使"
+"用计数达到此数字，则该规则将不再适用"
+
+#: includes/class-yaydp-i18n.php:350
+msgid "off"
+msgstr "关"
+
+#: includes/class-yaydp-i18n.php:351
+#, fuzzy
+msgid "if cart subtotal price is greater than 200"
+msgstr "如果购物车小计价格大于 200"
+
+#: includes/class-yaydp-i18n.php:352
+#, fuzzy
+msgid "Get 10% off"
+msgstr "获取 10% off"
+
+#: includes/class-yaydp-i18n.php:353
+#, fuzzy
+msgid "if cart quantity is greater than 5"
+msgstr "如果购物车数量大于 5"
+
+#: includes/class-yaydp-i18n.php:354
+#, fuzzy
+msgid "if the customers have 10 orders in past"
+msgstr "如果客户过去有 10 个订单"
+
+#: includes/class-yaydp-i18n.php:355
+#, fuzzy
+msgid "And much more"
+msgstr "以及更多"
+
+#: includes/class-yaydp-i18n.php:356
+msgid "Conditions"
+msgstr "条件"
+
+#: includes/class-yaydp-i18n.php:357
+#, fuzzy
+msgid ""
+"With conditions feature, you can decide when this rule will be used. It "
+"helps you create a product pricing more powerful"
+msgstr ""
+"使用条件功能，您可以决定何时使用此规则。它可以帮助您创建更强大的产品定价"
+
+#: includes/class-yaydp-i18n.php:358
+msgid "For example"
+msgstr "例如"
+
+#: includes/class-yaydp-i18n.php:359
+msgid "Upgrade to unlock this feature"
+msgstr "升级以解锁此功能"
+
+#: includes/class-yaydp-i18n.php:360
+msgid "Pricing"
+msgstr "价格"
+
+#: includes/class-yaydp-i18n.php:361
+msgid "Settings"
+msgstr "设置"
+
+#: includes/class-yaydp-i18n.php:362
+#, fuzzy
+msgid ""
+"The Simple Discount enables you to set a fixed amount or percentage off the "
+"original price."
+msgstr "Simple Discount 使您能够设置原始价格的固定金额或百分比。"
+
+#: includes/class-yaydp-i18n.php:363
+#, fuzzy
+msgid ""
+"The Bulk Pricing rule incentivizes customers to purchase larger quantities "
+"of a product by offering tiered discounts based on the volume bought."
+msgstr "批量定价规则通过根据购买量提供分级折扣来激励客户购买更大数量的产品。"
+
+#: includes/class-yaydp-i18n.php:364
+#, fuzzy
+msgid ""
+"The Bundle Discount rule allows customers to save by purchasing multiple "
+"related products together as a package."
+msgstr "捆绑折扣规则允许客户通过将多个相关产品作为一个套餐一起购买来节省费用。"
+
+#: includes/class-yaydp-i18n.php:365
+#, fuzzy
+msgid ""
+"The BOGO (Buy One, Get One) rule entices customers by offering a free or "
+"discounted product when they purchase a specific item."
+msgstr ""
+"BOGO（买一送一）规则通过在客户购买特定商品时提供免费或打折产品来吸引客户。"
+
+#: includes/class-yaydp-i18n.php:366
+#, fuzzy
+msgid ""
+"The Buy X, Get Y rule offers customers a strategic incentive to purchase a "
+"specified quantity of one product (X) in order to receive another product "
+"(Y) at a discount or for free."
+msgstr ""
+"“买 X，送 Y”规则为买家提供战略激励，鼓励他们购买指定数量的一种产品 （X），以"
+"便以折扣价或免费获得另一种产品 （Y）。"
+
+#: includes/class-yaydp-i18n.php:367
+#, fuzzy
+msgid ""
+"The Tiered Pricing rule enables businesses to set distinct price levels for "
+"a product based on specific quantity ranges, without applying discounts to "
+"quantities that do not meet those ranges."
+msgstr ""
+"Tiered Pricing （分级定价） 规则使企业能够根据特定数量范围为商品设置不同的价"
+"格水平，而无需对不符合这些范围的数量应用折扣。"
+
+#: includes/class-yaydp-i18n.php:368
+msgid "Name"
+msgstr "名称"
+
+#: includes/class-yaydp-i18n.php:369
+msgid "Rule name"
+msgstr "规则名称"
+
+#: includes/class-yaydp-i18n.php:370
+msgid "Rule type"
+msgstr "规则类型"
+
+#: includes/class-yaydp-i18n.php:371
+msgid "Upload Image"
+msgstr "上传图片"
+
+#: includes/class-yaydp-i18n.php:372
+msgid "Source"
+msgstr "来源"
+
+#: includes/class-yaydp-i18n.php:373
+#, fuzzy
+msgid "Show HTML source"
+msgstr "显示 HTML 源"
+
+#: includes/class-yaydp-i18n.php:374
+msgid "Enter your description"
+msgstr "输入您的描述"
+
+#: includes/class-yaydp-i18n.php:375
+msgid "Inactive"
+msgstr "未激活"
+
+#: includes/class-yaydp-i18n.php:376
+msgid "Running"
+msgstr "运行"
+
+#: includes/class-yaydp-i18n.php:377
+#, fuzzy
+msgid "Max use reached"
+msgstr "已达到最大使用量"
+
+#: includes/class-yaydp-i18n.php:378
+msgid "Completed"
+msgstr "已完成"
+
+#: includes/class-yaydp-i18n.php:379
+msgid "Scheduled"
+msgstr "计划"
+
+#: includes/class-yaydp-i18n.php:380
+msgid "Remove rule"
+msgstr "删除规则"
+
+#: includes/class-yaydp-i18n.php:381
+#, fuzzy
+msgid "Do you want to remove"
+msgstr "是否要删除"
+
+#: includes/class-yaydp-i18n.php:382
+msgid "Remove"
+msgstr "删除"
+
+#: includes/class-yaydp-i18n.php:383
+msgid "Duplicate"
+msgstr "复制"
+
+#: includes/class-yaydp-i18n.php:384
+#, fuzzy
+msgid "Combined condition is empty, please"
+msgstr "组合条件为空，请"
+
+#: includes/class-yaydp-i18n.php:385
+#, fuzzy
+msgid "All Product Pricing rules"
+msgstr "所有产品定价规则"
+
+#: includes/class-yaydp-i18n.php:386
+#, fuzzy
+msgid "Exclude Rules (Product pricing)"
+msgstr "排除规则（产品定价）"
+
+#: includes/class-yaydp-i18n.php:387
+#, fuzzy
+msgid "You don"
+msgstr "你不"
+
+#: includes/class-yaydp-i18n.php:388
+#, fuzzy
+msgid "Select at least one rule"
+msgstr "选择至少一个规则"
+
+#: includes/class-yaydp-i18n.php:389
+#, fuzzy
+msgid "Exclude by coupons"
+msgstr "按优惠券排除"
+
+#: includes/class-yaydp-i18n.php:390
+#, fuzzy
+msgid "Prevent product pricing rules being applied when specific coupons added"
+msgstr "防止在添加特定优惠券时应用产品定价规则"
+
+#: includes/class-yaydp-i18n.php:391
+msgid "Learn more"
+msgstr "了解更多"
+
+#: includes/class-yaydp-i18n.php:392
+msgid "Coupons"
+msgstr "优惠券"
+
+#: includes/class-yaydp-i18n.php:393
+#, fuzzy
+msgid "Exclude selected rules when these coupons are applied"
+msgstr "应用这些优惠券时排除所选规则"
+
+#: includes/class-yaydp-i18n.php:394
+msgid "All coupons"
+msgstr "优惠券"
+
+#: includes/class-yaydp-i18n.php:395
+#, fuzzy
+msgid "Select at least one coupon"
+msgstr "至少选择一张优惠券"
+
+#: includes/class-yaydp-i18n.php:396
+#, fuzzy
+msgid "Exclude Rules"
+msgstr "排除规则"
+
+#: includes/class-yaydp-i18n.php:397
+#, fuzzy
+msgid "Select one rule to exclude"
+msgstr "选择要排除的规则"
+
+#: includes/class-yaydp-i18n.php:398
+#, fuzzy
+msgid "All Product Pricing Rules"
+msgstr "所有产品定价规则"
+
+#: includes/class-yaydp-i18n.php:399
+#, fuzzy
+msgid "All Cart Discount Rules"
+msgstr "所有购物车折扣规则"
+
+#: includes/class-yaydp-i18n.php:400
+#, fuzzy
+msgid "All Checkout Fee Rules"
+msgstr "所有 Checkout Fee 规则"
+
+#: includes/class-yaydp-i18n.php:401
+#, fuzzy
+msgid "This rule is always used"
+msgstr "此规则始终使用"
+
+#: includes/class-yaydp-i18n.php:402
+#, fuzzy
+msgid "If you want to decide when this rule will be used, please"
+msgstr "如果您想决定何时使用此规则，请"
+
+#: includes/class-yaydp-i18n.php:403
+#, fuzzy
+msgid "add a condition"
+msgstr "添加条件"
+
+#: includes/class-yaydp-i18n.php:404
+#, fuzzy
+msgid "This rule will be used if"
+msgstr "如果"
+
+#: includes/class-yaydp-i18n.php:405
+msgid "Any"
+msgstr "任意"
+
+#: includes/class-yaydp-i18n.php:406
+msgid "All"
+msgstr "所有"
+
+#: includes/class-yaydp-i18n.php:407
+#, fuzzy
+msgid "of these conditions is available."
+msgstr "的 这些条件是可用的。"
+
+#: includes/class-yaydp-i18n.php:408
+msgid "Exclusions"
+msgstr "排除"
+
+#: includes/class-yaydp-i18n.php:409
+msgid "Product Collections"
+msgstr "生成物収集"
+
+#: includes/class-yaydp-i18n.php:410 includes/class-yaypricing.php:125
+msgid "Go Pro"
+msgstr "获取专业版"
+
+#: includes/class-yaydp-i18n.php:411
+msgid "On sale products"
+msgstr "在售产品"
+
+#: includes/class-yaydp-i18n.php:412
+#, fuzzy
+msgid "All on sale products"
+msgstr "所有特价商品"
+
+#: includes/class-yaydp-i18n.php:413
+#, fuzzy
+msgid "Order saved amount"
+msgstr "订单保存金额"
+
+#: includes/class-yaydp-i18n.php:414
+#, fuzzy
+msgid "Product pricing countdowns"
+msgstr "产品定价倒计时"
+
+#: includes/class-yaydp-i18n.php:415
+#, fuzzy
+msgid "Cart discount countdowns"
+msgstr "购物车折扣倒计时"
+
+#: includes/class-yaydp-i18n.php:416
+#, fuzzy
+msgid "Checkout fee countdowns"
+msgstr "结账费用倒计时"
+
+#: includes/class-yaydp-i18n.php:417
+#, fuzzy
+msgid "Product offer description"
+msgstr "产品报价说明"
+
+#: includes/class-yaydp-i18n.php:418
+#, fuzzy
+msgid "Product sale tag"
+msgstr "产品销售标签"
+
+#: includes/class-yaydp-i18n.php:419
+msgid "Shortcode generator"
+msgstr "短代码生成器"
+
+#: includes/class-yaydp-i18n.php:420
+msgid "Generate shortcode"
+msgstr "生成短码"
+
+#: includes/class-yaydp-i18n.php:421
+msgid "Product"
+msgstr "产品"
+
+#: includes/class-yaydp-i18n.php:422
+msgid "Status"
+msgstr "状态"
+
+#: includes/class-yaydp-i18n.php:423
+#, fuzzy
+msgid "In stock"
+msgstr "现货"
+
+#: includes/class-yaydp-i18n.php:424
+msgid "Selected products"
+msgstr "所选产品"
+
+#: includes/class-yaydp-i18n.php:425
+msgid "Loading products"
+msgstr "加载商品..."
+
+#: includes/class-yaydp-i18n.php:426
+#, fuzzy
+msgid "No product matched"
+msgstr "没有匹配的产品"
+
+#: includes/class-yaydp-i18n.php:427
+#, fuzzy
+msgid ""
+"Show ad countdown timer to let customers know how much time is left until "
+"sales on products are over and helps boost your sale."
+msgstr ""
+"显示广告倒计时计时器，让客户知道距离商品销售结束还剩多少时间，从而有助于提高"
+"您的销量。"
+
+#: includes/class-yaydp-i18n.php:428
+#, fuzzy
+msgid ""
+"Contain a pitch of your products that your visitors go through and decide "
+"whether they want to buy."
+msgstr "包含访问者浏览并决定是否要购买的产品的推销。"
+
+#: includes/class-yaydp-i18n.php:429
+#, fuzzy
+msgid ""
+"Encouraged notice is used to motivate customers to buy more items in order "
+"to receive a discount or other promotional offer. It is a marketing strategy "
+"aimed at increasing sales and customer loyalty."
+msgstr ""
+"鼓励通知用于激励买家购买更多商品，以获得折扣或其他促销优惠。这是一种旨在提高"
+"销售额和客户忠诚度的营销策略。"
+
+#: includes/class-yaydp-i18n.php:430
+msgid "Shortcode copied"
+msgstr "简码已复制"
+
+#: includes/class-yaydp-i18n.php:431
+msgid "Discount type"
+msgstr "折扣类型"
+
+#: includes/class-yaydp-i18n.php:432
+msgid "Discount value"
+msgstr "折扣价值"
+
+#: includes/class-yaydp-i18n.php:433
+#, fuzzy
+msgid ""
+"This adds a cap so that the discount amount will not exceed this amount. "
+"When discount type is "
+msgstr "这将添加一个上限，以便折扣金额不会超过此金额。当 discount type 为"
+
+#: includes/class-yaydp-i18n.php:434
+#, fuzzy
+msgid "Show tooltip on cart discount"
+msgstr "在购物车折扣上显示工具提示"
+
+#: includes/class-yaydp-i18n.php:435
+msgid "Used"
+msgstr "已使用"
+
+#: includes/class-yaydp-i18n.php:436
+msgid "Add condition"
+msgstr "添加条件"
+
+#: includes/class-yaydp-i18n.php:437
+msgid "Default"
+msgstr "默认"
+
+#: includes/class-yaydp-i18n.php:438
+#, fuzzy
+msgid ""
+"Discount applies to the items specified below, starting from the left to "
+"right"
+msgstr "折扣适用于下面指定的商品，从左到右"
+
+#: includes/class-yaydp-i18n.php:439
+#, fuzzy
+msgid "Cheapest one"
+msgstr "最便宜的"
+
+#: includes/class-yaydp-i18n.php:440
+#, fuzzy
+msgid ""
+"Discount applies to the items specified below, starting from the cheapest one"
+msgstr "折扣适用于以下指定的商品，从最便宜的商品开始"
+
+#: includes/class-yaydp-i18n.php:441
+#, fuzzy
+msgid "Most expensive one"
+msgstr "最昂贵的一个"
+
+#: includes/class-yaydp-i18n.php:442
+#, fuzzy
+msgid ""
+"Discount applies to the items specified below, starting from the most "
+"expensive one"
+msgstr "折扣适用于以下指定的商品，从最贵的商品开始"
+
+#: includes/class-yaydp-i18n.php:443
+#, fuzzy
+msgid "Buy Products"
+msgstr "购买产品"
+
+#: includes/class-yaydp-i18n.php:444
+msgid "Get Products"
+msgstr "获取产品"
+
+#: includes/class-yaydp-i18n.php:445
+#, fuzzy
+msgid "(Which products will get discount?)"
+msgstr "（哪些产品会打折？"
+
+#: includes/class-yaydp-i18n.php:446
+#, fuzzy
+msgid "(X Products)"
+msgstr "（X 产品）"
+
+#: includes/class-yaydp-i18n.php:447
+#, fuzzy
+msgid "Item get type"
+msgstr "项获取类型"
+
+#: includes/class-yaydp-i18n.php:448
+#, fuzzy
+msgid "No product excluded. Please"
+msgstr "没有排除任何产品。请"
+
+#: includes/class-yaydp-i18n.php:449
+#, fuzzy
+msgid "add product"
+msgstr "添加产品"
+
+#: includes/class-yaydp-i18n.php:450
+#, fuzzy
+msgid "to exclude."
+msgstr "以排除。"
+
+#: includes/class-yaydp-i18n.php:451
+#, fuzzy
+msgid "This rule is not assigned to any product. Please"
+msgstr "此规则未分配给任何产品。请"
+
+#: includes/class-yaydp-i18n.php:452
+#, fuzzy
+msgid "to assign it."
+msgstr "以分配它。"
+
+#: includes/class-yaydp-i18n.php:453
+#, fuzzy
+msgid "Exclude those products that match"
+msgstr "排除匹配的商品"
+
+#: includes/class-yaydp-i18n.php:454
+#, fuzzy
+msgid "This rule applies to those products that match"
+msgstr "此规则适用于匹配的商品"
+
+#: includes/class-yaydp-i18n.php:455
+#, fuzzy
+msgid "of these filters"
+msgstr "这些过滤器"
+
+#: includes/class-yaydp-i18n.php:456
+#, fuzzy
+msgid "View selected products"
+msgstr "查看所选产品"
+
+#: includes/class-yaydp-i18n.php:457
+#, fuzzy
+msgid ""
+"In a combined condition, you must select the eligible products. Then, the "
+"values of cart amount and quantity of items are restricted to these filtered "
+"products in the same condition"
+msgstr ""
+"在组合状况中，您必须选择符合要求的商品。然后，购物车金额和商品数量的值将限制"
+"为处于相同状况的这些已筛选商品"
+
+#: includes/class-yaydp-i18n.php:458
+#, fuzzy
+msgid "The discount value. Example: “50%“ or “10$“"
+msgstr "折扣值。示例：“50%”或“10$”"
+
+#: includes/class-yaydp-i18n.php:459
+#, fuzzy
+msgid "The calculated value of discount"
+msgstr "折扣的计算值"
+
+#: includes/class-yaydp-i18n.php:460
+#, fuzzy
+msgid "Product price after discounting"
+msgstr "折扣后的产品价格"
+
+#: includes/class-yaydp-i18n.php:461
+msgid "Name of the campaign"
+msgstr "活动名称"
+
+#: includes/class-yaydp-i18n.php:462
+#, fuzzy
+msgid "Timer clock, it will countdown to the schedule day"
+msgstr "计时器时钟，它将倒计时到预定日期"
+
+#: includes/class-yaydp-i18n.php:463
+#, fuzzy
+msgid ""
+"The action customer need to do to get the discount. Example: “buy more 100$” "
+"or “buy more 1 item of Product A” "
+msgstr ""
+"客户需要执行的操作才能获得折扣。示例： “buy more 100$” 或 “buy more 1 item "
+"of Product A”"
+
+#: includes/class-yaydp-i18n.php:464
+#, fuzzy
+msgid "Current discounting product"
+msgstr "当前折扣产品"
+
+#: includes/class-yaydp-i18n.php:465
+msgid "Copied"
+msgstr "复制"
+
+#: includes/class-yaydp-i18n.php:466
+msgid "Description"
+msgstr "描述"
+
+#: includes/class-yaydp-i18n.php:467
+msgid "Variables"
+msgstr "变量"
+
+#: includes/class-yaydp-i18n.php:468
+msgid "Variable list"
+msgstr "变量列表"
+
+#: includes/class-yaydp-i18n.php:469
+#, fuzzy
+msgid ""
+"Automatically add gift item(s) once the base product(s) are added to cart"
+msgstr "将基本产品添加到购物车后自动添加礼品"
+
+#: includes/class-yaydp-i18n.php:470
+#, fuzzy
+msgid ""
+"Customers need to add the quantity of items specified below to their cart"
+msgstr "买家需要将下面指定的商品数量添加到他们的购物车中"
+
+#: includes/class-yaydp-i18n.php:471
+#, fuzzy
+msgid "More result"
+msgstr "更多结果"
+
+#: includes/class-yaydp-i18n.php:472
+msgid "Select at least one product"
+msgstr "选择至少一个产品"
+
+#: includes/class-yaydp-i18n.php:473
+#, fuzzy
+msgid "Select at least one variation"
+msgstr "至少选择一个变体"
+
+#: includes/class-yaydp-i18n.php:474
+msgid "Select at least one category"
+msgstr "至少选择一个分类"
+
+#: includes/class-yaydp-i18n.php:475
+#, fuzzy
+msgid "Select at least one attribute"
+msgstr "至少选择一个属性"
+
+#: includes/class-yaydp-i18n.php:476
+#, fuzzy
+msgid "Select at least one taxonomy"
+msgstr "选择至少一个分类"
+
+#: includes/class-yaydp-i18n.php:477
+msgid "Select at least one tag"
+msgstr "至少选择一个标签"
+
+#: includes/class-yaydp-i18n.php:478
+#, fuzzy
+msgid "Select at least one role"
+msgstr "至少选择一个角色"
+
+#: includes/class-yaydp-i18n.php:479
+#, fuzzy
+msgid "Select at least one customer"
+msgstr "至少选择一个客户"
+
+#: includes/class-yaydp-i18n.php:480
+#, fuzzy
+msgid "Select at least one region"
+msgstr "至少选择一个区域"
+
+#: includes/class-yaydp-i18n.php:481
+#, fuzzy
+msgid "Select at least one payment"
+msgstr "选择至少一项付款"
+
+#: includes/class-yaydp-i18n.php:482
+#, fuzzy
+msgid "Select at least one value"
+msgstr "至少选择一个值"
+
+#: includes/class-yaydp-i18n.php:483
+msgid "Fee type"
+msgstr "收费的类型"
+
+#: includes/class-yaydp-i18n.php:484
+#, fuzzy
+msgid "Fee value"
+msgstr "费用值"
+
+#: includes/class-yaydp-i18n.php:485
+#, fuzzy
+msgid "Show tooltip on checkout fee"
+msgstr "在结账费用上显示工具提示"
+
+#: includes/class-yaydp-i18n.php:486
+msgid "Apply to shipping"
+msgstr "如果您想应用报价中应用的运费，而不是默认的运费，请启用。"
+
+#: includes/class-yaydp-i18n.php:487
+#, fuzzy
+msgid "Custom Fee"
+msgstr "海关费用"
+
+#: includes/class-yaydp-i18n.php:488
+msgid "Features"
+msgstr "特征"
+
+#: includes/class-yaydp-i18n.php:489
+#, fuzzy
+msgid "YayPricing Free"
+msgstr "YayPricing 免费"
+
+#: includes/class-yaydp-i18n.php:490
+#, fuzzy
+msgid "YayPricing Pro"
+msgstr "YayPricing 专业版"
+
+#: includes/class-yaydp-i18n.php:491
+#, fuzzy
+msgid "Allow switching gift products on cart page"
+msgstr "允许在购物车页面上切换礼品产品"
+
+#: includes/class-yaydp-i18n.php:492
+#, fuzzy
+msgid "Coupon Exclusions"
+msgstr "优惠券排除"
+
+#: includes/class-yaydp-i18n.php:493
+#, fuzzy
+msgid "This setting allows you to apply YayPricing"
+msgstr "此设置允许您应用 YayPricing"
+
+#: includes/class-yaydp-i18n.php:494
+#, fuzzy
+msgid "Analytics & reports"
+msgstr "分析和报告"
+
+#: includes/class-yaydp-i18n.php:495
+#, fuzzy
+msgid ""
+"View charts and analytics for your pricing rules. You can see how a "
+"promotion campaign performs in a date range"
+msgstr "查看定价规则的图表和分析。您可以查看促销活动在某个日期范围内的执行情况"
+
+#: includes/class-yaydp-i18n.php:496
+msgid "Product fee"
+msgstr "产品费用标题"
+
+#: includes/class-yaydp-i18n.php:497
+#, fuzzy
+msgid "Add handling fees or charge extra fees for product"
+msgstr "为产品添加手续费或收取额外费用"
+
+#: includes/class-yaydp-i18n.php:498
+#, fuzzy
+msgid "Custom fees"
+msgstr "海关费用"
+
+#: includes/class-yaydp-i18n.php:499
+#, fuzzy
+msgid ""
+"Add handling fees or charge extra fees based on shipping region, payment "
+"method, and other criteria"
+msgstr "根据配送区域、付款方式和其他标准添加手续费或收取额外费用"
+
+#: includes/class-yaydp-i18n.php:500
+#, fuzzy
+msgid "Custom Fee based on Shipping Fee"
+msgstr "基于运费的海关费用"
+
+#: includes/class-yaydp-i18n.php:501
+#, fuzzy
+msgid "Add handling fees which is calculated based on Shipping fee"
+msgstr "添加根据运费计算的手续费"
+
+#: includes/class-yaydp-i18n.php:502
+#, fuzzy
+msgid "Product pricing conditions"
+msgstr "产品定价条件"
+
+#: includes/class-yaydp-i18n.php:503
+#, fuzzy
+msgid ""
+"Set up additional conditions that need to be met before the promotion is "
+"applied"
+msgstr "设置在应用促销活动之前需要满足的其他条件"
+
+#: includes/class-yaydp-i18n.php:504
+#, fuzzy
+msgid "Combined conditions"
+msgstr "组合条件"
+
+#: includes/class-yaydp-i18n.php:505
+#, fuzzy
+msgid ""
+"Create cart discount conditions that are restricted to those cart items. For "
+"example, minimum spend on specific product categories will get the discount"
+msgstr ""
+"创建仅限于这些 Cart 项目的 Cart 折扣条件。例如，特定产品类别的最低消费将获得"
+"折扣"
+
+#: includes/class-yaydp-i18n.php:506
+#, fuzzy
+msgid ""
+"Use shortcode to output all discounted products on any WordPress page/post"
+msgstr "使用简码在任何 WordPress 页面/帖子上输出所有打折产品"
+
+#: includes/class-yaydp-i18n.php:507
+#, fuzzy
+msgid "Sales triggers"
+msgstr "销售触发器"
+
+#: includes/class-yaydp-i18n.php:508
+#, fuzzy
+msgid "Upselling notices"
+msgstr "追加销售通知"
+
+#: includes/class-yaydp-i18n.php:509
+#, fuzzy
+msgid "VIP live chat support"
+msgstr "VIP 实时聊天支持"
+
+#: includes/class-yaydp-i18n.php:510
+#, fuzzy
+msgid "Latest features & updates"
+msgstr "最新功能和更新"
+
+#: includes/class-yaydp-i18n.php:511
+msgid "BOGO"
+msgstr "BOGO"
+
+#: includes/class-yaydp-i18n.php:512
+#, fuzzy
+msgid "Buy X Get Y"
+msgstr "买 X 送 Y"
+
+#: includes/class-yaydp-i18n.php:513
+#, fuzzy
+msgid "Bulk discounts"
+msgstr "批量折扣"
+
+#: includes/class-yaydp-i18n.php:514
+#, fuzzy
+msgid "Scheduled discounts"
+msgstr "计划折扣"
+
+#: includes/class-yaydp-i18n.php:515
+#, fuzzy
+msgid "User role discounts"
+msgstr "用户角色折扣"
+
+#: includes/class-yaydp-i18n.php:516
+msgid "Free shipping"
+msgstr "免费送货"
+
+#: includes/class-yaydp-i18n.php:517
+#, fuzzy
+msgid "Your current"
+msgstr "您当前的"
+
+#: includes/class-yaydp-i18n.php:518
+#, fuzzy
+msgid "Get YayPricing Pro"
+msgstr "获取 YayPricing Pro"
+
+#: includes/class-yaydp-i18n.php:519
+#, fuzzy
+msgid "Consider upgrading to"
+msgstr "考虑升级到"
+
+#: includes/class-yaydp-i18n.php:520
+#, fuzzy
+msgid ""
+"It would be the best move you can make for your ecommerce store. Check it "
+"out!"
+msgstr "这将是您可以为电子商务商店做出的最佳举措。一探究竟！"
+
+#: includes/class-yaydp-i18n.php:521
+#, fuzzy
+msgid "Manage Exclude Rule"
+msgstr "管理排除规则"
+
+#: includes/class-yaydp-i18n.php:522
+#, fuzzy
+msgid ""
+"Create rule to decide which products will not be affected by Product pricing "
+"rules."
+msgstr "创建规则以确定哪些产品不会受到产品定价规则的影响。"
+
+#: includes/class-yaydp-i18n.php:523
+#, fuzzy
+msgid "Add Your First Rule"
+msgstr "添加您的第一条规则"
+
+#: includes/class-yaydp-i18n.php:524
+msgid "Add Rule"
+msgstr "添加规则"
+
+#: includes/class-yaydp-i18n.php:525
+#, fuzzy
+msgid "Manage Cart Discounts Rule"
+msgstr "管理购物车折扣规则"
+
+#: includes/class-yaydp-i18n.php:526
+#, fuzzy
+msgid ""
+"Cart discounts rules is used to create cart discount coupons that apply at "
+"checkout. You can also combine discount at Settings section."
+msgstr ""
+"购物车折扣规则用于创建在结账时应用的购物车折扣券。您还可以在 设置 部分合并折"
+"扣。"
+
+#: includes/class-yaydp-i18n.php:527
+#, fuzzy
+msgid "Manage Product Pricing Rule"
+msgstr "管理产品定价规则"
+
+#: includes/class-yaydp-i18n.php:528
+#, fuzzy
+msgid ""
+"Create product pricing rules that affect price of products. You can also "
+"create product fee or discount."
+msgstr "创建影响产品价格的产品定价规则。您还可以创建产品费用或折扣。"
+
+#: includes/class-yaydp-i18n.php:529
+#, fuzzy
+msgid "Manage Checkout Fees Rule"
+msgstr "Manage Checkout Fees 规则"
+
+#: includes/class-yaydp-i18n.php:530
+#, fuzzy
+msgid "Fee rules is used to affect fees that apply at checkout."
+msgstr "费用规则用于影响结账时适用的费用。"
+
+#: includes/class-yaydp-i18n.php:531
+msgid "Save failed"
+msgstr "保存失败"
+
+#: includes/class-yaydp-i18n.php:532
+msgid "Saved"
+msgstr "已保存"
+
+#: includes/class-yaydp-i18n.php:533
+msgid "Save"
+msgstr "保存"
+
+#: includes/class-yaydp-i18n.php:534
+#, fuzzy
+msgid ""
+"With Product Collections, you can easily create and manage groups of product "
+"filters, allowing you to apply multiple filters with a single click."
+msgstr ""
+"使用 Product Collections，您可以轻松创建和管理产品筛选条件组，只需单击一下即"
+"可应用多个筛选条件。"
+
+#: includes/class-yaydp-i18n.php:535
+msgid "Imported rule"
+msgstr "导入的规则"
+
+#: includes/class-yaydp-logger.php:27
+msgid "SYSTEM ERROR:"
+msgstr "系统错误！"
+
+#: includes/class-yaydp-logger.php:44
+msgid "log-"
+msgstr "日志"
+
+#. Translators: link href.
+#: includes/class-yaypricing.php:119
+#, fuzzy
+msgid "%1$s Settings %2$s"
+msgstr "%1$s 设置 %2$s"
+
+#. Translators: link href.
+#: includes/class-yaypricing.php:140
+#, fuzzy
+msgid "%1$s Docs %2$s"
+msgstr "%1$s Docs %2$s"
+
+#. Translators: link href.
+#: includes/class-yaypricing.php:142
+#, fuzzy
+msgid "%1$s Support %2$s"
+msgstr "%1$s 支持 %2$s"
+
+#: includes/constants/class-yaydp-admin-settings.php:176
+#, fuzzy
+msgid "WooCommerce on sale status"
+msgstr "WooCommerce 销售状态"
+
+#: includes/constants/class-yaydp-admin-settings.php:180
+msgid "On sale"
+msgstr "促销"
+
+#: includes/constants/class-yaydp-admin-settings.php:184
+msgid "Not on sale"
+msgstr "没有促销"
+
+#: includes/core/manager/class-yaydp-cart-discount-manager.php:176
+#: includes/core/rule/cart-discount/class-yaydp-combined-discount.php:106
+msgid "%s"
+msgstr "%s"
+
+#: includes/core/manager/class-yaydp-product-pricing-manager.php:381
+#, fuzzy
+msgid "Product discounts"
+msgstr "产品折扣"
+
+#: includes/core/manager/class-yaydp-wc-coupon-manager.php:121
+#, fuzzy
+msgid "Coupon cannot be used in combination with other discounts."
+msgstr "优惠券不能与其他折扣同时使用。"
+
+#: includes/core/offer-description/class-yaydp-offer-description.php:199
+#: includes/core/offer-description/class-yaydp-offer-description.php:292
+#: includes/core/offer-description/class-yaydp-offer-description.php:374
+msgid "unlimited"
+msgstr "无限制"
+
+#: includes/core/offer-description/class-yaydp-offer-description.php:208
+#, fuzzy
+msgid ""
+"from %1$s to %2$s: <span data-variable=\"discount_value\" data-"
+"formula=\"%3$s\">%4$s</span>"
+msgstr ""
+"由 %1$s 至 %2$s： <span data-variable=\"discount_value\" data-"
+"formula=\"%3$s\">%4$s</span>"
+
+#: includes/core/offer-description/class-yaydp-offer-description.php:235
+#, fuzzy
+msgid ""
+"<span data-variable=\"discount_value\" data-formula=\"%1$s\">%2$s</span>"
+msgstr ""
+"<span data-variable=\"discount_value\" data-formula=\"%1$s\">%2$s</span>"
+
+#: includes/core/offer-description/class-yaydp-offer-description.php:266
+#: includes/core/offer-description/class-yaydp-offer-description.php:325
+#, fuzzy
+msgid ""
+"<span data-variable=\"discount_amount\" data-formula=\"%1$s\">%2$s</span>"
+msgstr ""
+"<span data-variable=\"discount_amount\" data-formula=\"%1$s\">%2$s</span>"
+
+#: includes/core/offer-description/class-yaydp-offer-description.php:300
+#, fuzzy
+msgid ""
+"from %1$s to %2$s: <span data-variable=\"discount_amount\" data-"
+"formula=\"%3$s\">%4$s</span>"
+msgstr ""
+"由 %1$s 至 %2$s： <span data-variable=\"discount_amount\" data-"
+"formula=\"%3$s\">%4$s</span>"
+
+#: includes/core/offer-description/class-yaydp-offer-description.php:382
+#, fuzzy
+msgid ""
+"from %1$s to %2$s: <span data-variable=\"discounted_price\" data-"
+"formula=\"%3$s\">%4$s</span>"
+msgstr ""
+"由 %1$s 至 %2$s： <span data-variable=\"discounted_price\" data-"
+"formula=\"%3$s\">%4$s</span>"
+
+#: includes/core/offer-description/class-yaydp-offer-description.php:405
+#, fuzzy
+msgid ""
+"<span data-variable=\"discounted_price\" data-formula=\"%1$s\">%2$s</span>"
+msgstr ""
+"<span data-variable=\"discounted_price\" data-formula=\"%1$s\">%2$s</span>"
+
+#. translators: %s Rule name.
+#: includes/core/use-time/class-yaydp-product-pricing-use-time.php:46
+#, fuzzy
+msgid "%s has expired. Please reload the page to continue checkout."
+msgstr "%s已过期。请重新加载页面以继续结帐。"
+
+#: includes/helper/class-yaydp-helper.php:26
+msgid "Nonce is invalid"
+msgstr "Nonce 无效"
+
+#: includes/noname/class-yaydp-pricing-table.php:104
+msgid "Unlimited"
+msgstr "无限"
+
+#: includes/yaycommercemenu/class-register-menu.php:70
+msgid "Help"
+msgstr "帮助"
+
+#: includes/yaycommercemenu/class-register-menu.php:103
+msgid "Licenses"
+msgstr "许可证"
+
+#: includes/yaycommercemenu/class-register-menu.php:112
+msgid "Other plugins"
+msgstr "其他插件"
+
+#: includes/yaydp-duplicate-fallback.php:24
+#, fuzzy
+msgid ""
+"It looks like you have another YayPricing version installed, please delete "
+"it before activating this new version. All current settings and data are "
+"still preserved."
+msgstr ""
+"看起来您安装了另一个 YayPricing 版本，请在激活此新版本之前将其删除。所有当前"
+"设置和数据仍会保留。"
+
+#: includes/yaydp-duplicate-fallback.php:25
+msgid "Read more details."
+msgstr "阅读更多详情。"

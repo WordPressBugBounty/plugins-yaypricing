@@ -65,11 +65,24 @@ class YAYDP_Checkout_Fee_Adjustment extends \YAYDP\Abstracts\YAYDP_Adjustment {
 	 */
 	public function create_fee() {
 		if ( empty( $this->rule->get_data()['apply_to_shipping']['enable'] ) ) {
+			remove_filter( 'woocommerce_shipping_packages', array( $this->rule, 'adjust_shipping' ) );
 			$cart_fees = \WC()->cart->get_fees();
 			if ( empty( $cart_fees[ $this->rule->get_id() ] ) ) {
 				$this->rule->add_fee();
 			}
-			remove_filter( 'woocommerce_shipping_packages', array( $this->rule, 'adjust_shipping' ) );
+			add_filter( 'woocommerce_cart_totals_get_fees_from_cart_taxes', function( $taxes, $fee ) {
+				
+				if ( $fee->object->id !== $this->rule->get_id() ) {
+					return $taxes;
+				}
+
+				if ( $fee->object->amount < 0 && ! $fee->object->taxable ) {
+					return [];
+				}
+
+				return $taxes;
+
+			}, 100, 2 );
 		} else {
 			add_filter( 'woocommerce_shipping_packages', array( $this->rule, 'adjust_shipping' ) );
 		}

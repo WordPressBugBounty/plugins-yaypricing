@@ -15,7 +15,7 @@ $free_text = apply_filters( 'yaydp_extra_item_text', __( 'Free', 'yaypricing' ) 
 
 ?>
 <div class="yaydp-cart-item-price">
-	<div class="yaydp-free-item-badge"><?php esc_html_e( $free_text, 'yaypricing' ); ?></div>
+	<div class="yaydp-free-item-badge"><?php echo esc_html( $free_text ); ?></div>
 	<?php if ( count( $tooltips ) > 0 ) : ?>
 		<span class="yaydp-tooltip-icon">
 			<div class="yaydp-tooltip-content">

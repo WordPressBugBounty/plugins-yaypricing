@@ -128,8 +128,22 @@ class YAYDP_Helper {
 				case 'product_in_stock':
 					$check = \YAYDP\Helper\YAYDP_Product_Helper::check_stock( $product, $filter );
 					break;
+				/**
+				 * Check product is on sale by WooCommerce
+				 *
+				 * @since 3.4.2
+				 */
+				case 'products_on_sale_wc':
+					$check = \YAYDP\Helper\YAYDP_Product_Helper::check_on_sale_wc( $product, $filter );
+					break;
 				case 'all_product':
 					$check = true;
+					break;
+				/**
+				 * @since 3.4.1
+				 */
+				case 'product_attribute_taxonomies':
+					$check = \YAYDP\Helper\YAYDP_Product_Helper::check_attribute_taxonomies( $product, $filter, $item_key );
 					break;
 				default:
 					$check = apply_filters( "yaydp_check_condition_by_{$filter['type']}", false, $product, $filter );
@@ -429,77 +443,4 @@ class YAYDP_Helper {
 		return $matching_pairs;
 	}
 
-	/**
-	 * Receives an array of attributes of the coupons applied to the cart.
-	 *
-	 * @return array
-	 */
-	public static function get_applied_coupons() {
-		$cart                        = \WC()->cart;
-		$extracted_coupon_data_array = array();
-		if ( ! is_null( $cart ) ) {
-			$coupons                     = \WC()->cart->get_applied_coupons();
-			$extracted_coupon_data_array = array_map(
-				function( $code ) {
-					$coupon = new \WC_Coupon( $code );
-					return array(
-						'id'                 => $coupon->get_id(),
-						'code'               => $code,
-						'excluded_sale_item' => $coupon->get_exclude_sale_items(),
-						'products'           => $coupon->get_product_ids(),
-						'categories'         => $coupon->get_product_categories(),
-					);
-				},
-				$coupons
-			);
-		}
-		return $extracted_coupon_data_array;
-	}
-
-	public static function does_category_list_contain_product( $product_id, $category_array ) {
-		$args     = array( 'product_category_id' => $category_array );
-		$products = wc_get_products( $args );
-		foreach ( $products as $product ) {
-			if ( $product_id === $product->get_id() ) {
-				return true;
-			}
-		}
-		return false;
-	}
-
-	public static function does_product_list_contain_product( $product_id, $product_array ) {
-		return in_array( $product_id, $product_array, true );
-	}
-
-	/**
-	 * Checks if applied coupons exclude sale items.
-	 *
-	 * @param int $product_id: The product's ID.
-	 *
-	 * @return bool
-	 */
-	public static function check_applied_coupons_in_cart( $product_id ) {
-		$applied_coupons = self::get_applied_coupons();
-
-		if ( empty( $applied_coupons ) ) {
-			return false;
-		}
-
-		foreach ( $applied_coupons as $coupon ) {
-
-			if ( ! $coupon['excluded_sale_item'] ) {
-				continue;
-			}
-
-			if ( ! empty( $coupon['products'] ) && self::does_product_list_contain_product( $product_id, $coupon['products'] ) ) {
-				return true;
-			}
-
-			if ( ! empty( $coupon['categories'] ) && self::does_category_list_contain_product( $product_id, $coupon['categories'] ) ) {
-				return true;
-			}
-		}
-
-		return false;
-	}
 }

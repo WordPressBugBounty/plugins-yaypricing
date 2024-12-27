@@ -27,7 +27,9 @@ class YAYDP_Constants {
 	 */
 	protected function define_constants() {
 		$this->define( 'YAYDP_SEARCH_LIMIT', 20 );
-
+		$this->define( 'YAYDP_PRODUCT_CALCULATE_PRIORITY', 110 );
+		$this->define( 'YAYDP_CART_CALCULATE_PRIORITY', 111 );
+		$this->define( 'YAYDP_CHECKOUT_CALCULATE_PRIORITY', 112 );
 	}
 
 	/**

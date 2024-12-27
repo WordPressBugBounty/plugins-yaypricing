@@ -265,7 +265,7 @@ class YAYDP_Buy_X_Get_Y extends \YAYDP\Abstracts\YAYDP_Product_Pricing_Rule {
 				if ( $is_get_free_item ) {
 					$product  = $receive_data['item'];
 					$new_item = $cart->add_free_item( $product, $receive_quantity );
-					if ( $new_item == null ) {
+					if ( null == $new_item ) {
 						continue;
 					}
 					$modifier = array(
@@ -379,6 +379,12 @@ class YAYDP_Buy_X_Get_Y extends \YAYDP\Abstracts\YAYDP_Product_Pricing_Rule {
 		$matching_products_with_filters = array();
 		foreach ( $filters as $filter_index => $filter ) {
 			$matching_products = \YAYDP\Helper\YAYDP_Matching_Products_Helper::get_matching_products( $filter, 'none' );
+			$matching_products = array_filter(
+				$matching_products,
+				function( $product ) {
+					return ! \YAYDP\Core\Manager\YAYDP_Exclude_Manager::check_product_exclusions( $this, $product );
+				}
+			);
 			if ( $this->is_receive_cheapest() ) {
 				\YAYDP\Helper\YAYDP_Helper::sort_products_by_price( $matching_products );
 			}
@@ -455,13 +461,6 @@ class YAYDP_Buy_X_Get_Y extends \YAYDP\Abstracts\YAYDP_Product_Pricing_Rule {
 	 * @param \WC_Product $product Product.
 	 */
 	public function get_min_discount( $product ) {
-		if ( ! empty( $this->get_conditions() ) ) {
-			return array(
-				'pricing_value' => 0,
-				'pricing_type'  => 'fixed_discount',
-				'maximum'       => 0,
-			);
-		}
 		if ( $this->is_get_free_item() ) {
 			return array(
 				'pricing_value' => 0,

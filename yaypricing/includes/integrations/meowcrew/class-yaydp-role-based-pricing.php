@@ -28,6 +28,7 @@ class YAYDP_Role_Based_Pricing {
 		}
 
 		add_filter( 'yaydp_initial_product_price', array( $this, 'init_product_price' ), 100, 2 );
+		add_filter( 'role_customer_specific_pricing/pricing/price_in_cart', array( $this, 'adjust_free_item_price' ), 100, 2 );
 	}
 
 	public function init_product_price( $price, $product ) {
@@ -51,6 +52,9 @@ class YAYDP_Role_Based_Pricing {
 
 	public function get_regular_price( $product, $context = 'original' ) {
 
+		if ( ! function_exists( '\MeowCrew\RoleAndCustomerBasedPricing\PricingRulesDispatcher::dispatchRule' ) ) {
+			return 0;
+		}
 		$pricingRule = \MeowCrew\RoleAndCustomerBasedPricing\PricingRulesDispatcher::dispatchRule( $product->get_id() );
 
 		if ( $pricingRule ) {
@@ -68,6 +72,9 @@ class YAYDP_Role_Based_Pricing {
 
 	public function get_sale_price( $product, $context = 'original' ) {
 
+		if ( ! function_exists( '\MeowCrew\RoleAndCustomerBasedPricing\PricingRulesDispatcher::dispatchRule' ) ) {
+			return 0;
+		}
 		$pricingRule = \MeowCrew\RoleAndCustomerBasedPricing\PricingRulesDispatcher::dispatchRule( $product->get_id() );
 
 		if ( $pricingRule ) {
@@ -80,5 +87,12 @@ class YAYDP_Role_Based_Pricing {
 
 		return $product->get_sale_price( $context );
 
+	}
+
+	public function adjust_free_item_price( $price, $cart_item ) {
+		if ( ! empty( $cart_item['is_extra'] ) ) {
+			return 0;
+		}
+		return $price;
 	}
 }

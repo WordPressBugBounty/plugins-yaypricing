@@ -65,9 +65,20 @@ class YAYDP_Data_Model {
 
 		$variations = array_map(
 			function( $item ) {
+				$product           = \wc_get_product( $item->ID );
+				$attributes        = $product->get_attributes();
+				$attributes_labels = array();
+				foreach ( $attributes as $key => $value ) {
+					if ( empty( $value ) ) {
+						$attributes_labels[] = __( 'Custom', 'yaypricing' );
+						continue;
+					}
+					$attributes_labels[] = \wc_attribute_label( $value );
+				}
+				$attributes_text = implode( ', ', $attributes_labels );
 				return array(
 					'id'   => $item->ID,
-					'name' => $item->post_title,
+					'name' => $product->get_title() . ' - ' . $attributes_text,
 					'slug' => $item->slug,
 				);
 			},
@@ -99,7 +110,7 @@ class YAYDP_Data_Model {
 				$parent_label = '';
 				$cat          = $item;
 				while ( ! empty( $cat->parent ) ) {
-					$parent        = get_term( $cat->parent );
+					$parent = get_term( $cat->parent );
 					if ( is_null( $parent ) || is_wp_error( $parent ) ) {
 						continue;
 					}
@@ -231,39 +242,7 @@ class YAYDP_Data_Model {
 	 * @param number $limit Limit to get.
 	 */
 	public static function get_shipping_regions( $search = '', $page = 1, $limit = YAYDP_SEARCH_LIMIT ) {
-		$shipping_continents = \WC()->countries->get_shipping_continents();
-		$allowed_countries   = \WC()->countries->get_shipping_countries();
-		$regions             = \array_map(
-			function( $continent_slug ) use ( $shipping_continents, $allowed_countries ) {
-				$continent = $shipping_continents[ $continent_slug ];
-				$countries = array_intersect( array_keys( $allowed_countries ? $allowed_countries : array() ), $continent['countries'] );
-				return array(
-					'continent_slug' => $continent_slug,
-					'continent_name' => $continent['name'],
-					'countries'      => \array_map(
-						function( $country_code ) use ( $allowed_countries ) {
-							$country_states = \WC()->countries->get_states( $country_code );
-							return array(
-								'country_code' => $country_code,
-								'country_name' => $allowed_countries[ $country_code ],
-								'states'       => array_map(
-									function( $state_code ) use ( $country_states ) {
-										return array(
-											'state_code' => $state_code,
-											'state_name' => $country_states[ $state_code ],
-										);
-									},
-									array_keys( $country_states ? $country_states : array() )
-								),
-							);
-						},
-						array_values( $countries ? $countries : array() )
-					),
-				);
-			},
-			array_keys( $shipping_continents ? $shipping_continents : array() )
-		);
-		return $regions;
+		return self::get_regions( $search, $page, $limit );
 	}
 
 	/**
@@ -373,7 +352,7 @@ class YAYDP_Data_Model {
 				$parent_label = '';
 				$cat          = $item;
 				while ( ! empty( $cat->parent ) ) {
-					$parent        = get_term( $cat->parent );
+					$parent = get_term( $cat->parent );
 					if ( is_null( $parent ) || is_wp_error( $parent ) ) {
 						continue;
 					}
@@ -390,5 +369,87 @@ class YAYDP_Data_Model {
 			\array_values( \get_categories( $args ) )
 		);
 		return $categories;
+	}
+
+	/**
+	 * Returns all product attribute taxonomies
+	 *
+	 * @since 3.4.1
+	 */
+	public static function get_attribute_taxonomies() {
+
+		$attribute_taxonomies = \wc_get_attribute_taxonomies();
+		return array_values(
+			array_map(
+				function( $tax ) {
+					return array(
+						'id'   => wc_attribute_taxonomy_name( $tax->attribute_name ),
+						'name' => $tax->attribute_label,
+						'slug' => wc_attribute_taxonomy_name( $tax->attribute_name ),
+					);
+				},
+				$attribute_taxonomies
+			)
+		);
+
+	}
+
+
+	/**
+	 * Retrieves all regions and its country in database by search query
+	 *
+	 * @param string $search Search name.
+	 * @param number $page Current page.
+	 * @param number $limit Limit to get.
+	 *
+	 * @since 3.4.2
+	 */
+	public static function get_regions( $search = '', $page = 1, $limit = YAYDP_SEARCH_LIMIT ) {
+		$continents        = \WC()->countries->get_shipping_continents();
+		$allowed_countries = \WC()->countries->get_shipping_countries();
+		$regions           = \array_map(
+			function( $continent_slug ) use ( $continents, $allowed_countries ) {
+				$continent = $continents[ $continent_slug ];
+				$countries = array_intersect( array_keys( $allowed_countries ? $allowed_countries : array() ), $continent['countries'] );
+				return array(
+					'continent_slug' => $continent_slug,
+					'continent_name' => $continent['name'],
+					'countries'      => \array_map(
+						function( $country_code ) use ( $allowed_countries ) {
+							$country_states = \WC()->countries->get_states( $country_code );
+							return array(
+								'country_code' => $country_code,
+								'country_name' => $allowed_countries[ $country_code ],
+								'states'       => array_map(
+									function( $state_code ) use ( $country_states ) {
+										return array(
+											'state_code' => $state_code,
+											'state_name' => $country_states[ $state_code ],
+										);
+									},
+									array_keys( $country_states ? $country_states : array() )
+								),
+							);
+						},
+						array_values( $countries ? $countries : array() )
+					),
+				);
+			},
+			array_keys( $continents ? $continents : array() )
+		);
+		return $regions;
+	}
+
+	/**
+	 * Retrieves all regions and its country in database by search query
+	 *
+	 * @param string $search Search name.
+	 * @param number $page Current page.
+	 * @param number $limit Limit to get.
+	 *
+	 * @since 3.4.2
+	 */
+	public static function get_billing_regions( $search = '', $page = 1, $limit = YAYDP_SEARCH_LIMIT ) {
+		return self::get_regions( $search, $page, $limit );
 	}
 }

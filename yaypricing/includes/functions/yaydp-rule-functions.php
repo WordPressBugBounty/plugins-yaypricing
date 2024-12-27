@@ -181,6 +181,7 @@ if ( ! function_exists( 'yaydp_get_rule' ) ) {
 	 * Gets rule object from rule id
 	 *
 	 * @param string $rule_id rule id.
+	 * @deprecated 3.4.2
 	 */
 	function yaydp_get_rule( $rule_id ) {
 		$found_rule    = null;
@@ -210,6 +211,73 @@ if ( ! function_exists( 'yaydp_get_pricing_rule_by_id' ) ) {
 		if ( is_array( $database_data ) ) {
 			foreach ( $database_data as $rule ) {
 				if ( $rule['id'] == $rule_id ) {
+					$found_rule = $rule;
+					break;
+				}
+			}
+		}
+		return ! is_null( $found_rule ) ? \YAYDP\Factory\YAYDP_Product_Pricing_Rule_Factory::get_rule( $found_rule ) : null;
+	}
+}
+
+if ( ! function_exists( 'yaydp_get_cart_discount_rule' ) ) {
+
+	/**
+	 * Gets cart rule object from rule id
+	 *
+	 * @since 3.4.2
+	 */
+	function yaydp_get_cart_rule( $rule_id ) {
+		$found_rule    = null;
+		$database_data = get_option( 'yaydp_cart_discount_rules', array() );
+		if ( is_array( $database_data ) ) {
+			foreach ( $database_data as $rule ) {
+				if ( $rule['rule_id'] == $rule_id ) {
+					$found_rule = $rule;
+					break;
+				}
+			}
+		}
+		return ! is_null( $found_rule ) ? \YAYDP\Factory\YAYDP_Cart_Discount_Rule_Factory::get_rule( $found_rule ) : null;
+	}
+}
+
+if ( ! function_exists( 'yaydp_get_checkout_fee_rule' ) ) {
+
+	/**
+	 * Gets checkout fee rule object from rule id
+	 *
+	 * @since 3.4.2
+	 */
+	function yaydp_get_checkout_fee_rule( $rule_id ) {
+		$found_rule    = null;
+		$database_data = get_option( 'yaydp_checkout_fee_rules', array() );
+		if ( is_array( $database_data ) ) {
+			foreach ( $database_data as $rule ) {
+				if ( $rule['rule_id'] == $rule_id ) {
+					$found_rule = $rule;
+					break;
+				}
+			}
+		}
+		return ! is_null( $found_rule ) ? \YAYDP\Factory\YAYDP_Checkout_Fee_Rule_Factory::get_rule( $found_rule ) : null;
+	}
+}
+
+if ( ! function_exists( 'yaydp_get_product_pricing_rule' ) ) {
+
+	/**
+	 * Gets product pricing rule object from rule id
+	 *
+	 * @param string $rule_id rule id.
+	 * @since 3.4.2
+	 */
+	function yaydp_get_product_pricing_rule( $rule_id ) {
+		$found_rule    = null;
+		$database_data = get_option( 'yaydp_product_pricing_rules', array() );
+		if ( is_array( $database_data ) ) {
+			foreach ( $database_data as $rule ) {
+				if ( $rule['rule_id'] == $rule_id ) {
 					$found_rule = $rule;
 					break;
 				}

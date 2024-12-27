@@ -18,18 +18,30 @@ defined( 'ABSPATH' ) || exit;
 <div class="yaydp-cart-item-price">
 	<div>
 		<?php
-		$origin_price = \wc_get_price_to_display( $product, array( 'price' => $origin_price ) );
+		$origin_price = \wc_get_price_to_display(
+			$product,
+			array(
+				'price'           => $origin_price,
+				'display_context' => 'cart',
+			)
+		);
 		$origin_price = \YAYDP\Helper\YAYDP_Pricing_Helper::convert_price( $origin_price );
 		foreach ( $prices_base_on_quantity as $price => $quantity ) :
-			$price = \wc_get_price_to_display( $product, array( 'price' => $price ) );
+			$price = \wc_get_price_to_display(
+				$product,
+				array(
+					'price'           => $price,
+					'display_context' => 'cart',
+				)
+			);
 			$price = \YAYDP\Helper\YAYDP_Pricing_Helper::convert_price( $price );
 			?>
 			<div class="price">
 				<span class="yaydp-cart-item-quantity"><?php echo esc_html( $quantity ); ?>&nbsp;&times;&nbsp;</span>
 				<?php if ( $show_regular_price && floatval( $origin_price ) !== floatval( $price ) ) : ?>
-					<del><?php echo wp_kses_post( \wc_price( $origin_price ) ); ?></del>
+					<del><?php echo \wc_price( $origin_price ); ?></del>
 				<?php endif; ?>
-				<?php echo wp_kses_post( \wc_price( $price ) ); ?>
+				<?php echo \wc_price( $price ); ?>
 			</div>
 			<?php
 		endforeach;

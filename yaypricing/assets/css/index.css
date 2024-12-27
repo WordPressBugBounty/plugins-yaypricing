@@ -61,3 +61,7 @@
 .quantity:has(input[readonly="readonly"]) .ct-decrease {
   display: none;
 }
+
+.yaydp-offer-description {
+  margin-bottom: 1rem;
+}

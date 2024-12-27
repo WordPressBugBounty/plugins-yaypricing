@@ -29,15 +29,15 @@ class YAYDP_Order_Manager {
 			<td class="thumb"></td>
 			<td colspan="5">
 				<div class="yaydp-applied-rules-wrapper" style="display: flex; align-items: center; gap: 5px;">
-					<label class="yaydp-applied-rules__title"><strong><?php echo __( 'YayPricing applied rules:', 'yaypricing' ); ?></strong></label>
+					<label class="yaydp-applied-rules__title"><strong><?php esc_html_e( 'YayPricing applied rules:', 'yaypricing' ); ?></strong></label>
 					<span class="yaydp-applied-rules__list">
 					<?php
 					foreach ( $applied_rules as $index => $rule_id ) :
 						$rule = yaydp_get_pricing_rule_by_id( $rule_id );
-						if ( $index != 0 ) {
+						if ( 0 != $index ) {
 							echo '<span class="yaydp-applied-rule-separator">,</span>';
 						}
-						echo '<span class="yaydp-applied-rule">' . ( $rule ? $rule->get_name() : $rule_id ) . '</span>';
+						echo '<span class="yaydp-applied-rule">' . esc_html( $rule ? $rule->get_name() : $rule_id ) . '</span>';
 						?>
 					<?php endforeach; ?>
 					</span>
@@ -51,7 +51,6 @@ class YAYDP_Order_Manager {
 		if ( \yaydp_check_wc_hpos() ) {
 			$order = \wc_get_order( $order_id );
 			return $order->get_meta( 'yaydp_product_pricing_rules', true );
-			$order->save();
 		} else {
 			return get_post_meta( $order_id, 'yaydp_product_pricing_rules', true );
 		}

@@ -289,14 +289,6 @@ class YAYDP_Bulk_Pricing extends \YAYDP\Abstracts\YAYDP_Product_Pricing_Rule {
 	 * @param \WC_Product $product Product.
 	 */
 	public function get_min_discount( $product ) {
-		$result = array(
-			'pricing_value' => 0,
-			'pricing_type'  => 'fixed_discount',
-			'maximum'       => 0,
-		);
-		if ( ! empty( $this->get_conditions() ) ) {
-			return $result;
-		}
 		$min                    = PHP_INT_MAX;
 		$has_range_start_with_1 = false;
 		foreach ( $this->get_ranges() as $range ) {

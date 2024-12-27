@@ -54,6 +54,8 @@ class YayPricing {
 		include_once YAYDP_ABSPATH . 'includes/functions/yaydp-checkout-fee-functions.php';
 		include_once YAYDP_ABSPATH . 'includes/functions/yaydp-exclude-functions.php';
 
+		include_once YAYDP_ABSPATH . 'includes/yaydp-caching.php';
+
 		/**
 		 * Integrations
 		 */

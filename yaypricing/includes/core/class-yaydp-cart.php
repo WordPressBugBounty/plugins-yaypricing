@@ -79,13 +79,27 @@ class YAYDP_Cart {
 		foreach ( $this->get_items_include_extra() as $item ) {
 			if ( $item->is_extra() ) {
 				add_filter( 'yaydp_prevent_recalculate_cart', '__return_true' );
-				$product             = $item->get_product();
-				$product_id          = $product->get_id();
+				$product        = $item->get_product();
+				$product_id     = $product->get_id();
+				$item_variation = $item->get_variation() ?? array();
+				if ( \yaydp_is_variation_product( $product ) ) {
+					$product_attributes = $product->get_attributes();
+					foreach ( $product_attributes as $key => $value ) {
+						$parsed_key                    = 'attribute_' . $key;
+						$item_variation[ $parsed_key ] = $value;
+						if ( '' !== $value ) {
+							continue;
+						}
+						$parent_id                     = $product->get_parent_id();
+						$valid_values                  = \wc_get_product_terms( $parent_id, $key, array( 'fields' => 'slugs' ) );
+						$item_variation[ $parsed_key ] = count( $valid_values ) > 0 ? $valid_values[0] : '';
+					}
+				}
 				$added_cart_item_key = \WC()->cart->add_to_cart(
 					$product_id,
 					$item->get_quantity(),
 					null,
-					$item->get_variation() ?? array(),
+					$item_variation,
 					array(
 						'is_extra'          => true,
 						'extra_data'        => \yaydp_serialize_cart_data( $item->get_extra_data() ),
@@ -124,9 +138,9 @@ class YAYDP_Cart {
 				\WC()->cart->cart_contents[ $item_key ]['data']->set_price( $new_price );
 				\WC()->cart->cart_contents[ $item_key ]['modifiers']         = \yaydp_serialize_cart_data( $item->get_modifiers() );
 				\WC()->cart->cart_contents[ $item_key ]['yaydp_custom_data'] = array(
-					'price'          => $new_price,
-					'original_price' => $item->get_initial_price(),//Deprecated
-					'initial_price'   => $item->get_initial_price(), 
+					'price'           => $new_price,
+					'original_price'  => $item->get_initial_price(), //Deprecated
+					'initial_price'   => $item->get_initial_price(),
 					'item_extra_data' => $item->get_extra_data(),
 				);
 				if ( isset( $item->adjustment_values ) ) {
@@ -145,7 +159,7 @@ class YAYDP_Cart {
 	 * @param array       $props Extra data of the extra item.
 	 */
 	public function add_free_item( $product, $quantity, $props = array() ) {
-		
+
 		if ( \yaydp_product_pricing_is_applied_to_non_discount_product() ) {
 
 			$discounted_products_instance = \YAYDP\Core\Discounted_Products\YAYDP_Discounted_Products::get_instance();
@@ -209,9 +223,9 @@ class YAYDP_Cart {
 			}
 			$item_quantity = $item->get_quantity();
 			// $item_price    = $item->get_price();
-			$item_price    = $item->can_modify() ? $item->get_price() : $item->get_store_price();
-			if ( $inc_tax ) {
-				$subtotal     += wc_get_price_including_tax(
+			$item_price = $item->can_modify() ? $item->get_price() : $item->get_store_price();
+			if ( $inc_tax && ! empty( \WC()->cart ) && \WC()->cart->display_prices_including_tax() ) {
+				$subtotal += wc_get_price_including_tax(
 					$item->get_product(),
 					array(
 						'qty'   => $item_quantity,
@@ -221,7 +235,6 @@ class YAYDP_Cart {
 			} else {
 				$subtotal += $item_quantity * $item_price;
 			}
-
 		}
 		return $subtotal;
 	}
@@ -247,6 +260,8 @@ class YAYDP_Cart {
 	}
 
 	/**
+	 * Returns cart total
+	 *
 	 * @deprecated 3.3.1
 	 */
 	public function get_cart_total( $inc_tax = true ) {
@@ -257,7 +272,7 @@ class YAYDP_Cart {
 			}
 			$item_quantity = $item->get_quantity();
 			$item_price    = $item->can_modify() ? $item->get_price() : $item->get_store_price();
-			if ( $inc_tax ) {
+			if ( $inc_tax && ! empty( \WC()->cart ) && \WC()->cart->display_prices_including_tax() ) {
 				$total += wc_get_price_including_tax(
 					$item->get_product(),
 					array(
@@ -280,7 +295,7 @@ class YAYDP_Cart {
 			}
 			$item_quantity = $item->get_quantity();
 			$item_price    = $item->get_initial_price();
-			if ( $inc_tax ) {
+			if ( $inc_tax && ! empty( \WC()->cart ) && \WC()->cart->display_prices_including_tax() ) {
 				$total += wc_get_price_including_tax(
 					$item->get_product(),
 					array(
@@ -293,5 +308,78 @@ class YAYDP_Cart {
 			}
 		}
 		return $total;
+	}
+
+
+	/**
+	 * Get cart coupon rules
+	 *
+	 * @since 3.4.2
+	 */
+	public function get_coupon_rules() {
+
+		$coupon_rules = array();
+
+		if ( ! empty( \WC()->cart ) ) {
+			$applied_coupons = \WC()->cart->get_applied_coupons();
+		} else {
+			$applied_coupons = array();
+		}
+
+		foreach ( $applied_coupons as $coupon_code ) {
+			if ( \YAYDP\Core\Rule\Cart_Discount\YAYDP_Combined_Discount::is_match_coupon( $coupon_code ) ) {
+				$coupon_rules[] = 'combined';
+				continue;
+			}
+			$running_rules = \yaydp_get_running_cart_discount_rules();
+			foreach ( $running_rules as $rule ) {
+				if ( $rule->is_match_coupon( $coupon_code ) ) {
+					$coupon_rules[] = $rule->get_id();
+				}
+			}
+
+			if ( empty( $running_rules ) ) {
+				foreach ( \yaydp_get_cart_discount_rules() as $rule ) {
+					if ( $rule->is_match_coupon( $coupon_code ) ) {
+						$coupon_rules[] = $rule->get_id();
+					}
+				}
+			}
+		}
+
+		return $coupon_rules;
+	}
+
+	/**
+	 * Check cart has product discount
+	 *
+	 * @since 3.4.2
+	 */
+	public function has_product_discounts() {
+		$items = $this->get_items();
+		foreach ( $items as $item ) {
+			if ( $item->can_modify() ) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	/**
+	 * Check cart has cart discount
+	 *
+	 * @since 3.4.2
+	 */
+	public function has_cart_discounts() {
+		return count( $this->get_coupon_rules() ) > 0;
+	}
+
+	/**
+	 * Check cart has cart discount
+	 *
+	 * @since 3.4.2
+	 */
+	public function has_discounts() {
+		return $this->has_product_discounts() || $this->has_cart_discounts();
 	}
 }

@@ -76,30 +76,15 @@ class YAYDP_Shipping_Fee extends \YAYDP\Abstracts\YAYDP_Checkout_Fee_Rule {
 			return;
 		}
 
+		$taxable = true;
+
 		$fee_data = array(
 			'id'     => $this->get_id(),
 			'name'   => $this->get_name(),
 			'amount' => \YAYDP\Helper\YAYDP_Pricing_Helper::convert_fee( - $discount_amount ),
+			'taxable' => $taxable
 		);
 		\WC()->cart->fees_api()->add_fee( $fee_data );
-		// add_filter( 'woocommerce_cart_totals_get_fees_from_cart_taxes', function($taxes, $fee) use ( $fee_data ) {
-		// 	$taxable = false;
-		// 	foreach ( WC()->cart->calculate_shipping() as $shipping ) {
-		// 		if ( !empty( $shipping->get_taxes() ) ) {
-		// 			$taxable = true;
-		// 		}
-		// 	}
-		// 	if ( $fee->object->id === $fee_data['id'] ) {
-		// 		$fee->total = \wc_add_number_precision_deep( $fee_data['amount'] );
-		// 		if ( WC()->cart->display_prices_including_tax() && $taxable && ! empty( $taxes ) ) {
-		// 			foreach ($taxes as $value) {
-		// 				$fee->total += apply_filters( 'yaydp_reversed_tax', $value );
-		// 			}
-		// 		}
-		// 		return [];
-		// 	}
-		// 	return $taxes;
-		// }, 100, 2 );
 	}
 
 	/**
@@ -114,16 +99,12 @@ class YAYDP_Shipping_Fee extends \YAYDP\Abstracts\YAYDP_Checkout_Fee_Rule {
 		if ( empty( $conditions_encouragements ) ) {
 			return null;
 		}
-		return new \YAYDP\Core\Encouragement\YAYDP_Checkout_Fee_Encouragement(
-			array(
-				'cart'                      => $cart,
-				'rule'                      => $this,
-				'conditions_encouragements' => $conditions_encouragements,
-			)
-		);
+		return null;
 	}
 
 	/**
+	 * Adjust shipping cost
+	 *
 	 * @since 3.1.1
 	 */
 	public function adjust_shipping( $packages ) {
@@ -140,8 +121,10 @@ class YAYDP_Shipping_Fee extends \YAYDP\Abstracts\YAYDP_Checkout_Fee_Rule {
 				}
 				$rate_cost         = $rate_instance->get_cost();
 				$adjustment_amount = \YAYDP\Helper\YAYDP_Pricing_Helper::calculate_adjustment_amount( $rate_cost, $pricing_type, $pricing_value, $maximum_adjustment_amount );
-				$packages[ $package_index ]['rates'][ $rate_id ]->set_cost( max( 0, $rate_cost - $adjustment_amount ) );
-				$packages[ $package_index ]['rates'][ $rate_id ]->modified_rules = array( ...$packages[ $package_index ]['rates'][ $rate_id ]->modified_rules, $this->get_id() );
+				$final_cost        = max( 0, $rate_cost - $adjustment_amount );
+				$packages[ $package_index ]['rates'][ $rate_id ]->set_cost( $final_cost );
+				$packages[ $package_index ]['rates'][ $rate_id ]->modified_rules = array_merge( $packages[ $package_index ]['rates'][ $rate_id ]->modified_rules ?? array(), [ $this->get_id() ] );
+				$packages[ $package_index ]['rates'][ $rate_id ]->set_taxes( \WC_Tax::calc_shipping_tax( $final_cost, \WC_Tax::get_shipping_tax_rates() ) );
 			}
 		}
 		return $packages;

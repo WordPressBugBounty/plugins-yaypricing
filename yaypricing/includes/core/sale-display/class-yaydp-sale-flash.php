@@ -21,18 +21,20 @@ class YAYDP_Sale_Flash {
 	 */
 	protected function __construct() {
 		// Add sale tag.
-		add_action( 'woocommerce_before_shop_loop_item', array( $this, 'before_shop_loop_item' ), 100 );
+		add_action( 'woocommerce_before_shop_loop_item', array( $this, 'add_sale_tag' ), 100 );
 		add_filter( 'woocommerce_single_product_image_thumbnail_html', array( $this, 'single_product_image_thumbnail_html' ), 100, 2 );
 		// Remove woocommerce sale flash.
 		add_filter( 'woocommerce_sale_flash', array( $this, 'remove_sale_flash' ), 100, 3 );
-		add_action( 'yaydp_custom_sale_tag', array( $this, 'before_shop_loop_item' ) );
+		add_action( 'yaydp_custom_sale_tag', array( $this, 'add_sale_tag' ) );
 	}
 
 	/**
-	 * Callback for woocommerce_before_shop_loop_item hook
+	 * Add sale tag
 	 */
-	public function before_shop_loop_item() {
-		global $product;
+	public function add_sale_tag( $product = null ) {
+		if ( empty( $product ) ) {
+			global $product;
+		}
 		if ( empty( $product ) ) {
 			return;
 		}

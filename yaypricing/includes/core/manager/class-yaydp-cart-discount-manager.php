@@ -41,7 +41,7 @@ class YAYDP_Cart_Discount_Manager {
 	 * Constructor
 	 */
 	private function __construct() {
-		add_action( 'woocommerce_before_calculate_totals', array( $this, 'calculate_pricings' ), 111 );
+		add_action( 'woocommerce_before_calculate_totals', array( $this, 'calculate_pricings' ), YAYDP_CART_CALCULATE_PRIORITY );
 		add_action( 'yaydp_before_calculate_cart_discount', array( $this, 'before_calculate_pricings' ), 10 );
 		add_action( 'yaydp_after_calculate_cart_discount', array( $this, 'after_calculate_pricings' ), 10 );
 
@@ -62,30 +62,16 @@ class YAYDP_Cart_Discount_Manager {
 	 * @deprecated 2.4.2
 	 */
 	public function remove_yaydp_discounts() {
-		$applied_coupons = WC()->cart->get_applied_coupons();
+		if ( ! empty( \WC()->cart ) ) {
+			$applied_coupons = \WC()->cart->get_applied_coupons();
+		} else {
+			$applied_coupons = array();
+		}
 		add_filter( 'yaydp_prevent_recalculate_cart_discount', '__return_true' );
 		foreach ( $applied_coupons as $coupon_code ) {
-			if ( \YAYDP\Core\Rule\Cart_Discount\YAYDP_Combined_Discount::is_match_coupon( $coupon_code ) ) {
+			if ( \yaydp_is_coupon( $coupon_code ) ) {
 				\WC()->cart->remove_coupon( $coupon_code );
-				continue;
 			}
-			$running_rules = \yaydp_get_running_cart_discount_rules();
-			foreach ( $running_rules as $rule ) {
-				if ( $rule->is_match_coupon( $coupon_code ) ) {
-					\WC()->cart->remove_coupon( $coupon_code );
-					continue;
-				}
-			}
-
-			if ( empty( $running_rules ) ) {
-				foreach ( \yaydp_get_cart_discount_rules() as $rule ) {
-					if ( $rule->is_match_coupon( $coupon_code ) ) {
-						\WC()->cart->remove_coupon( $coupon_code );
-						continue;
-					}
-				}
-			}
-
 		}
 		remove_filter( 'yaydp_prevent_recalculate_cart_discount', '__return_true' );
 	}
@@ -108,11 +94,33 @@ class YAYDP_Cart_Discount_Manager {
 	 */
 	public function calculate_pricings() {
 
-		remove_action( 'woocommerce_before_calculate_totals', array( self::get_instance(), 'calculate_pricings' ), 111 );
+		/**
+		 * Check coupon single use only exists?
+		 */
+		if ( ! \YAYDP\Settings\YAYDP_Cart_Discount_Settings::get_instance()->can_use_together_with_single_use_coupon() ) {
+			if ( ! empty( \WC()->cart ) ) {
+				$applied_coupons = \WC()->cart->get_applied_coupons();
+			} else {
+				$applied_coupons = array();
+			}
 
-		// if ( apply_filters( 'yaydp_prevent_recalculate_cart_discount', false ) ) {
-		// 	return;
-		// }
+			foreach ( $applied_coupons as $coupon_code ) {
+				$check_coupon = new \WC_Coupon( $coupon_code );
+				if ( ! empty( $check_coupon ) && ( $check_coupon instanceof \WC_Coupon ) && $check_coupon->get_individual_use() ) {
+					$this->remove_yaydp_discounts();
+					return;
+				}
+			}
+		}
+		/** --- END --- */
+
+		if ( \yaydp_has_cart_block() ) {
+			if ( apply_filters( 'yaydp_prevent_recalculate_cart_discount', false ) ) {
+				return;
+			}
+		} else {
+			remove_action( 'woocommerce_before_calculate_totals', array( self::get_instance(), 'calculate_pricings' ), YAYDP_CART_CALCULATE_PRIORITY );
+		}
 
 		do_action( 'yaydp_before_calculate_cart_discount' );
 

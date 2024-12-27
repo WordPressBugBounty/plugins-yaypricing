@@ -94,10 +94,6 @@ abstract class YAYDP_Product_Pricing_Rule extends YAYDP_Rule {
 			return false;
 		}
 
-		if ( \YAYDP\Helper\YAYDP_Helper::check_applied_coupons_in_cart( $product->get_id() ) ) {
-			return false;
-		}
-
 		if ( empty( $filters ) ) {
 			$filters    = $this->get_buy_filters();
 			$match_type = $this->get_match_type_of_buy_filters();

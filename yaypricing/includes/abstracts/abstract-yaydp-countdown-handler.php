@@ -100,17 +100,17 @@ abstract class YAYDP_Countdown_Handler {
 
 	public function get_recurring_time( $event, $mode = 'start' ) {
 		$time = $event->get_data()['schedule']['start'];
-		if ( $mode === 'end' ) {
+		if ( 'end' === $mode ) {
 			$time = $event->get_data()['schedule']['end'];
 		}
 		if ( $event->is_enabled_schedule_recurring() ) {
 			$recurring_type = $event->get_schedule_recurring_type();
 			if ( 'weekly' === $recurring_type ) {
-				$dayofweek = date( 'l', strtotime( $time ) );
+				$dayofweek = gmdate( 'l', strtotime( $time ) );
 				$this_day  = new \DateTime( "this $dayofweek", new \DateTimeZone( wp_timezone_string() ) );
 			}
 			if ( 'monthly' === $recurring_type ) {
-				$dateofmonth = intval( date( 'j', strtotime( $time ) ) ) - 1;
+				$dateofmonth = intval( gmdate( 'j', strtotime( $time ) ) ) - 1;
 				$this_day    = new \DateTime( 'first day of this month', new \DateTimeZone( wp_timezone_string() ) );
 				$this_day->modify( "+$dateofmonth days" );
 			}

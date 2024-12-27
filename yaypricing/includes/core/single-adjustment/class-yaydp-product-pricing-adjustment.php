@@ -98,11 +98,17 @@ class YAYDP_Product_Pricing_Adjustment extends \YAYDP\Abstracts\YAYDP_Adjustment
 		$is_applying_to_first_product = $rule_data['apply_to_first_matching_product'] ?? false;
 		if ( $is_applying_to_first_product ) {
 			$this->discountable_items = array_slice( $this->discountable_items, 0, 1 );
-			if ( ! empty( $this->receive_cases['case'] ) ) {
-				foreach ( $this->receive_cases['case'] as $index => $case ) {
-					$this->receive_cases['case'][ $index ]['items'] = array_slice( $this->receive_cases['case'][ $index ]['items'] ?? array(), 0, 1 );
-				}
-			}
+			/**
+			 * No need to check with buy x get y or bogo
+			 *
+			 * @deprecated
+			 * @since 3.4.2
+			 */
+			// if ( ! empty( $this->receive_cases['case'] ) ) {
+			// 	foreach ( $this->receive_cases['case'] as $index => $case ) {
+			// 		$this->receive_cases['case'][ $index ]['items'] = array_slice( $this->receive_cases['case'][ $index ]['items'] ?? array(), 0, 1 );
+			// 	}
+			// }
 		}
 
 		if ( \yaydp_product_pricing_is_applied_to_non_discount_product() ) {

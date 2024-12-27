@@ -110,7 +110,7 @@ class YAYDP_WooCommerce_Brands_Integration {
 				$parent_label = '';
 				$cat          = $item;
 				while ( ! empty( $cat->parent ) ) {
-					$parent        = get_term( $cat->parent );
+					$parent = get_term( $cat->parent );
 					if ( is_null( $parent ) || is_wp_error( $parent ) ) {
 						continue;
 					}

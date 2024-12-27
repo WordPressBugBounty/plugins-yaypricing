@@ -63,10 +63,20 @@ class YAYDP_Discounted_Price {
 			}
 		}
 
-		$min_discounted_price               = $min_max_discounted_price['min'];
-		$max_discounted_price               = $min_max_discounted_price['max'];
+		$min_discounted_price = $min_max_discounted_price['min'];
+		$max_discounted_price = $min_max_discounted_price['max'];
+		$min_discounted_rate  = 1;
+		$max_discounted_rate  = 1;
+		if ( ! empty( $min_discounted_price ) ) {
+			$min_discounted_rate = isset( $min_price ) ? ( $min_discounted_price / $min_price ) : ( $min_discounted_price / $product_price );
+		}
+		if ( ! empty( $max_discounted_price ) ) {
+			$max_discounted_rate = isset( $max_price ) ? ( $max_discounted_price / $max_price ) : ( $max_discounted_price / $product_price );
+		}
+
 		$show_discounted_with_regular_price = \YAYDP\Settings\YAYDP_Product_Pricing_Settings::get_instance()->show_discounted_with_regular_price();
 		ob_start();
+		echo '<span class="hidden yaydp-product-discounted-data" style="display: none" data-product-id="' . $product->get_id() . '" data-min-rate="' . $min_discounted_rate . '" data-max-rate="' . $max_discounted_rate . '"></span>';
 		\wc_get_template(
 			'product/yaydp-discounted-price.php',
 			array(

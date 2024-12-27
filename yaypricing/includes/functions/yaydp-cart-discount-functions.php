@@ -77,3 +77,31 @@ if ( ! function_exists( 'yaydp_cart_discount_is_applied_to_maximum_amount_per_or
 		return 'highest_amount' === $settings->get_how_to_apply();
 	}
 }
+
+if ( ! function_exists( 'yaydp_is_coupon' ) ) {
+	/**
+	 * Check whether coupon code is cart discount coupon
+	 *
+	 * @since 3.4.2
+	 */
+	function yaydp_is_coupon( $code ) {
+		if ( \YAYDP\Core\Rule\Cart_Discount\YAYDP_Combined_Discount::is_match_coupon( $code ) ) {
+			return true;
+		}
+		$running_rules = \yaydp_get_running_cart_discount_rules();
+		foreach ( $running_rules as $rule ) {
+			if ( $rule->is_match_coupon( $code ) ) {
+				return true;
+			}
+		}
+
+		if ( empty( $running_rules ) ) {
+			foreach ( \yaydp_get_cart_discount_rules() as $rule ) {
+				if ( $rule->is_match_coupon( $code ) ) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+}

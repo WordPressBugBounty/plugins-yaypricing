@@ -85,6 +85,20 @@ class YAYDP_Admin_Settings {
 				),
 			),
 			array(
+				'value'        => 'product_attribute_taxonomies',
+				'label'        => 'Product attribute taxonomies',
+				'comparations' => array(
+					array(
+						'value' => 'in_list',
+						'label' => 'In list',
+					),
+					array(
+						'value' => 'not_in_list',
+						'label' => 'Not in list',
+					),
+				),
+			),
+			array(
 				'value'        => 'product_tag',
 				'label'        => 'Product tag',
 				'comparations' => array(
@@ -149,6 +163,25 @@ class YAYDP_Admin_Settings {
 					array(
 						'value' => 'lte',
 						'label' => 'Less than or equal',
+					),
+				),
+			),
+			/**
+			 * New comparation types.
+			 *
+			 * @since 3.4.2
+			 */
+			array(
+				'value'        => 'products_on_sale_wc',
+				'label'        => __( 'WooCommerce on sale status', 'yaypricing' ),
+				'comparations' => array(
+					array(
+						'value' => 'on_sale',
+						'label' => __( 'On sale', 'yaypricing' ),
+					),
+					array(
+						'value' => 'not_on_sale',
+						'label' => __( 'Not on sale', 'yaypricing' ),
 					),
 				),
 			),

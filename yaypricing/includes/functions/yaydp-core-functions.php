@@ -36,7 +36,7 @@ if ( ! function_exists( 'yaydp_is_request' ) ) {
 	 * @return bool Returns true if the current request type matches the given types, false otherwise
 	 */
 	function yaydp_is_request( $request_type ) {
-		if ( $request_type == 'frontend' ) {
+		if ( 'frontend' == $request_type ) {
 			if ( defined( 'DOING_CRON' ) ) {
 				return false;
 			}
@@ -368,7 +368,7 @@ if ( ! function_exists( 'yaydp_get_timezone_offset' ) ) {
 if ( ! function_exists( 'yaydp_get_saved_amount' ) ) {
 	function yaydp_get_saved_amount() {
 		global $yaydp_cart;
-		$yaydp_cart = new \YAYDP\Core\YAYDP_Cart();
+		$yaydp_cart                  = new \YAYDP\Core\YAYDP_Cart();
 		$product_pricing_adjustments = new \YAYDP\Core\Adjustments\YAYDP_Product_Pricing_Adjustments( $yaydp_cart );
 		$product_pricing_adjustments->do_stuff();
 		$saved_amount = $yaydp_cart->get_cart_origin_total( false ) - $yaydp_cart->get_cart_subtotal( false );
@@ -378,5 +378,42 @@ if ( ! function_exists( 'yaydp_get_saved_amount' ) ) {
 		}
 
 		return $saved_amount;
+	}
+}
+
+
+/**
+ * Clear cache function
+ *
+ * @since 3.4.2
+ */
+if ( ! function_exists( 'yaydp_clear_cache' ) ) {
+	function yaydp_clear_cache() {
+		do_action( 'yaydp_clear_cache' );
+	}
+}
+
+/**
+ * Check if cart page has cart block
+ *
+ * @since 3.4.2
+ */
+if ( ! function_exists( 'yaydp_has_cart_block' ) ) {
+	function yaydp_has_cart_block() {
+		$cart_page_id   = \wc_get_page_id( 'cart' );
+		$has_block_cart = $cart_page_id && has_block( 'woocommerce/cart', $cart_page_id );
+		return $has_block_cart;
+	}
+}
+
+/**
+ * Check if checkout page has checkout block
+ *
+ * @since 3.4.2
+ */
+if ( ! function_exists( 'yaydp_has_checkout_block' ) ) {
+	function yaydp_has_checkout_block() {
+		$post = get_post( get_option( 'woocommerce_checkout_page_id' ) );
+		return strpos( $post->post_content, '<!-- wp:woocommerce/checkout' ) !== false;
 	}
 }

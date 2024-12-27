@@ -197,7 +197,7 @@ class YAYDP_Product_Helper {
 		$list_attribute_id = \YAYDP\Helper\YAYDP_Helper::map_filter_value( $filter );
 		$list_attributes   = array();
 		foreach ( $list_attribute_id as $attribute_id ) {
-			$term              = get_term( $attribute_id );
+			$term = get_term( $attribute_id );
 			if ( is_null( $term ) || is_wp_error( $term ) ) {
 				continue;
 			}
@@ -231,7 +231,7 @@ class YAYDP_Product_Helper {
 						if ( is_null( $term ) || is_wp_error( $term ) ) {
 							continue;
 						}
-						if ( $term != null && ! is_wp_error( $term ) && $term->slug === $attribute_information['attribute'] ) {
+						if ( null != $term && ! is_wp_error( $term ) && $term->slug === $attribute_information['attribute'] ) {
 							$in_list = true;
 							break 3;
 						}
@@ -260,5 +260,48 @@ class YAYDP_Product_Helper {
 		}
 
 		return 'in_list' === $filter['comparation'] ? $in_list : ! $in_list;
+	}
+
+	/**
+	 * Check if the given product match with the given attribute taxonomies filter
+	 *
+	 * @param \WC_Product $product Given product.
+	 * @param array       $filter The attribute taxonomies filter.
+	 * @since 3.4.1
+	 *
+	 * @return boolean
+	 */
+	public static function check_attribute_taxonomies( $product, $filter, $item_key = null ) {
+		$list_attribute_id  = \YAYDP\Helper\YAYDP_Helper::map_filter_value( $filter );
+		$product_attributes = $product->get_attributes();
+		if ( \yaydp_is_variation_product( $product ) ) {
+			$parent_id = $product->get_parent_id();
+			$parent    = \wc_get_product( $parent_id );
+			if ( $parent ) {
+				$parent_attributes = $parent->get_attributes();
+				foreach ( $parent_attributes as $attribute ) {
+					if ( $attribute instanceof \WC_Product_Attribute && $attribute['visible'] && ! $attribute['variation'] ) {
+						$product_attributes[ $attribute['name'] ] = $attribute;
+					}
+				}
+			}
+		}
+
+		$array_intersect = array_intersect( $list_attribute_id, array_keys( $product_attributes ) );
+		$in_list         = ! empty( $array_intersect );
+
+		return 'in_list' === $filter['comparation'] ? $in_list : ! $in_list;
+	}
+
+	/**
+	 * Check given product is on sale
+	 *
+	 * @since 3.4.2
+	 */
+	public static function check_on_sale_wc( $product, $filter ) {
+		$is_on_sale = $product->is_on_sale();
+
+		return 'on_sale' === $filter['comparation'] ? $is_on_sale : ! $is_on_sale;
+
 	}
 }

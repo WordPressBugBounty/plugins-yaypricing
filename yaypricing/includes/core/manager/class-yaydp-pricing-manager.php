@@ -23,6 +23,7 @@ class YAYDP_Pricing_Manager {
 		\YAYDP\Core\Manager\YAYDP_Product_Pricing_Manager::get_instance();
 		\YAYDP\Core\Manager\YAYDP_Cart_Discount_Manager::get_instance();
 		\YAYDP\Core\Manager\YAYDP_Checkout_Fee_Manager::get_instance();
+		\YAYDP\Core\Manager\YAYDP_WC_Coupon_Manager::get_instance();
 		\YAYDP\Core\Shortcode\YAYDP_Shortcode_Handler::get_instance();
 	}
 

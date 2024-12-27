@@ -346,7 +346,7 @@ class YAYDP_Matching_Products_Helper {
 		$queries           = array();
 		$list_attribute_id = \YAYDP\Helper\YAYDP_Helper::map_filter_value( array( 'value' => $filters ) );
 		foreach ( $list_attribute_id as $attribute_id ) {
-			$term      = get_term( $attribute_id );
+			$term = get_term( $attribute_id );
 			if ( is_null( $term ) || is_wp_error( $term ) ) {
 				continue;
 			}

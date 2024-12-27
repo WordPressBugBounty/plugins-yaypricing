@@ -31,7 +31,7 @@ class YAYDP_WPC_Product_Bundles_Integration {
 	public function remove_initial_bundled_items( $items ) {
 		foreach ( $items as $key => $item ) {
 			if ( ! empty( $item['woosb_parent_id'] ) ) {
-				unset( $items[$key] );
+				unset( $items[ $key ] );
 			}
 		}
 		return $items;

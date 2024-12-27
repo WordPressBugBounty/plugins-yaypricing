@@ -64,6 +64,7 @@ class YAYDP_Enqueue_Frontend {
 				'admin_ajax'        => admin_url( 'admin-ajax.php' ),
 				'current_page'      => \yaydp_current_frontend_page(),
 				'discount_based_on' => \YAYDP\Settings\YAYDP_Product_Pricing_Settings::get_instance()->get_discount_base_on(),
+				'currency_settings' => \Automattic\WooCommerce\Internal\Admin\Settings::get_currency_settings(),
 			)
 		);
 	}
@@ -83,7 +84,7 @@ class YAYDP_Enqueue_Frontend {
 			YAYDP_VERSION,
 			true
 		);
-		wp_enqueue_script('accounting');
+		wp_enqueue_script( 'accounting' );
 	}
 
 	/**

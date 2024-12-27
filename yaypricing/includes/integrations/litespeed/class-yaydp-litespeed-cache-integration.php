@@ -1,6 +1,6 @@
 <?php
 /**
- * Handles the integration of YITH WooCommerce Brands plugin with our system
+ * Handles the Litespeed cache
  *
  * @package YayPricing\Integrations
  */
@@ -21,10 +21,10 @@ class YAYDP_LiteSpeed_Cache_Integration {
 	 * Constructor
 	 */
 	protected function __construct() {
-		add_action( 'yaydp_after_saving_data', array( $this, 'remove_cache' ) );
+		add_action( 'yaydp_clear_cache', array( __CLASS__, 'remove_cache' ) );
 	}
 
-	public function remove_cache() {
+	public static function remove_cache() {
 		do_action( 'litespeed_purge_all' );
 	}
 

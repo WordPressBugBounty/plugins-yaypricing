@@ -3,8 +3,8 @@ Contributors: YayCommerce
 Donate link: https://yaycommerce.com/yaypricing-woocommerce-dynamic-pricing-and-discounts/
 Tags: dynamic pricing, discounts, cart fee, buy one get one, coupon
 Requires at least: 3.0
-Tested up to: 6.7
-Stable tag: 3.4.1
+Tested up to: 6.7.1
+Stable tag: 3.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -124,6 +124,23 @@ A big yes! YayPricing is compliant with GDPR. It doesn't collect your WooCommerc
 6. Gift item of "Buy one get one free" promotion automatically added to cart page
 
 == Changelog ==
+
+= Dec 27, 2024 - Version 3.5 =
+- Added: Product filter by product attribute
+- Added: Product filter by WC product on sale status
+- Added: Custom hook to display offer description (yaydp_product_offer_description)
+- Added: Integrate with Iconic Attribute Swatches plugin
+- Added: Integrate with Cartflows Order Bumps (display bump discounted price correctly)
+- Added: Integrate with Google Tag Manager plugin
+- Added: Sync with WC coupon individual use only
+- Added: Bundle discount affected items
+- Added: Condition by billing region
+- Added: Condition by account create time
+- Updated: Work with WC coupon exclude sale items per-cart
+- Updated: Work with WC coupon exclude sale items per-product
+- Updated: Handle litespeed cache when Rule schedule is start/over
+- Fixed: Free item price not display correctly with  Role Based Pricing plugin
+
 = Nov 3, 2024 - Version 3.4.1 =
 - Fixed: Warning of save amount block
 

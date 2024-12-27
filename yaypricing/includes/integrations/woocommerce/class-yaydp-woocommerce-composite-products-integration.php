@@ -26,10 +26,10 @@ class YAYDP_WooCommerce_Composite_Products_Integration {
 		}
 
 		add_filter( 'yaydp_init_cart_items', array( $this, 'initialize_cart_items' ) );
-		add_action( 'yaydp_after_set_cart_item_price', [ $this, 'handle_composite_container_cart_item' ], 10, 2 );
-		add_filter( 'woocommerce_composited_item_price', [ $this, 'replace_composite_cart_item_price' ], 100, 2 );
-		add_filter( 'yaydp_before_calculate_product_pricing', [ $this, 'remove_all_things' ] );
-		add_filter( 'yaydp_cart_item_price_html', [ $this, 'adjust_cart_item_price_html' ], 10, 2 );
+		add_action( 'yaydp_after_set_cart_item_price', array( $this, 'handle_composite_container_cart_item' ), 10, 2 );
+		add_filter( 'woocommerce_composited_item_price', array( $this, 'replace_composite_cart_item_price' ), 100, 2 );
+		add_filter( 'yaydp_before_calculate_product_pricing', array( $this, 'remove_all_things' ) );
+		add_filter( 'yaydp_cart_item_price_html', array( $this, 'adjust_cart_item_price_html' ), 10, 2 );
 		add_filter( 'woocommerce_cart_item_price', array( $this, 'adjust_cart_item_price_html' ), 12, 3 );
 	}
 
@@ -46,13 +46,13 @@ class YAYDP_WooCommerce_Composite_Products_Integration {
 
 		foreach ( $items as $key => &$item ) {
 
-			$extra_data = $item['extra_data'] ?? [];
+			$extra_data = $item['extra_data'] ?? array();
 
 			if ( \wc_cp_is_composite_container_cart_item( $item ) ) {
-				$base_price    = \WC_CP_Products::filter_get_price_cart( \YAYDP\Helper\YAYDP_Pricing_Helper::get_product_price( $item['data'] ), $item['data'] );
-				$custom_price  = $base_price;
-				if ( ! empty( $item['composite_children'] )  ) {
-					foreach ($items as $check_key => $check_item) {
+				$base_price   = \WC_CP_Products::filter_get_price_cart( \YAYDP\Helper\YAYDP_Pricing_Helper::get_product_price( $item['data'] ), $item['data'] );
+				$custom_price = $base_price;
+				if ( ! empty( $item['composite_children'] ) ) {
+					foreach ( $items as $check_key => $check_item ) {
 						if ( ! in_array( $check_key, $item['composite_children'] ) ) {
 							continue;
 						}
@@ -60,31 +60,31 @@ class YAYDP_WooCommerce_Composite_Products_Integration {
 					}
 				}
 
-				$extra_data['wc_composite'] = [
+				$extra_data['wc_composite'] = array(
 					'is_composite_container_item' => true,
-					'base_price' =>  $base_price,
-				];
+					'base_price'                  => $base_price,
+				);
 
 				$item['custom_price'] = $custom_price;
 
 			} elseif ( \wc_cp_is_composited_cart_item( $item ) ) {
-				$extra_data['wc_composite'] = [
+				$extra_data['wc_composite'] = array(
 					'is_composite_item' => true,
-					'base_price' => \WC_CP_Products::filter_get_price_cart( \YAYDP\Helper\YAYDP_Pricing_Helper::get_product_price( $item['data'] ), $item['data'] )
-				];
-				$composite_container_item = \wc_cp_get_composited_cart_item_container( $item );
+					'base_price'        => \WC_CP_Products::filter_get_price_cart( \YAYDP\Helper\YAYDP_Pricing_Helper::get_product_price( $item['data'] ), $item['data'] ),
+				);
+				$composite_container_item   = \wc_cp_get_composited_cart_item_container( $item );
 				if ( ! empty( $composite_container_item ) ) {
-					$composite    = $composite_container_item[ 'data' ];
-					$product_id   = $item[ 'product_id' ];
-					$component_id = $item[ 'composite_item' ];
-	
+					$composite    = $composite_container_item['data'];
+					$product_id   = $item['product_id'];
+					$component_id = $item['composite_item'];
+
 					$component_option = $composite->get_component_option( $component_id, $product_id );
-	
+
 					$extra_data['wc_composite']['is_priced_individually'] = $component_option->is_priced_individually();
 				}
 				$item['custom_price'] = 0;
 			}
-			
+
 			$item['extra_data'] = $extra_data;
 
 		}
@@ -96,30 +96,30 @@ class YAYDP_WooCommerce_Composite_Products_Integration {
 		if ( empty( \WC()->cart->cart_contents[ $item_key ] ) ) {
 			return;
 		}
-		$cart_item  = \WC()->cart->cart_contents[ $item_key ];
+		$cart_item = \WC()->cart->cart_contents[ $item_key ];
 		if ( empty( $cart_item['yaydp_custom_data']['item_extra_data']['wc_composite'] ) ) {
 			return;
 		}
 
 		$base_price = $cart_item['yaydp_custom_data']['item_extra_data']['wc_composite']['base_price'];
 		if ( ! empty( $cart_item['yaydp_custom_data']['item_extra_data']['wc_composite']['is_composite_container_item'] ) ) {
-			$discount_amount = max( $cart_item['yaydp_custom_data']['initial_price'] - $cart_item['yaydp_custom_data']['price'], 0 );
+			$discount_amount           = max( $cart_item['yaydp_custom_data']['initial_price'] - $cart_item['yaydp_custom_data']['price'], 0 );
 			$remaining_discount_amount = $base_price < $discount_amount ? abs( $base_price - $discount_amount ) : 0;
-			$discounted_price = max( 0, $base_price - $discount_amount );
+			$discounted_price          = max( 0, $base_price - $discount_amount );
 			\WC()->cart->cart_contents[ $item_key ]['data']->set_price( $discounted_price );
 			\WC()->cart->cart_contents[ $item_key ]['yaydp_custom_data']['item_extra_data']['wc_composite']['remaining_discount_amount'] = $remaining_discount_amount;
-			\WC()->cart->cart_contents[ $item_key ]['yaydp_custom_data']['item_extra_data']['wc_composite']['bundle_discounted_price'] = $cart_item['yaydp_custom_data']['price'];
-			\WC()->cart->cart_contents[ $item_key ]['yaydp_custom_data']['item_extra_data']['wc_composite']['bundle_initial_price'] = $cart_item['yaydp_custom_data']['initial_price'];
+			\WC()->cart->cart_contents[ $item_key ]['yaydp_custom_data']['item_extra_data']['wc_composite']['bundle_discounted_price']   = $cart_item['yaydp_custom_data']['price'];
+			\WC()->cart->cart_contents[ $item_key ]['yaydp_custom_data']['item_extra_data']['wc_composite']['bundle_initial_price']      = $cart_item['yaydp_custom_data']['initial_price'];
 			\WC()->cart->cart_contents[ $item_key ]['yaydp_custom_data']['price'] = $discounted_price;
 		}
 
 		if ( ! empty( $cart_item['yaydp_custom_data']['item_extra_data']['wc_composite']['is_composite_item'] ) ) {
 			$composite_parent_key = $cart_item['composite_parent'] ?? '';
-			$composite_parent = \WC()->cart->cart_contents[ $composite_parent_key ];
+			$composite_parent     = \WC()->cart->cart_contents[ $composite_parent_key ];
 			if ( ! empty( $composite_parent ) ) {
-				$discount_amount = $composite_parent['yaydp_custom_data']['item_extra_data']['wc_composite']['remaining_discount_amount'] ?? 0;
+				$discount_amount           = $composite_parent['yaydp_custom_data']['item_extra_data']['wc_composite']['remaining_discount_amount'] ?? 0;
 				$remaining_discount_amount = $base_price < $discount_amount ? abs( $base_price - $discount_amount ) : 0;
-				\WC()->cart->cart_contents[ $item_key ]['data']->replaced_price =  max( 0, $base_price - $discount_amount );
+				\WC()->cart->cart_contents[ $item_key ]['data']->replaced_price = max( 0, $base_price - $discount_amount );
 				\WC()->cart->cart_contents[ $composite_parent_key ]['yaydp_custom_data']['item_extra_data']['wc_composite']['remaining_discount_amount'] = $remaining_discount_amount;
 			}
 		}
@@ -138,16 +138,16 @@ class YAYDP_WooCommerce_Composite_Products_Integration {
 			return $html;
 		}
 
-		if ( ! empty( $cart_item['yaydp_custom_data']['item_extra_data']['wc_composite']['is_priced_individually'] ) ) {	
+		if ( ! empty( $cart_item['yaydp_custom_data']['item_extra_data']['wc_composite']['is_priced_individually'] ) ) {
 			ob_start();
-			echo \wc_price( $cart_item['data']->get_price() ); 
+			echo wp_kses_post( \wc_price( $cart_item['data']->get_price() ) );
 			$html = ob_get_contents();
 			ob_end_clean();
 		}
 
 		if ( ! empty( $cart_item['yaydp_custom_data']['item_extra_data']['wc_composite']['is_composite_container_item'] ) ) {
 			$yaydp_cart_item = new \YAYDP\Core\YAYDP_Cart_Item( $cart_item );
-			$tooltips = array();
+			$tooltips        = array();
 			foreach ( $yaydp_cart_item->get_modifiers() as $modifier ) {
 				$rule    = $modifier->get_rule();
 				$tooltip = $rule->get_tooltip( $modifier );
@@ -156,16 +156,16 @@ class YAYDP_WooCommerce_Composite_Products_Integration {
 				}
 				$tooltips[] = $tooltip;
 			}
-			$show_regular_price      = \YAYDP\Settings\YAYDP_Product_Pricing_Settings::get_instance()->show_regular_price();
-			$origin_price            = $cart_item['yaydp_custom_data']['item_extra_data']['wc_composite']['bundle_initial_price'];
-			$discounted_price        = $cart_item['yaydp_custom_data']['item_extra_data']['wc_composite']['bundle_discounted_price'];
+			$show_regular_price = \YAYDP\Settings\YAYDP_Product_Pricing_Settings::get_instance()->show_regular_price();
+			$origin_price       = $cart_item['yaydp_custom_data']['item_extra_data']['wc_composite']['bundle_initial_price'];
+			$discounted_price   = $cart_item['yaydp_custom_data']['item_extra_data']['wc_composite']['bundle_discounted_price'];
 			ob_start();
 			\wc_get_template(
 				'cart-item-price/normal-item.php',
 				array(
 					'tooltips'                => $tooltips,
 					'origin_price'            => $origin_price,
-					'prices_base_on_quantity' => [ strval( $discounted_price ) => $yaydp_cart_item->get_quantity() ],
+					'prices_base_on_quantity' => array( strval( $discounted_price ) => $yaydp_cart_item->get_quantity() ),
 					'show_regular_price'      => $show_regular_price,
 					'product'                 => $cart_item['data'],
 				),

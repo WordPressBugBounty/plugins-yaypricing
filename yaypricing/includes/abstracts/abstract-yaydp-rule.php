@@ -122,19 +122,19 @@ abstract class YAYDP_Rule {
 
 		if ( $is_enabled_schedule_recurring ) {
 			$schedule_recurring_type = $this->get_schedule_recurring_type();
-			if ( $schedule_recurring_type == 'weekly' ) {
+			if ( 'weekly' == $schedule_recurring_type ) {
 				$current_day_of_week = $current_date->format( 'N' );
 				$start_day_of_week   = $start_date->format( 'N' );
 				$end_day_of_week     = $end_date->format( 'N' );
 
 				return $current_day_of_week >= $start_day_of_week && $current_day_of_week <= $end_day_of_week;
-			} elseif ( $schedule_recurring_type == 'monthly' ) {
+			} elseif ( 'monthly' == $schedule_recurring_type ) {
 				$current_day = $current_date->format( 'j' );
 				$start_day   = $start_date->format( 'j' );
 				$end_day     = $end_date->format( 'j' );
 
 				return $current_day >= $start_day && $current_day <= $end_day;
-			} elseif ( $schedule_recurring_type == 'yearly' ) {
+			} elseif ( 'yearly' == $schedule_recurring_type ) {
 				$current_month = $current_date->format( 'n' );
 				$start_month   = $start_date->format( 'n' );
 				$end_month     = $end_date->format( 'n' );
@@ -245,16 +245,16 @@ abstract class YAYDP_Rule {
 
 		if ( $this->is_enabled_schedule_recurring() ) {
 			$schedule_recurring_type = $this->get_schedule_recurring_type();
-			if ( $schedule_recurring_type == 'weekly' ) {
+			if ( 'weekly' == $schedule_recurring_type ) {
 				$current_day_of_week = $current_date->format( 'N' );
 				$start_day_of_week   = $start_date->format( 'N' );
 				return $current_day_of_week < $start_day_of_week;
-			} elseif ( $schedule_recurring_type == 'monthly' ) {
+			} elseif ( 'monthly' == $schedule_recurring_type ) {
 				$current_day = $current_date->format( 'j' );
 				$start_day   = $start_date->format( 'j' );
 
 				return $current_day < $start_day;
-			} elseif ( $schedule_recurring_type == 'yearly' ) {
+			} elseif ( 'yearly' == $schedule_recurring_type ) {
 				$current_month = $current_date->format( 'n' );
 				$start_month   = $start_date->format( 'n' );
 
@@ -319,19 +319,19 @@ abstract class YAYDP_Rule {
 
 		if ( $this->is_enabled_schedule_recurring() ) {
 			$schedule_recurring_type = $this->get_schedule_recurring_type();
-			if ( $schedule_recurring_type == 'weekly' ) {
+			if ( 'weekly' == $schedule_recurring_type ) {
 				$current_day_of_week = $current_date->format( 'N' );
 				$start_day_of_week   = $start_date->format( 'N' );
 				$end_day_of_week     = $end_date->format( 'N' );
 
 				return $current_day_of_week >= $start_day_of_week && $current_day_of_week <= $end_day_of_week;
-			} elseif ( $schedule_recurring_type == 'monthly' ) {
+			} elseif ( 'monthly' == $schedule_recurring_type ) {
 				$current_day = $current_date->format( 'j' );
 				$start_day   = $start_date->format( 'j' );
 				$end_day     = $end_date->format( 'j' );
 
 				return $current_day >= $start_day && $current_day <= $end_day;
-			} elseif ( $schedule_recurring_type == 'yearly' ) {
+			} elseif ( 'yearly' == $schedule_recurring_type ) {
 				$current_month = $current_date->format( 'n' );
 				$start_month   = $start_date->format( 'n' );
 				$end_month     = $end_date->format( 'n' );

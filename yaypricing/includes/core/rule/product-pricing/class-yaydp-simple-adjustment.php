@@ -78,13 +78,6 @@ class YAYDP_Simple_Adjustment extends \YAYDP\Abstracts\YAYDP_Product_Pricing_Rul
 	 * @param \WC_Product $product Product.
 	 */
 	public function get_min_discount( $product ) {
-		if ( ! empty( $this->get_conditions() ) ) {
-			return array(
-				'pricing_value' => 0,
-				'pricing_type'  => 'fixed_discount',
-				'maximum'       => 0,
-			);
-		}
 		return array(
 			'pricing_value' => $this->get_pricing_value(),
 			'pricing_type'  => $this->get_pricing_type(),

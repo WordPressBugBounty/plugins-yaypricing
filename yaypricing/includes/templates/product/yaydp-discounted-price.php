@@ -35,7 +35,7 @@ $discounted_prices = array_map(
 $is_variable_or_grouped_product = \yaydp_is_variable_product( $product ) || \yaydp_is_grouped_product( $product );
 ?>
 
-<span class="price yaydp-discounted-price">
+<span class="yaydp-discounted-price">
 	<?php if ( $show_discounted_with_regular_price ) : // Show origin prices. ?>
 		<span class="yaydp-original-prices">
 			<del>
@@ -51,21 +51,31 @@ $is_variable_or_grouped_product = \yaydp_is_variable_product( $product ) || \yay
 						},
 						array_unique( array( $min_price, $max_price ) ) // Return 1 price if min = max.
 					);
-					echo wp_kses_post( implode( ' - ', $product_min_max_prices ) );
+					echo implode( ' - ', $product_min_max_prices );
 				} else {
 					$product_price = \YAYDP\Helper\YAYDP_Pricing_Helper::get_product_price( $product );
 					$product_price = \wc_get_price_to_display( $product, array( 'price' => $product_price ) );
 					$product_price = \YAYDP\Helper\YAYDP_Pricing_Helper::convert_price( $product_price );
-					echo wp_kses_post( \wc_price( $product_price ) );
+					echo \wc_price( $product_price );
 				}
 				?>
 			</del>
 		</span>
 	<?php endif; ?>
 	<span class="yaydp-calculated-prices">
-	<?php echo wp_kses_post( implode( ' - ', $discounted_prices ) ); ?>
+	<?php
+	if ( $show_discounted_with_regular_price ) {
+		echo '<ins aria-hidden="true">';
+	}
+	?>
+	<?php echo implode( ' - ', $discounted_prices ); ?>
+	<?php
+	if ( $show_discounted_with_regular_price ) {
+		echo '</ins>';
+	}
+	?>
 	</span>
 	<span class="yaydp-calculated-prices-suffix">
-		<?php echo $product->get_price_suffix(); ?>
+		<?php echo wp_kses_post( $product->get_price_suffix() ); ?>
 	</span>
 </span>

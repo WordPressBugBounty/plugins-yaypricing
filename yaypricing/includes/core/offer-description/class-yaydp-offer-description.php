@@ -181,13 +181,18 @@ class YAYDP_Offer_Description {
 		}
 		$discount_values = array();
 		foreach ( $rule->get_ranges() as $range ) {
-			$range_instance    = new \YAYDP\Core\Rule\Product_Pricing\YAYDP_Bulk_Range( $range );
-			$min_quantity      = $range_instance->get_min_quantity();
-			$max_quantity      = $range_instance->get_max_quantity();
-			$origin_item       = \YAYDP\Helper\YAYDP_Helper::initialize_custom_cart_item( $product, $min_quantity );
-			$discount_value    = $rule->get_discount_value_per_item( $origin_item );
-			$pricing_type      = $rule->get_pricing_type( $min_quantity );
-			$pricing_value     = $rule->get_pricing_value( $min_quantity );
+			$range_instance = new \YAYDP\Core\Rule\Product_Pricing\YAYDP_Bulk_Range( $range );
+			$min_quantity   = $range_instance->get_min_quantity();
+			$max_quantity   = $range_instance->get_max_quantity();
+			$origin_item    = \YAYDP\Helper\YAYDP_Helper::initialize_custom_cart_item( $product, $min_quantity );
+			$discount_value = $rule->get_discount_value_per_item( $origin_item );
+			$pricing_type   = $rule->get_pricing_type( $min_quantity );
+			$pricing_value  = $rule->get_pricing_value( $min_quantity );
+
+			if ( ! yaydp_is_percentage_pricing_type( $pricing_type ) ) {
+				$discount_value = \YAYDP\Helper\YAYDP_Pricing_Helper::convert_price( $discount_value );
+			}
+
 			$maximum_value     = $rule->get_maximum_adjustment_amount( $min_quantity );
 			$discount_values[] = array(
 				'min_quantity' => $min_quantity,
@@ -215,10 +220,15 @@ class YAYDP_Offer_Description {
 		if ( empty( $product ) || empty( $rule ) ) {
 			return '';
 		}
-		$origin_item              = \YAYDP\Helper\YAYDP_Helper::initialize_custom_cart_item( $product, 1 );
-		$discount_value           = $rule->get_discount_value_per_item( $origin_item );
-		$pricing_type             = $rule->get_pricing_type();
-		$pricing_value            = $rule->get_pricing_value();
+		$origin_item    = \YAYDP\Helper\YAYDP_Helper::initialize_custom_cart_item( $product, 1 );
+		$discount_value = $rule->get_discount_value_per_item( $origin_item );
+		$pricing_type   = $rule->get_pricing_type();
+		$pricing_value  = $rule->get_pricing_value();
+
+		if ( ! yaydp_is_percentage_pricing_type( $pricing_type ) ) {
+			$discount_value = \YAYDP\Helper\YAYDP_Pricing_Helper::convert_price( $discount_value );
+		}
+
 		$maximum_value            = $rule->get_maximum_adjustment_amount();
 		$formatted_discount_value = \yaydp_format_discount_value( $discount_value, $rule->get_pricing_type() );
 		$formula                  = \YAYDP\Helper\YAYDP_Variable_Product_Helper::get_discount_value_formula( $pricing_type, $pricing_value, $maximum_value );
@@ -252,7 +262,7 @@ class YAYDP_Offer_Description {
 		}
 		$discount_value            = \YAYDP\Helper\YAYDP_Pricing_Helper::get_product_price( $product );
 		$formula                   = \YAYDP\Helper\YAYDP_Variable_Product_Helper::get_discount_amount_formula( 'percentage_discount', 100, PHP_INT_MAX );
-		$formatted_discount_amount = \wc_price( $discount_value );
+		$formatted_discount_amount = \wc_price( \YAYDP\Helper\YAYDP_Pricing_Helper::convert_price( $discount_value ) );
 		return sprintf( __( '<span data-variable="discount_amount" data-formula="%1$s">%2$s</span>', 'yaypricing' ), $formula, $formatted_discount_amount );
 	}
 	/**
@@ -266,13 +276,16 @@ class YAYDP_Offer_Description {
 		}
 		$discount_values = array();
 		foreach ( $rule->get_ranges() as $range ) {
-			$range_instance    = new \YAYDP\Core\Rule\Product_Pricing\YAYDP_Bulk_Range( $range );
-			$min_quantity      = $range_instance->get_min_quantity();
-			$max_quantity      = $range_instance->get_max_quantity();
-			$origin_item       = \YAYDP\Helper\YAYDP_Helper::initialize_custom_cart_item( $product, $min_quantity );
-			$discount_amount   = $rule->get_discount_amount_per_item( $origin_item );
-			$pricing_type      = $rule->get_pricing_type( $min_quantity );
-			$pricing_value     = $rule->get_pricing_value( $min_quantity );
+			$range_instance  = new \YAYDP\Core\Rule\Product_Pricing\YAYDP_Bulk_Range( $range );
+			$min_quantity    = $range_instance->get_min_quantity();
+			$max_quantity    = $range_instance->get_max_quantity();
+			$origin_item     = \YAYDP\Helper\YAYDP_Helper::initialize_custom_cart_item( $product, $min_quantity );
+			$discount_amount = $rule->get_discount_amount_per_item( $origin_item );
+			$pricing_type    = $rule->get_pricing_type( $min_quantity );
+			$pricing_value   = $rule->get_pricing_value( $min_quantity );
+			if ( \yaydp_is_percentage_pricing_type( $pricing_type ) ) {
+				$discount_amount = \YAYDP\Helper\YAYDP_Pricing_Helper::convert_price( $discount_amount );
+			}
 			$maximum_value     = $rule->get_maximum_adjustment_amount( $min_quantity );
 			$discount_values[] = array(
 				'min_quantity' => $min_quantity,
@@ -299,10 +312,13 @@ class YAYDP_Offer_Description {
 		if ( empty( $rule ) || empty( $product ) ) {
 			return '';
 		}
-		$origin_item               = \YAYDP\Helper\YAYDP_Helper::initialize_custom_cart_item( $product, 1 );
-		$discount_amount           = $rule->get_discount_amount_per_item( $origin_item );
-		$pricing_type              = $rule->get_pricing_type();
-		$pricing_value             = $rule->get_pricing_value();
+		$origin_item     = \YAYDP\Helper\YAYDP_Helper::initialize_custom_cart_item( $product, 1 );
+		$discount_amount = $rule->get_discount_amount_per_item( $origin_item );
+		$pricing_type    = $rule->get_pricing_type();
+		$pricing_value   = $rule->get_pricing_value();
+		if ( \yaydp_is_percentage_pricing_type( $pricing_type ) ) {
+			$discount_amount = \YAYDP\Helper\YAYDP_Pricing_Helper::convert_price( $discount_amount );
+		}
 		$maximum_value             = $rule->get_maximum_adjustment_amount();
 		$formula                   = \YAYDP\Helper\YAYDP_Variable_Product_Helper::get_discount_amount_formula( $pricing_type, $pricing_value, $maximum_value );
 		$formatted_discount_amount = \wc_price( $discount_amount );
@@ -351,10 +367,12 @@ class YAYDP_Offer_Description {
 			$pricing_type        = $rule->get_pricing_type( $min_quantity );
 			$pricing_value       = $rule->get_pricing_value( $min_quantity );
 			$maximum_value       = $rule->get_maximum_adjustment_amount( $min_quantity );
+			$discounted_price    = max( 0, $origin_item->get_price() - $discount_amount );
+			$discounted_price    = \YAYDP\Helper\YAYDP_Pricing_Helper::convert_price( $discounted_price );
 			$discounted_prices[] = array(
 				'min_quantity' => $min_quantity,
 				'max_quantity' => empty( $max_quantity ) ? __( 'unlimited', 'yaypricing' ) : $max_quantity,
-				'value'        => max( 0, $origin_item->get_price() - $discount_amount ),
+				'value'        => $discounted_price,
 				'formula'      => \YAYDP\Helper\YAYDP_Variable_Product_Helper::get_discounted_price_formula( $pricing_type, $pricing_value, $maximum_value ),
 			);
 		}
@@ -383,7 +401,7 @@ class YAYDP_Offer_Description {
 		$pricing_value              = $rule->get_pricing_value();
 		$maximum_value              = $rule->get_maximum_adjustment_amount();
 		$formula                    = \YAYDP\Helper\YAYDP_Variable_Product_Helper::get_discounted_price_formula( $pricing_type, $pricing_value, $maximum_value );
-		$formatted_discounted_price = \wc_price( $discounted_price );
+		$formatted_discounted_price = \wc_price( \YAYDP\Helper\YAYDP_Pricing_Helper::convert_price( $discounted_price ) );
 		return sprintf( __( '<span data-variable="discounted_price" data-formula="%1$s">%2$s</span>', 'yaypricing' ), $formula, $formatted_discounted_price );
 	}
 	/**

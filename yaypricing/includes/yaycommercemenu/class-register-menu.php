@@ -140,7 +140,7 @@ class Register_Menu {
 	 * Enqueue script for YayCommerce menu
 	 */
 	public function enqueue_yaycommerce_menu_scripts() {
-		wp_enqueue_script( 'yaycommerce-menu', plugin_dir_url( __FILE__ ) . 'assets/js/yaycommerce-menu.js', array( 'jquery' ), '1.0', true );
+		wp_enqueue_script( 'yaycommerce-menu', plugin_dir_url( __FILE__ ) . 'assets/js/yaycommerce-menu.js', array( 'jquery' ), YAYDP_VERSION, true );
 	}
 
 	/**

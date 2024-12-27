@@ -34,12 +34,34 @@ class YAYDP_Product_Bundle extends \YAYDP\Abstracts\YAYDP_Product_Pricing_Rule {
 	}
 
 	/**
-	 * Check whether discount is for group of products.
+	 * Get affected items type
 	 *
-	 * @return bool
+	 * @since 3.4.2
 	 */
-	public function for_group() {
-		return isset( $this->data['pricing']['for_group'] ) ? $this->data['pricing']['for_group'] : false;
+	public function get_affected_items_type() {
+		return isset( $this->data['pricing']['affected_items']['type'] ) ? $this->data['pricing']['affected_items']['type'] : ( empty( $this->data['pricing']['for_group'] ) ? 'single_item' : 'whole_bundle' );
+	}
+
+	/**
+	 * Get affected items data
+	 *
+	 * @since 3.4.2
+	 */
+	public function get_affected_items_data() {
+		return isset( $this->data['pricing']['affected_items'] ) ? $this->data['pricing']['affected_items'] : array(
+			'type'        => 'single_item',
+			'quantity'    => 1,
+			'effect_type' => 'lowest_price',
+		);
+	}
+
+	/**
+	 * Get affected items type
+	 *
+	 * @since 3.4.2
+	 */
+	public function mark_each_line_as_bundle() {
+		return false;
 	}
 
 	/**
@@ -83,20 +105,52 @@ class YAYDP_Product_Bundle extends \YAYDP\Abstracts\YAYDP_Product_Pricing_Rule {
 	 * @return array
 	 */
 	public function discountable_items_filter( $cart_items, $purchase_quantity ) {
-		$accumulator    = 0;
+
+		if ( $this->mark_each_line_as_bundle() && 'filter' === $this->get_affected_items_type() ) {
+			$check_list = array_values(
+				array_map(
+					function( $filter ) {
+						return array(
+							'filters'    => array(
+								$filter,
+							),
+							'match_type' => 'any',
+						);
+					},
+					$this->get_buy_filters()
+				)
+			);
+		} else {
+			$check_list = array(
+				array(
+					'filters'    => null,
+					'match_type' => 'any',
+				),
+			);
+		}
+
 		$filtered_items = array();
 
-		foreach ( $cart_items as $item ) {
-			if ( $accumulator >= $purchase_quantity ) {
-				break;
-			}
+		foreach ( $check_list as $index => $check_part ) {
+			$accumulator = 0;
+			$check_items = array();
+			foreach ( $cart_items as $item ) {
+				if ( $accumulator >= $purchase_quantity ) {
+					break;
+				}
 
-			$product = $item->get_product();
-			if ( parent::can_apply_adjustment( $product, null, 'any', $item->get_key() ) ) {
-				$accumulator     += (int) $item->get_quantity();
-				$filtered_items[] = $item;
+				$product = $item->get_product();
+				if ( parent::can_apply_adjustment( $product, $check_part['filters'], $check_part['match_type'], $item->get_key() ) ) {
+					$accumulator       += (int) $item->get_quantity();
+					$item->bundle_index = $index;
+					$check_items[]      = $item;
+				}
+			}
+			if ( $accumulator >= $purchase_quantity && $purchase_quantity > 0 ) {
+				$filtered_items = array_merge( $filtered_items, $check_items );
 			}
 		}
+
 		return $filtered_items;
 	}
 
@@ -130,9 +184,11 @@ class YAYDP_Product_Bundle extends \YAYDP\Abstracts\YAYDP_Product_Pricing_Rule {
 	public function discount_for_product_bundle_item( $adjustment ) {
 		$discountable_items = $adjustment->get_discountable_items();
 		$purchase_quantity  = $this->get_purchase_quantity();
-		$for_group          = $this->for_group();
 
-		if ( $for_group ) {
+		$affected_items_type    = $this->get_affected_items_type();
+		$affect_to_whole_bundle = 'single_item' !== $affected_items_type;
+
+		if ( $affect_to_whole_bundle ) {
 			$total_discountable_items_price = $this->calculate_total_discountable_items_price( $discountable_items, $purchase_quantity );
 			$total_discount_amount          = $this->get_bundled_products_adjustment_amount( $total_discountable_items_price );
 			$remaining_discount             = ! \yaydp_is_flat_pricing_type( $this->get_pricing_type() ) ? $total_discount_amount : $total_discountable_items_price - $total_discount_amount;
@@ -157,6 +213,10 @@ class YAYDP_Product_Bundle extends \YAYDP\Abstracts\YAYDP_Product_Pricing_Rule {
 				$normal_item_quantity = $item_quantity - $discountable_quantity;
 				$price                = ( ( $item_price * $normal_item_quantity ) + $discounted_price ) / $item_quantity;
 
+				if ( empty( $discountable_quantity ) || empty( $discount_per_unit ) ) {
+					continue;
+				}
+
 				$modifier = array(
 					'rule'              => $this,
 					'modify_quantity'   => $discountable_quantity,
@@ -177,6 +237,11 @@ class YAYDP_Product_Bundle extends \YAYDP\Abstracts\YAYDP_Product_Pricing_Rule {
 				$discountable_quantity = $purchase_quantity >= 0 ? $item_quantity : $item_quantity + $purchase_quantity;
 				$normal_item_quantity  = $item_quantity - $discountable_quantity;
 				$price                 = ( ( $item_price * $normal_item_quantity ) + ( $discounted_price * $discountable_quantity ) ) / $item_quantity;
+
+				if ( empty( $discountable_quantity ) || empty( $discount_amount ) ) {
+					continue;
+				}
+
 				$modifier              = array(
 					'rule'              => $this,
 					'modify_quantity'   => $discountable_quantity,
@@ -220,13 +285,6 @@ class YAYDP_Product_Bundle extends \YAYDP\Abstracts\YAYDP_Product_Pricing_Rule {
 	 * @param \WC_Product $product Product.
 	 */
 	public function get_min_discount( $product ) {
-		if ( ! empty( $this->get_conditions() ) ) {
-			return array(
-				'pricing_value' => 0,
-				'pricing_type'  => 'fixed_discount',
-				'maximum'       => 0,
-			);
-		}
 		return array(
 			'pricing_value' => $this->get_pricing_value(),
 			'pricing_type'  => $this->get_pricing_type(),
@@ -278,16 +336,6 @@ class YAYDP_Product_Bundle extends \YAYDP\Abstracts\YAYDP_Product_Pricing_Rule {
 						continue;
 					}
 				}
-			}
-
-			if ( $this->can_apply_adjustment( $item_product, null, 'any', $item->get_key() ) ) {
-				return new \YAYDP\Core\Encouragement\YAYDP_Product_Pricing_Encouragement(
-					array(
-						'item'                      => $item,
-						'rule'                      => $this,
-						'conditions_encouragements' => $conditions_encouragements,
-					)
-				);
 			}
 		}
 		return null;
