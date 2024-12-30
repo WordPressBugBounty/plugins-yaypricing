@@ -37,6 +37,13 @@ class YAYDP_Individual_Discount {
 	public static function get_free_receive_items( $cart, $matching_items, &$receive_quantity, &$all_extra_items ) {
 		$result            = array();
 		$clone_extra_items = array();
+		$matching_items = array_filter( $matching_items, function( $item_id ) {
+			$item_product = \wc_get_product( $item_id ); 
+			if ( empty( $item_product ) ) {
+				return false;
+			}
+			return $item_product->is_in_stock();
+		} );
 		foreach ( $matching_items as $product_id ) {
 			if ( empty( $receive_quantity ) ) {
 				break;

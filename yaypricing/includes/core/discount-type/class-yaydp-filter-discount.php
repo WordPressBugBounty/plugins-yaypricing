@@ -113,14 +113,6 @@ class YAYDP_Filter_Discount {
 		$total_discount_quantity = 0;
 		$matching_pairs          = \YAYDP\Helper\YAYDP_Helper::get_matching_pairs( $bought_cases );
 
-		$matching_items = array_filter( $matching_items, function( $item_id ) {
-			$item_product = \wc_get_product( $item_id ); 
-			if ( empty( $item_product ) ) {
-				return false;
-			}
-			return $item_product->is_in_stock();
-		} );
-
 		foreach ( $matching_pairs as $pair ) {
 			foreach ( $matching_items as $item ) {
 				if ( empty( $receive_quantity ) ) {
