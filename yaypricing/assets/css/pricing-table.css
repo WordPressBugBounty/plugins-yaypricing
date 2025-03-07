@@ -40,3 +40,7 @@
   font-size: 1rem !important;
   text-align: left !important;
 }
+
+.yaydp-pricing-table tr.selected-range {
+  border: 2px solid red;
+}

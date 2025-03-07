@@ -452,4 +452,59 @@ class YAYDP_Data_Model {
 	public static function get_billing_regions( $search = '', $page = 1, $limit = YAYDP_SEARCH_LIMIT ) {
 		return self::get_regions( $search, $page, $limit );
 	}
+
+	/**
+	 * Retrieves all shipping methods in database by search query
+	 *
+	 * @param string $search Search name.
+	 * @param number $page Current page.
+	 * @param number $limit Limit to get.
+	 * @since 3.5.2
+	 */
+	public static function get_shipping_methods( $search = '', $page = 1, $limit = YAYDP_SEARCH_LIMIT ) {
+		$shipping_methods = \WC()->shipping->get_shipping_methods();
+		$available_methods = array_values(array_map(
+			function ( $method ) {
+				return array(
+					'id'   => $method->id,
+					'name' => $method->method_title,
+				);
+			},
+			$shipping_methods
+		));
+		$shipping_zones = \WC_Shipping_Zones::get_zones();
+		foreach ( $shipping_zones as $zone ) {
+			$zone_methods = $zone['shipping_methods'];
+			foreach ( $zone_methods as $method ) {
+				if ( ! in_array( $method->id, array_column( $available_methods, 'id' ) ) ) {
+					$available_methods[] = array(
+						'id'   => $method->id,
+						'name' => $method->method_title,
+					);
+				}
+			}
+		}
+		return $available_methods;
+	}
+
+	/**
+	 * Retrieves all shipping classes in database by search query
+	 *
+	 * @param string $search Search name.
+	 * @param number $page Current page.
+	 * @param number $limit Limit to get.
+	 * @since 3.5.2
+	 */
+	public static function get_shipping_classes( $search = '', $page = 1, $limit = YAYDP_SEARCH_LIMIT ) {
+		$shipping_classes = \WC()->shipping->get_shipping_classes();
+		return array_values(array_map(
+			function ( $class ) {
+				return array(
+					'id'   => $class->term_id,
+					'name' => $class->name,
+				);
+			},
+			$shipping_classes
+		));
+	}
 }

@@ -416,7 +416,7 @@ class YAYDP_Tiered_Pricing extends \YAYDP\Abstracts\YAYDP_Product_Pricing_Rule {
 				);
 			}
 		}
-		if ( ! $has_range_start_with_1 ) {
+		if ( ! $has_range_start_with_1 && ! empty( $range_instance ) ) {
 			$result = array(
 				'pricing_value' => 0,
 				'pricing_type'  => 'fixed_discount',

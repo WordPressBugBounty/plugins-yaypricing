@@ -106,6 +106,12 @@ class YAYDP_Condition_Helper {
 				case 'payment_method':
 					$check = self::check_payment_method( $condition );
 					break;
+				case 'shipping_method':
+					$check = self::check_shipping_method( $condition );
+					break;
+				case 'shipping_class':
+					$check = self::check_shipping_class( $condition );
+					break;
 				case 'applied_coupons':
 					$check = self::check_applied_coupons( $condition );
 					break;
@@ -169,6 +175,12 @@ class YAYDP_Condition_Helper {
 				case 'product_attribute_taxonomies':
 					$check = self::check_product_attribute_taxonomies( $cart_items, $condition );
 					break;
+				/**
+				 * @since 3.5.2
+				 */
+				case 'user_creation_date':
+					$check = self::check_user_creation_date($condition);
+					break;	
 				default:
 					$check = apply_filters( 'yaydp_check_' . $condition['type'] . '_condition', false, $condition );
 					break;
@@ -647,8 +659,8 @@ class YAYDP_Condition_Helper {
 			return count( $array_intersect ) === count( $id_list ) ? $matching_items : array();
 		}
 
-		return empty( $array_intersect ) ? $not_matching_items : array();
-		// return $not_matching_items;
+		// return empty( $array_intersect ) ? $not_matching_items : array();
+		return $not_matching_items;
 	}
 
 	/**
@@ -688,8 +700,8 @@ class YAYDP_Condition_Helper {
 			return count( $array_intersect ) === count( $list_category_id ) ? $matching_items : array();
 		}
 
-		return empty( $array_intersect ) ? $not_matching_items : array();
-		// return $not_matching_items;
+		// return empty( $array_intersect ) ? $not_matching_items : array();
+		return $not_matching_items;
 	}
 
 	/**
@@ -729,8 +741,8 @@ class YAYDP_Condition_Helper {
 			return count( $array_intersect ) === count( $list_category_id ) ? $matching_items : array();
 		}
 
-		return empty( $array_intersect ) ? $not_matching_items : array();
-		// return $not_matching_items;
+		// return empty( $array_intersect ) ? $not_matching_items : array();
+		return $not_matching_items;
 	}
 
 	/**
@@ -936,9 +948,11 @@ class YAYDP_Condition_Helper {
 
 		switch ( $condition['comparation'] ) {
 			case 'greater_than':
+			case 'gte':
 				$args['date_before'] = $check_date;
 				break;
 			case 'less_than':
+			case 'lte':
 				$args['date_after'] = $check_date;
 				break;
 
@@ -1063,5 +1077,92 @@ class YAYDP_Condition_Helper {
 
 		return false;
 
+	}
+
+	/**
+	 * Check user creation date
+	 * @since 3.5.2
+	 */
+	public static function check_user_creation_date( $condition ) {
+		if ( ! is_user_logged_in() ) {
+			return false;
+		}
+
+		$current_user         = \wp_get_current_user();
+		$user_registered      = $current_user->user_registered;
+		$user_registered_date = explode( " ", $current_user->user_registered )[0];
+
+		switch ( $condition['comparation'] ) {
+			case 'before':
+				return $user_registered_date < $condition['value'];
+			case 'after':
+				return $user_registered_date > $condition['value'];
+			case 'on':
+				return $user_registered_date === $condition['value'];
+			case 'in_range':
+				return $user_registered_date >= $condition['value'][0] && $user_registered <= $condition['value'][1];
+			default:
+				return false;
+		}
+	}
+
+	/**
+	 * Check shipping method
+	 *
+	 * @param array $condition Checking condition.
+	 *
+	 * @since 3.5.2
+	 * @return bool
+	 */
+	public static function check_shipping_method( $condition ) {
+		$shipping_methods = \WC()->session->get( 'chosen_shipping_methods' );
+		if ( ! empty( $_POST['shipping_method'] ) ) {
+			$shipping_methods = $_POST['shipping_method'];
+		}
+		$list_id         = \YAYDP\Helper\YAYDP_Helper::map_filter_value( $condition );
+		$in_list         = false;
+
+		foreach ( $shipping_methods as $method ) {
+			$method_id = explode( ':', $method )[0];
+			if ( in_array( $method, $list_id ) || in_array( $method_id, $list_id ) ) {
+				$in_list = true;
+				break;
+			}
+		}
+		return 'in_list' === $condition['comparation'] ? $in_list : ! $in_list;
+	}
+
+	/**
+	 * Check shipping class
+	 *
+	 * @param array $condition Checking condition.
+	 *
+	 * @since 3.5.2
+	 * @return bool
+	 */
+	public static function check_shipping_class( $condition ) {
+
+		$check = false;
+		$list_id         = \YAYDP\Helper\YAYDP_Helper::map_filter_value( $condition );
+		foreach ( WC()->cart->get_cart() as $cart_item ) {
+			$product = $cart_item['data'];
+			$product_shipping_class_id = $product->get_shipping_class_id();
+			if ( empty( $product_shipping_class_id ) ) {
+				continue;
+			}
+			if ( 'in_list' === $condition['comparation'] ) {
+				if ( in_array( $product_shipping_class_id, $list_id ) ) {
+					$check = true;
+					break;
+				}
+			} else {
+				if ( ! in_array( $product_shipping_class_id, $list_id ) ) {
+					$check = true;
+					break;
+				}
+			}
+		}
+
+		return $check;
 	}
 }

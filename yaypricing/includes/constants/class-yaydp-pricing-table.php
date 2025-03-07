@@ -26,6 +26,11 @@ class YAYDP_Pricing_Table {
 			'quantity_title' => 'Quantity',
 			'discount_title' => 'Discount',
 			'price_title'    => 'Price',
+			'columns_order'        => array(
+				'quantity_title',
+				'discount_title',
+				'price_title',
+			),
 			'border_color'   => '#e6e6e6',
 			'border_style'   => 'solid',
 		);

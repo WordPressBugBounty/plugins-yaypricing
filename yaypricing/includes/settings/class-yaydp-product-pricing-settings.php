@@ -130,6 +130,16 @@ class YAYDP_Product_Pricing_Settings {
 	}
 
 	/**
+	 * Retrieves the "pricing_table.columns" information of the settings
+	 *
+	 * @return array
+	 * @since 3.5.1
+	 */
+	public function get_pricing_table_columns_order() {
+		return isset( $this->settings['pricing_table']['columns_order'] ) ? $this->settings['pricing_table']['columns_order'] : \YAYDP\Constants\YAYDP_Pricing_Table::get_default()['columns_order'];
+	}
+
+	/**
 	 * Retrieves the "pricing_table.quantity_title" information of the settings
 	 *
 	 * @return string

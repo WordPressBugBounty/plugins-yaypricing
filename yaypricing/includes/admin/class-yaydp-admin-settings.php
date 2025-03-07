@@ -60,6 +60,8 @@ class YAYDP_Admin_Settings {
 			'customer_roles'               => \YAYDP\API\Models\YAYDP_Data_Model::get_customer_roles(),
 			'customers'                    => \YAYDP\API\Models\YAYDP_Data_Model::get_customers(),
 			'payment_methods'              => \YAYDP\API\Models\YAYDP_Data_Model::get_payment_methods(),
+			'shipping_methods'             => \YAYDP\API\Models\YAYDP_Data_Model::get_shipping_methods(),
+			'shipping_classes'             => \YAYDP\API\Models\YAYDP_Data_Model::get_shipping_classes(),
 			'shipping_regions'             => \YAYDP\API\Models\YAYDP_Data_Model::get_shipping_regions(),
 			'billing_regions'              => \YAYDP\API\Models\YAYDP_Data_Model::get_billing_regions(), //@since 3.4.2
 			'coupons'                      => \YAYDP\API\Models\YAYDP_Data_Model::get_coupons(),

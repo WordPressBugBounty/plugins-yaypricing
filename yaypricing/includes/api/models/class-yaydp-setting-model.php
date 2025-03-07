@@ -54,6 +54,7 @@ class YAYDP_Setting_Model {
 				),
 				'general'         => array(
 					'sync_with_coupon_individual_use_only' => true,
+					'show_original_price_and_saved_amount' => false,
 				),
 			);
 		}

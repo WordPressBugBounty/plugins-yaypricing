@@ -40,4 +40,13 @@ class YAYDP_General_Settings {
 		return $this->settings['sync_with_coupon_individual_use_only'] ?? true;
 	}
 
+	/**
+	 * Retrieves the "show original price and saved amount" information of the settings
+	 *
+	 * @return string
+	 * @since 3.5.1
+	 */
+	public function do_show_original_price_and_saved_amount() {
+		return $this->settings['show_original_price_and_saved_amount'] ?? false;
+	}
 }

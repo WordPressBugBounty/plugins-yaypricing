@@ -91,6 +91,8 @@ class YAYDP_I18n {
 			'Shipping region'                              => __( 'Shipping region', 'yaypricing' ),
 			'Billing region'                               => __( 'Billing region', 'yaypricing' ),
 			'Payment method'                               => __( 'Payment method', 'yaypricing' ),
+			'Shipping method'                              => __( 'Shipping method', 'yaypricing' ),
+			'Shipping class'                              => __( 'Shipping class', 'yaypricing' ),
 			'Combination'                                  => __( 'Combination', 'yaypricing' ),
 			'Combined condition'                           => __( 'Combined condition', 'yaypricing' ),
 			'Applied coupons'                              => __( 'Applied coupons', 'yaypricing' ),

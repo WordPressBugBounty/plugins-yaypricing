@@ -190,7 +190,20 @@ class YAYDP_Admin_Settings {
 				'label'        => 'All products',
 				'comparations' => array(),
 			),
-
+			array(
+				'value'        => 'shipping_class',
+				'label'        => __( 'Shipping class', 'yaypricing' ),
+				'comparations' => array(
+					array(
+						'value' => 'in_list',
+						'label' => 'In list',
+					),
+					array(
+						'value' => 'not_in_list',
+						'label' => 'Not in list',
+					),
+				),
+			),
 		);
 		return apply_filters( 'yaydp_admin_product_filters', $filters );
 	}

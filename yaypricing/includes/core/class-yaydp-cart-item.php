@@ -288,6 +288,7 @@ class YAYDP_Cart_Item {
 				'prices_base_on_quantity' => $prices_base_on_quantity,
 				'show_regular_price'      => $show_regular_price,
 				'product'                 => $this->product,
+				'item' 					  => $this,
 			),
 			'',
 			YAYDP_PLUGIN_PATH . 'includes/templates/'

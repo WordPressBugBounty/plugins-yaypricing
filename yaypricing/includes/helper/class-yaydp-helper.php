@@ -145,6 +145,12 @@ class YAYDP_Helper {
 				case 'product_attribute_taxonomies':
 					$check = \YAYDP\Helper\YAYDP_Product_Helper::check_attribute_taxonomies( $product, $filter, $item_key );
 					break;
+				/**
+				 * @since 3.5.2
+				 */
+				case 'shipping_class':
+					$check = \YAYDP\Helper\YAYDP_Product_Helper::check_shipping_class( $product, $filter, $item_key );
+					break;
 				default:
 					$check = apply_filters( "yaydp_check_condition_by_{$filter['type']}", false, $product, $filter );
 					break;

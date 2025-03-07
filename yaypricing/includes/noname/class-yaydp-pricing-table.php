@@ -56,6 +56,13 @@ class YAYDP_Pricing_Table {
 	}
 
 	/**
+	 * Returns pricing table columns
+	 */
+	public function get_pricing_table_columns_order() {
+		return $this->settings->get_pricing_table_columns_order();
+	}
+
+	/**
 	 * Returns quantity title
 	 */
 	public function get_quantity_title() {
@@ -75,6 +82,7 @@ class YAYDP_Pricing_Table {
 	public function get_price_title() {
 		return $this->settings->get_pricing_table_price_title();
 	}
+
 	/**
 	 * Returns border color
 	 */
@@ -102,7 +110,11 @@ class YAYDP_Pricing_Table {
 		$max_quantity  = $range->get_max_quantity();
 		$from_text     = empty( $min_quantity ) ? 0 : $min_quantity;
 		$to_text       = empty( $max_quantity ) ? __( 'Unlimited', 'yaypricing' ) : $max_quantity;
-		$quantity_text = implode( '-', array_unique( array( $from_text, $to_text ) ) );
+		$quantities = [ $from_text ];
+		if ( apply_filters( 'yaydp_pricing_table_show_max_quantity', true ) ) {
+			$quantities[] = $to_text;
+		}
+		$quantity_text = implode( '-', array_unique( $quantities ) );
 		return apply_filters( 'yaydp_pricing_table_quantity_text', $quantity_text, $min_quantity, $max_quantity );
 	}
 

@@ -150,7 +150,7 @@ class YAYDP_YITH_WC_Brands_Integration {
 				array(
 					'taxonomy' => $type,
 					'terms'    => $value,
-					'operator' => 'in_list' === $comparation ? 'IN' : 'NOT_IN',
+					'operator' => 'in_list' === $comparation ? 'IN' : 'NOT IN',
 				),
 			),
 		);

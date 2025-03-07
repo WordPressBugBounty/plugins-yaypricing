@@ -49,6 +49,14 @@ abstract class YAYDP_Rule {
 	}
 
 	/**
+	 * Retrieve rule randomize id
+	 * It is not the normal id. It is the short one
+	 */
+	public function get_rule_id() {
+		return ! empty( $this->data['rule_id'] ) ? $this->data['rule_id'] : '';
+	}
+
+	/**
 	 * Retrieves rule name.
 	 *
 	 * @return string

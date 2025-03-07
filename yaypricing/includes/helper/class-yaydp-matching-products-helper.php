@@ -20,7 +20,6 @@ class YAYDP_Matching_Products_Helper {
 	 */
 	public static function init_hooks() {
 		add_filter( 'woocommerce_product_data_store_cpt_get_products_query', array( __CLASS__, 'custom_meta_price_query' ), 10, 2 );
-		add_filter( 'woocommerce_product_data_store_cpt_get_products_query', array( __CLASS__, 'custom_meta_stock_query' ), 10, 2 );
 	}
 
 	/**
@@ -58,69 +57,6 @@ class YAYDP_Matching_Products_Helper {
 					'type'    => 'NUMERIC',
 				),
 			);
-		}
-		return $query;
-	}
-
-	/**
-	 * Callback for woocommerce_product_data_store_cpt_get_products_query
-	 *
-	 * @param array $query Price query.
-	 * @param array $query_vars Variables of the query.
-	 */
-	public static function custom_meta_stock_query( $query, $query_vars ) {
-		if ( ! empty( $query_vars['yaydp_product_stock_filter'] ) ) {
-			$value       = $query_vars['yaydp_product_stock_filter']['stock'];
-			$comparation = $query_vars['yaydp_product_stock_filter']['comparation'];
-			switch ( $comparation ) {
-				case 'greater_than':
-					$compare = '>';
-					break;
-				case 'less_than':
-					$compare = '<';
-					break;
-				case 'gte':
-					$compare = '>=';
-					break;
-				case 'lte':
-					$compare = '<=';
-					break;
-				default:
-					$compare = '=';
-					break;
-			}
-			if ( empty( $value ) ) {
-				$query['meta_query'] = array(
-					array(
-						'key'     => '_stock_status',
-						'value'   => 'instock',
-						'compare' => '!=',
-					),
-				);
-			} else {
-				$query['meta_query'] = array(
-					'relation' => 'OR',
-					array(
-						'key'     => '_stock',
-						'value'   => $value,
-						'compare' => $compare,
-						'type'    => 'NUMERIC',
-					),
-					array(
-						// TODO: fix later.
-						'relation' => 'AND',
-						array(
-							'key'     => '_stock',
-							'value'   => array( '' ),
-							'compare' => 'NOT IN',
-						),
-						array(
-							'key'   => '_stock_status',
-							'value' => 'instock',
-						),
-					),
-				);
-			}
 		}
 		return $query;
 	}
@@ -259,7 +195,7 @@ class YAYDP_Matching_Products_Helper {
 				array(
 					'taxonomy' => 'product_cat',
 					'terms'    => $ids,
-					'operator' => 'in_list' === $comparation ? 'IN' : 'NOT_IN',
+					'operator' => 'in_list' === $comparation ? 'IN' : 'NOT IN',
 				),
 			),
 		);
@@ -285,7 +221,7 @@ class YAYDP_Matching_Products_Helper {
 				array(
 					'taxonomy' => 'product_tag',
 					'terms'    => $ids,
-					'operator' => 'in_list' === $comparation ? 'IN' : 'NOT_IN',
+					'operator' => 'in_list' === $comparation ? 'IN' : 'NOT IN',
 				),
 			),
 		);
@@ -354,7 +290,7 @@ class YAYDP_Matching_Products_Helper {
 				'taxonomy' => $term->taxonomy,
 				'field'    => 'slug',
 				'terms'    => array( $term->slug ),
-				'operator' => 'in_list' === $comparation ? 'IN' : 'NOT_IN',
+				'operator' => 'in_list' === $comparation ? 'IN' : 'NOT IN',
 			);
 		}
 		$args     = array(
@@ -378,15 +314,85 @@ class YAYDP_Matching_Products_Helper {
 	 * @return array
 	 */
 	public static function get_product_by_stock_quantity( $value, $comparation = 'greater_than', $order = 'ASC' ) {
-		$args     = array(
-			'limit'                      => -1,
-			'yaydp_product_stock_filter' => array(
-				'stock'       => $value,
-				'comparation' => $comparation,
-			),
-		);
-		$args     = array_merge( $args, self::get_order( $order ) );
-		$products = \wc_get_products( $args );
+		switch ( $comparation ) {
+			case 'greater_than':
+				$compare = '>';
+				break;
+			case 'less_than':
+				$compare = '<';
+				break;
+			case 'gte':
+				$compare = '>=';
+				break;
+			case 'lte':
+				$compare = '<=';
+				break;
+			default:
+				$compare = '=';
+				break;
+		}
+
+		$main_query = "";
+		if ( ! is_numeric( $value ) ) {
+			$main_query = "( wp_postmeta.meta_key = '_stock_status' AND wp_postmeta.meta_value != 'instock' )";
+		}
+
+		if ( in_array( $compare, ['>', '>='] ) ) {
+			$main_query = "
+				( 
+					( wp_postmeta.meta_key = '_stock_status' AND wp_postmeta.meta_value = 'instock' ) 
+					AND 
+					( mt1.meta_key = '_stock' AND CAST( mt1.meta_value AS SIGNED) $compare '$value' )
+				) 
+				OR 
+				( 
+					( mt2.meta_key = '_stock_status' AND mt2.meta_value = 'instock' )
+					AND 
+					( mt3.meta_key = '_stock' AND mt3.meta_value IS NULL )
+				)
+			";
+		}
+
+		if ( in_array( $compare, ['<', '<='] ) ) {
+			$main_query = "
+				( 
+					( wp_postmeta.meta_key = '_stock_status' AND wp_postmeta.meta_value = 'instock' ) 
+					AND 
+					( mt1.meta_key = '_stock' AND CAST( mt1.meta_value AS SIGNED) $compare '$value' )
+				) 
+			";
+		}
+
+		$sql_query = 
+		"SELECT wp_posts.*
+		FROM wp_posts  
+		LEFT JOIN wp_term_relationships ON (wp_posts.ID = wp_term_relationships.object_id) 
+		INNER JOIN wp_postmeta ON ( wp_posts.ID = wp_postmeta.post_id )  
+		INNER JOIN wp_postmeta AS mt1 ON ( wp_posts.ID = mt1.post_id )  
+		INNER JOIN wp_postmeta AS mt2 ON ( wp_posts.ID = mt2.post_id )  
+		INNER JOIN wp_postmeta AS mt3 ON ( wp_posts.ID = mt3.post_id )
+		WHERE 1=1 
+		AND ( $main_query ) AND 
+		wp_posts.post_type = 'product' 
+		AND ((wp_posts.post_status = 'publish' OR wp_posts.post_status = 'draft' OR wp_posts.post_status = 'pending' OR wp_posts.post_status = 'private'))
+		GROUP BY wp_posts.ID
+		ORDER BY wp_posts.post_title $order";
+
+		global $wpdb;
+
+		$results = $wpdb->get_results( $sql_query ); //PHPCS:ignore:WordPress.DB.PreparedSQL.NotPrepared
+
+		$products = [];
+
+		foreach ( $results as $post ) {
+
+			$product = \wc_get_product( $post->ID );
+
+			if ( ! empty( $product ) ) {
+				$products[] = $product;
+			}
+		}
+
 		return $products;
 	}
 

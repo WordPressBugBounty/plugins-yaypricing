@@ -304,4 +304,15 @@ class YAYDP_Product_Helper {
 		return 'on_sale' === $filter['comparation'] ? $is_on_sale : ! $is_on_sale;
 
 	}
+
+	/**
+	 * Check given product is in the given shipping class
+	 *
+	 * @since 3.5.2
+	 */
+	public static function check_shipping_class( $product, $filter ) {
+		$shipping_class_id = $product->get_shipping_class_id();
+		$list_id         = \YAYDP\Helper\YAYDP_Helper::map_filter_value( $filter );
+		return 'in_list' === $filter['comparation'] ? in_array( $shipping_class_id, $list_id, true ) : ! in_array( $shipping_class_id, $list_id, true );
+	}
 }

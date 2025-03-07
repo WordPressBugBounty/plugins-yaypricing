@@ -3,8 +3,8 @@ Contributors: YayCommerce
 Donate link: https://yaycommerce.com/yaypricing-woocommerce-dynamic-pricing-and-discounts/
 Tags: dynamic pricing, discounts, cart fee, buy one get one, coupon
 Requires at least: 3.0
-Tested up to: 6.7.1
-Stable tag: 3.5.1
+Tested up to: 6.7.2
+Stable tag: 3.5.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -124,6 +124,23 @@ A big yes! YayPricing is compliant with GDPR. It doesn't collect your WooCommerc
 6. Gift item of "Buy one get one free" promotion automatically added to cart page
 
 == Changelog ==
+
+= Mar 7, 2025 - Version 3.5.2 =
+- Added: User can change Pricing table columns position
+- Added: Pricing table row now is highlighted when match quantity
+- Added: Shortcode to display Pricing table (PRO)
+- Added: Combine condition to check Items that purchased in specific times (PRO)
+- Added: Shipping methods condition
+- Added: Shipping classes condition
+- Added: Shipping class product filter
+- Added: Product has subscription filter
+- Updated: Pricing table hooks to match with WooCommerce
+- Updated: Remove on sale products cache when data saved in Admin
+- Updated: Pricing table show when matching variation is selected
+- Fixed: Checking products stock filter not correctly
+- Fixed: Not in list not work correctly
+- Fixed: Admin Issue with pricing type when changing rule type
+- Fixed: Product filter selections turn into IDs after reloading page (When facing this issue, user needs to add filter items again to make it work)
 
 = Dec 30, 2024 - Version 3.5.1 =
 - Fixed: Buy x get y with discounted item

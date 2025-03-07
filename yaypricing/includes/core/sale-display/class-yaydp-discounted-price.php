@@ -68,10 +68,10 @@ class YAYDP_Discounted_Price {
 		$min_discounted_rate  = 1;
 		$max_discounted_rate  = 1;
 		if ( ! empty( $min_discounted_price ) ) {
-			$min_discounted_rate = isset( $min_price ) ? ( $min_discounted_price / $min_price ) : ( $min_discounted_price / $product_price );
+			$min_discounted_rate = ! empty( $min_price ) ? ( $min_discounted_price / $min_price ) : ( $min_discounted_price / $product_price );
 		}
 		if ( ! empty( $max_discounted_price ) ) {
-			$max_discounted_rate = isset( $max_price ) ? ( $max_discounted_price / $max_price ) : ( $max_discounted_price / $product_price );
+			$max_discounted_rate = ! empty( $max_price ) ? ( $max_discounted_price / $max_price ) : ( $max_discounted_price / $product_price );
 		}
 
 		$show_discounted_with_regular_price = \YAYDP\Settings\YAYDP_Product_Pricing_Settings::get_instance()->show_discounted_with_regular_price();

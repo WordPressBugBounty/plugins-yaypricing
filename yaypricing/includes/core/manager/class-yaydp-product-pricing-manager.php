@@ -280,22 +280,22 @@ class YAYDP_Product_Pricing_Manager {
 		$table_position = \YAYDP\Settings\YAYDP_Product_Pricing_Settings::get_instance()->get_pricing_table_position();
 		switch ( $table_position ) {
 			case 'before_add_to_cart_button':
-				add_action( 'woocommerce_before_add_to_cart_form', array( $this, 'add_pricing_table' ), 10 );
+				add_action( 'woocommerce_single_product_summary', array( $this, 'add_pricing_table' ), 29 );
 				break;
 			case 'after_add_to_cart_button':
-				add_action( 'woocommerce_after_add_to_cart_form', array( $this, 'add_pricing_table' ), 10 );
+				add_action( 'woocommerce_single_product_summary', array( $this, 'add_pricing_table' ), 31 );
 				break;
 			case 'before_single_product_summary':
-				add_action( 'woocommerce_before_single_product_summary', array( $this, 'add_pricing_table' ), 10 );
+				add_action( 'woocommerce_single_product_summary', array( $this, 'add_pricing_table' ), 19 );
 				break;
 			case 'after_single_product_summary':
-				add_action( 'woocommerce_after_single_product_summary', array( $this, 'add_pricing_table' ), 10 );
+				add_action( 'woocommerce_single_product_summary', array( $this, 'add_pricing_table' ), 21 );
 				break;
 			case 'product_meta_start':
-				add_action( 'woocommerce_product_meta_start', array( $this, 'add_pricing_table' ), 10 );
+				add_action( 'woocommerce_single_product_summary', array( $this, 'add_pricing_table' ), 39 );
 				break;
 			case 'product_meta_end':
-				add_action( 'woocommerce_product_meta_end', array( $this, 'add_pricing_table' ), 10 );
+				add_action( 'woocommerce_single_product_summary', array( $this, 'add_pricing_table' ), 41 );
 				break;
 
 			default:

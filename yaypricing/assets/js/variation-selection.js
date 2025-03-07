@@ -6,6 +6,17 @@
     $(".single_variation_wrap").on(
       "show_variation",
       function (event, variation) {
+        const applicable_variations = $(".yaydp-pricing-table-wrapper")
+          .data("applicable-variations")
+          .toString()
+          .split(",");
+        if (
+          !applicable_variations.includes(variation.variation_id.toString())
+        ) {
+          $("#yaydp-offer-description").hide();
+          $(".yaydp-pricing-table-wrapper").hide();
+          return;
+        }
         $("#yaydp-offer-description").show();
         $(".yaydp-pricing-table-wrapper").show();
         $(
@@ -24,7 +35,9 @@
           $(item)
             .find(".woocommerce-Price-amount")
             .html(
-              `<span class="woocommerce-Price-currencySymbol">${currency}</span>${isNaN(final_price) ? final_price : final_price.toFixed(2)}`
+              `<span class="woocommerce-Price-currencySymbol">${currency}</span>${
+                isNaN(final_price) ? final_price : final_price.toFixed(2)
+              }`
             );
         });
       }

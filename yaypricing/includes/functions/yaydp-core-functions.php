@@ -134,7 +134,7 @@ if ( ! function_exists( 'yaydp_is_variable_product' ) ) {
 	 * @return array
 	 */
 	function yaydp_is_variable_product( $product ) {
-		return 'variable' === $product->get_type();
+		return 'variable' === $product->get_type() || 'variable-subscription' === $product->get_type();
 	}
 }
 
@@ -164,7 +164,7 @@ if ( ! function_exists( 'yaydp_is_variation_product' ) ) {
 	 * @return array
 	 */
 	function yaydp_is_variation_product( $product ) {
-		return 'variation' === $product->get_type();
+		return 'variation' === $product->get_type() || 'subscription_variation' === $product->get_type();
 	}
 }
 

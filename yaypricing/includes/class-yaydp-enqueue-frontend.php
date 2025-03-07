@@ -39,6 +39,7 @@ class YAYDP_Enqueue_Frontend {
 		if ( \is_product() ) {
 			$this->enqueue_script( 'variation-selection', 'variation-selection.js', array( 'jquery' ) );
 			$this->enqueue_style( 'pricing-table', 'pricing-table.css' );
+			$this->enqueue_script( 'pricing-table', 'pricing-table.js', array( 'jquery' ) );
 		}
 
 		/**
@@ -49,6 +50,10 @@ class YAYDP_Enqueue_Frontend {
 
 		if ( $this->has_payment_condition() ) {
 			$this->enqueue_script( 'payment', 'payment.js', array( 'jquery' ) );
+		}
+
+		if ( $this->has_shipping_condition() ) {
+			$this->enqueue_script( 'shipping', 'shipping.js', array( 'jquery' ) );
 		}
 
 		/**
@@ -113,6 +118,28 @@ class YAYDP_Enqueue_Frontend {
 			$conditions = $rule->get_conditions();
 			foreach ( $conditions as $condition ) {
 				if ( 'payment_method' === $condition['type'] ) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+
+	/**
+	 * Check if there is a shipping condition
+	 *
+	 * @return boolean
+	 * @since 3.5.2
+	 */
+	public function has_shipping_condition() {
+		$product_pricing_rules = \yaydp_get_running_product_pricing_rules();
+		$cart_discount_rules   = \yaydp_get_running_cart_discount_rules();
+		$checkout_fee_rules    = \yaydp_get_running_checkout_fee_rules();
+		$rules                 = array_merge( $product_pricing_rules, $cart_discount_rules, $checkout_fee_rules );
+		foreach ( $rules as $rule ) {
+			$conditions = $rule->get_conditions();
+			foreach ( $conditions as $condition ) {
+				if ( 'shipping_method' === $condition['type'] ) {
 					return true;
 				}
 			}
