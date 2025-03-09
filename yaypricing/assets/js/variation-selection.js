@@ -6,10 +6,11 @@
     $(".single_variation_wrap").on(
       "show_variation",
       function (event, variation) {
-        const applicable_variations = $(".yaydp-pricing-table-wrapper")
-          .data("applicable-variations")
-          .toString()
-          .split(",");
+        const applicable_variations =
+          $(".yaydp-pricing-table-wrapper")
+            .data("applicable-variations")
+            ?.toString()
+            ?.split(",") ?? [];
         if (
           !applicable_variations.includes(variation.variation_id.toString())
         ) {
