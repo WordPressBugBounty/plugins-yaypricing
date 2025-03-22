@@ -26,12 +26,12 @@ class YAYDP_Product_Pricing_Manager {
 		add_action( 'woocommerce_before_mini_cart', array( $this, 'recalculate_mini_cart' ), 10 );
 
 		// Change cart item HTML.
-		add_filter( 'woocommerce_cart_item_price', array( $this, 'change_cart_item_price_html' ), 10, 3 );
-		add_filter( 'woocommerce_cart_item_subtotal', array( $this, 'change_cart_item_subtotal_html' ), 10, 3 );
+		add_filter( 'woocommerce_cart_item_price', array( $this, 'change_cart_item_price_html' ), 100000, 3 );
+		add_filter( 'woocommerce_cart_item_subtotal', array( $this, 'change_cart_item_subtotal_html' ), 100000, 3 );
 		add_filter( 'woocommerce_widget_cart_item_quantity', array( $this, 'change_cart_item_price_html' ), 10, 3 );
 		add_filter( 'woocommerce_cart_item_remove_link', array( $this, 'hide_extra_cart_item_remove_link' ), 10, 2 );
 		add_filter( 'woocommerce_quantity_input_args', array( $this, 'disable_extra_cart_item_quantity_input' ), 10, 1 );
-		add_filter( 'woocommerce_cart_item_subtotal', array( $this, 'remove_extra_cart_item_subtotal' ), 10, 2 );
+		add_filter( 'woocommerce_cart_item_subtotal', array( $this, 'remove_extra_cart_item_subtotal' ), 100000, 2 );
 
 		add_filter(
 			'woocommerce_update_cart_validation',
@@ -280,21 +280,27 @@ class YAYDP_Product_Pricing_Manager {
 		$table_position = \YAYDP\Settings\YAYDP_Product_Pricing_Settings::get_instance()->get_pricing_table_position();
 		switch ( $table_position ) {
 			case 'before_add_to_cart_button':
+				add_action( 'woocommerce_before_add_to_cart_form', array( $this, 'add_pricing_table' ), 10 );
 				add_action( 'woocommerce_single_product_summary', array( $this, 'add_pricing_table' ), 29 );
 				break;
 			case 'after_add_to_cart_button':
+				add_action( 'woocommerce_after_add_to_cart_form', array( $this, 'add_pricing_table' ), 10 );
 				add_action( 'woocommerce_single_product_summary', array( $this, 'add_pricing_table' ), 31 );
 				break;
 			case 'before_single_product_summary':
+				add_action( 'woocommerce_before_single_product_summary', array( $this, 'add_pricing_table' ), 10 );
 				add_action( 'woocommerce_single_product_summary', array( $this, 'add_pricing_table' ), 19 );
 				break;
 			case 'after_single_product_summary':
+				add_action( 'woocommerce_after_single_product_summary', array( $this, 'add_pricing_table' ), 10 );
 				add_action( 'woocommerce_single_product_summary', array( $this, 'add_pricing_table' ), 21 );
 				break;
 			case 'product_meta_start':
+				add_action( 'woocommerce_product_meta_start', array( $this, 'add_pricing_table' ), 10 );
 				add_action( 'woocommerce_single_product_summary', array( $this, 'add_pricing_table' ), 39 );
 				break;
 			case 'product_meta_end':
+				add_action( 'woocommerce_product_meta_end', array( $this, 'add_pricing_table' ), 10 );
 				add_action( 'woocommerce_single_product_summary', array( $this, 'add_pricing_table' ), 41 );
 				break;
 

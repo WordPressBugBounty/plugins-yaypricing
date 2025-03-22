@@ -14,11 +14,9 @@
         if (
           !applicable_variations.includes(variation.variation_id.toString())
         ) {
-          $("#yaydp-offer-description").hide();
           $(".yaydp-pricing-table-wrapper").hide();
           return;
         }
-        $("#yaydp-offer-description").show();
         $(".yaydp-pricing-table-wrapper").show();
         $(
           "[data-variable='discount_value'], [data-variable='final_price'], [data-variable='discount_amount'], [data-variable='discounted_price']"
@@ -44,7 +42,6 @@
       }
     );
     $(".single_variation_wrap").on("hide_variation", function (event) {
-      $("#yaydp-offer-description").hide();
       $(".yaydp-pricing-table-wrapper").hide();
     });
   });

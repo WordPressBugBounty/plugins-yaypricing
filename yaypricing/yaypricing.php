@@ -3,7 +3,7 @@
  * Plugin Name: YayPricing Lite - WooCommerce Dynamic Pricing And Discounts
  * Plugin URI: https://wordpress.org/plugins/yaypricing/
  * Description: Create automatic product pricing rules and cart discounts to design a powerful marketing strategy for your WooCommerce store.
- * Version: 3.5.2.1
+ * Version: 3.5.2.2
  * Author: YayCommerce
  * Author URI: https://yaycommerce.com/
  * Text Domain: yaypricing
@@ -47,7 +47,7 @@ if ( ! defined( 'YAYDP_PLUGIN_BASENAME' ) ) {
 	define( 'YAYDP_PLUGIN_BASENAME', plugin_basename( __FILE__ ) );
 }
 if ( ! defined( 'YAYDP_VERSION' ) ) {
-	define( 'YAYDP_VERSION', '3.5.2.1' );
+	define( 'YAYDP_VERSION', '3.5.2.2' );
 }
 if ( ! defined( 'YAYDP_MINIMUM_PHP_VERSION' ) ) {
 	define( 'YAYDP_MINIMUM_PHP_VERSION', 5.7 );
