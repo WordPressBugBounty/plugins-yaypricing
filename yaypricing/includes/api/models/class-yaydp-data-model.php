@@ -204,7 +204,7 @@ class YAYDP_Data_Model {
 	public static function get_customers( $search = '', $page = 1, $limit = YAYDP_SEARCH_LIMIT ) {
 		$offset = ( $page - 1 ) * $limit;
 		$args   = array(
-			'number'         => $limit,
+			'number'         => $limit + 1,
 			'offset'         => $offset,
 			'order'          => 'ASC',
 			'search'         => "*$search*",

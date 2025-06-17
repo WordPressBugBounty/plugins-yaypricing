@@ -303,7 +303,7 @@ class YAYDP_Product_Pricing_Settings {
 	 * @return bool
 	 */
 	public function get_sale_tag_bg_color() {
-		return $this->settings['sale_tag_bg_color'] ?? '#cf2f2f';
+		return $this->settings['sale_tag_bg_color'] ?? '#5856D6';
 	}
 
 	/**
@@ -315,5 +315,12 @@ class YAYDP_Product_Pricing_Settings {
 	 */
 	public function get_sale_tag_text_color() {
 		return $this->settings['sale_tag_text_color'] ?? '#ffffff';
+	}
+
+	/**
+	 * @since 3.5.3
+	 */
+	public function get_sale_tag_text() {
+		return $this->settings['sale_tag_text'] ?? 'Sale {amount}';
 	}
 }

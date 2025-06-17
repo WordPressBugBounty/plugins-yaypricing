@@ -22,7 +22,7 @@ class YAYDP_Product_Helper {
 	 *
 	 * @return boolean
 	 */
-	public static function check_product( $product, $filter ) {
+	public static function check_product( $product, $filter, $sub_filter = null ) {
 		$product_ids       = array();
 		$product_parent_id = $product->get_parent_id();
 		$product_ids[]     = $product->get_id();
@@ -31,6 +31,9 @@ class YAYDP_Product_Helper {
 		}
 		$list_id         = \YAYDP\Helper\YAYDP_Helper::map_filter_value( $filter );
 		$list_id         = apply_filters( 'yaydp_translated_list_object_id', $list_id, 'product' );
+		if ( $sub_filter ) {
+			$list_id = self::filter_products_by_sub_filter( $list_id, $sub_filter );
+		}
 		$array_intersect = array_intersect( $list_id, $product_ids );
 		return 'in_list' === $filter['comparation'] ? ! empty( $array_intersect ) : empty( $array_intersect );
 	}
@@ -43,12 +46,15 @@ class YAYDP_Product_Helper {
 	 *
 	 * @return boolean
 	 */
-	public static function check_product_variation( $product, $filter ) {
+	public static function check_product_variation( $product, $filter, $sub_filter = null ) {
 		$list_variation_id = \YAYDP\Helper\YAYDP_Helper::map_filter_value( $filter );
 		$list_variation_id = apply_filters( 'yaydp_translated_list_object_id', $list_variation_id, 'product' );
 		$product_ids       = array( $product->get_id() );
 		if ( \yaydp_is_variable_product( $product ) || \yaydp_is_grouped_product( $product ) ) {
 			$product_ids = array_merge( $product_ids, $product->get_children() );
+		}
+		if ( $sub_filter ) {
+			$list_variation_id = self::filter_products_by_sub_filter( $list_variation_id, $sub_filter );
 		}
 		$array_intersect = array_intersect( $product_ids, $list_variation_id );
 		return 'in_list' === $filter['comparation'] ? ! empty( $array_intersect ) : empty( $array_intersect );
@@ -62,11 +68,17 @@ class YAYDP_Product_Helper {
 	 *
 	 * @return boolean
 	 */
-	public static function check_category( $product, $filter ) {
+	public static function check_category( $product, $filter, $sub_filter = null ) {
 		$list_category_id = \YAYDP\Helper\YAYDP_Helper::map_filter_value( $filter );
 		$list_category_id = apply_filters( 'yaydp_translated_list_object_id', $list_category_id, 'product_cat' );
-		$product_cats     = self::get_product_cats( $product );
+		$product_cats     = self::get_product_cats( $product );		
+
+		if ( $sub_filter ) {
+			$list_category_id = self::filter_cats_by_sub_filter( $list_category_id, $product, $sub_filter );
+		}
+
 		$array_intersect  = array_intersect( $product_cats, $list_category_id );
+
 		return 'in_list' === $filter['comparation'] ? ! empty( $array_intersect ) : empty( $array_intersect );
 	}
 
@@ -315,4 +327,200 @@ class YAYDP_Product_Helper {
 		$list_id         = \YAYDP\Helper\YAYDP_Helper::map_filter_value( $filter );
 		return 'in_list' === $filter['comparation'] ? in_array( $shipping_class_id, $list_id, true ) : ! in_array( $shipping_class_id, $list_id, true );
 	}
+
+	/**
+	 * Check if the given product match with the given cart price criterion filter
+	 *
+	 * @param \WC_Product $product Given product.
+	 * @param array       $filter The cart price criterion filter.
+	 *
+	 * @return boolean
+	 */
+	public static function check_cart_item_price_criterion( $product, $filter ) {
+
+		if ( ! \WC()->cart ) {
+			return false;
+		}
+
+		$cart_items = \WC()->cart->get_cart();
+
+		if ( empty( $cart_items ) ) {
+			return false;
+		}
+
+		$sorted_cart_items = array();
+
+		foreach ( $cart_items as $cart_item ) {
+			$item_product = $cart_item['data'];
+			if ( ! $item_product ) {
+				continue;
+			}
+			if ( ! ( $item_product instanceof \WC_Product ) ) {
+				continue;
+			}
+			$sorted_cart_items[] = [
+				'price' => \YAYDP\Helper\YAYDP_Pricing_Helper::get_product_price( $item_product ),
+				'product_id' => $item_product->get_id(),
+			];
+		}
+
+		usort( $sorted_cart_items, function( $a, $b ) {
+			return $b['price'] - $a['price'];
+		} );
+
+		if ( empty( $sorted_cart_items ) ) {
+			return false;
+		}
+
+		if ( 'highest_price' === $filter['comparation'] ) {
+			return $sorted_cart_items[0]['product_id'] === $product->get_id();
+		}
+		if ( 'lowest_price' === $filter['comparation'] ) {
+			return $sorted_cart_items[ count( $sorted_cart_items ) - 1 ]['product_id'] === $product->get_id();
+		}
+
+		if ( isset( $sorted_cart_items[1] ) ) {
+			if ( 'second_highest_price' === $filter['comparation'] ) {
+				return $sorted_cart_items[1]['product_id'] === $product->get_id();
+			}
+	
+			if ( 'second_lowest_price' === $filter['comparation'] ) {
+				return $sorted_cart_items[1]['product_id'] === $product->get_id();
+			}
+		}
+
+		if ( isset( $sorted_cart_items[2] ) ) {
+			if ( 'third_highest_price' === $filter['comparation'] ) {
+				return $sorted_cart_items[2]['product_id'] === $product->get_id();
+			}
+
+			if ( 'third_lowest_price' === $filter['comparation'] ) {
+				return $sorted_cart_items[2]['product_id'] === $product->get_id();
+			}
+		}
+
+		return false;
+	}
+
+	public static function filter_products_by_sub_filter( $ids, $sub_filter ) {
+		if ( ! $sub_filter ) {
+			return $ids;
+		}
+
+		if ( empty( $ids ) ) {
+			return $ids;
+		}
+
+		if ( 'sub_filter_product_price_criterion' === $sub_filter['type'] ) {
+			$products = array_map( 'wc_get_product', $ids );
+			usort( $products, function( $a, $b ) {
+				return \YAYDP\Helper\YAYDP_Pricing_Helper::get_product_price( $b ) - \YAYDP\Helper\YAYDP_Pricing_Helper::get_product_price( $a );
+			} );
+
+			if ( 'highest_price' === $sub_filter['comparation'] ) {
+				return [ $products[0]->get_id() ];
+			}
+
+			if ( 'lowest_price' === $sub_filter['comparation'] ) {
+				return [ $products[ count( $products ) - 1 ]->get_id() ];
+			}
+
+			if ( isset( $products[1] ) ) {
+				if ( 'second_highest_price' === $sub_filter['comparation'] ) {
+					return [ $products[1]->get_id() ];
+				}
+
+				if ( 'second_lowest_price' === $sub_filter['comparation'] ) {
+					return [ $products[1]->get_id() ];
+				}
+			}
+
+			if ( isset( $products[2] ) ) {
+				if ( 'third_highest_price' === $sub_filter['comparation'] ) {
+					return [ $products[2]->get_id() ];
+				}
+
+				if ( 'third_lowest_price' === $sub_filter['comparation'] ) {
+					return [ $products[2]->get_id() ];
+				}
+			}
+		}
+
+		return $ids;
+		
+	}
+
+	public static function filter_cats_by_sub_filter( $ids, $product, $sub_filter ) {
+		if ( ! $sub_filter ) {
+			return $ids;
+		}
+
+		if ( empty( $ids ) ) {
+			return $ids;
+		}
+
+		$category_ids = $ids;
+
+		$args = [
+			'post_type' => 'product',
+			'posts_per_page' => -1, // Get all products
+			'tax_query' => [
+				[
+					'taxonomy' => 'product_cat',
+					'field' => 'term_id',
+					'terms' => $category_ids,
+					'operator' => 'IN',
+				],
+			],
+		];
+
+		$query = new \WP_Query($args);
+
+		if ($query->have_posts()) {
+			$check_product = null;
+			$p = $query->get_posts();
+			$products = array_map( function( $item ) {
+				return \wc_get_product( $item->ID );
+			}, $p );
+
+			usort( $products, function( $a, $b ) {
+				return \YAYDP\Helper\YAYDP_Pricing_Helper::get_product_price( $b ) - \YAYDP\Helper\YAYDP_Pricing_Helper::get_product_price( $a );
+			} );
+
+			if ( 'highest_price' === $sub_filter['comparation'] ) {
+				$check_product = $products[0];
+			}
+
+			if ( 'lowest_price' === $sub_filter['comparation'] ) {
+				$check_product = $products[ count( $products ) - 1 ];
+			}
+
+			if ( isset( $products[1] ) ) {
+				if ( 'second_highest_price' === $sub_filter['comparation'] ) {
+					$check_product = $products[1];
+				}
+
+				if ( 'second_lowest_price' === $sub_filter['comparation'] ) {
+					$check_product = $products[1];
+				}
+			}
+
+			if ( isset( $products[2] ) ) {
+				if ( 'third_highest_price' === $sub_filter['comparation'] ) {
+					$check_product = $products[2];
+				}
+
+				if ( 'third_lowest_price' === $sub_filter['comparation'] ) {
+					$check_product = $products[2];
+				}
+			}
+
+			if ( $check_product && $check_product->get_id() === $product->get_id() ) {
+				return $ids;
+			}
+		}
+				
+		return [];
+	}
+
 }

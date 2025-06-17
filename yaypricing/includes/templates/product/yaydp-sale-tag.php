@@ -28,16 +28,15 @@ $percent_discounts = array_filter(
 	}
 );
 
-$sale_text        = apply_filters( 'yaydp_sale_tag_text', __( 'SALE!', 'yaypricing' ), empty( $matching_rules ) ? array() : $matching_rules );
-$up_to_text       = apply_filters( 'yaydp_sale_tag_up_to_text', __( 'Up to %s', 'yaypricing' ), empty( $matching_rules ) ? array() : $matching_rules );
+$sale_text = \YAYDP\Settings\YAYDP_Product_Pricing_Settings::get_instance()->get_sale_tag_text();
 $background_color = \YAYDP\Settings\YAYDP_Product_Pricing_Settings::get_instance()->get_sale_tag_bg_color();
 $text_color       = \YAYDP\Settings\YAYDP_Product_Pricing_Settings::get_instance()->get_sale_tag_text_color();
 
 ?>
 <div class="yaydp-sale-tag<?php echo empty( $is_custom ) ? '' : ' yaydp-custom-sale-tag'; ?>" style="<?php echo esc_attr( $has_image_gallery ? 'right: 50px;' : '' ); ?>;background-color:<?php echo esc_attr( $background_color ); ?>;border-color:<?php echo esc_attr( $background_color ); ?>;color:<?php echo esc_attr( $text_color ); ?>;">
-	<div><?php echo esc_html( $sale_text ); ?></div>
 	<?php
-	if ( ! empty( $percent_discounts ) && $show_sale_off_amount ) :
+	$round_value = 0;
+	if ( ! empty( $percent_discounts ) ) :
 		\yaydp_sort_array( $percent_discounts );
 		$max_discount = end( $percent_discounts ); // Take the highest one (last item after sort by asc).
 
@@ -47,19 +46,11 @@ $text_color       = \YAYDP\Settings\YAYDP_Product_Pricing_Settings::get_instance
 		} else {
 			$round_value = floor( $max_discount );
 		}
-		?>
-		<div>
-			<?php
-				// Translators: max percent discount.
-			if ( $show_up_to ) {
-				echo wp_kses_post( sprintf( $up_to_text, "$round_value%" ) );
-			} else {
-				echo esc_html( "$round_value%" );
-			}
-			?>
-		</div>
-		<?php
 	endif;
+	if ( ! empty( $round_value ) ) {
+		$sale_text = str_replace( '{amount}', "$round_value%", __( $sale_text, 'yaypricing' ) );
+	}
+	echo esc_html( $sale_text );
 	?>
 </div>
 <?php

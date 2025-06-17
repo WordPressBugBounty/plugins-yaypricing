@@ -204,6 +204,66 @@ class YAYDP_Admin_Settings {
 					),
 				),
 			),
+			[
+				'value'        => 'cart_item_price_criterion',
+				'label'        => __( 'Cart item price criterion', 'yaypricing' ),
+				'comparations' => array(
+					array(
+						'value' => 'highest_price',
+						'label' => 'Highest-price cart item',
+					),
+					array(
+						'value' => 'second_highest_price',
+						'label' => 'Second-highest-price cart item',
+					),
+					array(
+						'value' => 'third_highest_price',
+						'label' => 'Third-highest-price cart item',
+					),
+					array(
+						'value' => 'lowest_price',
+						'label' => 'Lowest-price cart item',
+					),
+					array(
+						'value' => 'second_lowest_price',
+						'label' => 'Second-lowest-price cart item',
+					),
+					array(
+						'value' => 'third_lowest_price',
+						'label' => 'Third-lowest-price cart item',
+					),
+				),
+			],
+			[
+				'value'        => 'sub_filter_product_price_criterion',
+				'label'        => __( 'Sub filter product price criterion', 'yaypricing' ),
+				'comparations' => array(
+					array(
+						'value' => 'highest_price',
+						'label' => 'Highest-price item',
+					),
+					array(
+						'value' => 'second_highest_price',
+						'label' => 'Second-highest-price item',
+					),
+					array(
+						'value' => 'third_highest_price',
+						'label' => 'Third-highest-price item',
+					),
+					array(
+						'value' => 'lowest_price',
+						'label' => 'Lowest-price item',
+					),
+					array(
+						'value' => 'second_lowest_price',
+						'label' => 'Second-lowest-price item',
+					),
+					array(
+						'value' => 'third_lowest_price',
+						'label' => 'Third-lowest-price item',
+					),
+				),
+			],
 		);
 		return apply_filters( 'yaydp_admin_product_filters', $filters );
 	}

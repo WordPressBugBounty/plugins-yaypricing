@@ -284,7 +284,6 @@ class YAYDP_I18n {
 			'Sale Tag'                                     => __( 'Sale Tag', 'yaypricing' ),
 			'Show sale tag for sale products'              => __( 'Show sale tag for sale products', 'yaypricing' ),
 			'Display a sale tag on product image on shop page and single product page' => __( 'Display a sale tag on product image on shop page and single product page', 'yaypricing' ),
-			'Show sale off amount on the sale tag'         => __( 'Show sale off amount on the sale tag', 'yaypricing' ),
 			'Display a discount range tag on the sale tag' => __( 'Display a discount range tag on the sale tag', 'yaypricing' ),
 			'Background color'                             => __( 'Background color', 'yaypricing' ),
 			'Text color'                                   => __( 'Text color', 'yaypricing' ),

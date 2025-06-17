@@ -42,12 +42,6 @@ class YAYDP_Enqueue_Frontend {
 			$this->enqueue_script( 'pricing-table', 'pricing-table.js', array( 'jquery' ) );
 		}
 
-		/**
-		 * Others
-		 */
-		$this->enqueue_style( 'sale-tag', 'sale-tag.css' );
-		$this->enqueue_style( 'tooltip', 'tooltip.css' );
-
 		if ( $this->has_payment_condition() ) {
 			$this->enqueue_script( 'payment', 'payment.js', array( 'jquery' ) );
 		}

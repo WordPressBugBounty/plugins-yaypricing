@@ -119,8 +119,14 @@ class YAYDP_Cart_Discount_Manager {
 				return;
 			}
 		} else {
-			remove_action( 'woocommerce_before_calculate_totals', array( self::get_instance(), 'calculate_pricings' ), YAYDP_CART_CALCULATE_PRIORITY );
+			// remove_action( 'woocommerce_before_calculate_totals', array( self::get_instance(), 'calculate_pricings' ), YAYDP_CART_CALCULATE_PRIORITY );
 		}
+
+		static $has_run = false;
+		if ( $has_run ) {
+			return;
+		}
+		$has_run = true;
 
 		do_action( 'yaydp_before_calculate_cart_discount' );
 

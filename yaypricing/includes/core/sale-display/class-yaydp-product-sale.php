@@ -207,6 +207,7 @@ class YAYDP_Product_Sale {
 			if ( $product->get_id() === $item_product->get_id() ) {
 				$product_price     = \YAYDP\Helper\YAYDP_Pricing_Helper::get_product_price( $product );
 				$item_price_ranges = $item->get_prices_based_on_quantity();
+				krsort($item_price_ranges);
 				$item_price        = array_key_last( $item_price_ranges );
 				if ( empty( $product_price ) || empty( $item_price ) ) {
 					continue;

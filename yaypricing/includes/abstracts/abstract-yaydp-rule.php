@@ -124,7 +124,7 @@ abstract class YAYDP_Rule {
 
 		$start        = is_null( $this->data['schedule']['start'] ) ? '1999-01-30T14:59:23+07:00Z' : $this->data['schedule']['start'];
 		$end          = is_null( $this->data['schedule']['end'] ) ? '3000-01-30T14:59:23+07:00Z' : $this->data['schedule']['end'];
-		$current_date = new \DateTime();
+		$current_date = new \DateTime('now', new \DateTimeZone( wp_timezone_string() ) );
 		$start_date   = new \DateTime( $start, new \DateTimeZone( wp_timezone_string() ) );
 		$end_date     = new \DateTime( $end, new \DateTimeZone( wp_timezone_string() ) );
 

@@ -3,16 +3,16 @@ Contributors: YayCommerce
 Donate link: https://yaycommerce.com/yaypricing-woocommerce-dynamic-pricing-and-discounts/
 Tags: dynamic pricing, discounts, cart fee, buy one get one, coupon
 Requires at least: 3.0
-Tested up to: 6.7.2
-Stable tag: 3.5.2.2
+Tested up to: 6.8
+Stable tag: 3.5.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Create WooCommerce Dynamic Pricing & Discounts rules without coding.
+Your all-in-one WooCommerce dynamic pricing toolkit. From Buy X Get Y to tiered and bundle discounts, create powerful rules that boost sales with ease.
 
 == Description ==
 
-YayPricing is an **all-purpose pricing and discounts plugin** for your WooCommerce store. It helps you create promotional campaigns based on different conditions.
+YayPricing is your all-in-one solution for creating **smart pricing and discount campaigns in WooCommerce**. No matter if it’s flash sales, BOGO deals, or tiered discounts, YayPricing makes it easy to set up powerful promotions based on flexible conditions.
 
 💪 Master WooCommerce Dynamic Pricing in Just 4 Easy Steps:
 
@@ -21,11 +21,7 @@ YayPricing is an **all-purpose pricing and discounts plugin** for your WooCommer
 - Add user role or cart conditions (optional).
 - Launch the new deal on your WooCommerce product page!
 
-[Quick Demo](https://demo.yaycommerce.com/yaypricing/list-of-products-on-sale/) | [**YayPricing Pro**](https://yaycommerce.com/yaypricing-woocommerce-dynamic-pricing-and-discounts/) 🚀
-
-[youtube https://youtu.be/DSxsCxnXv_g]
-
-[Documentation](https://docs.yaycommerce.com/yaypricing/how-it-works/product-pricing) | [WooCommerce.com version](https://woocommerce.com/products/dynamic-pricing-discounts/)
+[**Quick Demo**](https://demo.yaycommerce.com/yaypricing/) | [**YayPricing Pro**](https://yaycommerce.com/yaypricing-woocommerce-dynamic-pricing-and-discounts/) 🚀
 
 Supported WooCommerce discount rules:
 
@@ -92,6 +88,11 @@ Limit applicable discounts to product regular price, number of items, cart total
 
 Happy Discount-ing! 💛 
 
+**Find out more:**
+✅ Approved by WooCommerce: [Dynamic Pricing, Cart Discounts & Checkout Rules for WooCommerce](http://woocommerce.com/products/dynamic-pricing-discounts/)
+
+🔍 Want to see YayCommerce in action? [View all YayCommerce plugin demos](https://demo.yaycommerce.com/) and explore the full suite of features.
+
 == Installation ==
 1. Download the plugin from wordpress.org
 2. From your WordPress admin dashboard, go to **Plugins** > **Add New**, and upload the yaypricing.zip file
@@ -124,6 +125,25 @@ A big yes! YayPricing is compliant with GDPR. It doesn't collect your WooCommerc
 6. Gift item of "Buy one get one free" promotion automatically added to cart page
 
 == Changelog ==
+
+= Jun 17, 2025 - Version 3.5.3 =
+- New: es_ES translation
+- New: Timer translations
+- New: Cart item price criterion for Products filter
+- New: Sale badge text setting
+- New: Condition for purchased categories
+- New: Sub-filter to filter product price criterion from the given list
+- Updated: Compatibility with WooCommerce 9.9+
+- Updated: Buy X Get Y add products with publish status only
+- Updated: Frontend UI
+- Fixed: Duplicate discount table
+- Fixed: Cannot view more customer search (Admin conditions)
+- Fixed: Video not showing in offer description
+- Fixed: Saved amount only shows when higher than zero
+- Fixed: Recurring schedule with timezone not working properly
+- Fixed: Encouraged notice display when has negative discount amount
+- Fixed: Missing comparison for User creation time condition
+- Fixed: Other minor issues
 
 = Mar 22, 2025 - Version 3.5.2.2 =
 - Added: Hooks for rendering pricing table in some themes

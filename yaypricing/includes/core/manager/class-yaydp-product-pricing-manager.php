@@ -139,6 +139,12 @@ class YAYDP_Product_Pricing_Manager {
 
 		// remove_action( 'woocommerce_before_calculate_totals', array( self::get_instance(), 'calculate_pricings' ), 100 );
 
+		static $has_run = false;
+		if ( $has_run ) {
+			return;
+		}
+		$has_run = true;
+
 		if ( apply_filters( 'yaydp_prevent_recalculate_cart', false ) ) {
 			return;
 		}
@@ -281,27 +287,27 @@ class YAYDP_Product_Pricing_Manager {
 		switch ( $table_position ) {
 			case 'before_add_to_cart_button':
 				add_action( 'woocommerce_before_add_to_cart_form', array( $this, 'add_pricing_table' ), 10 );
-				add_action( 'woocommerce_single_product_summary', array( $this, 'add_pricing_table' ), 29 );
+				// add_action( 'woocommerce_single_product_summary', array( $this, 'add_pricing_table' ), 29 );
 				break;
 			case 'after_add_to_cart_button':
 				add_action( 'woocommerce_after_add_to_cart_form', array( $this, 'add_pricing_table' ), 10 );
-				add_action( 'woocommerce_single_product_summary', array( $this, 'add_pricing_table' ), 31 );
+				// add_action( 'woocommerce_single_product_summary', array( $this, 'add_pricing_table' ), 31 );
 				break;
 			case 'before_single_product_summary':
 				add_action( 'woocommerce_before_single_product_summary', array( $this, 'add_pricing_table' ), 10 );
-				add_action( 'woocommerce_single_product_summary', array( $this, 'add_pricing_table' ), 19 );
+				// add_action( 'woocommerce_single_product_summary', array( $this, 'add_pricing_table' ), 19 );
 				break;
 			case 'after_single_product_summary':
 				add_action( 'woocommerce_after_single_product_summary', array( $this, 'add_pricing_table' ), 10 );
-				add_action( 'woocommerce_single_product_summary', array( $this, 'add_pricing_table' ), 21 );
+				// add_action( 'woocommerce_single_product_summary', array( $this, 'add_pricing_table' ), 21 );
 				break;
 			case 'product_meta_start':
 				add_action( 'woocommerce_product_meta_start', array( $this, 'add_pricing_table' ), 10 );
-				add_action( 'woocommerce_single_product_summary', array( $this, 'add_pricing_table' ), 39 );
+				// add_action( 'woocommerce_single_product_summary', array( $this, 'add_pricing_table' ), 39 );
 				break;
 			case 'product_meta_end':
 				add_action( 'woocommerce_product_meta_end', array( $this, 'add_pricing_table' ), 10 );
-				add_action( 'woocommerce_single_product_summary', array( $this, 'add_pricing_table' ), 41 );
+				// add_action( 'woocommerce_single_product_summary', array( $this, 'add_pricing_table' ), 41 );
 				break;
 
 			default:

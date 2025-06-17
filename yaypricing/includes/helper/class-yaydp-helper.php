@@ -94,6 +94,10 @@ class YAYDP_Helper {
 	 */
 	public static function check_applicability( $filters, $product, $match_type = 'any', $item_key = null ) {
 
+		if ( 'publish' !== $product->get_status() ) { // Only show published products
+			return false;
+		}
+		
 		if ( \yaydp_product_pricing_is_applied_to_non_discount_product() && \YAYDP\Core\Discounted_Products\YAYDP_Discounted_Products::get_instance()->is_discounted( $product ) ) {
 			return false;
 		}
@@ -105,28 +109,35 @@ class YAYDP_Helper {
 		}
 
 		$check = false;
+		$sub_filter = null;
+		foreach ( $filters as $filter ) {
+			if ( 'sub_filter_product_price_criterion' === $filter['type'] ) {
+				$sub_filter = $filter;
+			}
+		}
+
 		foreach ( $filters as $filter ) {
 			switch ( $filter['type'] ) {
 				case 'product':
-					$check = \YAYDP\Helper\YAYDP_Product_Helper::check_product( $product, $filter );
+					$check = \YAYDP\Helper\YAYDP_Product_Helper::check_product( $product, $filter, $sub_filter );
 					break;
 				case 'product_variation':
-					$check = \YAYDP\Helper\YAYDP_Product_Helper::check_product_variation( $product, $filter );
+					$check = \YAYDP\Helper\YAYDP_Product_Helper::check_product_variation( $product, $filter, $sub_filter );
 					break;
 				case 'product_category':
-					$check = \YAYDP\Helper\YAYDP_Product_Helper::check_category( $product, $filter );
+					$check = \YAYDP\Helper\YAYDP_Product_Helper::check_category( $product, $filter, $sub_filter );
 					break;
 				case 'product_attribute':
-					$check = \YAYDP\Helper\YAYDP_Product_Helper::check_attribute( $product, $filter, $item_key );
+					$check = \YAYDP\Helper\YAYDP_Product_Helper::check_attribute( $product, $filter, $item_key, $sub_filter );
 					break;
 				case 'product_tag':
-					$check = \YAYDP\Helper\YAYDP_Product_Helper::check_tag( $product, $filter );
+					$check = \YAYDP\Helper\YAYDP_Product_Helper::check_tag( $product, $filter, $sub_filter );
 					break;
 				case 'product_price':
-					$check = \YAYDP\Helper\YAYDP_Product_Helper::check_price( $product, $filter );
+					$check = \YAYDP\Helper\YAYDP_Product_Helper::check_price( $product, $filter, $sub_filter );
 					break;
 				case 'product_in_stock':
-					$check = \YAYDP\Helper\YAYDP_Product_Helper::check_stock( $product, $filter );
+					$check = \YAYDP\Helper\YAYDP_Product_Helper::check_stock( $product, $filter, $sub_filter );
 					break;
 				/**
 				 * Check product is on sale by WooCommerce
@@ -134,7 +145,7 @@ class YAYDP_Helper {
 				 * @since 3.4.2
 				 */
 				case 'products_on_sale_wc':
-					$check = \YAYDP\Helper\YAYDP_Product_Helper::check_on_sale_wc( $product, $filter );
+					$check = \YAYDP\Helper\YAYDP_Product_Helper::check_on_sale_wc( $product, $filter, $sub_filter );
 					break;
 				case 'all_product':
 					$check = true;
@@ -143,13 +154,19 @@ class YAYDP_Helper {
 				 * @since 3.4.1
 				 */
 				case 'product_attribute_taxonomies':
-					$check = \YAYDP\Helper\YAYDP_Product_Helper::check_attribute_taxonomies( $product, $filter, $item_key );
+					$check = \YAYDP\Helper\YAYDP_Product_Helper::check_attribute_taxonomies( $product, $filter, $item_key, $sub_filter );
 					break;
 				/**
 				 * @since 3.5.2
 				 */
 				case 'shipping_class':
-					$check = \YAYDP\Helper\YAYDP_Product_Helper::check_shipping_class( $product, $filter, $item_key );
+					$check = \YAYDP\Helper\YAYDP_Product_Helper::check_shipping_class( $product, $filter, $item_key, $sub_filter );
+					break;
+				/**
+				 * @since 3.5.3
+				 */
+				case 'cart_item_price_criterion':
+					$check = \YAYDP\Helper\YAYDP_Product_Helper::check_cart_item_price_criterion( $product, $filter, $item_key );
 					break;
 				default:
 					$check = apply_filters( "yaydp_check_condition_by_{$filter['type']}", false, $product, $filter );

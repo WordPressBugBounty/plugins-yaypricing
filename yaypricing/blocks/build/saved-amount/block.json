@@ -1,0 +1,32 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "yaydp/saved-amount",
+  "version": "0.1.0",
+  "title": "Saved Amount",
+  "category": "yaypricing",
+  "description": "This is the saved amount block.",
+  "example": {},
+  "supports": {
+    "html": false
+  },
+  "attributes": {
+    "content": {
+      "type": "string",
+      "selector": "span"
+    }
+  },
+  "parent": [
+    "woocommerce/cart-totals-block",
+    "woocommerce/cart-order-summary-block",
+    "woocommerce/cart-order-summary-totals-block",
+    "woocommerce/checkout-totals-block",
+    "woocommerce/checkout-order-summary-block",
+    "woocommerce/checkout-order-summary-totals-block"
+  ],
+  "editorScript": "file:./index.js",
+  "editorStyle": "file:./index.css",
+  "style": "file:./style-index.css",
+  "render": "file:./render.php",
+  "viewScript": "file:./view.js"
+}

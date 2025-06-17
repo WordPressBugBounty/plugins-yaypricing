@@ -369,7 +369,35 @@ class YAYDP_Condition_Helper {
 		if ( ! $session ) {
 			return false;
 		}
-		$chosen_payment_method = is_string( $session->get( 'chosen_payment_method' ) ) && ! empty( $session->get( 'chosen_payment_method' ) ) ? $session->get( 'chosen_payment_method' ) : null;
+		
+		if ( class_exists( 'Woocommerce_German_Market' ) ) {
+			if ( ! empty( WC()->session->get( 'german_market_wc_blocks_active_payment_method' ) ) ) {
+				$chosen_payment_method = WC()->session->get( 'german_market_wc_blocks_active_payment_method' );
+			} else {
+				$payment_gateways = WC()->payment_gateways()->payment_gateways();
+				$payment_gateways = array_filter( $payment_gateways, function( $gateway ) {
+					return $gateway->enabled === 'yes';
+				} );
+				if (!empty($payment_gateways)) {
+					$first_payment_method = reset($payment_gateways);
+					$chosen_payment_method = $first_payment_method->id;
+				}
+			}
+		} else {
+			if ( has_block( 'woocommerce/checkout' ) ) {
+				$payment_gateways = WC()->payment_gateways()->payment_gateways();
+				$payment_gateways = array_filter( $payment_gateways, function( $gateway ) {
+					return $gateway->enabled === 'yes';
+				} );
+				if (!empty($payment_gateways)) {
+					$first_payment_method = reset($payment_gateways);
+					$chosen_payment_method = $first_payment_method->id;
+				}
+			} else {
+				$chosen_payment_method = is_string( $session->get( 'chosen_payment_method' ) ) && ! empty( $session->get( 'chosen_payment_method' ) ) ? $session->get( 'chosen_payment_method' ) : null;
+			}
+		}
+
 		if ( empty( $chosen_payment_method ) ) {
 			return false;
 		}
@@ -592,10 +620,13 @@ class YAYDP_Condition_Helper {
 		$check               = false;
 		foreach ( $conditions as $condition ) {
 			if ( 'items_product' === $condition['type'] ) {
-				$matching_cart_items = self::get_cart_items_match_product( $matching_cart_items, $condition );
+				$matching_cart_items = self::get_matching_cart_items_product( $matching_cart_items, $condition );
 			}
 			if ( 'items_category' === $condition['type'] ) {
-				$matching_cart_items = self::get_cart_items_match_category( $matching_cart_items, $condition );
+				$matching_cart_items = self::get_matching_cart_items_category( $matching_cart_items, $condition );
+			}
+			if ( 'items_tag' === $condition['type'] ) {
+				$matching_cart_items = self::get_matching_cart_items_tag( $matching_cart_items, $condition );
 			}
 		}
 		if ( count( $matching_cart_items ) > 0 ) {
@@ -659,8 +690,8 @@ class YAYDP_Condition_Helper {
 			return count( $array_intersect ) === count( $id_list ) ? $matching_items : array();
 		}
 
-		// return empty( $array_intersect ) ? $not_matching_items : array();
-		return $not_matching_items;
+		return empty( $array_intersect ) ? $not_matching_items : array();
+		// return $not_matching_items;
 	}
 
 	/**
@@ -700,8 +731,8 @@ class YAYDP_Condition_Helper {
 			return count( $array_intersect ) === count( $list_category_id ) ? $matching_items : array();
 		}
 
-		// return empty( $array_intersect ) ? $not_matching_items : array();
-		return $not_matching_items;
+		return empty( $array_intersect ) ? $not_matching_items : array();
+		// return $not_matching_items;
 	}
 
 	/**
@@ -741,8 +772,8 @@ class YAYDP_Condition_Helper {
 			return count( $array_intersect ) === count( $list_category_id ) ? $matching_items : array();
 		}
 
-		// return empty( $array_intersect ) ? $not_matching_items : array();
-		return $not_matching_items;
+		return empty( $array_intersect ) ? $not_matching_items : array();
+		// return $not_matching_items;
 	}
 
 	/**
@@ -1165,4 +1196,132 @@ class YAYDP_Condition_Helper {
 
 		return $check;
 	}
+
+	/**
+	 * Returns cart items that match product condition.
+	 *
+	 * @since 2.2
+	 * @param array $cart_items Checking cart items.
+	 * @param array $condition  Checking product condition.
+	 *
+	 * @return array
+	 */
+	public static function get_matching_cart_items_product( $cart_items, $condition ) {
+		$matching_items     = array();
+		$not_matching_items = array();
+		$products_in_cart   = array();
+		$id_list            = \YAYDP\Helper\YAYDP_Helper::map_filter_value( $condition );
+		$translated_id_list = apply_filters( 'yaydp_translated_list_object_id', $id_list, 'product' );
+		foreach ( $cart_items as $cart_item ) {
+			$product           = $cart_item->get_product();
+			$product_id        = $product->get_id();
+			$product_parent_id = $product->get_parent_id();
+			if ( in_array( $product_id, $translated_id_list ) || in_array( $product_parent_id, $translated_id_list ) ) {
+				$matching_items[] = $cart_item;
+			} else {
+				$not_matching_items[] = $cart_item;
+			}
+			$products_in_cart[] = $product_id;
+			if ( ! empty( $product_parent_id ) ) {
+				$products_in_cart[] = $product_parent_id;
+			}
+		}
+
+		$products_in_cart = array_unique( $products_in_cart );
+		$array_intersect  = array_intersect( $products_in_cart, $translated_id_list );
+
+		if ( 'contain' === $condition['comparation'] ) {
+			return ! empty( $array_intersect ) ? $matching_items : array();
+		}
+
+		if ( 'contain_all' === $condition['comparation'] ) {
+			return count( $array_intersect ) === count( $id_list ) ? $matching_items : array();
+		}
+
+		// return empty( $array_intersect ) ? $not_matching_items : array();
+		return $not_matching_items;
+	}
+
+	/**
+	 * Returns cart items that match category condition.
+	 *
+	 * @since 2.2
+	 * @param array $cart_items Checking cart items.
+	 * @param array $condition  Checking category condition.
+	 *
+	 * @return array
+	 */
+	public static function get_matching_cart_items_category( $cart_items, $condition ) {
+		$matching_items              = array();
+		$not_matching_items          = array();
+		$cats_in_cart                = array();
+		$list_category_id            = \YAYDP\Helper\YAYDP_Helper::map_filter_value( $condition );
+		$translated_list_category_id = apply_filters( 'yaydp_translated_list_object_id', $list_category_id, 'product_cat' );
+		foreach ( $cart_items as $cart_item ) {
+			$product      = $cart_item->get_product();
+			$product_cats = \YAYDP\Helper\YAYDP_Product_Helper::get_product_cats( $product );
+			$cats_in_cart = array_merge( $cats_in_cart, $product_cats );
+			if ( ! empty( array_intersect( $product_cats, $translated_list_category_id ) ) ) {
+				$matching_items[] = $cart_item;
+			} else {
+				$not_matching_items[] = $cart_item;
+			}
+		}
+
+		$cats_in_cart    = array_unique( $cats_in_cart );
+		$array_intersect = array_intersect( $cats_in_cart, $translated_list_category_id );
+
+		if ( 'contain' === $condition['comparation'] ) {
+			return ! empty( $array_intersect ) ? $matching_items : array();
+		}
+
+		if ( 'contain_all' === $condition['comparation'] ) {
+			return count( $array_intersect ) === count( $list_category_id ) ? $matching_items : array();
+		}
+
+		// return empty( $array_intersect ) ? $not_matching_items : array();
+		return $not_matching_items;
+	}
+
+	/**
+	 * Returns cart items that match category condition.
+	 *
+	 * @since 2.2
+	 * @param array $cart_items Checking cart items.
+	 * @param array $condition  Checking category condition.
+	 *
+	 * @return array
+	 */
+	public static function get_matching_cart_items_tag( $cart_items, $condition ) {
+		$matching_items              = array();
+		$not_matching_items          = array();
+		$tags_in_cart                = array();
+		$list_category_id            = \YAYDP\Helper\YAYDP_Helper::map_filter_value( $condition );
+		$translated_list_category_id = apply_filters( 'yaydp_translated_list_object_id', $list_category_id, 'product_tag' );
+		foreach ( $cart_items as $cart_item ) {
+			$product      = $cart_item->get_product();
+			$product_tags = \YAYDP\Helper\YAYDP_Product_Helper::get_product_tags( $product );
+			$tags_in_cart = array_merge( $tags_in_cart, $product_tags );
+			if ( ! empty( array_intersect( $product_tags, $translated_list_category_id ) ) ) {
+				$matching_items[] = $cart_item;
+			} else {
+				$not_matching_items[] = $cart_item;
+			}
+		}
+
+		$tags_in_cart    = array_unique( $tags_in_cart );
+		$array_intersect = array_intersect( $tags_in_cart, $translated_list_category_id );
+
+		if ( 'contain' === $condition['comparation'] ) {
+			return ! empty( $array_intersect ) ? $matching_items : array();
+		}
+
+		if ( 'contain_all' === $condition['comparation'] ) {
+			return count( $array_intersect ) === count( $list_category_id ) ? $matching_items : array();
+		}
+
+		// return empty( $array_intersect ) ? $not_matching_items : array();
+		return $not_matching_items;
+	}
+
 }

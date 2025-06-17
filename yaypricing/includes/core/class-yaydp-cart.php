@@ -33,7 +33,7 @@ class YAYDP_Cart {
 	 */
 	public function __construct( $items = null ) {
 		if ( is_null( $items ) ) {
-			if ( ! is_null( \WC()->cart ) && method_exists( \WC()->cart, 'get_cart' ) ) {
+			if ( did_action( 'wp_loaded' ) && ! is_null( \WC()->cart ) && method_exists( \WC()->cart, 'get_cart' ) ) {
 				$cart_items = \WC()->cart->get_cart();
 			} else {
 				$cart_items = array();

@@ -47,6 +47,6 @@ abstract class YAYDP_Cart_Discount_Rule extends YAYDP_Rule {
 		if ( \YAYDP\Settings\YAYDP_Cart_Discount_Settings::get_instance()->use_id_as_code() ) {
 			return $this->get_id() === $code;
 		}
-		return strtolower( $this->get_name() ) === $code;
+		return strtolower( $this->get_name() ) === strtolower( $code );
 	}
 }

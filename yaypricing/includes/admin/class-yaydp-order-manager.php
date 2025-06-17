@@ -86,13 +86,16 @@ class YAYDP_Order_Manager {
 		$original_total    = 0;
 		foreach( $items as $item ) {
 			$product = $item->get_product();
+			if ( ! $product ) {
+				continue;
+			}
 			if ( 'regular_price' === $discount_based_on ) {
 				$original_price = $product->get_regular_price();
 			} else {
 				$original_price = $product->get_sale_price();
 			}
 			$quantity = $item->get_quantity();
-			$original_total += $original_price * $quantity;
+			$original_total += (float)$original_price * (float)$quantity;
 		}
 		$saved_amount = $original_total - $order->get_subtotal();
 		echo '

@@ -1,4 +1,20 @@
 (function ($) {
+  $(document).on("mouseenter", ".yaydp-tooltip-icon", function () {
+    const tooltip = $(this).find(".yaydp-tooltip-content");
+    if (tooltip.length < 1) {
+      return;
+    }
+    const { left } = tooltip.offset();
+    const width = tooltip.width();
+    console.log(width, left);
+    if (width + left > window.outerWidth) {
+      tooltip.css("left", window.outerWidth - width - left - 30);
+    }
+    if (left < 0) {
+      tooltip.css("left", 30);
+    }
+  });
+
   $(document).ready(function () {
     if (!window.elementorFrontend || !window.elementorFrontend.getElements) {
       return;

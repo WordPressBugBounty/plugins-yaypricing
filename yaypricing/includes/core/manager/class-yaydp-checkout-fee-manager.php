@@ -21,7 +21,7 @@ class YAYDP_Checkout_Fee_Manager {
 	 */
 	private function __construct() {
 		add_action( 'woocommerce_before_calculate_totals', array( $this, 'calculate_pricings' ), YAYDP_CHECKOUT_CALCULATE_PRIORITY );
-		add_action( 'woocommerce_cart_calculate_fees', array( $this, 'calculate_pricings' ), 9 );
+		// add_action( 'woocommerce_cart_calculate_fees', array( $this, 'calculate_pricings' ), 9 );
 		add_action( 'wc_ajax_update_shipping_method', array( $this, 'calculate_pricings' ), 9 );
 		add_action( 'yaydp_before_calculate_checkout_fee', array( $this, 'before_calculate_pricings' ), 10 );
 		add_action( 'yaydp_after_calculate_checkout_fee', array( $this, 'after_calculate_pricings' ), 10 );
@@ -58,14 +58,20 @@ class YAYDP_Checkout_Fee_Manager {
 	 */
 	public function calculate_pricings() {
 
-		if ( \yaydp_has_cart_block() ) {
-			if ( apply_filters( 'yaydp_prevent_recalculate_cart_discount', false ) ) {
-				return;
-			}
-		} else {
-			remove_action( 'woocommerce_before_calculate_totals', array( self::get_instance(), 'calculate_pricings' ), YAYDP_CHECKOUT_CALCULATE_PRIORITY );
-			remove_action( 'woocommerce_cart_calculate_fees', array( self::get_instance(), 'calculate_pricings' ) );
+		// if ( \yaydp_has_cart_block() ) {
+		// 	if ( apply_filters( 'yaydp_prevent_recalculate_cart_discount', false ) ) {
+		// 		return;
+		// 	}
+		// } else {
+		// 	remove_action( 'woocommerce_before_calculate_totals', array( self::get_instance(), 'calculate_pricings' ), YAYDP_CHECKOUT_CALCULATE_PRIORITY );
+		// 	remove_action( 'woocommerce_cart_calculate_fees', array( self::get_instance(), 'calculate_pricings' ) );
+		// }
+
+		static $has_run = false;
+		if ( $has_run ) {
+			return;
 		}
+		$has_run = true;
 
 		do_action( 'yaydp_before_calculate_checkout_fee' );
 

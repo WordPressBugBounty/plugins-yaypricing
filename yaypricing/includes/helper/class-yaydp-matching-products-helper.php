@@ -115,6 +115,7 @@ class YAYDP_Matching_Products_Helper {
 			'exclude' => $ids,
 		);
 		$args         = array(
+			'post_status' => 'publish', // Only show published products
 			'limit' => -1,
 		);
 		$args         = array_merge( $args, self::get_order( $order ) );
@@ -137,6 +138,7 @@ class YAYDP_Matching_Products_Helper {
 		}
 		if ( 'in_list' === $comparation ) {
 			$args     = array(
+				'post_status' => 'publish', // Only show published products
 				'limit'   => -1,
 				'type'    => 'variation',
 				'include' => $ids,
@@ -145,6 +147,7 @@ class YAYDP_Matching_Products_Helper {
 			$products = \wc_get_products( $args );
 		} else {
 			$args     = array(
+				'post_status' => 'publish', // Only show published products
 				'limit' => -1,
 			);
 			$args     = array_merge( $args, self::get_order( $order ) );
@@ -190,6 +193,7 @@ class YAYDP_Matching_Products_Helper {
 			return array();
 		}
 		$args     = array(
+			'post_status' => 'publish', // Only show published products
 			'limit'     => -1,
 			'tax_query' => array(
 				array(
@@ -216,6 +220,7 @@ class YAYDP_Matching_Products_Helper {
 			return array();
 		}
 		$args     = array(
+			'post_status' => 'publish', // Only show published products
 			'limit'     => -1,
 			'tax_query' => array(
 				array(
@@ -242,6 +247,7 @@ class YAYDP_Matching_Products_Helper {
 			return array();
 		}
 		$args     = array(
+			'post_status' => 'publish', // Only show published products
 			'limit'                      => -1,
 			'yaydp_product_price_filter' => array(
 				'price'       => $value,
@@ -294,6 +300,7 @@ class YAYDP_Matching_Products_Helper {
 			);
 		}
 		$args     = array(
+			'post_status' => 'publish', // Only show published products
 			'limit'     => -1,
 			'tax_query' => $queries,
 		);
@@ -374,7 +381,7 @@ class YAYDP_Matching_Products_Helper {
 		WHERE 1=1 
 		AND ( $main_query ) AND 
 		wp_posts.post_type = 'product' 
-		AND ((wp_posts.post_status = 'publish' OR wp_posts.post_status = 'draft' OR wp_posts.post_status = 'pending' OR wp_posts.post_status = 'private'))
+		AND wp_posts.post_status = 'publish'
 		GROUP BY wp_posts.ID
 		ORDER BY wp_posts.post_title $order";
 

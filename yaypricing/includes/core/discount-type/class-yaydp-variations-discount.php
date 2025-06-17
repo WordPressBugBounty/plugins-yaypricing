@@ -35,7 +35,7 @@ class YAYDP_Variations_Discount {
 					$matching_items[ $set_key ] = $initial_value;
 				}
 				$matching_items[ $set_key ]['bought_quantity'] += $item_bought_quantity;
-				$matching_items[ $set_key ]['items'][]          = $product;
+				$matching_items[ $set_key ]['items'][]          = $item;
 			}
 		}
 		foreach ( $matching_items as $i ) {

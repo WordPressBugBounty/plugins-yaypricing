@@ -9,6 +9,8 @@
 
 namespace YAYDP\Core\Sale_Display;
 
+use DOMDocument;
+
 /**
  * Declare class
  */
@@ -69,14 +71,27 @@ class YAYDP_Sale_Flash {
 			return $html;
 		}
 		$sale_tag_content = $sale_tag->get_content();
-		$html             = str_replace( '</div>', $sale_tag_content . '</div>', $html );
+		libxml_use_internal_errors(true);
+		$dom = new DOMDocument();
+		$dom->loadHTML( $html, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD );
+		$fragment = $dom->createDocumentFragment();
+		$fragment->appendXML( $sale_tag_content );
+		if ( ! $fragment->hasChildNodes() ) {
+			return $html;
+		}
+		if ( $dom->firstChild ) {
+			$dom->firstChild->appendChild( $fragment );
+		} else {
+			$dom->appendChild( $fragment );
+		}
+		$html = $dom->saveHTML();
 		return $html;
 	}
 
 	/**
 	 * Callback for woocommerce_sale_flash hook
 	 *
-	 * @param string      $wc_sale_flash_html HTML.
+	 * @param string $wc_sale_flash_html HTML.
 	 * @param
 	 * @param \WC_Product $product Given product.
 	 */
