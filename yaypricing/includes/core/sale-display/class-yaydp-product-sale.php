@@ -277,13 +277,8 @@ class YAYDP_Product_Sale {
 		}
 
 		if ( \yaydp_is_variable_product( $product ) ) {
-			$min_price      = \yaydp_get_variable_product_min_price( $product );
-			$max_price      = \yaydp_get_variable_product_max_price( $product );
 			$has_discounted = false;
-			$result         = array(
-				'min' => $min_price,
-				'max' => $max_price,
-			);
+			$all_prices = array();
 			$children_id    = $product->get_children();
 			$children       = array_map(
 				function( $id ) {
@@ -297,13 +292,21 @@ class YAYDP_Product_Sale {
 				}
 				$sub = $this->get_relative_min_max_discounted_price_per_product( $child );
 				if ( is_null( $sub ) ) {
+					$original_price = \YAYDP\Helper\YAYDP_Pricing_Helper::get_product_price( $child );
+					if ( ! empty( $original_price ) ) {
+						$all_prices[] = $original_price;
+					}
 					continue;
 				}
 				$has_discounted = true;
-				$result['min']  = min( $sub['min'], $result['min'] );
-				$result['max']  = max( $sub['max'], $result['max'] );
+				$all_prices[] = $sub['min'];
+				$all_prices[] = $sub['max'];
 			}
-			if ( $has_discounted ) {
+			if ( $has_discounted && ! empty( $all_prices ) ) {
+				$result = array(
+					'min' => min( $all_prices ),
+					'max' => max( $all_prices ),
+				);
 				return $result;
 			}
 			return null;
@@ -353,25 +356,26 @@ class YAYDP_Product_Sale {
 				$children_id
 			);
 			$has_discounted = false;
+			$all_prices = array();
 			foreach ( $children as $child ) {
 				if ( empty( $child ) ) {
 					continue;
 				}
 				$sub = $this->get_absolute_min_max_discounted_price_per_product( $child );
 				if ( is_null( $sub ) ) {
-					if ( is_null( $result['min'] ) ) {
-						$result['min'] = \YAYDP\Helper\YAYDP_Pricing_Helper::get_product_price( $child );
-					}
-					if ( is_null( $result['max'] ) ) {
-						$result['max'] = \YAYDP\Helper\YAYDP_Pricing_Helper::get_product_price( $child );
+					$original_price = \YAYDP\Helper\YAYDP_Pricing_Helper::get_product_price( $child );
+					if ( ! empty( $original_price ) ) {
+						$all_prices[] = $original_price;
 					}
 					continue;
 				}
 				$has_discounted = true;
-				$result['min']  = is_null( $result['min'] ) ? $sub['min'] : min( $sub['min'], $result['min'] );
-				$result['max']  = is_null( $result['max'] ) ? $sub['max'] : max( $sub['max'], $result['max'] );
+				$all_prices[] = $sub['min'];
+				$all_prices[] = $sub['max'];
 			}
-			if ( $has_discounted ) {
+			if ( $has_discounted && ! empty( $all_prices ) ) {
+				$result['min'] = min( $all_prices );
+				$result['max'] = max( $all_prices );
 				return $result;
 			}
 			return null;

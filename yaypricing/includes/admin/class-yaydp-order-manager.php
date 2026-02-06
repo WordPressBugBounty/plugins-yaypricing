@@ -75,6 +75,7 @@ class YAYDP_Order_Manager {
 			} else {
 				$original_price = $_product->get_sale_price();
 			}
+			$original_price = apply_filters( 'yaydp_other_source_product_base_price', floatval( $original_price ), $_product );
 			echo '<td class="item_original_price" data-sort-value="' . esc_attr( $original_price ) . '"><del>' . \wc_price( $original_price ) . '</del></td>';
 		}
 	}
@@ -94,6 +95,7 @@ class YAYDP_Order_Manager {
 			} else {
 				$original_price = $product->get_sale_price();
 			}
+			$original_price = apply_filters( 'yaydp_other_source_product_base_price', floatval( $original_price ), $product );
 			$quantity = $item->get_quantity();
 			$original_total += (float)$original_price * (float)$quantity;
 		}

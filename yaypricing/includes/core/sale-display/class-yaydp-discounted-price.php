@@ -30,6 +30,10 @@ class YAYDP_Discounted_Price {
 	 * @param \WC_Product $product Current product.
 	 */
 	public function change_product_price_html( $html, $product ) {
+		$can_current_user_see_discounted_price = apply_filters( 'yaydp_can_current_user_see_discount_rule', true );
+		if ( ! $can_current_user_see_discounted_price ) {
+			return $html;
+		}
 		if ( apply_filters( 'yaydp_change_price_html', true ) === false ) {
 			return $html;
 		}
@@ -44,6 +48,7 @@ class YAYDP_Discounted_Price {
 
 		$product_sale             = new \YAYDP\Core\Sale_Display\YAYDP_Product_Sale( $product );
 		$min_max_discounted_price = $product_sale->get_min_max_discounted_price();
+		$product_price            = \YAYDP\Helper\YAYDP_Pricing_Helper::get_product_price( $product );
 
 		// Note: Acceptable when not empty min_max. Current price is different with min_max.
 		if ( is_null( $min_max_discounted_price ) ) {
@@ -57,7 +62,6 @@ class YAYDP_Discounted_Price {
 				return $html;
 			}
 		} else {
-			$product_price = \YAYDP\Helper\YAYDP_Pricing_Helper::get_product_price( $product );
 			if ( $product_price === $min_max_discounted_price['min'] && $product_price === $min_max_discounted_price['max'] ) {
 				return $html;
 			}
@@ -67,11 +71,13 @@ class YAYDP_Discounted_Price {
 		$max_discounted_price = $min_max_discounted_price['max'];
 		$min_discounted_rate  = 1;
 		$max_discounted_rate  = 1;
-		if ( ! empty( $min_discounted_price ) ) {
-			$min_discounted_rate = ! empty( $min_price ) ? ( $min_discounted_price / $min_price ) : ( $min_discounted_price / $product_price );
+		$base_min_price       = isset( $min_price ) ? floatval( $min_price ) : floatval( $product_price );
+		$base_max_price       = isset( $max_price ) ? floatval( $max_price ) : floatval( $product_price );
+		if ( ! empty( $min_discounted_price ) && $base_min_price > 0 ) {
+			$min_discounted_rate = $min_discounted_price / $base_min_price;
 		}
-		if ( ! empty( $max_discounted_price ) ) {
-			$max_discounted_rate = ! empty( $max_price ) ? ( $max_discounted_price / $max_price ) : ( $max_discounted_price / $product_price );
+		if ( ! empty( $max_discounted_price ) && $base_max_price > 0 ) {
+			$max_discounted_rate = $max_discounted_price / $base_max_price;
 		}
 
 		$show_discounted_with_regular_price = \YAYDP\Settings\YAYDP_Product_Pricing_Settings::get_instance()->show_discounted_with_regular_price();

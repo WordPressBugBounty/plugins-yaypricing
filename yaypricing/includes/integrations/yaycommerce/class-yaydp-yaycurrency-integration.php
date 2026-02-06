@@ -29,6 +29,7 @@ class YAYDP_YayCurrency_Integration {
 				add_filter( 'yaydp_converted_price', array( __CLASS__, 'convert_price' ) );
 				add_filter( 'yaydp_reversed_price', array( __CLASS__, 'reverse_price' ) );
 				add_filter( 'yaydp_product_fixed_price', array( __CLASS__, 'get_product_fixed_price' ), 10, 2 );
+				add_filter('wc_aelia_cs_convert', array( __CLASS__, 'convert_price' ));
 			}
 			add_action( 'yaydp_before_set_cart_item_price', array( __CLASS__, 'before_set_cart_item_price' ), 10, 2 );
 			add_action( 'yaydp_remove_3rd_currency_format', array( __CLASS__, 'remove_currency_formmat' ), 10 );
@@ -36,6 +37,8 @@ class YAYDP_YayCurrency_Integration {
 			add_filter( 'yaydp_extra_conditions', array( $this, 'currency_condition' ) );
 			add_filter( 'yaydp_check_yaycurrency_currency_condition', array( $this, 'check_yaycurrency_currency_condition' ), 10, 2 );
 			add_filter( 'yaydp_converted_fee', array( __CLASS__, 'convert_fee' ) );
+
+			add_filter('yay_currency_is_cart_fees_original', array( $this, 'is_cart_fees_original' ), 10, 1);
 		}
 		if ( class_exists( 'Yay_Currency\Engine\FEPages\WooCommerceCurrency' ) ) {
 			add_action(
@@ -203,6 +206,10 @@ class YAYDP_YayCurrency_Integration {
 			return 'in_list' === $condition['comparation'] ? $in_list : ! $in_list;
 		}
 		return false;
+	}
+
+	public function is_cart_fees_original( $flag ) {
+		return true;
 	}
 
 }

@@ -24,11 +24,11 @@ class YAYDP_B2BKing_Integration {
 		if ( ! class_exists( 'B2bking' ) ) {
 			return;
 		}
-
 		add_filter( 'yaydp_extra_conditions', array( $this, 'user_group_condition' ) );
 		add_filter( 'yaydp_extra_conditions', array( $this, 'user_role_condition' ) );
 		add_filter( 'yaydp_check_b2bking_user_group_condition', array( $this, 'check_b2bking_user_group_condition' ), 10, 2 );
 		add_filter( 'yaydp_check_b2bking_custom_role_condition', array( $this, 'check_b2bking_user_condition' ), 10, 2 );
+		add_filter( 'yaydp_other_source_product_base_price', array( $this, 'get_product_base_price' ), 10, 2 );
 
 	}
 
@@ -146,6 +146,29 @@ class YAYDP_B2BKing_Integration {
 		$intersection_groups = array_intersect( $condition_values, [ $group_id ] );
 		return 'in_list' === $condition['comparation'] ? ! empty( $intersection_groups ) : empty( $intersection_groups );
 		
+	}
+
+	public function get_product_base_price( $price, $product ) {
+		if ( ! function_exists( 'b2bking' ) ) {
+			return $price;
+		}
+		
+		if ( ! apply_filters( 'yaydp_discount_based_on_other_source', false ) ) {
+			return $price;
+		}
+
+		$group_id = \b2bking()->get_user_group();
+		$product_regular_price = get_post_meta( $product->get_id(), 'b2bking_regular_product_price_group_' . $group_id, true );
+		$product_sale_price = get_post_meta( $product->get_id(), 'b2bking_sale_product_price_group_' . $group_id, true );
+		$settings                  = \YAYDP\Settings\YAYDP_Product_Pricing_Settings::get_instance();
+		$is_based_on_regular_price = 'regular_price' === $settings->get_discount_base_on();
+		$is_product_on_sale = ! empty( $product_sale_price );
+		$sale_price                = $is_product_on_sale ? $product_sale_price : $product_regular_price;
+		$product_price             = $is_based_on_regular_price ? $product_regular_price : $sale_price;
+		if ( empty( $product_price ) ) {
+			return $price;
+		}
+		return $product_price;
 	}
 
 }

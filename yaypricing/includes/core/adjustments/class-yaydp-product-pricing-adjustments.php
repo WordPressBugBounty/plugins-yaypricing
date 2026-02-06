@@ -31,7 +31,7 @@ class YAYDP_Product_Pricing_Adjustments extends \YAYDP\Abstracts\YAYDP_Adjustmen
 	/**
 	 * Collect adjustment
 	 *
-	 * @overrideget_shop_coupon_data
+	 * @override
 	 */
 	public function collect() {
 		$running_rules = \yaydp_get_running_product_pricing_rules();
@@ -52,11 +52,11 @@ class YAYDP_Product_Pricing_Adjustments extends \YAYDP\Abstracts\YAYDP_Adjustmen
 			return;
 		}
 
-		if ( \yaydp_product_pricing_is_applied_to_maximum_amount_per_order() ) {
+		if ( \yaydp_product_pricing_is_applied_to_maximum_amount_per_order() || \yaydp_product_pricing_is_applied_to_maximum_amount_per_item() ) {
 			parent::sort_by_desc_amount();
 		}
 
-		if ( \yaydp_product_pricing_is_applied_to_minimum_amount_per_order() ) {
+		if ( \yaydp_product_pricing_is_applied_to_minimum_amount_per_order() || \yaydp_product_pricing_is_applied_to_minimum_amount_per_item() ) {
 			parent::sort_by_asc_amount();
 		}
 
@@ -68,6 +68,7 @@ class YAYDP_Product_Pricing_Adjustments extends \YAYDP\Abstracts\YAYDP_Adjustmen
 	 * @override
 	 */
 	public function apply() {
+		$applied_items = [];
 		foreach ( $this->adjustments as $adjustment ) {
 			if ( ! $adjustment->check_conditions() ) {
 				continue;

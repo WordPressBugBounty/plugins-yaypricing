@@ -85,6 +85,20 @@ class YAYDP_Admin_Settings {
 				),
 			),
 			array(
+				'value'        => 'product_specific_attributes',
+				'label'        => 'Product specific attributes',
+				'comparations' => array(
+					array(
+						'value' => 'in_list',
+						'label' => 'In list',
+					),
+					array(
+						'value' => 'not_in_list',
+						'label' => 'Not in list',
+					),
+				),
+			),
+			array(
 				'value'        => 'product_attribute_taxonomies',
 				'label'        => 'Product attribute taxonomies',
 				'comparations' => array(

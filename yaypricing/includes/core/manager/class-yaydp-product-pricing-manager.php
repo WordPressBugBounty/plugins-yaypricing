@@ -20,7 +20,7 @@ class YAYDP_Product_Pricing_Manager {
 	 * Constructor
 	 */
 	private function __construct() {
-		add_action( 'woocommerce_before_calculate_totals', array( $this, 'calculate_pricings' ), YAYDP_PRODUCT_CALCULATE_PRIORITY );
+		add_action( 'woocommerce_before_calculate_totals', array( $this, 'calculate_pricings' ), 110 );
 		add_action( 'yaydp_before_calculate_product_pricing', array( $this, 'before_calculate_pricings' ), 10 );
 		add_action( 'yaydp_after_calculate_product_pricing', array( $this, 'after_calculate_pricings' ), 10 );
 		add_action( 'woocommerce_before_mini_cart', array( $this, 'recalculate_mini_cart' ), 10 );
@@ -83,6 +83,32 @@ class YAYDP_Product_Pricing_Manager {
 		$this->handle_discounted_price();
 
 		$this->handle_use_time();
+
+		add_filter( 'woocommerce_add_cart_item', function( $cart_item ){
+			global $yaydp_cart;
+
+			if ( ! $yaydp_cart ) {
+				return $cart_item;
+			}
+
+			foreach ( $yaydp_cart->get_items_include_extra() as $item ) {
+				if ( $item->get_key() !== $cart_item['key'] && $item->get_key() != null ) {
+					continue; 
+				}
+
+				if ( $item->is_extra() ) {
+					$cart_item['is_extra'] = true;
+					$cart_item['extra_data'] = \yaydp_serialize_cart_data( $item->get_extra_data() );
+					$cart_item['modifiers'] = \yaydp_serialize_cart_data( $item->get_modifiers() );
+					$cart_item['yaydp_custom_data'] = array(
+						'price' => 0,
+					);
+				}
+			}
+
+			return $cart_item;
+		}, PHP_INT_MAX );
+
 	}
 
 	/**
@@ -389,7 +415,7 @@ class YAYDP_Product_Pricing_Manager {
 				return;
 			}
 			?>
-		<tr>
+		<tr class="yaydp-saving-amount">
 			<th><?php esc_html_e( 'Product discounts', 'yaypricing' ); ?></th>
 			<td><?php echo wp_kses_post( \wc_price( $saved_amount ) ); ?></td>
 		</tr>

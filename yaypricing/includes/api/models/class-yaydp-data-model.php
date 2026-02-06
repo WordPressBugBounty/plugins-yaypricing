@@ -394,6 +394,68 @@ class YAYDP_Data_Model {
 
 	}
 
+	/**
+	 * Retrieves product specific attributes in database by search query
+	 *
+	 * @param string $search Search name.
+	 * @param number $page Current page.
+	 * @param number $limit Limit to get.
+	 */
+	public static function get_product_specific_attributes( $search = '', $page = 1, $limit = YAYDP_SEARCH_LIMIT ) {
+		$offset = ( $page - 1 ) * $limit;
+
+		$args = array(
+			'limit' => -1,
+		);
+
+		$products = \wc_get_products( $args );
+		$specific_attributes = array();
+
+		foreach ( $products as $product ) {
+			$product_attributes = $product->get_attributes();
+
+			foreach ( $product_attributes as $attribute ) {
+				if ( ! $attribute->is_taxonomy() ) {
+					$attribute_name = $attribute->get_name();
+					$attribute_options = $attribute->get_options();
+
+					foreach ( $attribute_options as $option ) {
+						if ( empty( $option ) ) {
+							continue;
+						}
+
+						$slug = sanitize_title( $attribute_name . '_' . $option );
+
+						if ( ! empty( $search ) ) {
+							$option_lower = strtolower( $option );
+							$name_lower = strtolower( $attribute_name );
+							$search_lower = strtolower( $search );
+
+							if ( strpos( $option_lower, $search_lower ) === false && 
+								 strpos( $name_lower, $search_lower ) === false ) {
+								continue;
+							}
+						}
+
+						if ( ! isset( $specific_attributes[ $slug ] ) ) {
+							$specific_attributes[ $slug ] = array(
+								'id'             => $slug,
+								'name'           => $attribute_name . ': ' . $option,
+								'slug'           => $slug,
+								'attribute_name' => $attribute_name,
+								'option'         => $option
+							);
+						}
+					}
+				}
+			}
+		}
+
+		$specific_attributes = array_values( $specific_attributes );
+
+		return array_slice( $specific_attributes, $offset, $limit );
+	}
+
 
 	/**
 	 * Retrieves all regions and its country in database by search query

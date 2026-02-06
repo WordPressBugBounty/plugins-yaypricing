@@ -27,15 +27,16 @@ class YAYDP_Condition_Helper {
 		$match_type = $rule->get_condition_match_type();
 		$conditions = $rule->get_conditions();
 		$cart_items = $cart->get_items();
-		return self::check_list_conditions( $conditions, $match_type, $cart_items, $rule );
+
+		return self::check_list_conditions( $conditions, $match_type, $cart_items, $rule, $cart );
 	}
 
-	public static function check_list_conditions( $conditions, $match_type, $cart_items, $rule = null ) {
+	public static function check_list_conditions( $conditions, $match_type, $cart_items, $rule = null, $cart = null ) {
 		$check = true;
 		foreach ( $conditions as $condition ) {
 			switch ( $condition['type'] ) {
 				case 'cart_subtotal_price':
-					$check = self::check_cart_subtotal_price( $cart_items, $condition );
+					$check = self::check_cart_subtotal_price( $cart_items, $condition, $rule, $cart );
 					break;
 				case 'cart_quantity':
 					$check = self::check_cart_quantity( $cart_items, $condition );
@@ -201,19 +202,25 @@ class YAYDP_Condition_Helper {
 	/**
 	 * Check if cart match subtotal price condition.
 	 *
-	 * @param array $cart_items Cart items.
-	 * @param array $condition Checking condition.
+	 * @param array                              $cart_items Cart items.
+	 * @param array                              $condition Checking condition.
+	 * @param \YAYDP\Abstracts\YAYDP_Rule|null  $rule       Rule object (optional).
+	 * @param \YAYDP\Core\YAYDP_Cart|null       $cart       Cart object (optional).
 	 *
 	 * @return bool
 	 */
-	public static function check_cart_subtotal_price( $cart_items, $condition ) {
-		$subtotal = 0;
-		foreach ( $cart_items as $cart_item ) {
-
-			$cart_item_quantity = $cart_item->get_quantity();
-			$cart_item_price    = $cart_item->get_store_price(); // TODO: split settings to overlappsed rules
-			$subtotal          += $cart_item_quantity * $cart_item_price;
-
+	public static function check_cart_subtotal_price( $cart_items, $condition, $rule = null, $cart = null ) {
+		// For checkout fee rules, use the cart's after-discount subtotal
+		if ( ! is_null( $rule ) && ! is_null( $cart ) && \yaydp_is_checkout_fee( $rule ) ) {
+			$subtotal = $cart->get_cart_subtotal( false );
+		} else {
+			// For other rules, calculate subtotal from cart items
+			$subtotal = 0;
+			foreach ( $cart_items as $cart_item ) {
+				$cart_item_quantity = $cart_item->get_quantity();
+				$cart_item_price    = $cart_item->get_price(); // TODO: split settings to overlappsed rules
+				$subtotal          += $cart_item_quantity * $cart_item_price;
+			}
 		}
 
 		$check = \yaydp_compare_numeric( $subtotal, $condition['value'], $condition['comparation'] );
@@ -736,47 +743,6 @@ class YAYDP_Condition_Helper {
 	}
 
 	/**
-	 * Returns cart items that match category condition.
-	 *
-	 * @since 2.2
-	 * @param array $cart_items Checking cart items.
-	 * @param array $condition  Checking category condition.
-	 *
-	 * @return array
-	 */
-	public static function get_cart_items_match_tag( $cart_items, $condition ) {
-		$matching_items              = array();
-		$not_matching_items          = array();
-		$tags_in_cart                = array();
-		$list_category_id            = \YAYDP\Helper\YAYDP_Helper::map_filter_value( $condition );
-		$translated_list_category_id = apply_filters( 'yaydp_translated_list_object_id', $list_category_id, 'product_tag' );
-		foreach ( $cart_items as $cart_item ) {
-			$product      = $cart_item->get_product();
-			$product_tags = \YAYDP\Helper\YAYDP_Product_Helper::get_product_tags( $product );
-			$tags_in_cart = array_merge( $tags_in_cart, $product_tags );
-			if ( ! empty( array_intersect( $product_tags, $translated_list_category_id ) ) ) {
-				$matching_items[] = $cart_item;
-			} else {
-				$not_matching_items[] = $cart_item;
-			}
-		}
-
-		$tags_in_cart    = array_unique( $tags_in_cart );
-		$array_intersect = array_intersect( $tags_in_cart, $translated_list_category_id );
-
-		if ( 'contain' === $condition['comparation'] ) {
-			return ! empty( $array_intersect ) ? $matching_items : array();
-		}
-
-		if ( 'contain_all' === $condition['comparation'] ) {
-			return count( $array_intersect ) === count( $list_category_id ) ? $matching_items : array();
-		}
-
-		return empty( $array_intersect ) ? $not_matching_items : array();
-		// return $not_matching_items;
-	}
-
-	/**
 	 * Check if cart items match list category.
 	 *
 	 * @since 2.2
@@ -798,25 +764,42 @@ class YAYDP_Condition_Helper {
 	}
 
 	/**
-	 * Check if cart items match list tag.
-	 *
+	 * Check cart item tags.
+	 * 
 	 * @since 2.2
 	 * @param array $cart_items Checking cart items.
-	 * @param array $condition  Checking tag condition.
+	 * @param array $condition  Checking tag condition with 'comparation' and filter tags.
 	 *
 	 * @return bool
 	 */
 	public static function check_cart_item_tag( $cart_items, $condition ) {
-		$matching_items = self::get_cart_items_match_tag( $cart_items, $condition );
-
-		if ( ! in_array( $condition['comparation'], array( 'contain', 'contain_all' ) ) ) {
-			return empty( $matching_items );
+		$all_cart_tags = array();
+		foreach ( $cart_items as $cart_item ) {
+			$product = $cart_item->get_product();
+			$product_tags = \YAYDP\Helper\YAYDP_Product_Helper::get_product_tags( $product );
+			$all_cart_tags = array_merge( $all_cart_tags, $product_tags );
 		}
+		$all_cart_tags = array_unique( $all_cart_tags );
 
-		if ( ! empty( $matching_items ) ) {
-			return true;
+		$filter_tags = \YAYDP\Helper\YAYDP_Helper::map_filter_value( $condition );
+		$translated_filter_tags = apply_filters( 'yaydp_translated_list_object_id', $filter_tags, 'product_tag' );
+
+		switch ( $condition['comparation'] ) {
+			case 'contain_all':
+				$intersection = array_intersect( $all_cart_tags, $translated_filter_tags );
+				return count( $intersection ) === count( $translated_filter_tags );
+
+			case 'contain':
+				$intersection = array_intersect( $all_cart_tags, $translated_filter_tags );
+				return ! empty( $intersection );
+
+			case 'not_contain':
+				$intersection = array_intersect( $all_cart_tags, $translated_filter_tags );
+				return empty( $intersection );
+
+			default:
+				return false;
 		}
-		return false;
 	}
 
 	/**
@@ -894,8 +877,8 @@ class YAYDP_Condition_Helper {
 		}
 
 		$coupons          = array_map(
-			function( $code ) {
-				return strtolower( $code );
+			function ( $code ) {
+				return mb_strtolower( $code, 'UTF-8' );
 			},
 			$coupons
 		);
@@ -904,7 +887,7 @@ class YAYDP_Condition_Helper {
 			function( $id ) {
 				$code = \wc_get_coupon_code_by_id( $id );
 				if ( ! is_null( $code ) ) {
-					  $code = strtolower( $code );
+					$code = mb_strtolower( $code, 'UTF-8' );
 				}
 				return $code;
 			},
@@ -1152,6 +1135,10 @@ class YAYDP_Condition_Helper {
 		}
 		$list_id         = \YAYDP\Helper\YAYDP_Helper::map_filter_value( $condition );
 		$in_list         = false;
+
+		if ( empty( $shipping_methods ) ) {
+			return false;
+		}
 
 		foreach ( $shipping_methods as $method ) {
 			$method_id = explode( ':', $method )[0];

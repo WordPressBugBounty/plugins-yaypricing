@@ -72,7 +72,8 @@ class YAYDP_Pricing_Helper {
 		$sale_price                = $is_product_on_sale ? $product_sale_price : $product_regular_price;
 		$product_price             = $is_based_on_regular_price ? $product_regular_price : $sale_price;
 		$product_price             = self::get_product_fixed_price( $product_price, $product );
-		// $product_price 			   = \wc_get_price_to_display($product, ['price' => $product_price]);
+		// $product_price = \wc_get_price_to_display($product, ['price' => $product_price]);
+		$product_price = apply_filters( 'yaydp_other_source_product_base_price', floatval( $product_price ), $product );
 		return apply_filters( 'yaydp_initial_product_price', floatval( $product_price ), $product );
 	}
 

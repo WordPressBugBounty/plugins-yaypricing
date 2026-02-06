@@ -313,7 +313,7 @@ class YAYDP_Buy_X_Get_Y extends \YAYDP\Abstracts\YAYDP_Product_Pricing_Rule {
 
 		$bought_cases_by_filters = array();
 		foreach ( $buy_filters as $filter ) {
-			$line_filter_bought_cases = $this->get_bought_case_by_line_filter( $cart, array( $filter ), $filter['quantity'] );
+			$line_filter_bought_cases = $this->get_bought_case_by_line_filter( $cart, array( $filter ), $filter['quantity'], $this );
 			if ( empty( $line_filter_bought_cases ) ) {
 				if ( $is_all_match_type ) {
 					break;
@@ -357,15 +357,15 @@ class YAYDP_Buy_X_Get_Y extends \YAYDP\Abstracts\YAYDP_Product_Pricing_Rule {
 	 * @param array                  $filters Filters.
 	 * @param float                  $quantity Buy quantity.
 	 */
-	protected function get_bought_case_by_line_filter( $cart, $filters, $quantity ) {
+	protected function get_bought_case_by_line_filter( $cart, $filters, $quantity, $rule ) {
 		if ( parent::is_all_together_discount() ) {
-			return \YAYDP\Core\Discount_Type\YAYDP_Filter_Discount::get_matching_cases( $cart, $filters, $quantity, 'all' );
+			return \YAYDP\Core\Discount_Type\YAYDP_Filter_Discount::get_matching_cases( $cart, $filters, $quantity, 'all', $rule );
 		}
 		if ( parent::is_individual_line_item_discount() ) {
-			return \YAYDP\Core\Discount_Type\YAYDP_Individual_Discount::get_matching_cases( $cart, $filters, $quantity, 'all' );
+			return \YAYDP\Core\Discount_Type\YAYDP_Individual_Discount::get_matching_cases( $cart, $filters, $quantity, 'all', $rule );
 		}
 		if ( parent::is_variations_discount() ) {
-			return \YAYDP\Core\Discount_Type\YAYDP_Variations_Discount::get_matching_cases( $cart, $filters, $quantity, 'all' );
+			return \YAYDP\Core\Discount_Type\YAYDP_Variations_Discount::get_matching_cases( $cart, $filters, $quantity, 'all', $rule );
 		}
 		return array();
 	}

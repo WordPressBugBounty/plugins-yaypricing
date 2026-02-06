@@ -219,6 +219,18 @@ class YAYDP_Product_Helper {
 			);
 		}
 		$product_attributes = $product->get_attributes();
+		if ( ! empty( $product_attributes ) ) {
+			$decoded_attributes = array();
+			foreach ( $product_attributes as $taxonomy => $attribute ) {
+				if ( preg_match( '/%[0-9a-fA-F]{2}/', $taxonomy ) ) {
+					$decoded_taxonomy = urldecode( $taxonomy );
+				} else {
+					$decoded_taxonomy = $taxonomy;
+				}
+				$decoded_attributes[ $decoded_taxonomy ] = $attribute;
+			}
+			$product_attributes = $decoded_attributes;
+		}
 		if ( \yaydp_is_variation_product( $product ) ) {
 			$parent_id = $product->get_parent_id();
 			$parent    = \wc_get_product( $parent_id );
@@ -256,7 +268,7 @@ class YAYDP_Product_Helper {
 			}
 		}
 
-		if ( ! is_null( $item_key ) ) {
+		if ( ! is_null( $item_key ) && \WC()->cart ) {
 			foreach ( \WC()->cart->get_cart() as $cart_item ) {
 				if ( $cart_item['key'] === $item_key && ! empty( $cart_item['variation'] ) ) {
 					foreach ( $list_attributes as $attribute_information ) {
@@ -265,6 +277,57 @@ class YAYDP_Product_Helper {
 								$in_list = true;
 								break 2;
 							}
+						}
+					}
+				}
+			}
+		}
+
+		return 'in_list' === $filter['comparation'] ? $in_list : ! $in_list;
+	}
+
+	/**
+	 * Check if the given product has the selected specific attributes
+	 *
+	 * @param \WC_Product $product Given product.
+	 * @param array       $filter The attributes filter.
+	 * @param string|null $item_key Cart item key.
+	 *
+	 * @return boolean
+	 */
+	public static function check_specific_attributes( $product, $filter, $item_key = null ) {
+		if ( ! $product instanceof \WC_Product ) {
+			return false;
+		}
+
+		$list_attributes = $filter['value'];
+		$selected_attributes = \YAYDP\Helper\YAYDP_Helper::separate_attribute_option( array( 'title' => $list_attributes ) );
+
+		$product_attributes = $product->get_attributes();
+
+		$in_list = false;
+
+		foreach ( $selected_attributes as $attribute_info ) {
+			$selected_attribute_name = strtolower( $attribute_info['attribute'] );
+
+			if ( isset( $product_attributes[ $selected_attribute_name ] ) ) {
+				$option = $product_attributes[ $selected_attribute_name ];
+
+				if ( $attribute_info['option'] === $option ) {
+					$in_list = true;
+					break;
+				}
+			}
+		}
+
+		if ( ! is_null( $item_key ) ) {
+			foreach ( \WC()->cart->get_cart() as $cart_item ) {
+				if ( $cart_item['key'] === $item_key && ! empty( $cart_item['variation'] ) ) {
+					foreach ( $selected_attributes as $attribute_info ) {
+						$taxonomy = 'attribute_' . strtolower( $attribute_info['attribute'] );
+						if ( isset( $cart_item['variation'][ $taxonomy ] ) && $cart_item['variation'][ $taxonomy ] === $attribute_info['option'] ) {
+							$in_list = true;
+							break 2;
 						}
 					}
 				}
@@ -286,6 +349,18 @@ class YAYDP_Product_Helper {
 	public static function check_attribute_taxonomies( $product, $filter, $item_key = null ) {
 		$list_attribute_id  = \YAYDP\Helper\YAYDP_Helper::map_filter_value( $filter );
 		$product_attributes = $product->get_attributes();
+		if ( ! empty( $product_attributes ) ) {
+			$decoded_attributes = array();
+			foreach ( $product_attributes as $taxonomy => $attribute ) {
+				if ( preg_match( '/%[0-9a-fA-F]{2}/', $taxonomy ) ) {
+					$decoded_taxonomy = urldecode( $taxonomy );
+				} else {
+					$decoded_taxonomy = $taxonomy;
+				}
+				$decoded_attributes[ $decoded_taxonomy ] = $attribute;
+			}
+			$product_attributes = $decoded_attributes;
+		}
 		if ( \yaydp_is_variation_product( $product ) ) {
 			$parent_id = $product->get_parent_id();
 			$parent    = \wc_get_product( $parent_id );

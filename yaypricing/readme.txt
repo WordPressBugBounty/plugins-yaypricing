@@ -3,8 +3,8 @@ Contributors: YayCommerce
 Donate link: https://yaycommerce.com/yaypricing-woocommerce-dynamic-pricing-and-discounts/
 Tags: dynamic pricing, discounts, cart fee, buy one get one, coupon
 Requires at least: 3.0
-Tested up to: 6.8
-Stable tag: 3.5.3
+Tested up to: 6.9
+Stable tag: 3.5.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -125,6 +125,24 @@ A big yes! YayPricing is compliant with GDPR. It doesn't collect your WooCommerc
 6. Gift item of "Buy one get one free" promotion automatically added to cart page
 
 == Changelog ==
+
+= Dec 24, 2025 - Version 3.5.4 =
+- Added: Integrate with Fly Cart.
+- Added: Integrate with APF Pro.
+- Added: Integrate with WooCommerce Payment Currency.
+- Added: Pagination for on-sale-product v2 shortcode.
+- Added: exclude out of stock products from on-sale-product v2 shortcode.
+- Updated: Improve sale badge logics.
+- Updated: Cart checks.
+- Updated: Improve compatibility with Astra theme.
+- Updated: Improve check_shipping_method function.
+- Updated: Improve cart discount name to pass rule checks.
+- Updated: Improve sale badge display for some themes.
+- Updated: Improve variation selection script.
+- Fixed: Overlaps sale badge in variation products.
+- Fixed: Compare product attributes with special characters.
+- Fixed: Broken access control vulnerability.
+- Fixed: Minor issues (variable checking, syntax).
 
 = Jun 17, 2025 - Version 3.5.3 =
 - New: es_ES translation

@@ -89,10 +89,15 @@ class YAYDP_Matching_Products_Helper {
 				return self::get_product_by_price( $filter['value'], $filter['comparation'], $order );
 			case 'product_attribute':
 				return self::get_product_by_attributes( $filter['value'], $filter['comparation'], $order );
+			case 'product_specific_attributes':
+				return self::get_product_by_specific_attributes( $filter['value'], $filter['comparation'], $order );
 			case 'product_in_stock':
 				return self::get_product_by_stock_quantity( $filter['value'], $filter['comparation'], $order );
+			case 'cart_item_price_criterion':
+				return self::get_product_by_cart_item_price_criterion( $filter );
 			case 'all_product':
 				return self::get_product_by_ids( array(), 'not_in_list', $order );
+			
 			default:
 				return self::get_products_by_custom_filter( $filter['type'], $filter_values, $filter['comparation'] );
 		}
@@ -312,6 +317,130 @@ class YAYDP_Matching_Products_Helper {
 		return $products;
 	}
 
+	public static function get_product_by_specific_attributes( $filters, $comparation = 'in_list', $order = 'ASC' ) {
+		if ( empty( $filters ) ) {
+			return array();
+		}
+
+		$selected_attributes = \YAYDP\Helper\YAYDP_Helper::separate_attribute_option( array( 'title' => $filters ) );
+
+		if ( empty( $selected_attributes ) ) {
+			return array();
+		}
+
+		global $wpdb;
+
+		$meta_conditions = array();
+
+		foreach ( $selected_attributes as $attribute ) {
+			$meta_key = 'attribute_' . str_replace(" ", "-", trim(strtolower($attribute['attribute'])));
+			$meta_value = $attribute['option'];
+
+			$escaped_meta_key = $wpdb->_escape( $meta_key );
+			$escaped_meta_value = $wpdb->_escape( $meta_value );
+
+			$operator = 'in_list' === $comparation ? '=' : '!=';
+
+			$meta_conditions[] = "(meta_key {$operator} '{$escaped_meta_key}' AND meta_value {$operator} '{$escaped_meta_value}')";
+		}
+
+		if ( empty( $meta_conditions ) ) {
+			return array();
+		}
+
+		$logic_operator = 'OR';
+		$combined_conditions = implode( " {$logic_operator} ", $meta_conditions );
+
+		$meta_query = "
+			SELECT DISTINCT post_id
+			FROM {$wpdb->postmeta}
+			WHERE {$combined_conditions}
+		";
+
+		$post_ids = $wpdb->get_col( $meta_query );
+
+		if ( empty( $post_ids ) ) {
+			return array();
+		}
+
+		$products = array();
+
+		foreach ( $post_ids as $id ) {
+			$product = \wc_get_product( $id );
+			if ( ! empty( $product ) ) {
+				$products[] = $product;
+			}
+		}
+
+		return $products;
+	}
+
+	public static function get_product_by_cart_item_price_criterion( $filter ) {
+
+		if ( ! \WC()->cart ) {
+			return array();
+		}
+
+		if ( empty( $filter ) ) {
+			return array();
+		}
+
+		$cart_items = \WC()->cart->get_cart();
+
+		if ( empty( $cart_items ) ) {
+			return array();
+		}
+
+		$sorted_cart_items = array();
+
+		foreach ( $cart_items as $cart_item ) {
+			$item_product = $cart_item['data'];
+			if ( ! $item_product ) {
+				continue;
+			}
+			if ( ! ( $item_product instanceof \WC_Product ) ) {
+				continue;
+			}
+			$sorted_cart_items[] = [
+				'price' => \YAYDP\Helper\YAYDP_Pricing_Helper::get_product_price( $item_product ),
+				'product_id' => $item_product->get_id(),
+			];
+		}
+
+		usort( $sorted_cart_items, function( $a, $b ) {
+			return $b['price'] - $a['price'];
+		} );
+
+		if ( empty( $sorted_cart_items ) ) {
+			return array();
+		}
+
+		$product_id = null;
+		$count      = count( $sorted_cart_items );
+
+		if ( 'highest_price' === $filter['comparation'] ) {
+			$product_id = $sorted_cart_items[0]['product_id'];
+		} elseif ( 'lowest_price' === $filter['comparation'] ) {
+			$product_id = $sorted_cart_items[ $count - 1 ]['product_id'];
+		} elseif ( 'second_highest_price' === $filter['comparation'] && isset( $sorted_cart_items[1] ) ) {
+			$product_id = $sorted_cart_items[1]['product_id'];
+		} elseif ( 'second_lowest_price' === $filter['comparation'] && $count >= 2 ) {
+			$product_id = $sorted_cart_items[ $count - 2 ]['product_id'];
+		} elseif ( 'third_highest_price' === $filter['comparation'] && isset( $sorted_cart_items[2] ) ) {
+			$product_id = $sorted_cart_items[2]['product_id'];
+		} elseif ( 'third_lowest_price' === $filter['comparation'] && $count >= 3 ) {
+			$product_id = $sorted_cart_items[ $count - 3 ]['product_id'];
+		}
+
+		if ( $product_id ) {
+			$product = \wc_get_product( $product_id );
+			if ( $product ) {
+				return array( $product );
+			}
+		}
+
+		return array();
+	}
 
 	/**
 	 * Search products by price filter

@@ -179,6 +179,9 @@ if ( ! function_exists( 'yaydp_get_cart_total_weight' ) ) {
 	 */
 	function yaydp_get_cart_total_weight() {
 		$total = 0;
+		if ( ! \WC()->cart || ! is_a( \WC()->cart, 'WC_Cart' ) ) {
+			return $total;
+		}
 		foreach ( \WC()->cart->get_cart() as $cart_item ) {
 			if ( ! empty( $cart_item['is_extra'] ) ) {
 				continue;

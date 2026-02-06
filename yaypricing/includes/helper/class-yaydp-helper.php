@@ -82,6 +82,22 @@ class YAYDP_Helper {
 	}
 
 	/**
+	 * Get list value from filter.
+	 *
+	 * @param array $filter Given filter.
+	 *
+	 * @return array
+	 */
+	public static function map_filter_title( $filter ) {
+		return array_map(
+			function( $f ) {
+				return $f['title'];
+			},
+			$filter['title']
+		);
+	}
+
+	/**
 	 * Check whether product match filter.
 	 *
 	 * @param array       $filters Given filters.
@@ -92,7 +108,11 @@ class YAYDP_Helper {
 	 *
 	 * @return array
 	 */
-	public static function check_applicability( $filters, $product, $match_type = 'any', $item_key = null ) {
+	public static function check_applicability( $filters, $product, $match_type = 'any', $item_key = null, $rule = null ) {
+
+		if ( $rule && \YAYDP\Core\Manager\YAYDP_Exclude_Manager::check_product_exclusions( $rule, $product ) ) {
+			return false;
+		}
 
 		if ( 'publish' !== $product->get_status() ) { // Only show published products
 			return false;
@@ -129,6 +149,9 @@ class YAYDP_Helper {
 					break;
 				case 'product_attribute':
 					$check = \YAYDP\Helper\YAYDP_Product_Helper::check_attribute( $product, $filter, $item_key, $sub_filter );
+					break;
+				case 'product_specific_attributes':
+					$check = \YAYDP\Helper\YAYDP_Product_Helper::check_specific_attributes( $product, $filter, $item_key );
 					break;
 				case 'product_tag':
 					$check = \YAYDP\Helper\YAYDP_Product_Helper::check_tag( $product, $filter, $sub_filter );
@@ -466,4 +489,28 @@ class YAYDP_Helper {
 		return $matching_pairs;
 	}
 
+	/**
+	 * Separate attribute and option from array of attribute_option format strings
+	 * 
+	 * @param array $filters Array containing attribute_option strings.
+	 * @return array Array containing separated attributes and options.
+	 */
+	public static function separate_attribute_option( $filters ) {
+		$result = array();
+		$values = self::map_filter_title( $filters );
+
+		foreach ( $values as $attribute_option ) {
+			$parts = explode( ':', $attribute_option );
+			if ( count( $parts ) !== 2 ) {
+				continue;
+			}
+
+			$result[] = array(
+				'attribute' => $parts[0],
+				'option'    => trim($parts[1]),
+			);
+		}
+
+		return $result;
+	}
 }

@@ -89,6 +89,17 @@ class YAYDP_REST_PAGE_DATA_V1_CONTROLLER {
 		);
 		register_rest_route(
 			$this->namespace,
+			"/{$this->rest_base}/specific-attributes",
+			array(
+				array(
+					'methods'             => \WP_REST_Server::READABLE,
+					'callback'            => array( $this, 'get_specific_attributes' ),
+					'permission_callback' => array( $this, 'permission_callback' ),
+				),
+			)
+		);
+		register_rest_route(
+			$this->namespace,
 			"/{$this->rest_base}/tags",
 			array(
 				array(
@@ -366,6 +377,27 @@ class YAYDP_REST_PAGE_DATA_V1_CONTROLLER {
 	}
 
 	/**
+	 * Retrieves specific product attributes from the database based on the specified parameters
+	 *
+	 * @param \WP_REST_Request $request Rest request.
+	 */
+	public function get_specific_attributes( \WP_REST_Request $request ) {
+		if ( ! \YAYDP\Helper\YAYDP_Helper::verify_rest_nonce( $request ) ) {
+			return \YAYDP\Helper\YAYDP_Helper::get_verify_rest_nonce_failure_response();
+		}
+		$search_text = ! is_null( $request->get_param( 'search' ) ) ? $request->get_param( 'search' ) : '';
+		$page        = ! is_null( $request->get_param( 'page' ) ) ? $request->get_param( 'page' ) : 1;
+		$limit       = ! is_null( $request->get_param( 'limit' ) ) ? $request->get_param( 'limit' ) : YAYDP_SEARCH_LIMIT;
+		$attributes  = \YAYDP\API\Models\YAYDP_Data_Model::get_product_specific_attributes( $search_text, $page, $limit );
+		return new \WP_REST_Response(
+			array(
+				'success'  => true,
+				'data_arr' => $attributes,
+			)
+		);
+	}
+
+	/**
 	 * Retrieves product tags from the database based on the specified parameters
 	 *
 	 * @param \WP_REST_Request $request Rest request.
@@ -395,6 +427,16 @@ class YAYDP_REST_PAGE_DATA_V1_CONTROLLER {
 		if ( ! \YAYDP\Helper\YAYDP_Helper::verify_rest_nonce( $request ) ) {
 			return \YAYDP\Helper\YAYDP_Helper::get_verify_rest_nonce_failure_response();
 		}
+
+		if ( ! current_user_can( 'manage_woocommerce' ) ) {
+			return new \WP_REST_Response(
+				array(
+					'success' => false,
+					'message' => 'You have no permission to access customers data',
+				)
+			);
+		}
+
 		$search_text = ! is_null( $request->get_param( 'search' ) ) ? $request->get_param( 'search' ) : '';
 		$page        = ! is_null( $request->get_param( 'page' ) ) ? $request->get_param( 'page' ) : 1;
 		$limit       = ! is_null( $request->get_param( 'limit' ) ) ? $request->get_param( 'limit' ) : YAYDP_SEARCH_LIMIT;
@@ -416,6 +458,16 @@ class YAYDP_REST_PAGE_DATA_V1_CONTROLLER {
 		if ( ! \YAYDP\Helper\YAYDP_Helper::verify_rest_nonce( $request ) ) {
 			return \YAYDP\Helper\YAYDP_Helper::get_verify_rest_nonce_failure_response();
 		}
+
+		if ( ! current_user_can( 'manage_woocommerce' ) ) {
+			return new \WP_REST_Response(
+				array(
+					'success' => false,
+					'message' => 'You have no permission to access customers data',
+				)
+			);
+		}
+
 		$search_text = ! is_null( $request->get_param( 'search' ) ) ? $request->get_param( 'search' ) : '';
 		$page        = ! is_null( $request->get_param( 'page' ) ) ? $request->get_param( 'page' ) : 1;
 		$limit       = ! is_null( $request->get_param( 'limit' ) ) ? $request->get_param( 'limit' ) : YAYDP_SEARCH_LIMIT;

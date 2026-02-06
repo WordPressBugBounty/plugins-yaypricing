@@ -55,6 +55,7 @@ class YAYDP_Admin_Settings {
 			'product_variations'           => \YAYDP\API\Models\YAYDP_Data_Model::get_variations(),
 			'product_categories'           => \YAYDP\API\Models\YAYDP_Data_Model::get_categories(),
 			'product_attributes'           => \YAYDP\API\Models\YAYDP_Data_Model::get_attributes(),
+			'product_specific_attributes'  => \YAYDP\API\Models\YAYDP_Data_Model::get_product_specific_attributes(),
 			'product_attribute_taxonomies' => \YAYDP\API\Models\YAYDP_Data_Model::get_attribute_taxonomies(),
 			'product_tags'                 => \YAYDP\API\Models\YAYDP_Data_Model::get_tags(),
 			'customer_roles'               => \YAYDP\API\Models\YAYDP_Data_Model::get_customer_roles(),

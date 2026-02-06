@@ -89,6 +89,30 @@ if ( ! function_exists( 'yaydp_product_pricing_is_applied_to_maximum_amount_per_
 	}
 }
 
+if ( ! function_exists( 'yaydp_product_pricing_is_applied_to_maximum_amount_per_item' ) ) {
+	/**
+	 * Check whether how to apply settings is "apply maximum amount"
+	 *
+	 * @since 2.4
+	 */
+	function yaydp_product_pricing_is_applied_to_maximum_amount_per_item() {
+		$settings = \YAYDP\Settings\YAYDP_Product_Pricing_Settings::get_instance();
+		return 'highest_amount_per_item' === $settings->get_how_to_apply();
+	}
+}
+
+if ( ! function_exists( 'yaydp_product_pricing_is_applied_to_minimum_amount_per_item' ) ) {
+	/**
+	 * Check whether how to apply settings is "apply minimum amount"
+	 *
+	 * @since 2.4
+	 */
+	function yaydp_product_pricing_is_applied_to_minimum_amount_per_item() {
+		$settings = \YAYDP\Settings\YAYDP_Product_Pricing_Settings::get_instance();
+		return 'smallest_amount_per_item' === $settings->get_how_to_apply();
+	}
+}
+
 if ( ! function_exists( 'yaydp_product_pricing_is_discount_based_on_regular_price' ) ) {
 	/**
 	 * Check whether discount based on settings is "regular price"

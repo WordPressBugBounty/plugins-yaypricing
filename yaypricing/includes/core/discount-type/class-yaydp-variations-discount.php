@@ -13,7 +13,7 @@ namespace YAYDP\Core\Discount_Type;
  * Declare class
  */
 class YAYDP_Variations_Discount {
-	public static function get_matching_cases( \YAYDP\Core\YAYDP_Cart $cart, $filters, $quantity = 1, $match_type = 'any' ) {
+	public static function get_matching_cases( \YAYDP\Core\YAYDP_Cart $cart, $filters, $quantity = 1, $match_type = 'any', $rule = null ) {
 		$result          = array();
 		$filter_quantity = $quantity;
 		$matching_items  = array();
@@ -23,7 +23,7 @@ class YAYDP_Variations_Discount {
 			$product_parent_id          = $product->get_parent_id();
 			$has_parent                 = ! empty( $product_parent_id );
 			$item_bought_quantity       = $item->get_quantity();
-			$is_product_matching_filter = \YAYDP\Helper\YAYDP_Helper::check_applicability( $filters, $product, $match_type );
+			$is_product_matching_filter = \YAYDP\Helper\YAYDP_Helper::check_applicability( $filters, $product, $match_type, null, $rule );
 			if ( $is_product_matching_filter ) {
 				$set_key = $has_parent ? $product_parent_id : $product_id;
 				if ( ! isset( $matching_items[ $set_key ] ) ) {

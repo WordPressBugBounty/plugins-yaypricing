@@ -142,7 +142,7 @@ class YAYDP_Product_Pricing_Adjustment extends \YAYDP\Abstracts\YAYDP_Adjustment
 		} elseif ( \yaydp_is_tiered_pricing( $this->rule ) ) {
 			$this->rule->discount_item( $this );
 		} else {
-			foreach ( $this->discountable_items as $item ) {
+			foreach ( $this->get_discountable_items() as $item ) {
 				$this->rule->discount_item( $item );
 			}
 		}
@@ -152,6 +152,11 @@ class YAYDP_Product_Pricing_Adjustment extends \YAYDP\Abstracts\YAYDP_Adjustment
 	 * Retrieves discountable items
 	 */
 	public function get_discountable_items() {
+		if ( \yaydp_product_pricing_is_applied_to_maximum_amount_per_item() || \yaydp_product_pricing_is_applied_to_minimum_amount_per_item() ) {
+			$this->discountable_items = array_filter( $this->discountable_items, function( $item ) {
+				return ! $item->can_modify();
+			} );
+		}
 		return $this->discountable_items;
 	}
 

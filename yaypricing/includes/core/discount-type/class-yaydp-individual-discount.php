@@ -13,13 +13,13 @@ namespace YAYDP\Core\Discount_Type;
  * Declare class
  */
 class YAYDP_Individual_Discount {
-	public static function get_matching_cases( \YAYDP\Core\YAYDP_Cart $cart, $filters, $quantity = 1, $match_type = 'any' ) {
+	public static function get_matching_cases( \YAYDP\Core\YAYDP_Cart $cart, $filters, $quantity = 1, $match_type = 'any', $rule = null ) {
 		$result          = array();
 		$filter_quantity = $quantity;
 		foreach ( $cart->get_items() as $item ) {
 			$product                    = $item->get_product();
 			$bought_quantity            = $item->get_quantity();
-			$is_product_matching_filter = \YAYDP\Helper\YAYDP_Helper::check_applicability( $filters, $product, $match_type );
+			$is_product_matching_filter = \YAYDP\Helper\YAYDP_Helper::check_applicability( $filters, $product, $match_type, null, $rule );
 			$is_product_fit_quantity    = $bought_quantity >= $filter_quantity;
 			if ( $is_product_matching_filter && $is_product_fit_quantity ) {
 				$result[] = array(

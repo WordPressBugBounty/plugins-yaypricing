@@ -147,6 +147,6 @@ class YAYDP_Combined_Discount {
 		if ( \YAYDP\Settings\YAYDP_Cart_Discount_Settings::get_instance()->use_id_as_code() ) {
 			return self::$coupon_code === $code;
 		}
-		return strtolower( self::$coupon_name ) === strtolower( $code );
+		return mb_strtolower( self::$coupon_name, 'UTF-8' ) === mb_strtolower( $code, 'UTF-8' );
 	}
 }
