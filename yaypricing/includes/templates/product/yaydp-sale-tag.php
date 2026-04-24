@@ -53,7 +53,7 @@ if ( ! empty( $is_variable_product ) && ! empty( $variation_rules_data ) && is_p
 	$data_attributes .= ' data-discount-amount="' . esc_attr( $round_value_for_template ) . '"';
 }
 ?>
-<div class="yaydp-sale-tag<?php echo empty( $is_custom ) ? '' : ' yaydp-custom-sale-tag'; ?>"<?php echo $data_attributes; ?> style="<?php echo esc_attr( $has_image_gallery ? 'right: 50px' : '' ); ?>;background-color:<?php echo esc_attr( $background_color ); ?>;border-color:<?php echo esc_attr( $background_color ); ?>;color:<?php echo esc_attr( $text_color ); ?>;">
+<div class="yaydp-sale-tag<?php echo empty( $is_custom ) ? '' : ' yaydp-custom-sale-tag'; ?>"<?php echo $data_attributes; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped - $data_attributes is built with esc_attr() values ?> style="<?php echo esc_attr( $has_image_gallery ? 'right: 50px' : '' ); ?>;background-color:<?php echo esc_attr( $background_color ); ?>;border-color:<?php echo esc_attr( $background_color ); ?>;color:<?php echo esc_attr( $text_color ); ?>;">
 	<?php
 	$round_value = 0;
 	if ( ! empty( $percent_discounts ) ) :

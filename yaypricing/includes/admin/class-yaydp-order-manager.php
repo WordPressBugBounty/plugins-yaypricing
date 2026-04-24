@@ -76,7 +76,7 @@ class YAYDP_Order_Manager {
 				$original_price = $_product->get_sale_price();
 			}
 			$original_price = apply_filters( 'yaydp_other_source_product_base_price', floatval( $original_price ), $_product );
-			echo '<td class="item_original_price" data-sort-value="' . esc_attr( $original_price ) . '"><del>' . \wc_price( $original_price ) . '</del></td>';
+			echo '<td class="item_original_price" data-sort-value="' . esc_attr( $original_price ) . '"><del>' . \wc_price( $original_price ) . '</del></td>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 		}
 	}
 
@@ -104,9 +104,9 @@ class YAYDP_Order_Manager {
 		<tr>
 			<td class="label"> ' . esc_html__( 'Saved Amount:', 'yaypricing' ) . ' </td>
 			<td width="1%"></td>
-			<td class="total">' . wc_price( $saved_amount, array( 'currency' => $order->get_currency() ) ) . '</td>
+			<td class="total">' . \wc_price( $saved_amount, array( 'currency' => $order->get_currency() ) ) . '</td> 
 		</tr>
-		';
+		'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 	}
 
 }

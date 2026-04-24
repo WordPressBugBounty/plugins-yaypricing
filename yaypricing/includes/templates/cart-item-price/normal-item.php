@@ -55,9 +55,9 @@ defined( 'ABSPATH' ) || exit;
 				<div class="price">
 					<span class="yaydp-cart-item-quantity"><?php echo esc_html( $quantity ); ?>&nbsp;&times;&nbsp;</span>
 					<?php if ( $show_regular_price && floatval( $origin_price ) !== floatval( $price ) ) : ?>
-						<del><?php echo \wc_price( $origin_price ); ?></del>
+						<del><?php echo \wc_price( $origin_price ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></del>
 					<?php endif; ?>
-					<?php echo \wc_price( $price ); ?>
+					<?php echo \wc_price( $price ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 				</div>
 			<?php
 			endforeach;

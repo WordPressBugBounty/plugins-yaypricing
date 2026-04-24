@@ -50,41 +50,38 @@ class YAYDP_Data_Model {
 	 */
 	public static function get_variations( $search = '', $page = 1, $limit = YAYDP_SEARCH_LIMIT ) {
 		$offset = ( $page - 1 ) * $limit;
-		$args   = array(
-			'post_type'      => array( 'product_variation' ),
-			'posts_per_page' => $limit + 1,
-			'offset'         => $offset,
-			's'              => $search,
-			'order'          => 'ASC',
-			'orderby'        => 'title',
-		);
+		$query = new \WC_Product_Query( array(
+            'limit'     => -1,
+            'type' => 'variable',
+            's' => $search,
+            'return'    => 'ids', // Returns an array of product IDs
+        ) );
 
-		$query_response = new \WP_Query( $args );
+		$query_variables = $query->get_products();
 
-		$query_variations = $query_response->have_posts() ? $query_response->posts : array();
+		$result = [];
 
-		$variations = array_map(
-			function( $item ) {
-				$product           = \wc_get_product( $item->ID );
-				$attributes        = $product->get_attributes();
-				$attributes_labels = array();
-				foreach ( $attributes as $key => $value ) {
-					if ( empty( $value ) ) {
-						$attributes_labels[] = __( 'Custom', 'yaypricing' );
-						continue;
-					}
-					$attributes_labels[] = \wc_attribute_label( $value );
+		foreach ( $query_variables as $variable_product_id ) {
+			$variable_product = \wc_get_product( $variable_product_id );
+			$variations = $variable_product->get_children();
+			foreach ( $variations as $variation_id ) {
+				$variation_product = \wc_get_product( $variation_id );
+				$options = $variation_product->get_attributes();
+				$name = $variation_product->get_name();
+				if ( is_array( $options ) && ! empty( $options ) ) {
+					$name .= ' - ' . implode( ' - ', array_values( $options ) );
 				}
-				$attributes_text = implode( ', ', $attributes_labels );
-				return array(
-					'id'   => $item->ID,
-					'name' => $product->get_title() . ' - ' . $attributes_text,
-					'slug' => $item->slug,
+				$result[] = array(
+					'id'   => $variation_product->get_id(),
+					'name' => $name,
+					'slug' => $variation_product->get_slug(),
 				);
-			},
-			$query_variations
-		);
-		return $variations;
+			}
+		}
+
+		$result = array_slice( $result, $offset, $limit + 1 );
+
+		return $result;
 	}
 
 	/**
@@ -402,51 +399,85 @@ class YAYDP_Data_Model {
 	 * @param number $limit Limit to get.
 	 */
 	public static function get_product_specific_attributes( $search = '', $page = 1, $limit = YAYDP_SEARCH_LIMIT ) {
+		global $wpdb;
+
 		$offset = ( $page - 1 ) * $limit;
-
-		$args = array(
-			'limit' => -1,
-		);
-
-		$products = \wc_get_products( $args );
 		$specific_attributes = array();
 
-		foreach ( $products as $product ) {
-			$product_attributes = $product->get_attributes();
+		if ( ! isset( $wpdb ) || ! is_object( $wpdb ) ) {
+			return array();
+		}
 
-			foreach ( $product_attributes as $attribute ) {
-				if ( ! $attribute->is_taxonomy() ) {
-					$attribute_name = $attribute->get_name();
-					$attribute_options = $attribute->get_options();
+		try {
+			$rows = $wpdb->get_col(
+				"SELECT pm.meta_value
+				 FROM {$wpdb->postmeta} pm
+				 INNER JOIN {$wpdb->posts} p ON p.ID = pm.post_id
+				 WHERE pm.meta_key = '_product_attributes'
+				 AND p.post_type IN ('product', 'product_variation')
+				 AND p.post_status != 'trash'"
+			);
+		} catch ( \Exception $e ) {
+			return array();
+		}
 
-					foreach ( $attribute_options as $option ) {
-						if ( empty( $option ) ) {
+		if ( empty( $rows ) ) {
+			return array();
+		}
+
+		$search_lower = '' !== $search ? strtolower( $search ) : '';
+
+		foreach ( $rows as $raw ) {
+			$attributes = maybe_unserialize( $raw );
+			if ( ! is_array( $attributes ) ) {
+				continue;
+			}
+
+			foreach ( $attributes as $attribute ) {
+				if ( ! is_array( $attribute ) ) {
+					continue;
+				}
+				// Skip taxonomy-based attributes (is_taxonomy flag set).
+				if ( ! empty( $attribute['is_taxonomy'] ) ) {
+					continue;
+				}
+
+				$attribute_name = isset( $attribute['name'] ) ? (string) $attribute['name'] : '';
+				if ( '' === $attribute_name ) {
+					continue;
+				}
+
+				$value_raw = isset( $attribute['value'] ) ? (string) $attribute['value'] : '';
+				if ( '' === $value_raw ) {
+					continue;
+				}
+
+				$options = array_map( 'trim', explode( '|', $value_raw ) );
+
+				foreach ( $options as $option ) {
+					if ( '' === $option ) {
+						continue;
+					}
+
+					$slug = sanitize_title( $attribute_name . '_' . $option );
+					if ( '' === $slug || isset( $specific_attributes[ $slug ] ) ) {
+						continue;
+					}
+
+					if ( '' !== $search_lower ) {
+						if ( false === strpos( strtolower( $option ), $search_lower )
+							&& false === strpos( strtolower( $attribute_name ), $search_lower ) ) {
 							continue;
 						}
-
-						$slug = sanitize_title( $attribute_name . '_' . $option );
-
-						if ( ! empty( $search ) ) {
-							$option_lower = strtolower( $option );
-							$name_lower = strtolower( $attribute_name );
-							$search_lower = strtolower( $search );
-
-							if ( strpos( $option_lower, $search_lower ) === false && 
-								 strpos( $name_lower, $search_lower ) === false ) {
-								continue;
-							}
-						}
-
-						if ( ! isset( $specific_attributes[ $slug ] ) ) {
-							$specific_attributes[ $slug ] = array(
-								'id'             => $slug,
-								'name'           => $attribute_name . ': ' . $option,
-								'slug'           => $slug,
-								'attribute_name' => $attribute_name,
-								'option'         => $option
-							);
-						}
 					}
+
+					$specific_attributes[ $slug ] = array(
+						'id'             => $slug,
+						'name'           => $attribute_name . ': ' . $option,
+						'slug'           => $slug,
+						'attribute_name' => $attribute_name,
+						'option'         => $option,
+					);
 				}
 			}
 		}

@@ -91,7 +91,7 @@ class YAYDP_WC_Product_Addons_Ultimate_Integration {
 		if ( $yaydp_cart_item->can_modify() ) {
 			ob_start();
 			?>
-			<del><?php echo \wc_price( \YAYDP\Helper\YAYDP_Pricing_Helper::convert_price( $subtotal ) ); ?></del>
+			<del><?php echo \wc_price( \YAYDP\Helper\YAYDP_Pricing_Helper::convert_price( $subtotal ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></del>
 			<?php
 			ob_end_clean();
 			$html = '<div class="price">' . $html . '</div>';

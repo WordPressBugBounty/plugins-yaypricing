@@ -1,10 +1,10 @@
 === YayPricing - WooCommerce Dynamic Pricing & Discounts ===
 Contributors: YayCommerce
 Donate link: https://yaycommerce.com/yaypricing-woocommerce-dynamic-pricing-and-discounts/
-Tags: dynamic pricing, discounts, cart fee, buy one get one, coupon
+Tags: dynamic pricing, discounts, cart fee, bogo, coupon
 Requires at least: 3.0
 Tested up to: 6.9
-Stable tag: 3.5.4
+Stable tag: 3.5.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -12,7 +12,9 @@ Your all-in-one WooCommerce dynamic pricing toolkit. From Buy X Get Y to tiered 
 
 == Description ==
 
-YayPricing is your all-in-one solution for creating **smart pricing and discount campaigns in WooCommerce**. No matter if it’s flash sales, BOGO deals, or tiered discounts, YayPricing makes it easy to set up powerful promotions based on flexible conditions.
+YayPricing is your all-in-one solution for creating **smart coupons and discount campaigns in WooCommerce**. 
+
+No matter if it’s flash sales, BOGO deals, or tiered discounts, YayPricing makes it easy to set up powerful [promotions based on flexible conditions](https://yaycommerce.com/tag/yaypricing-tutorials/?utm_source=wp-org&utm_medium=yaypricing-lite).
 
 💪 Master WooCommerce Dynamic Pricing in Just 4 Easy Steps:
 
@@ -21,7 +23,7 @@ YayPricing is your all-in-one solution for creating **smart pricing and discount
 - Add user role or cart conditions (optional).
 - Launch the new deal on your WooCommerce product page!
 
-[**Quick Demo**](https://demo.yaycommerce.com/yaypricing/) | [**YayPricing Pro**](https://yaycommerce.com/yaypricing-woocommerce-dynamic-pricing-and-discounts/) 🚀
+[**Quick Demo**](https://demo.yaycommerce.com/yaypricing/) | [**YayPricing Pro**](https://yaycommerce.com/yaypricing-woocommerce-dynamic-pricing-and-discounts/?utm_source=wp-org&utm_medium=yaypricing-lite) 🚀
 
 Supported WooCommerce discount rules:
 
@@ -55,7 +57,7 @@ Limit applicable discounts to product regular price, number of items, cart total
 ###🔑 COMMON USE CASES
 
 **Welcome new customer**
-- [First order discount](https://yaycommerce.com/create-woocommerce-first-order-discount/): Offer a 30% discount only for first-time customers.
+- [First order discount](https://yaycommerce.com/create-woocommerce-first-order-discount/?utm_source=wp-org&utm_medium=yaypricing-lite): Offer a 30% discount only for first-time customers.
 - Subscribe and make the first purchase to get a swag bag.
 
 **Clearance sale**
@@ -76,7 +78,7 @@ Limit applicable discounts to product regular price, number of items, cart total
 
 **Loyalty rewards**
 - Hand-picked VIP customers get a 30% discount.
-- [Offer free gifts in WooCommerce](https://yaycommerce.com/how-to-offer-free-gifts-in-woocommerce/) for frequent buyers. 
+- [Offer free gifts in WooCommerce](https://yaycommerce.com/how-to-offer-free-gifts-in-woocommerce/?utm_source=wp-org&utm_medium=yaypricing-lite) for frequent buyers. 
 
 **Limited time discounts**
 - 100 first orders with specified products during Black Friday campaign get 50% discount.
@@ -125,6 +127,20 @@ A big yes! YayPricing is compliant with GDPR. It doesn't collect your WooCommerc
 6. Gift item of "Buy one get one free" promotion automatically added to cart page
 
 == Changelog ==
+
+= Apr 24, 2026 - Version 3.5.6 =
+- Improved: Improve attribute retrieval in get_product_specific_attributes
+- Fixed: Fix the issue where filtering products by stock quantity isn’t working
+- Fixed: Sanitization and escaping function
+
+= Apr 21, 2026 - Version 3.5.5 =
+- Added: WPML and Polylang support for translating countdown timer text strings
+- Added: Conditional logic for user role comparison in wholesale integration
+- Added: Global CSS color variable for the free badge, change button, free items modal title, and save button
+- Updated: Implement per-item discount application logic for maximum and minimum pricing adjustments
+- Fixed: Prevent duplicate sale flash rendering in WooCommerce block contexts
+- Fixed: Fix the issue where the product filter isn’t comparing specific attributes correctly
+- Fixed: Fix CSS for Change Free Products modal input field in Firefox
 
 = Dec 24, 2025 - Version 3.5.4 =
 - Added: Integrate with Fly Cart.

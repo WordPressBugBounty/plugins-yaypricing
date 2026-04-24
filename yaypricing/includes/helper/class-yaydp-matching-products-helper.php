@@ -331,17 +331,17 @@ class YAYDP_Matching_Products_Helper {
 		global $wpdb;
 
 		$meta_conditions = array();
+		$prepare_values = array();
+
+		$operator = 'in_list' === $comparation ? '=' : '!=';
 
 		foreach ( $selected_attributes as $attribute ) {
 			$meta_key = 'attribute_' . str_replace(" ", "-", trim(strtolower($attribute['attribute'])));
 			$meta_value = $attribute['option'];
 
-			$escaped_meta_key = $wpdb->_escape( $meta_key );
-			$escaped_meta_value = $wpdb->_escape( $meta_value );
-
-			$operator = 'in_list' === $comparation ? '=' : '!=';
-
-			$meta_conditions[] = "(meta_key {$operator} '{$escaped_meta_key}' AND meta_value {$operator} '{$escaped_meta_value}')";
+			$meta_conditions[] = "(meta_key {$operator} %s AND meta_value {$operator} %s)";
+			$prepare_values[] = $meta_key;
+			$prepare_values[] = $meta_value;
 		}
 
 		if ( empty( $meta_conditions ) ) {
@@ -351,13 +351,14 @@ class YAYDP_Matching_Products_Helper {
 		$logic_operator = 'OR';
 		$combined_conditions = implode( " {$logic_operator} ", $meta_conditions );
 
-		$meta_query = "
-			SELECT DISTINCT post_id
+		$meta_query = $wpdb->prepare(
+			"SELECT DISTINCT post_id
 			FROM {$wpdb->postmeta}
-			WHERE {$combined_conditions}
-		";
+			WHERE {$combined_conditions}",
+			...$prepare_values
+		);
 
-		$post_ids = $wpdb->get_col( $meta_query );
+		$post_ids = $wpdb->get_col( $meta_query ); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
 
 		if ( empty( $post_ids ) ) {
 			return array();
@@ -468,55 +469,66 @@ class YAYDP_Matching_Products_Helper {
 				break;
 		}
 
-		$main_query = "";
+		global $wpdb;
+
+		$order = strtoupper( $order ) === 'DESC' ? 'DESC' : 'ASC';
+
+		$main_query      = '';
+		$main_query_args = array();
+
 		if ( ! is_numeric( $value ) ) {
-			$main_query = "( wp_postmeta.meta_key = '_stock_status' AND wp_postmeta.meta_value != 'instock' )";
+			$main_query = "( {$wpdb->postmeta}.meta_key = '_stock_status' AND {$wpdb->postmeta}.meta_value != 'instock' )";
 		}
 
-		if ( in_array( $compare, ['>', '>='] ) ) {
+		if ( in_array( $compare, array( '>', '>=' ), true ) ) {
 			$main_query = "
-				( 
-					( wp_postmeta.meta_key = '_stock_status' AND wp_postmeta.meta_value = 'instock' ) 
-					AND 
-					( mt1.meta_key = '_stock' AND CAST( mt1.meta_value AS SIGNED) $compare '$value' )
-				) 
-				OR 
-				( 
+				(
+					( {$wpdb->postmeta}.meta_key = '_stock_status' AND {$wpdb->postmeta}.meta_value = 'instock' )
+					AND
+					( mt1.meta_key = '_stock' AND CAST( mt1.meta_value AS SIGNED) $compare %d )
+				)
+				OR
+				(
 					( mt2.meta_key = '_stock_status' AND mt2.meta_value = 'instock' )
-					AND 
+					AND
 					( mt3.meta_key = '_stock' AND mt3.meta_value IS NULL )
 				)
 			";
+			$main_query_args[] = (int) $value;
 		}
 
-		if ( in_array( $compare, ['<', '<='] ) ) {
+		if ( in_array( $compare, array( '<', '<=' ), true ) ) {
 			$main_query = "
-				( 
-					( wp_postmeta.meta_key = '_stock_status' AND wp_postmeta.meta_value = 'instock' ) 
-					AND 
-					( mt1.meta_key = '_stock' AND CAST( mt1.meta_value AS SIGNED) $compare '$value' )
-				) 
+				(
+					( {$wpdb->postmeta}.meta_key = '_stock_status' AND {$wpdb->postmeta}.meta_value = 'instock' )
+					AND
+					( mt1.meta_key = '_stock' AND CAST( mt1.meta_value AS SIGNED) $compare %d )
+				)
 			";
+			$main_query_args[] = (int) $value;
 		}
 
-		$sql_query = 
-		"SELECT wp_posts.*
-		FROM wp_posts  
-		LEFT JOIN wp_term_relationships ON (wp_posts.ID = wp_term_relationships.object_id) 
-		INNER JOIN wp_postmeta ON ( wp_posts.ID = wp_postmeta.post_id )  
-		INNER JOIN wp_postmeta AS mt1 ON ( wp_posts.ID = mt1.post_id )  
-		INNER JOIN wp_postmeta AS mt2 ON ( wp_posts.ID = mt2.post_id )  
-		INNER JOIN wp_postmeta AS mt3 ON ( wp_posts.ID = mt3.post_id )
-		WHERE 1=1 
-		AND ( $main_query ) AND 
-		wp_posts.post_type = 'product' 
-		AND wp_posts.post_status = 'publish'
-		GROUP BY wp_posts.ID
-		ORDER BY wp_posts.post_title $order";
+		// $compare and $order are whitelisted above; $main_query uses %d placeholders for dynamic numeric values.
+		$sql_query =
+		"SELECT {$wpdb->posts}.*
+		FROM {$wpdb->posts}
+		LEFT JOIN {$wpdb->term_relationships} ON ({$wpdb->posts}.ID = {$wpdb->term_relationships}.object_id)
+		INNER JOIN {$wpdb->postmeta} ON ( {$wpdb->posts}.ID = {$wpdb->postmeta}.post_id )
+		INNER JOIN {$wpdb->postmeta} AS mt1 ON ( {$wpdb->posts}.ID = mt1.post_id )
+		INNER JOIN {$wpdb->postmeta} AS mt2 ON ( {$wpdb->posts}.ID = mt2.post_id )
+		INNER JOIN {$wpdb->postmeta} AS mt3 ON ( {$wpdb->posts}.ID = mt3.post_id )
+		WHERE 1=1
+		AND ( $main_query ) AND
+		{$wpdb->posts}.post_type = 'product'
+		AND {$wpdb->posts}.post_status = 'publish'
+		GROUP BY {$wpdb->posts}.ID
+		ORDER BY {$wpdb->posts}.post_title $order";
 
-		global $wpdb;
+		if ( ! empty( $main_query_args ) ) {
+			$sql_query = $wpdb->prepare( $sql_query, $main_query_args ); // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+		}
 
-		$results = $wpdb->get_results( $sql_query ); //PHPCS:ignore:WordPress.DB.PreparedSQL.NotPrepared
+		$results = $wpdb->get_results( $sql_query ); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared,WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching
 
 		$products = [];
 

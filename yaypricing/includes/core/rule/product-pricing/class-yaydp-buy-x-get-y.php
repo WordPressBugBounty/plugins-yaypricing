@@ -418,11 +418,17 @@ class YAYDP_Buy_X_Get_Y extends \YAYDP\Abstracts\YAYDP_Product_Pricing_Rule {
 		$match_type = $this->get_match_type_of_receive_filters();
 		$case       = array();
 		foreach ( $filters as $filter_index => $filter ) {
-			$matching_items = array();
-			$total_quantity = 0;
+			$matching_items       = array();
+			$total_quantity       = 0;
+			// Cart item price criterion filters select items by price rank — collect all items
+			// and sort below so that receive_quantity controls how many get discounted on repeat.
+			$is_price_criterion   = ! empty( $filter['type'] ) && 'cart_item_price_criterion' === $filter['type'];
+			$comparation          = ! empty( $filter['comparation'] ) ? $filter['comparation'] : '';
+			$asc_criterions       = array( 'lowest_price', 'second_lowest_price', 'third_lowest_price' );
+			$desc_criterions      = array( 'highest_price', 'second_highest_price', 'third_highest_price' );
 			foreach ( $cart->get_items() as $item ) {
 				$item_product = $item->get_product();
-				if ( $this->can_apply_adjustment( $item_product, array( $filter ), $match_type, $item->get_key() ) ) {
+				if ( $is_price_criterion || $this->can_apply_adjustment( $item_product, array( $filter ), $match_type, $item->get_key() ) ) {
 					$total_quantity  += $item->get_quantity();
 					$matching_items[] = $item;
 				}
@@ -430,10 +436,15 @@ class YAYDP_Buy_X_Get_Y extends \YAYDP\Abstracts\YAYDP_Product_Pricing_Rule {
 			if ( $total_quantity < $filter['quantity'] ) {
 				continue;
 			}
-			if ( $this->is_receive_cheapest() ) {
+			if ( $is_price_criterion ) {
+				if ( in_array( $comparation, $asc_criterions, true ) ) {
+					\YAYDP\Helper\YAYDP_Helper::sort_items_by_price( $matching_items );
+				} elseif ( in_array( $comparation, $desc_criterions, true ) ) {
+					\YAYDP\Helper\YAYDP_Helper::sort_items_by_price( $matching_items, 'desc' );
+				}
+			} elseif ( $this->is_receive_cheapest() ) {
 				\YAYDP\Helper\YAYDP_Helper::sort_items_by_price( $matching_items );
-			}
-			if ( $this->is_receive_most_expensive() ) {
+			} elseif ( $this->is_receive_most_expensive() ) {
 				\YAYDP\Helper\YAYDP_Helper::sort_items_by_price( $matching_items, 'desc' );
 			}
 			if ( ! empty( $matching_items ) ) {

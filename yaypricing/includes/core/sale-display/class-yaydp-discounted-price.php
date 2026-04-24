@@ -82,7 +82,7 @@ class YAYDP_Discounted_Price {
 
 		$show_discounted_with_regular_price = \YAYDP\Settings\YAYDP_Product_Pricing_Settings::get_instance()->show_discounted_with_regular_price();
 		ob_start();
-		echo '<span class="hidden yaydp-product-discounted-data" style="display: none" data-product-id="' . $product->get_id() . '" data-min-rate="' . $min_discounted_rate . '" data-max-rate="' . $max_discounted_rate . '"></span>';
+		echo '<span class="hidden yaydp-product-discounted-data" style="display: none" data-product-id="' . $product->get_id() . '" data-min-rate="' . $min_discounted_rate . '" data-max-rate="' . $max_discounted_rate . '"></span>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 		\wc_get_template(
 			'product/yaydp-discounted-price.php',
 			array(

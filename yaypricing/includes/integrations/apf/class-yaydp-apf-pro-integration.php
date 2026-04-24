@@ -126,7 +126,7 @@ class YAYDP_APF_Pro_Integration {
 			);
 			ob_start();
 			?>
-			<del><?php echo \wc_price( \YAYDP\Helper\YAYDP_Pricing_Helper::convert_price( $original_subtotal ) ); ?></del>
+			<del><?php echo \wc_price( \YAYDP\Helper\YAYDP_Pricing_Helper::convert_price( $original_subtotal ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></del>
 			<?php
 			$extra_html = ob_get_contents();
 			ob_end_clean();

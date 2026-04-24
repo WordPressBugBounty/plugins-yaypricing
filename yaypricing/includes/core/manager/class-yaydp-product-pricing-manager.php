@@ -33,21 +33,21 @@ class YAYDP_Product_Pricing_Manager {
 		add_filter( 'woocommerce_quantity_input_args', array( $this, 'disable_extra_cart_item_quantity_input' ), 10, 1 );
 		add_filter( 'woocommerce_cart_item_subtotal', array( $this, 'remove_extra_cart_item_subtotal' ), 100000, 2 );
 
-		add_filter(
-			'woocommerce_update_cart_validation',
-			function( $check, $cart_item_key, $values ) {
-				if ( empty( $values['is_extra'] ) ) {
-					return $check;
-				}
-				$cart_contents = \WC()->cart->cart_contents;
-				if ( ! isset( $cart_contents[ $cart_item_key ] ) ) {
-					return false;
-				}
-				return $check;
-			},
-			1000,
-			3
-		);
+		// add_filter(
+		// 	'woocommerce_update_cart_validation',
+		// 	function( $check, $cart_item_key, $values ) {
+		// 		if ( empty( $values['is_extra'] ) ) {
+		// 			return $check;
+		// 		}
+		// 		$cart_contents = \WC()->cart->cart_contents;
+		// 		if ( ! isset( $cart_contents[ $cart_item_key ] ) ) {
+		// 			return false;
+		// 		}
+		// 		return $check;
+		// 	},
+		// 	1000,
+		// 	3
+		// );
 
 		add_action(
 			'woocommerce_add_to_cart',
@@ -83,31 +83,6 @@ class YAYDP_Product_Pricing_Manager {
 		$this->handle_discounted_price();
 
 		$this->handle_use_time();
-
-		add_filter( 'woocommerce_add_cart_item', function( $cart_item ){
-			global $yaydp_cart;
-
-			if ( ! $yaydp_cart ) {
-				return $cart_item;
-			}
-
-			foreach ( $yaydp_cart->get_items_include_extra() as $item ) {
-				if ( $item->get_key() !== $cart_item['key'] && $item->get_key() != null ) {
-					continue; 
-				}
-
-				if ( $item->is_extra() ) {
-					$cart_item['is_extra'] = true;
-					$cart_item['extra_data'] = \yaydp_serialize_cart_data( $item->get_extra_data() );
-					$cart_item['modifiers'] = \yaydp_serialize_cart_data( $item->get_modifiers() );
-					$cart_item['yaydp_custom_data'] = array(
-						'price' => 0,
-					);
-				}
-			}
-
-			return $cart_item;
-		}, PHP_INT_MAX );
 
 	}
 
@@ -163,7 +138,7 @@ class YAYDP_Product_Pricing_Manager {
 	 */
 	public function calculate_pricings() {
 
-		// remove_action( 'woocommerce_before_calculate_totals', array( self::get_instance(), 'calculate_pricings' ), 100 );
+		// remove_action( 'woocommerce_before_calculate_totals', array( self::get_instance(), 'calculate_pricings' ), 110 );
 
 		static $has_run = false;
 		if ( $has_run ) {
@@ -171,9 +146,9 @@ class YAYDP_Product_Pricing_Manager {
 		}
 		$has_run = true;
 
-		if ( apply_filters( 'yaydp_prevent_recalculate_cart', false ) ) {
-			return;
-		}
+		// if ( apply_filters( 'yaydp_prevent_recalculate_cart', false ) ) {
+		// 	return;
+		// }
 
 		do_action( 'yaydp_before_calculate_product_pricing' );
 
@@ -417,7 +392,7 @@ class YAYDP_Product_Pricing_Manager {
 			?>
 		<tr class="yaydp-saving-amount">
 			<th><?php esc_html_e( 'Product discounts', 'yaypricing' ); ?></th>
-			<td><?php echo wp_kses_post( \wc_price( $saved_amount ) ); ?></td>
+			<td><?php echo \wc_price( $saved_amount ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></td>
 		</tr>
 			<?php
 		}
@@ -452,7 +427,7 @@ class YAYDP_Product_Pricing_Manager {
 
 			ob_start();
 			?>
-			<del><?php echo \wc_price( \YAYDP\Helper\YAYDP_Pricing_Helper::convert_price( $subtotal ) ); ?></del>
+			<del><?php echo \wc_price( \YAYDP\Helper\YAYDP_Pricing_Helper::convert_price( $subtotal ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></del>
 			<?php
 			$extra_html = ob_get_contents();
 			ob_end_clean();

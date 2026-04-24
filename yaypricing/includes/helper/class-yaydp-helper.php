@@ -90,8 +90,8 @@ class YAYDP_Helper {
 	 */
 	public static function map_filter_title( $filter ) {
 		return array_map(
-			function( $f ) {
-				return $f['title'];
+			function ( $f ) {
+				return $f['title'] ?? '';
 			},
 			$filter['title']
 		);
@@ -109,6 +109,12 @@ class YAYDP_Helper {
 	 * @return array
 	 */
 	public static function check_applicability( $filters, $product, $match_type = 'any', $item_key = null, $rule = null ) {
+
+		$third_party_check = apply_filters( 'yaydp_product_applicability_check', true, $product, $filters, $match_type, $item_key, $rule );
+
+		if ( ! $third_party_check ) {
+			return false;
+		}
 
 		if ( $rule && \YAYDP\Core\Manager\YAYDP_Exclude_Manager::check_product_exclusions( $rule, $product ) ) {
 			return false;

@@ -64,6 +64,7 @@ class YAYDP_Integrations {
 		\YAYDP\Integrations\WC_Product_Addons_Ultimate\YAYDP_WC_Product_Addons_Ultimate_Integration::get_instance();
 		\YAYDP\Integrations\Minmaxcontrol\YAYDP_Min_Max_Quantity_Integration::get_instance();
 		\YAYDP\Integrations\Eventtickets\YAYDP_Event_Tickets_Integration::get_instance();
+		\YAYDP\Integrations\Lottery\YAYDP_Lottery_For_WooCommerce_Integration::get_instance();
 
 		YAYDP_WPML_Integration::get_instance();
 		YAYDP_Custom_Taxonomies_Integration::get_instance();
@@ -73,6 +74,8 @@ class YAYDP_Integrations {
 		YAYDP_YITH_Product_Bundles_Integration::get_instance();
 
 		\YAYDP\Integrations\WooCommerce\YAYDP_WooCommerce_Currency_Integration::get_instance();
+
+		\YAYDP\Integrations\YAYDP_Google_Tag_Manager_Integration::get_instance();
 	}
 }
 
