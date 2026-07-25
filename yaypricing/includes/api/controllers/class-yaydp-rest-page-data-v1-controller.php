@@ -591,7 +591,7 @@ class YAYDP_REST_PAGE_DATA_V1_CONTROLLER {
 	 * It should return true if the user has permission, and false otherwise
 	 */
 	public function permission_callback() {
-		return true;
+		return \YAYDP\Helper\YAYDP_Helper::can_manage_pricing();
 	}
 
 	/**

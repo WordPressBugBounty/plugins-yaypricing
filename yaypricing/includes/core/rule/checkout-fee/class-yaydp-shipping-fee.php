@@ -69,7 +69,9 @@ class YAYDP_Shipping_Fee extends \YAYDP\Abstracts\YAYDP_Checkout_Fee_Rule {
 	 * Add fee to the cart
 	 */
 	public function add_fee() {
-
+		if ( ! function_exists( 'WC' ) || empty( \WC()->cart ) ) {
+			return;
+		}
 		$discount_amount = $this->get_total_discount_amount();
 
 		if ( empty( $discount_amount ) ) {

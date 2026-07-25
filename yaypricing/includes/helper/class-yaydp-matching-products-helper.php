@@ -68,7 +68,31 @@ class YAYDP_Matching_Products_Helper {
 	 * @return array
 	 */
 	public static function get_matching_products( $filter, $order = 'ASC' ) {
-		if ( ! in_array( $filter['type'], array( 'product_price', 'product_in_stock', 'all_product' ), true ) ) {
+		// Memoize per request so an identical filter is queried once instead of
+		// once per rule. The on-sale shortcodes rebuild their list by looping every
+		// running rule, and many rules share the same category/tag filter, so this
+		// collapses O(rules x filters) product queries into O(distinct filters).
+		// Flushed on yaydp_clear_cache; separate requests (e.g. admin preview) never
+		// share state.
+		$cache_key = md5( (string) \wp_json_encode( $filter ) . '|' . $order );
+		return \YAYDP\Core\Caches\YAYDP_Request_Cache::get_instance()->remember(
+			'matching',
+			$cache_key,
+			function () use ( $filter, $order ) {
+				return self::compute_matching_products( $filter, $order );
+			}
+		);
+	}
+
+	/**
+	 * Searching products that match the filter (uncached computation).
+	 *
+	 * @param array  $filter The filter for searching products.
+	 * @param string $order Sort order.
+	 * @return array
+	 */
+	private static function compute_matching_products( $filter, $order = 'ASC' ) {
+		if ( ! in_array( $filter['type'], array( 'product_price', 'product_in_stock', 'all_product', 'product_on_sale' ), true ) ) {
 			$filter_values = array_map(
 				function( $v ) {
 					return $v['value'];

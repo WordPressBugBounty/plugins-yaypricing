@@ -36,11 +36,20 @@ class YAYDP_Checkout_Fee_Use_Time extends \YAYDP\Abstracts\YAYDP_Use_Time {
 	public function checkout_order_processed( $order_id ) {
 		$list_rule_id  = array();
 		$running_rules = \yaydp_get_running_checkout_fee_rules();
-		foreach ( \WC()->cart->get_fees() as $fee ) {
+		$cart_fees     = ( function_exists( 'WC' ) && ! empty( \WC()->cart ) ) ? \WC()->cart->get_fees() : array();
+		foreach ( $cart_fees as $fee ) {
 			foreach ( $running_rules as $rule ) {
 				if ( $rule->get_id() === $fee->id ) {
 					$list_rule_id[] = $rule->get_id();
 				}
+			}
+		}
+		// Rules applied directly to shipping (apply_to_shipping enabled) do not
+		// produce a WC cart fee, so collect their IDs from the adjustment tracker.
+		$shipping_applied_ids = \YAYDP\Core\Single_Adjustment\YAYDP_Checkout_Fee_Adjustment::get_applied_to_shipping_rule_ids();
+		foreach ( $shipping_applied_ids as $rule_id ) {
+			if ( ! in_array( $rule_id, $list_rule_id, true ) ) {
+				$list_rule_id[] = $rule_id;
 			}
 		}
 		if ( \yaydp_check_wc_hpos() ) {
@@ -53,69 +62,33 @@ class YAYDP_Checkout_Fee_Use_Time extends \YAYDP\Abstracts\YAYDP_Use_Time {
 	}
 
 	/**
-	 * Increase use time after payment success
-	 * If the payment successfully, increase the use_time, otherwise
+	 * Increment use_time on applied rules when the order is completed.
 	 *
 	 * @override
 	 *
-	 * @param array  $result Result of the payment.
-	 * @param string $order_id Id of the current order.
-	 *
-	 * @return array
+	 * @param int $order_id Given order id.
 	 */
-	public function after_payment_successful( $result, $order_id ) {
-		if ( isset( $result['result'] ) && 'success' === $result['result'] ) {
-			$list_rule_id = get_post_meta( $order_id, 'yaydp_checkout_fee_rules', true );
-			$all_rules    = \yaydp_get_checkout_fee_rules();
-			if ( ! empty( $list_rule_id ) ) {
-				foreach ( $all_rules as $rule ) {
-					if ( in_array( $rule->get_id(), $list_rule_id, true ) ) {
-						$rule->increase_use_time();
-					}
-				}
-				$rules = array_map(
-					function( $rule ) {
-						return $rule->get_data();
-					},
-					$all_rules
-				);
-				update_option( 'yaydp_checkout_fee_rules', $rules );
-			}
-		} else {
-			delete_post_meta( $order_id, 'yaydp_checkout_fee_rules' );
+	public function on_order_completed( $order_id ) {
+		$order = \wc_get_order( $order_id );
+		if ( ! $order ) {
+			return;
 		}
-		return $result;
-	}
-
-	/**
-	 * Increase use time after payment success
-	 * No checking because there is no payment method
-	 *
-	 * @override
-	 *
-	 * @param string    $url Redirect url.
-	 * @param \WC_Order $order Current order.
-	 *
-	 * @return string
-	 */
-	public function checkout_no_payment_needed_redirect( $url, $order ) {
-		$order_id     = $order->get_id();
-		$list_rule_id = get_post_meta( $order_id, 'yaydp_checkout_fee_rules', true );
-		if ( ! empty( $list_rule_id ) ) {
-			$all_rules = \yaydp_get_checkout_fee_rules();
-			foreach ( $all_rules as $rule ) {
-				if ( in_array( $rule->get_id(), $list_rule_id, true ) ) {
-					$rule->increase_use_time();
-				}
-			}
-			$rules = array_map(
-				function( $rule ) {
-					return $rule->get_data();
-				},
-				$all_rules
-			);
-			update_option( 'yaydp_checkout_fee_rules', $rules );
+		$list_rule_id = $order->get_meta( 'yaydp_checkout_fee_rules' );
+		if ( empty( $list_rule_id ) || ! is_array( $list_rule_id ) ) {
+			return;
 		}
-		return $url;
+		$all_rules = \yaydp_get_checkout_fee_rules();
+		foreach ( $all_rules as $rule ) {
+			if ( in_array( $rule->get_id(), $list_rule_id, true ) ) {
+				$rule->increase_use_time();
+			}
+		}
+		$rules = array_map(
+			function( $rule ) {
+				return $rule->get_data();
+			},
+			$all_rules
+		);
+		update_option( 'yaydp_checkout_fee_rules', $rules );
 	}
 }

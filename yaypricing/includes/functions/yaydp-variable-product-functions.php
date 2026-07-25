@@ -94,23 +94,16 @@ if ( ! function_exists( 'yaydp_get_variable_product_store_prices' ) ) {
 		if ( ! \yaydp_is_variable_product( $product ) ) {
 			return array();
 		}
-		$settings                  = \YAYDP\Settings\YAYDP_Product_Pricing_Settings::get_instance();
-		$is_based_on_regular_price = 'regular_price' === $settings->get_discount_base_on();
-		$children_id               = $product->get_children();
-		$prices                     = array();
+		$children_id = $product->get_children();
+		$prices      = array();
 		foreach ( $children_id as $id ) {
 			$variation = \wc_get_product( $id );
 			if ( empty( $variation ) ) {
 				continue;
 			}
-			$price_context         = 'original';
-			$is_product_on_sale   = $variation->is_on_sale( $price_context );
-			$product_sale_price    = $variation->get_sale_price( $price_context );
-			$product_regular_price = $variation->get_regular_price( $price_context );
-			$sale_price            = $is_product_on_sale ? $product_sale_price : $product_regular_price;
-			$product_price         = $is_based_on_regular_price ? $product_regular_price : $sale_price;
-			$product_price         = \YAYDP\Helper\YAYDP_Pricing_Helper::get_product_fixed_price( $product_price, $variation );
-			$prices[ $id ]         = floatval( $product_price );
+			// Use the context-aware base price so other-source price plugins (e.g. Product Price
+			// Based on Countries) apply via yaydp_other_source_product_base_price.
+			$prices[ $id ] = floatval( \YAYDP\Helper\YAYDP_Pricing_Helper::get_product_price( $variation ) );
 		}
 		return $prices;
 	}

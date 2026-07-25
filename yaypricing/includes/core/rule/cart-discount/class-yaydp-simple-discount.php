@@ -110,6 +110,9 @@ class YAYDP_Simple_Discount extends \YAYDP\Abstracts\YAYDP_Cart_Discount_Rule {
 	 * Handle add coupon
 	 */
 	public function add_coupon() {
+		if ( ! function_exists( 'WC' ) || empty( \WC()->cart ) ) {
+			return;
+		}
 		\WC()->cart->add_discount( $this->get_coupon_code() );
 	}
 

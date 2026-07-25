@@ -3,8 +3,8 @@ Contributors: YayCommerce
 Donate link: https://yaycommerce.com/yaypricing-woocommerce-dynamic-pricing-and-discounts/
 Tags: dynamic pricing, discounts, cart fee, bogo, coupon
 Requires at least: 3.0
-Tested up to: 6.9
-Stable tag: 3.5.6
+Tested up to: 7.0
+Stable tag: 3.5.7
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -33,6 +33,12 @@ Supported WooCommerce discount rules:
 - Buy X Get Y rules.
 - Bulk discounts.
 - WooCommerce extra fees.
+
+Watch our tutorial: How to Create Location-Based Coupons in WooCommerce (Country & State)
+
+[youtube https://youtu.be/nTUDU6x9ku8&t=57]
+
+[Documentation](https://docs.yaycommerce.com/yaypricing/features)
 
 ###⚡️ FEATURES
 
@@ -86,7 +92,7 @@ Limit applicable discounts to product regular price, number of items, cart total
 
 **Flexible discounts**
 - Add any 3 products to cart and get the cheapest item for free.
-- $10 off if paid in USD, €20 off if paid in EUR, etc.
+- $10 off if paid in USD, 20 € off if paid in EUR, etc.
 
 Happy Discount-ing! 💛 
 
@@ -127,6 +133,21 @@ A big yes! YayPricing is compliant with GDPR. It doesn't collect your WooCommerc
 6. Gift item of "Buy one get one free" promotion automatically added to cart page
 
 == Changelog ==
+
+= Jul 25, 2026 – Version 3.5.7 =
+- Added: Add compatibility with YayWholesale plugin
+- Added: Bundle Highest Item Price and Price Per Item pricing types in Product Bundle
+- Added: Add support for free pricing type in product bundles and related calculations
+- Added: Add Billing email order condition
+- Improved: Improve item sorting and discount calculation logic in Product Bundle
+- Improved: Improve the shortcode that displays On Sale products.
+- Improved: Add labeled two-line layout for discounted prices of variable products on single product page
+- Fixed: Fix several issues related to the Checkout Fee feature
+- Fixed: Fix issues related to Usage Limit Tracking
+- Fixed: Fix issues related to Cart subtotal condition
+- Fixed: Fix several issues related to the Cart Discount feature
+- Fixed: Fix several compatibility issues between YayPricing and Iconic Attribute Swatches
+- Fixed: Fix the issue where the admin page occasionally fails to load
 
 = Apr 24, 2026 - Version 3.5.6 =
 - Improved: Improve attribute retrieval in get_product_specific_attributes

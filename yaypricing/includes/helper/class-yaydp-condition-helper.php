@@ -89,7 +89,13 @@ class YAYDP_Condition_Helper {
 				case 'customer_order_count':
 					$check = self::check_customer_order_count( $condition );
 					break;
-					/**
+				/**
+				 * @since 3.5.8
+				 */
+				case 'billing_email_order_count':
+					$check = self::check_billing_email_order_count( $condition );
+					break;
+				/**
 				 * @since 2.4.5
 				 */
 				case 'customer_order_count_from_last_discount':
@@ -319,10 +325,102 @@ class YAYDP_Condition_Helper {
 	public static function check_customer_order_count( $condition ) {
 		if ( is_user_logged_in() ) {
 			$current_user_id = get_current_user_id();
-			$order_count     = \wc_get_customer_order_count( $current_user_id );
+			$orders          = \wc_get_orders(
+				array(
+					'customer_id' => $current_user_id,
+					'status'      => array( 'wc-completed', 'wc-processing' ),
+					'limit'       => -1,
+					'return'      => 'ids',
+				)
+			);
+			$order_count     = count( $orders );
 			return \yaydp_compare_numeric( $order_count, $condition['value'], $condition['comparation'] );
 		}
 		return false;
+	}
+
+	/**
+	 * Check customer order count from last discount.
+	 *
+	 * @since 2.4.5
+	 * @param array $condition Checking condition.
+	 *
+	 * @return bool
+	 */
+	public static function check_customer_order_count_from_last_discount( $condition, $rule ) {
+		if ( is_user_logged_in() ) {
+			$current_user_id = get_current_user_id();
+			$args            = array(
+				'customer_id' => $current_user_id,
+				'limit'       => $condition['value'] + 1,
+			);
+			$orders          = \wc_get_orders( $args );
+			$last_discount   = -1;
+			foreach ( $orders as $index => $order ) {
+				$meta_name = 'yaydp_product_pricing_rules';
+				if ( \yaydp_is_cart_discount( $rule ) ) {
+					$meta_name = 'yaydp_cart_discount_rules';
+				}
+
+				if ( \yaydp_is_checkout_fee( $rule ) ) {
+					$meta_name = 'yaydp_checkout_fee_rules';
+				}
+				$meta_value = get_post_meta( $order->get_id(), $meta_name, true );
+				if ( is_array( $meta_value ) && in_array( $rule->get_id(), $meta_value ) ) {
+					$last_discount = $index;
+					break;
+				}
+			}
+
+			if ( -1 === $last_discount ) {
+				return true;
+			}
+			$order_count = $last_discount;
+
+			return \yaydp_compare_numeric( $order_count, $condition['value'], $condition['comparation'] );
+		}
+		return false;
+	}
+
+	/**
+	 * Check billing email order count.
+	 * Counts completed and processing orders whose billing email matches the current order's billing email.
+	 *
+	 * @since 3.5.8
+	 * @param array $condition Checking condition.
+	 *
+	 * @return bool
+	 */
+	public static function check_billing_email_order_count( $condition ) {
+		try {
+			$billing_email = '';
+			if ( function_exists( 'WC' ) && ! empty( \WC()->customer ) ) {
+				$billing_email = \WC()->customer->get_billing_email();
+			}
+			if ( empty( $billing_email ) && is_user_logged_in() ) {
+				$current_user  = \wp_get_current_user();
+				$billing_email = get_user_meta( $current_user->ID, 'billing_email', true );
+				if ( empty( $billing_email ) ) {
+					$billing_email = $current_user->user_email;
+				}
+			}
+			$billing_email = \sanitize_email( $billing_email );
+			if ( empty( $billing_email ) ) {
+				return false;
+			}
+			$orders      = \wc_get_orders(
+				array(
+					'billing_email' => $billing_email,
+					'status'        => array( 'wc-completed', 'wc-processing' ),
+					'limit'         => -1,
+					'return'        => 'ids',
+				)
+			);
+			$order_count = count( $orders );
+			return \yaydp_compare_numeric( $order_count, $condition['value'], $condition['comparation'] );
+		} catch ( \Exception $e ) {
+			return false;
+		}
 	}
 
 	/**
@@ -333,6 +431,9 @@ class YAYDP_Condition_Helper {
 	 * @return bool
 	 */
 	public static function check_shipping_region( $condition ) {
+		if ( ! function_exists( 'WC' ) || empty( \WC()->customer ) ) {
+			return false;
+		}
 		$country_code   = strtoupper( \wc_clean( \WC()->customer->get_shipping_country() ) );
 		$state_code     = strtoupper( \wc_clean( \WC()->customer->get_shipping_state() ) );
 		$continent_code = strtoupper( \wc_clean( \WC()->countries->get_continent_code_for_country( $country_code ) ) );
@@ -816,49 +917,6 @@ class YAYDP_Condition_Helper {
 	}
 
 	/**
-	 * Check customer order count from last discount.
-	 *
-	 * @since 2.4.5
-	 * @param array $condition Checking condition.
-	 *
-	 * @return bool
-	 */
-	public static function check_customer_order_count_from_last_discount( $condition, $rule ) {
-		if ( is_user_logged_in() ) {
-			$current_user_id = get_current_user_id();
-			$args            = array(
-				'customer_id' => $current_user_id,
-				'limit'       => $condition['value'] + 1,
-			);
-			$orders          = \wc_get_orders( $args );
-			$last_discount   = -1;
-			foreach ( $orders as $index => $order ) {
-				$meta_name = 'yaydp_product_pricing_rules';
-				if ( \yaydp_is_cart_discount( $rule ) ) {
-					$meta_name = 'yaydp_cart_discount_rules';
-				}
-
-				if ( \yaydp_is_checkout_fee( $rule ) ) {
-					$meta_name = 'yaydp_checkout_fee_rules';
-				}
-				$meta_value = get_post_meta( $order->get_id(), $meta_name, true );
-				if ( is_array( $meta_value ) && in_array( $rule->get_id(), $meta_value ) ) {
-					$last_discount = $index;
-					break;
-				}
-			}
-
-			if ( -1 === $last_discount ) {
-				return true;
-			}
-			$order_count = $last_discount;
-
-			return \yaydp_compare_numeric( $order_count, $condition['value'], $condition['comparation'] );
-		}
-		return false;
-	}
-
-	/**
 	 * Check payment method.
 	 *
 	 * @param array $condition Checking condition.
@@ -1031,6 +1089,9 @@ class YAYDP_Condition_Helper {
 	 * @return bool
 	 */
 	public static function check_billing_region( $condition ) {
+		if ( ! function_exists( 'WC' ) || empty( \WC()->customer ) ) {
+			return false;
+		}
 		$country_code   = strtoupper( \wc_clean( \WC()->customer->get_billing_country() ) );
 		$state_code     = strtoupper( \wc_clean( \WC()->customer->get_billing_state() ) );
 		$continent_code = strtoupper( \wc_clean( \WC()->countries->get_continent_code_for_country( $country_code ) ) );
@@ -1129,9 +1190,9 @@ class YAYDP_Condition_Helper {
 	 * @return bool
 	 */
 	public static function check_shipping_method( $condition ) {
-		$shipping_methods = \WC()->session->get( 'chosen_shipping_methods' );
-		if ( ! empty( $_POST['shipping_method'] ) ) {
-			$shipping_methods = $_POST['shipping_method'];
+		$shipping_methods = ( function_exists( 'WC' ) && ! empty( \WC()->session ) ) ? \WC()->session->get( 'chosen_shipping_methods' ) : array();
+		if ( ! empty( $_POST['shipping_method'] ) && is_array( $_POST['shipping_method'] ) ) {
+			$shipping_methods = array_map( 'sanitize_text_field', wp_unslash( $_POST['shipping_method'] ) );
 		}
 		$list_id         = \YAYDP\Helper\YAYDP_Helper::map_filter_value( $condition );
 		$in_list         = false;
@@ -1161,6 +1222,9 @@ class YAYDP_Condition_Helper {
 	public static function check_shipping_class( $condition ) {
 
 		$check = false;
+		if ( ! function_exists( 'WC' ) || empty( \WC()->cart ) ) {
+			return false;
+		}
 		$list_id         = \YAYDP\Helper\YAYDP_Helper::map_filter_value( $condition );
 		foreach ( WC()->cart->get_cart() as $cart_item ) {
 			$product = $cart_item['data'];

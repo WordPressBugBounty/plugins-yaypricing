@@ -247,7 +247,7 @@ class YAYDP_B2BKing_Integration {
 	public function modify_cart_subtotal( $subtotal, $compound = false ) {
 		global $yaydp_cart;
 
-		if ( ! $yaydp_cart ) {
+		if ( ! $yaydp_cart || ! function_exists( 'WC' ) || empty( \WC()->cart ) ) {
 			return $subtotal;
 		}
 
@@ -282,7 +282,7 @@ class YAYDP_B2BKing_Integration {
 	public function modify_cart_total( $total ) {
 		global $yaydp_cart;
 
-		if ( ! $yaydp_cart ) {
+		if ( ! $yaydp_cart || ! function_exists( 'WC' ) || empty( \WC()->cart ) ) {
 			return $total;
 		}
 
@@ -330,7 +330,7 @@ class YAYDP_B2BKing_Integration {
 	public function modify_mini_cart_total() {
 		global $yaydp_cart;
 
-		if ( ! $yaydp_cart ) {
+		if ( ! $yaydp_cart || ! function_exists( 'WC' ) || empty( \WC()->cart ) ) {
 			return;
 		}
 

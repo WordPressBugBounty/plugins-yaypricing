@@ -32,7 +32,7 @@ if ( ! function_exists( 'yaydp_get_running_checkout_fee_rules' ) ) {
 		return array_filter(
 			$rules,
 			function ( $rule ) {
-				return $rule->is_running();
+				return ! is_null( $rule ) && $rule->is_running();
 			}
 		);
 	}

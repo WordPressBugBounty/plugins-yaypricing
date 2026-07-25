@@ -27,7 +27,7 @@ defined( 'ABSPATH' ) || exit;
 		$origin_price = \YAYDP\Helper\YAYDP_Pricing_Helper::convert_price( $origin_price );
 		foreach ( $prices_base_on_quantity as $price => $quantity ) :
 			$is_subscription_item = false;
-			if ( class_exists( '\WCS_ATT_Product_Prices' ) && class_exists( '\WCS_ATT_Display_Cart' ) ) {
+			if ( class_exists( '\WCS_ATT_Product_Prices' ) && class_exists( '\WCS_ATT_Display_Cart' ) && ! empty( \WC()->cart ) ) {
 				$item_key = $item->get_key();
 				$cart_item = \WC()->cart->get_cart_item( $item_key );
 				if ( isset( $cart_item['wcsatt_data']['active_subscription_scheme'] ) ) {

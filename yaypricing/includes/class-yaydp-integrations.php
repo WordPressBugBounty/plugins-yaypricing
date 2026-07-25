@@ -65,6 +65,8 @@ class YAYDP_Integrations {
 		\YAYDP\Integrations\Minmaxcontrol\YAYDP_Min_Max_Quantity_Integration::get_instance();
 		\YAYDP\Integrations\Eventtickets\YAYDP_Event_Tickets_Integration::get_instance();
 		\YAYDP\Integrations\Lottery\YAYDP_Lottery_For_WooCommerce_Integration::get_instance();
+		\YAYDP\Integrations\Yay_Wholesale_B2B\YAYDP_Yay_Wholesale_B2B_Integration::get_instance();
+		\YAYDP\Integrations\PriceBasedCountry\YAYDP_Price_Based_Country_Integration::get_instance();
 
 		YAYDP_WPML_Integration::get_instance();
 		YAYDP_Custom_Taxonomies_Integration::get_instance();

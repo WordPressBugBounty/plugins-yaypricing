@@ -64,6 +64,15 @@ class YayPricing {
 		// include_once YAYDP_ABSPATH . 'blocks/blocks.php';
 
 		/**
+		 * Register order-status-completed listeners in every request context
+		 * (admin manual completion, REST, cron) so usage counts update reliably.
+		 * Singletons are idempotent — frontend re-instantiation via pricing manager is a no-op.
+		 */
+		\YAYDP\Core\Use_Time\YAYDP_Product_Pricing_Use_Time::get_instance();
+		\YAYDP\Core\Use_Time\YAYDP_Cart_Discount_Use_Time::get_instance();
+		\YAYDP\Core\Use_Time\YAYDP_Checkout_Fee_Use_Time::get_instance();
+
+		/**
 		 * Include this file only when the user is on an admin page
 		 */
 		if ( yaydp_is_request( 'admin' ) ) {
@@ -77,6 +86,7 @@ class YayPricing {
 		if ( yaydp_is_request( 'frontend' ) ) {
 			include_once YAYDP_ABSPATH . 'includes/class-yaydp-enqueue-frontend.php';
 			include_once YAYDP_ABSPATH . 'includes/core/manager/class-yaydp-pricing-manager.php';
+			include_once YAYDP_ABSPATH . 'includes/class-yaydp-checkout-billing-email-sync.php';
 		}
 	}
 

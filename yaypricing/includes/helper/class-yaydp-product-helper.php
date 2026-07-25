@@ -61,6 +61,158 @@ class YAYDP_Product_Helper {
 	}
 
 	/**
+	 * Check if the given product match with the given attribute filter
+	 *
+	 * @param \WC_Product $product Given product.
+	 * @param array       $filter The attributes filter.
+	 *
+	 * @return boolean
+	 */
+	public static function check_attribute( $product, $filter, $item_key = null ) {
+		$list_attribute_id = \YAYDP\Helper\YAYDP_Helper::map_filter_value( $filter );
+		$list_attributes   = array();
+		foreach ( $list_attribute_id as $attribute_id ) {
+			$term = get_term( $attribute_id );
+			if ( is_null( $term ) || is_wp_error( $term ) ) {
+				continue;
+			}
+			$list_attributes[] = array(
+				'taxonomy'  => $term->taxonomy,
+				'attribute' => $term->slug,
+			);
+		}
+		
+		$product_attributes = $product->get_attributes();
+		if ( ! empty( $product_attributes ) ) {
+			$decoded_attributes = array();
+			foreach ( $product_attributes as $taxonomy => $attribute ) {
+				if ( preg_match( '/%[0-9a-fA-F]{2}/', $taxonomy ) ) {
+					$decoded_taxonomy = urldecode( $taxonomy );
+				} else {
+					$decoded_taxonomy = $taxonomy;
+				}
+				$decoded_attributes[ $decoded_taxonomy ] = $attribute;
+			}
+			$product_attributes = $decoded_attributes;
+		}
+
+		if ( \yaydp_is_variation_product( $product ) ) {
+			$parent_id = $product->get_parent_id();
+			$parent    = \wc_get_product( $parent_id );
+			if ( $parent ) {
+				$parent_attributes = $parent->get_attributes();
+				foreach ( $parent_attributes as $attribute ) {
+					if ( $attribute instanceof \WC_Product_Attribute && $attribute['visible'] && ! $attribute['variation'] ) {
+						$product_attributes[ $attribute['name'] ] = $attribute;
+					}
+				}
+			}
+		}
+		$in_list = false;
+
+		foreach ( $list_attributes as $attribute_information ) {
+			foreach ( $product_attributes as $taxonomy => $attribute ) {
+				if ( $attribute_information['taxonomy'] === $taxonomy && $attribute instanceof \WC_Product_Attribute ) {
+					foreach ( $attribute->get_options() as $term_id ) {
+						$term = get_term( $term_id );
+						if ( is_null( $term ) || is_wp_error( $term ) ) {
+							continue;
+						}
+						if ( $term != null && ! is_wp_error( $term ) && $term->slug === $attribute_information['attribute'] ) {
+							$in_list = true;
+							break 3;
+						}
+					}
+				}
+				if ( $attribute_information['taxonomy'] === $taxonomy && $attribute_information['attribute'] === $attribute ) {
+					$in_list = true;
+					break 2;
+				}
+			}
+		}
+
+		if ( ! is_null( $item_key ) && ! empty( \WC()->cart ) ) {
+			foreach ( \WC()->cart->get_cart() as $cart_item ) {
+				if ( $cart_item['key'] === $item_key && ! empty( $cart_item['variation'] ) ) {
+					foreach ( $list_attributes as $attribute_information ) {
+						foreach ( $cart_item['variation'] as $taxonomy => $variation ) {
+							if ( 'attribute_' . $attribute_information['taxonomy'] === $taxonomy && $attribute_information['attribute'] === $variation ) {
+								$in_list = true;
+								break 2;
+							}
+						}
+					}
+				}
+			}
+		}
+
+		return 'in_list' === $filter['comparation'] ? $in_list : ! $in_list;
+	}
+
+	/**
+	 * Check if the given product has the selected specific attributes
+	 *
+	 * @param \WC_Product $product Given product.
+	 * @param array       $filter The attributes filter.
+	 * @param string|null $item_key Cart item key.
+	 *
+	 * @return boolean
+	 */
+	public static function check_specific_attributes( $product, $filter, $item_key = null ) {
+		if ( ! $product instanceof \WC_Product ) {
+			return false;
+		}
+
+		$list_attributes = $filter['value'];
+		$selected_attributes = \YAYDP\Helper\YAYDP_Helper::separate_attribute_option( array( 'title' => $list_attributes ) );
+		
+		$product_attributes = $product->get_attributes();
+		if ( ! empty( $product_attributes ) ) {
+			$decoded_attributes = array();
+			foreach ( $product_attributes as $taxonomy => $attribute ) {
+				if ( preg_match( '/%[0-9a-fA-F]{2}/', $taxonomy ) ) {
+					$decoded_taxonomy = urldecode( $taxonomy );
+				} else {
+					$decoded_taxonomy = $taxonomy;
+				}
+				$decoded_attributes[ $decoded_taxonomy ] = $attribute;
+			}
+			$product_attributes = $decoded_attributes;
+		}
+
+		$in_list = false;
+
+		foreach ( $selected_attributes as $attribute_info ) {
+			$selected_attribute_name = strtolower( $attribute_info['attribute'] );
+			
+			if ( isset( $product_attributes[ $selected_attribute_name ] ) ) {
+				$option = $product_attributes[ $selected_attribute_name ];
+				
+				if ( $attribute_info['option'] === $option ) {
+					$in_list = true;
+					break;
+				}
+			}
+		}
+
+		if ( ! is_null( $item_key ) && ! empty( \WC()->cart ) ) {
+			foreach ( \WC()->cart->get_cart() as $cart_item ) {
+				if ( $cart_item['key'] === $item_key && ! empty( $cart_item['variation'] ) ) {
+					foreach ( $selected_attributes as $attribute_info ) {
+						$taxonomy = 'attribute_' . strtolower( $attribute_info['attribute'] );
+						if ( isset( $cart_item['variation'][ $taxonomy ] ) && $cart_item['variation'][ $taxonomy ] === $attribute_info['option'] ) {
+							$in_list = true;
+							break 2;
+						}
+					}
+				}
+			}
+		}
+
+		return 'in_list' === $filter['comparation'] ? $in_list : ! $in_list;
+	}
+
+	/**
 	 * Check if the given product match with the given category filter
 	 *
 	 * @param \WC_Product $product Given product.
@@ -146,6 +298,14 @@ class YAYDP_Product_Helper {
 	 * @return array
 	 */
 	public static function get_product_cats( $product ) {
+		// Resolving a product's categories (plus ancestors, plus the parent
+		// product's categories for variations) is pure taxonomy work repeated for
+		// every rule check on every variation. Memoize per product for the request.
+		$cache     = \YAYDP\Core\Caches\YAYDP_Request_Cache::get_instance();
+		$cache_key = 'cat:' . $product->get_id();
+		if ( $cache->has( 'taxonomy', $cache_key ) ) {
+			return $cache->get( 'taxonomy', $cache_key );
+		}
 		$result          = array();
 		$product_cats    = \get_the_terms( $product->get_id(), 'product_cat' );
 		$product_cat_ids = array_map(
@@ -164,7 +324,7 @@ class YAYDP_Product_Helper {
 			$parent_product = \wc_get_product( $product_parent_id );
 			$result         = array_merge( $result, self::get_product_cats( $parent_product ) );
 		}
-		return array_unique( $result );
+		return $cache->set( 'taxonomy', $cache_key, array_unique( $result ) );
 	}
 
 	/**
@@ -176,6 +336,13 @@ class YAYDP_Product_Helper {
 	 * @return array
 	 */
 	public static function get_product_tags( $product ) {
+		// Same rationale as get_product_cats: memoize the per-product tag walk
+		// (including ancestors and parent product) for the request.
+		$cache     = \YAYDP\Core\Caches\YAYDP_Request_Cache::get_instance();
+		$cache_key = 'tag:' . $product->get_id();
+		if ( $cache->has( 'taxonomy', $cache_key ) ) {
+			return $cache->get( 'taxonomy', $cache_key );
+		}
 		$result          = array();
 		$product_cats    = \get_the_terms( $product->get_id(), 'product_tag' );
 		$product_cat_ids = array_map(
@@ -194,147 +361,7 @@ class YAYDP_Product_Helper {
 			$parent_product = \wc_get_product( $product_parent_id );
 			$result         = array_merge( $result, self::get_product_tags( $parent_product ) );
 		}
-		return array_unique( $result );
-	}
-
-	/**
-	 * Check if the given product match with the given attribute filter
-	 *
-	 * @param \WC_Product $product Given product.
-	 * @param array       $filter The attributes filter.
-	 *
-	 * @return boolean
-	 */
-	public static function check_attribute( $product, $filter, $item_key = null ) {
-		$list_attribute_id = \YAYDP\Helper\YAYDP_Helper::map_filter_value( $filter );
-		$list_attributes   = array();
-		foreach ( $list_attribute_id as $attribute_id ) {
-			$term = get_term( $attribute_id );
-			if ( is_null( $term ) || is_wp_error( $term ) ) {
-				continue;
-			}
-			$list_attributes[] = array(
-				'taxonomy'  => $term->taxonomy,
-				'attribute' => $term->slug,
-			);
-		}
-		$product_attributes = $product->get_attributes();
-		if ( ! empty( $product_attributes ) ) {
-			$decoded_attributes = array();
-			foreach ( $product_attributes as $taxonomy => $attribute ) {
-				if ( preg_match( '/%[0-9a-fA-F]{2}/', $taxonomy ) ) {
-					$decoded_taxonomy = urldecode( $taxonomy );
-				} else {
-					$decoded_taxonomy = $taxonomy;
-				}
-				$decoded_attributes[ $decoded_taxonomy ] = $attribute;
-			}
-			$product_attributes = $decoded_attributes;
-		}
-		if ( \yaydp_is_variation_product( $product ) ) {
-			$parent_id = $product->get_parent_id();
-			$parent    = \wc_get_product( $parent_id );
-			if ( $parent ) {
-				$parent_attributes = $parent->get_attributes();
-				foreach ( $parent_attributes as $attribute ) {
-					if ( $attribute instanceof \WC_Product_Attribute && $attribute['visible'] && ! $attribute['variation'] ) {
-						$product_attributes[ $attribute['name'] ] = $attribute;
-					}
-				}
-			}
-		}
-		// TODO: process for variable product
-
-		$in_list = false;
-
-		foreach ( $list_attributes as $attribute_information ) {
-			foreach ( $product_attributes as $taxonomy => $attribute ) {
-				if ( $attribute_information['taxonomy'] === $taxonomy && $attribute instanceof \WC_Product_Attribute ) {
-					foreach ( $attribute->get_options() as $term_id ) {
-						$term = get_term( $term_id );
-						if ( is_null( $term ) || is_wp_error( $term ) ) {
-							continue;
-						}
-						if ( null != $term && ! is_wp_error( $term ) && $term->slug === $attribute_information['attribute'] ) {
-							$in_list = true;
-							break 3;
-						}
-					}
-				}
-				if ( $attribute_information['taxonomy'] === $taxonomy && $attribute_information['attribute'] === $attribute ) {
-					$in_list = true;
-					break 2;
-				}
-			}
-		}
-
-		if ( ! is_null( $item_key ) && \WC()->cart ) {
-			foreach ( \WC()->cart->get_cart() as $cart_item ) {
-				if ( $cart_item['key'] === $item_key && ! empty( $cart_item['variation'] ) ) {
-					foreach ( $list_attributes as $attribute_information ) {
-						foreach ( $cart_item['variation'] as $taxonomy => $variation ) {
-							if ( 'attribute_' . $attribute_information['taxonomy'] === $taxonomy && $attribute_information['attribute'] === $variation ) {
-								$in_list = true;
-								break 2;
-							}
-						}
-					}
-				}
-			}
-		}
-
-		return 'in_list' === $filter['comparation'] ? $in_list : ! $in_list;
-	}
-
-	/**
-	 * Check if the given product has the selected specific attributes
-	 *
-	 * @param \WC_Product $product Given product.
-	 * @param array       $filter The attributes filter.
-	 * @param string|null $item_key Cart item key.
-	 *
-	 * @return boolean
-	 */
-	public static function check_specific_attributes( $product, $filter, $item_key = null ) {
-		if ( ! $product instanceof \WC_Product ) {
-			return false;
-		}
-
-		$list_attributes = $filter['value'];
-		$selected_attributes = \YAYDP\Helper\YAYDP_Helper::separate_attribute_option( array( 'title' => $list_attributes ) );
-
-		$product_attributes = $product->get_attributes();
-
-		$in_list = false;
-
-		foreach ( $selected_attributes as $attribute_info ) {
-			$selected_attribute_name = strtolower( $attribute_info['attribute'] );
-
-			if ( isset( $product_attributes[ $selected_attribute_name ] ) ) {
-				$option = $product_attributes[ $selected_attribute_name ];
-
-				if ( $attribute_info['option'] === $option ) {
-					$in_list = true;
-					break;
-				}
-			}
-		}
-
-		if ( ! is_null( $item_key ) ) {
-			foreach ( \WC()->cart->get_cart() as $cart_item ) {
-				if ( $cart_item['key'] === $item_key && ! empty( $cart_item['variation'] ) ) {
-					foreach ( $selected_attributes as $attribute_info ) {
-						$taxonomy = 'attribute_' . strtolower( $attribute_info['attribute'] );
-						if ( isset( $cart_item['variation'][ $taxonomy ] ) && $cart_item['variation'][ $taxonomy ] === $attribute_info['option'] ) {
-							$in_list = true;
-							break 2;
-						}
-					}
-				}
-			}
-		}
-
-		return 'in_list' === $filter['comparation'] ? $in_list : ! $in_list;
+		return $cache->set( 'taxonomy', $cache_key, array_unique( $result ) );
 	}
 
 	/**

@@ -32,30 +32,29 @@ class YAYDP_Product_Sale {
 	 * Calculate minimum and maximum discount percentages of current product
 	 */
 	public function get_min_max_discounts_percent() {
-		global $yaydp_products_discount_percents;
-
-		$product_id = $this->product->get_id();
-
-		if ( isset( $yaydp_products_discount_percents[ $product_id ] ) ) {
-			return $yaydp_products_discount_percents[ $product_id ];
-		}
-
-		$settings = \YAYDP\Settings\YAYDP_Product_Pricing_Settings::get_instance();
-		if ( ! $settings->show_product_sale_as_discountable_price_range() ) {
-			$result = $this->get_absolute_min_max_percent();
-		} else {
-			$result = $this->get_relative_min_max_percent();
-		}
-		if ( isset( $result['min'] ) ) {
-			$result['min'] = max( 0, $result['min'] );
-		}
-		if ( isset( $result['max'] ) ) {
-			$result['max'] = min( 100, $result['max'] );
-		}
-
-		$yaydp_products_discount_percents[ $product_id ] = $result;
-
-		return $result;
+		// Keyed by pricing context (role/currency/tax) so a value computed for one
+		// visitor is never shown to another, and shared for the request with the
+		// discounted-price path below. Replaces the old context-blind global memo.
+		$cache_key = 'pct:' . \yaydp_pricing_context_key() . ':' . $this->product->get_id();
+		return \YAYDP\Core\Caches\YAYDP_Request_Cache::get_instance()->remember(
+			'price',
+			$cache_key,
+			function () {
+				$settings = \YAYDP\Settings\YAYDP_Product_Pricing_Settings::get_instance();
+				if ( ! $settings->show_product_sale_as_discountable_price_range() ) {
+					$result = $this->get_absolute_min_max_percent();
+				} else {
+					$result = $this->get_relative_min_max_percent();
+				}
+				if ( isset( $result['min'] ) ) {
+					$result['min'] = max( 0, $result['min'] );
+				}
+				if ( isset( $result['max'] ) ) {
+					$result['max'] = min( 100, $result['max'] );
+				}
+				return $result;
+			}
+		);
 	}
 
 	/**
@@ -72,7 +71,7 @@ class YAYDP_Product_Sale {
 			$children_id = $product->get_children();
 			$children    = array_map(
 				function( $id ) {
-					return \wc_get_product( $id );
+					return \yaydp_get_product( $id );
 				},
 				$children_id
 			);
@@ -107,7 +106,7 @@ class YAYDP_Product_Sale {
 			$children_id = $product->get_children();
 			$children    = array_map(
 				function( $id ) {
-					return \wc_get_product( $id );
+					return \yaydp_get_product( $id );
 				},
 				$children_id
 			);
@@ -135,6 +134,25 @@ class YAYDP_Product_Sale {
 	 * @param \WC_Product $product Product.
 	 */
 	private function get_relative_min_max_percent_per_product( $product ) {
+		// Shared per (context, product) across the percent path (badge) and the
+		// discounted-price path (price HTML) so the per-variation rule walk runs
+		// once per request instead of once per display feature.
+		$cache_key = 'leaf-rel:' . \yaydp_pricing_context_key() . ':' . $product->get_id();
+		return \YAYDP\Core\Caches\YAYDP_Request_Cache::get_instance()->remember(
+			'price',
+			$cache_key,
+			function () use ( $product ) {
+				return $this->compute_relative_min_max_percent_per_product( $product );
+			}
+		);
+	}
+
+	/**
+	 * Uncached computation of the relative min/max discount percent for a product.
+	 *
+	 * @param \WC_Product $product Product.
+	 */
+	private function compute_relative_min_max_percent_per_product( $product ) {
 		$running_rules = \yaydp_get_running_product_pricing_rules();
 		foreach ( $running_rules as $rule ) {
 			if ( \yaydp_is_buy_x_get_y( $rule ) ) {
@@ -172,6 +190,25 @@ class YAYDP_Product_Sale {
 	 * @param \WC_Product $product Product.
 	 */
 	private function get_absolute_min_max_percent_per_product( $product ) {
+		// Absolute/next-tier mode builds a cart and runs the full adjustment engine
+		// per variation — the dominant archive cost. Cache per (context, product) so
+		// the badge and price-HTML paths share a single engine run for the request.
+		$cache_key = 'leaf-abs:' . \yaydp_pricing_context_key() . ':' . $product->get_id();
+		return \YAYDP\Core\Caches\YAYDP_Request_Cache::get_instance()->remember(
+			'price',
+			$cache_key,
+			function () use ( $product ) {
+				return $this->compute_absolute_min_max_percent_per_product( $product );
+			}
+		);
+	}
+
+	/**
+	 * Uncached computation of the absolute min/max discount percent for a product.
+	 *
+	 * @param \WC_Product $product Product.
+	 */
+	private function compute_absolute_min_max_percent_per_product( $product ) {
 		$cart = new \YAYDP\Core\YAYDP_Cart();
 		$cart->reset_modifiers();
 		$running_rules = \yaydp_get_running_product_pricing_rules();
@@ -258,12 +295,60 @@ class YAYDP_Product_Sale {
 	 * Calculate minimum and maximum discounted price of current product
 	 */
 	public function get_min_max_discounted_price() {
-		$settings = \YAYDP\Settings\YAYDP_Product_Pricing_Settings::get_instance();
-		if ( ! $settings->show_product_sale_as_discountable_price_range() ) {
-			return $this->get_absolute_min_max_discounted_price();
-		} else {
-			return $this->get_relative_min_max_discounted_price();
+		// The price-HTML filter calls this for every product card and it was fully
+		// uncached. Memoize per product and pricing context for the request.
+		$cache_key = 'disc:' . \yaydp_pricing_context_key() . ':' . $this->product->get_id();
+		return \YAYDP\Core\Caches\YAYDP_Request_Cache::get_instance()->remember(
+			'price',
+			$cache_key,
+			function () {
+				$settings = \YAYDP\Settings\YAYDP_Product_Pricing_Settings::get_instance();
+				if ( ! $settings->show_product_sale_as_discountable_price_range() ) {
+					return $this->get_absolute_min_max_discounted_price();
+				}
+				return $this->get_relative_min_max_discounted_price();
+			}
+		);
+	}
+
+	/**
+	 * Calculate min/max discounted price across ONLY variations that receive an active discount.
+	 *
+	 * Unlike get_min_max_discounted_price(), undiscounted variations are excluded so their
+	 * original price is never presented as a discounted value.
+	 *
+	 * @return array|null { 'min' => float, 'max' => float } or null when nothing is discounted.
+	 */
+	public function get_discounted_variations_min_max_price() {
+		$product = $this->product;
+		if ( empty( $product ) || ! \yaydp_is_variable_product( $product ) ) {
+			return null;
 		}
+		$settings     = \YAYDP\Settings\YAYDP_Product_Pricing_Settings::get_instance();
+		$use_relative = $settings->show_product_sale_as_discountable_price_range();
+
+		$prices = array();
+		foreach ( $product->get_children() as $child_id ) {
+			$child = \wc_get_product( $child_id );
+			if ( empty( $child ) ) {
+				continue;
+			}
+			$sub = $use_relative
+				? $this->get_relative_min_max_discounted_price_per_product( $child )
+				: $this->get_absolute_min_max_discounted_price_per_product( $child );
+			if ( is_null( $sub ) ) {
+				continue; // Undiscounted variation, excluded from the discounted range.
+			}
+			$prices[] = $sub['min'];
+			$prices[] = $sub['max'];
+		}
+		if ( empty( $prices ) ) {
+			return null;
+		}
+		return array(
+			'min' => min( $prices ),
+			'max' => max( $prices ),
+		);
 	}
 
 	/**
@@ -282,7 +367,7 @@ class YAYDP_Product_Sale {
 			$children_id    = $product->get_children();
 			$children       = array_map(
 				function( $id ) {
-					return \wc_get_product( $id );
+					return \yaydp_get_product( $id );
 				},
 				$children_id
 			);
@@ -351,7 +436,7 @@ class YAYDP_Product_Sale {
 			$children_id    = $product->get_children();
 			$children       = array_map(
 				function( $id ) {
-					return \wc_get_product( $id );
+					return \yaydp_get_product( $id );
 				},
 				$children_id
 			);

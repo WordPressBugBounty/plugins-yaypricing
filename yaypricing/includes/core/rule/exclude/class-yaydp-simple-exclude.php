@@ -7,8 +7,6 @@
 
 namespace YAYDP\Core\Rule\Exclude;
 
-use YAYDP\Core\Caches\YAYDP_Check_Products_Cache;
-
 defined( 'ABSPATH' ) || exit;
 
 /**
@@ -55,12 +53,13 @@ class YAYDP_Simple_Exclude extends \YAYDP\Abstracts\YAYDP_Exclude_Rule {
 			return false;
 		}
 
-		if ( ! YAYDP_Check_Products_Cache::is_cache( $rule, $product ) ) {
-			$check = $this->can_apply_adjustment( $product );
-			YAYDP_Check_Products_Cache::set_cache( $rule, $product, $check );
-		} else {
-			$check = YAYDP_Check_Products_Cache::get_cache( $rule, $product );
-		}
+		$check = \YAYDP\Core\Caches\YAYDP_Request_Cache::get_instance()->remember(
+			'applicability',
+			'excl:' . $this->get_id() . ':' . $rule->get_id() . ':' . $product->get_id(),
+			function () use ( $product ) {
+				return $this->can_apply_adjustment( $product );
+			}
+		);
 
 		if ( ! $check ) {
 			return false;

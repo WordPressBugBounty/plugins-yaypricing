@@ -89,7 +89,7 @@ if ( ! function_exists( 'yaydp_get_shipping_fee' ) ) {
 	 * @return float
 	 */
 	function yaydp_get_shipping_fee() {
-		$total = WC()->cart->get_shipping_total();
+		$total = ( function_exists( 'WC' ) && ! empty( WC()->cart ) ) ? WC()->cart->get_shipping_total() : 0;
 
 		return \YAYDP\Helper\YAYDP_Pricing_Helper::reverse_price( $total );
 	}
@@ -216,6 +216,35 @@ if ( ! function_exists( 'yaydp_get_current_quantity_in_cart' ) ) {
 			}
 		}
 		return $current_quantity;
+	}
+}
+
+if ( ! function_exists( 'yaydp_get_cart_state_signature' ) ) {
+
+	/**
+	 * Compute a signature of the current WC cart state.
+	 *
+	 * Used by pricing managers to gate `calculate_pricings()` so it re-runs
+	 * when cart state genuinely changes (qty, coupons, shipping) but skips
+	 * idempotent re-fires of `woocommerce_before_calculate_totals` within the
+	 * same request. A blank signature is returned when WC()->cart is unavailable.
+	 */
+	function yaydp_get_cart_state_signature() {
+		if ( ! function_exists( 'WC' ) || empty( WC()->cart ) ) {
+			return '';
+		}
+		$cart  = WC()->cart;
+		$items = array();
+		foreach ( $cart->get_cart() as $key => $item ) {
+			$items[ $key ] = array(
+				'p' => isset( $item['product_id'] ) ? (int) $item['product_id'] : 0,
+				'v' => isset( $item['variation_id'] ) ? (int) $item['variation_id'] : 0,
+				'q' => isset( $item['quantity'] ) ? (float) $item['quantity'] : 0,
+			);
+		}
+		$coupons  = $cart->get_applied_coupons();
+		$shipping = ( WC()->session instanceof \WC_Session ) ? WC()->session->get( 'chosen_shipping_methods', array() ) : array();
+		return md5( wp_json_encode( array( 'i' => $items, 'c' => $coupons, 's' => $shipping ) ) );
 	}
 }
 
@@ -351,13 +380,15 @@ if ( ! function_exists( 'yaydp_set_free_chosen_products' ) ) {
 }
 if ( ! function_exists( 'yaydp_get_product' ) ) {
 	function yaydp_get_product( $id ) {
-		static $yaydp_cached_products = array();
-
-		if ( ! isset( $yaydp_cached_products[ $id ] ) ) {
-			$yaydp_cached_products[ $id ] = \wc_get_product( $id );
-		}
-
-		return $yaydp_cached_products[ $id ];
+		// Backed by the shared request cache (products bucket) so a WC_Product is
+		// instantiated once per id per request across all consumers.
+		return \YAYDP\Core\Caches\YAYDP_Request_Cache::get_instance()->remember(
+			'products',
+			(string) $id,
+			function () use ( $id ) {
+				return \wc_get_product( $id );
+			}
+		);
 	}
 }
 
@@ -393,6 +424,39 @@ if ( ! function_exists( 'yaydp_get_saved_amount' ) ) {
 if ( ! function_exists( 'yaydp_clear_cache' ) ) {
 	function yaydp_clear_cache() {
 		do_action( 'yaydp_clear_cache' );
+	}
+}
+
+/**
+ * Build a cache-key fragment describing the pricing context that changes a
+ * displayed price: customer role, active currency, and shop tax-display mode.
+ *
+ * Any request-level cache that stores a price VALUE must include this so a value
+ * computed for one visitor/currency/tax mode is never served to another. Values
+ * that do not depend on context (rule objects, taxonomy ids) must not use it.
+ *
+ * @since 3.5.8
+ *
+ * @return string
+ */
+if ( ! function_exists( 'yaydp_pricing_context_key' ) ) {
+	function yaydp_pricing_context_key() {
+		$roles = array();
+		if ( function_exists( 'wp_get_current_user' ) ) {
+			$user = \wp_get_current_user();
+			if ( $user && ! empty( $user->roles ) ) {
+				$roles = (array) $user->roles;
+			}
+		}
+		$role = empty( $roles ) ? 'guest' : \implode( '.', $roles );
+
+		// get_woocommerce_currency is filtered by multicurrency integrations, so
+		// this reflects the currency the visitor is actually seeing.
+		$currency = function_exists( 'get_woocommerce_currency' ) ? \get_woocommerce_currency() : '';
+
+		$tax_display = \get_option( 'woocommerce_tax_display_shop' );
+
+		return \apply_filters( 'yaydp_pricing_context_key', $role . '|' . $currency . '|' . $tax_display );
 	}
 }
 

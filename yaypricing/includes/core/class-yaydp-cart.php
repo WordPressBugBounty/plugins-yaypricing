@@ -76,6 +76,9 @@ class YAYDP_Cart {
 	 * Publishes the yaydp cart to the WC Cart
 	 */
 	public function publish() {
+		if ( ! function_exists( 'WC' ) || empty( \WC()->cart ) ) {
+			return;
+		}
 		foreach ( $this->get_items_include_extra() as $item ) {
 			if ( $item->is_extra() ) {
 				add_filter( 'yaydp_prevent_recalculate_cart', '__return_true' );

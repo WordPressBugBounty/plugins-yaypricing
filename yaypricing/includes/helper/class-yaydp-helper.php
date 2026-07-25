@@ -66,6 +66,15 @@ class YAYDP_Helper {
 	}
 
 	/**
+	 * Check if the current user can manage YayPricing data.
+	 *
+	 * @since 3.4.6
+	 */
+	public static function can_manage_pricing() {
+		return current_user_can( 'manage_woocommerce' );
+	}
+
+	/**
 	 * Get list value from filter.
 	 *
 	 * @param array $filter Given filter.

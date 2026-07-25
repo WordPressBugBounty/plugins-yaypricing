@@ -59,18 +59,10 @@ $is_variable_or_grouped_product = \yaydp_is_variable_product( $product ) || \yay
 						echo implode( ' - ', $product_min_max_prices ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 					}
 				} else {
-					// Use store price (not affected by YayPricing) for original price display
-					// Respect the discount base setting (regular_price vs sale_price)
-					$settings                  = \YAYDP\Settings\YAYDP_Product_Pricing_Settings::get_instance();
-					$is_based_on_regular_price = 'regular_price' === $settings->get_discount_base_on();
-					$price_context             = 'original';
-					$is_product_on_sale        = $product->is_on_sale( $price_context );
-					$product_sale_price        = $product->get_sale_price( $price_context );
-					$product_regular_price     = $product->get_regular_price( $price_context );
-					$sale_price                = $is_product_on_sale ? $product_sale_price : $product_regular_price;
-					$product_price             = $is_based_on_regular_price ? $product_regular_price : $sale_price;
-					$product_price             = \YAYDP\Helper\YAYDP_Pricing_Helper::get_product_fixed_price( $product_price, $product );
-					$product_price             = floatval( $product_price );
+					// Use the context-aware base price for the original price display. This respects the
+					// discount base setting (regular_price vs sale_price) and other-source price plugins
+					// such as Product Price Based on Countries via yaydp_other_source_product_base_price.
+					$product_price = floatval( \YAYDP\Helper\YAYDP_Pricing_Helper::get_product_price( $product ) );
 					if ( $product_price > 0 ) {
 						$product_price = \wc_get_price_to_display( $product, array( 'price' => $product_price ) );
 						$product_price = \YAYDP\Helper\YAYDP_Pricing_Helper::convert_price( $product_price );

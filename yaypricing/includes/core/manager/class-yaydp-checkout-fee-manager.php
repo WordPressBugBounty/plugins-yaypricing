@@ -45,6 +45,7 @@ class YAYDP_Checkout_Fee_Manager {
 	 */
 	public function before_calculate_pricings() {
 		$this->remove_all_fees();
+		\YAYDP\Core\Single_Adjustment\YAYDP_Checkout_Fee_Adjustment::reset_applied_to_shipping_rule_ids();
 	}
 
 	/**
@@ -67,25 +68,38 @@ class YAYDP_Checkout_Fee_Manager {
 		// 	remove_action( 'woocommerce_cart_calculate_fees', array( self::get_instance(), 'calculate_pricings' ) );
 		// }
 
-		static $has_run = false;
-		if ( $has_run ) {
+		static $running           = false;
+		static $last_run_signature = null;
+
+		if ( $running ) {
 			return;
 		}
-		$has_run = true;
 
-		do_action( 'yaydp_before_calculate_checkout_fee' );
-
-		global $yaydp_cart;
-		if ( is_null( $yaydp_cart ) ) {
-			$yaydp_cart                  = new \YAYDP\Core\YAYDP_Cart();
-			$product_pricing_adjustments = new \YAYDP\Core\Adjustments\YAYDP_Product_Pricing_Adjustments( $yaydp_cart );
-			$product_pricing_adjustments->do_stuff();
+		$signature = \yaydp_get_cart_state_signature();
+		if ( null !== $last_run_signature && $signature === $last_run_signature ) {
+			return;
 		}
-		$checkout_fee_adjustments = new \YAYDP\Core\Adjustments\YAYDP_Checkout_Fee_Adjustments( $yaydp_cart );
-		$checkout_fee_adjustments->do_stuff();
 
-		do_action( 'yaydp_after_calculate_checkout_fee' );
+		$running = true;
+		try {
+			do_action( 'yaydp_before_calculate_checkout_fee' );
 
+			global $yaydp_cart, $yaydp_cart_signature;
+			if ( is_null( $yaydp_cart ) || $yaydp_cart_signature !== $signature ) {
+				$yaydp_cart                  = new \YAYDP\Core\YAYDP_Cart();
+				$yaydp_cart_signature        = $signature;
+				$product_pricing_adjustments = new \YAYDP\Core\Adjustments\YAYDP_Product_Pricing_Adjustments( $yaydp_cart );
+				$product_pricing_adjustments->do_stuff();
+			}
+			$checkout_fee_adjustments = new \YAYDP\Core\Adjustments\YAYDP_Checkout_Fee_Adjustments( $yaydp_cart );
+			$checkout_fee_adjustments->do_stuff();
+
+			do_action( 'yaydp_after_calculate_checkout_fee' );
+
+			$last_run_signature = $signature;
+		} finally {
+			$running = false;
+		}
 	}
 
 	/**

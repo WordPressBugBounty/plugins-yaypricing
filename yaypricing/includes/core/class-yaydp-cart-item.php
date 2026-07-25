@@ -83,6 +83,14 @@ class YAYDP_Cart_Item {
 	 */
 	protected $store_price = 0;
 
+
+	/**
+	 * Bundle group index assigned during bundle candidate collection.
+	 *
+	 * @var int
+	 */
+	public $bundle_index = 0;
+	
 	/**
 	 * Contains item's modifiers.
 	 *

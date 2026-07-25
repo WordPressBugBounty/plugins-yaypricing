@@ -25,7 +25,7 @@ class YAYDP_Divi_Theme_Integration {
 	}
 
 	public function apply_yaydp_rules( $content, $module, $attrs, $render_slug ) {
-		if ( 'et_pb_wc_cart_products' === $render_slug ) {
+		if ( 'et_pb_wc_cart_products' === $render_slug && function_exists( 'WC' ) && ! empty( \WC()->cart ) ) {
 			do_action( 'woocommerce_before_calculate_totals', \WC()->cart );
 		}
 		return $content;

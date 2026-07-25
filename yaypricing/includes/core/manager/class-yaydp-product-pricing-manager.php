@@ -52,6 +52,9 @@ class YAYDP_Product_Pricing_Manager {
 		add_action(
 			'woocommerce_add_to_cart',
 			function( $key ) {
+				if ( empty( \WC()->cart ) ) {
+					return;
+				}
 				$cart_item = \WC()->cart->get_cart_item( $key );
 
 				if ( empty( $cart_item ) ) {
@@ -90,7 +93,7 @@ class YAYDP_Product_Pricing_Manager {
 	 * Recalculates the mini cart by updating the cart items and total price.
 	 */
 	public function recalculate_mini_cart() {
-		if ( \is_checkout() ) {
+		if ( \is_checkout() || ! function_exists( 'WC' ) || empty( \WC()->cart ) ) {
 			return;
 		}
 		\WC()->cart->calculate_totals();
@@ -100,6 +103,9 @@ class YAYDP_Product_Pricing_Manager {
 	 * Remove extra data.
 	 */
 	private function remove_extra_data() {
+		if ( ! function_exists( 'WC' ) || empty( \WC()->cart ) ) {
+			return;
+		}
 		add_filter( 'yaydp_prevent_recalculate_cart', '__return_true' );
 		foreach ( \WC()->cart->get_cart() as $cart_item_key => $cart_item ) {
 			if ( \yaydp_is_extra_wc_cart_item( $cart_item ) ) {
@@ -140,26 +146,40 @@ class YAYDP_Product_Pricing_Manager {
 
 		// remove_action( 'woocommerce_before_calculate_totals', array( self::get_instance(), 'calculate_pricings' ), 110 );
 
-		static $has_run = false;
-		if ( $has_run ) {
+		static $running           = false;
+		static $last_run_signature = null;
+
+		if ( $running ) {
 			return;
 		}
-		$has_run = true;
 
-		// if ( apply_filters( 'yaydp_prevent_recalculate_cart', false ) ) {
-		// 	return;
-		// }
+		$signature = \yaydp_get_cart_state_signature();
+		if ( null !== $last_run_signature && $signature === $last_run_signature ) {
+			return;
+		}
 
-		do_action( 'yaydp_before_calculate_product_pricing' );
+		$running = true;
+		try {
+			// if ( apply_filters( 'yaydp_prevent_recalculate_cart', false ) ) {
+			// 	return;
+			// }
 
-		global $yaydp_cart;
-		$yaydp_cart = new \YAYDP\Core\YAYDP_Cart();
-		\YAYDP\Core\Discounted_Products\YAYDP_Discounted_Products::get_instance()->clear_products();
-		$product_pricing_adjustments = new \YAYDP\Core\Adjustments\YAYDP_Product_Pricing_Adjustments( $yaydp_cart );
-		$product_pricing_adjustments->do_stuff();
-		$yaydp_cart->publish();
+			do_action( 'yaydp_before_calculate_product_pricing' );
 
-		do_action( 'yaydp_after_calculate_product_pricing' );
+			global $yaydp_cart, $yaydp_cart_signature;
+			$yaydp_cart           = new \YAYDP\Core\YAYDP_Cart();
+			$yaydp_cart_signature = $signature;
+			\YAYDP\Core\Discounted_Products\YAYDP_Discounted_Products::get_instance()->clear_products();
+			$product_pricing_adjustments = new \YAYDP\Core\Adjustments\YAYDP_Product_Pricing_Adjustments( $yaydp_cart );
+			$product_pricing_adjustments->do_stuff();
+			$yaydp_cart->publish();
+
+			do_action( 'yaydp_after_calculate_product_pricing' );
+
+			$last_run_signature = $signature;
+		} finally {
+			$running = false;
+		}
 	}
 
 	/**
@@ -183,6 +203,9 @@ class YAYDP_Product_Pricing_Manager {
 	 * @param string $cart_item_key Cart item key.
 	 */
 	public function hide_extra_cart_item_remove_link( $html, $cart_item_key ) {
+		if ( empty( \WC()->cart ) ) {
+			return $html;
+		}
 		$cart_item = \WC()->cart->get_cart_item( $cart_item_key );
 		if ( \yaydp_is_extra_wc_cart_item( $cart_item ) ) {
 			return \apply_filters( 'yaydp_extra_cart_item_remove_link', '', $html, $cart_item );
@@ -210,6 +233,9 @@ class YAYDP_Product_Pricing_Manager {
 			return $args;
 		}
 		$cart_item_key = $matches[1];
+		if ( empty( \WC()->cart ) ) {
+			return $args;
+		}
 		$cart_item     = \WC()->cart->get_cart_item( $cart_item_key );
 		if ( \yaydp_is_extra_wc_cart_item( $cart_item ) ) {
 			$args['readonly'] = true;

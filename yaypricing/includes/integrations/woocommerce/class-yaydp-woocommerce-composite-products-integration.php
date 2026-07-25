@@ -34,6 +34,9 @@ class YAYDP_WooCommerce_Composite_Products_Integration {
 	}
 
 	public function remove_all_things() {
+		if ( ! function_exists( 'WC' ) || empty( \WC()->cart ) ) {
+			return;
+		}
 		foreach ( \WC()->cart->get_cart() as $cart_item_key => $cart_item ) {
 			unset( \WC()->cart->cart_contents[ $cart_item_key ]['yaydp_custom_data']['item_extra_data']['wc_composite'] );
 		}
@@ -93,7 +96,7 @@ class YAYDP_WooCommerce_Composite_Products_Integration {
 	}
 
 	public function handle_composite_container_cart_item( $item, $item_key ) {
-		if ( empty( \WC()->cart->cart_contents[ $item_key ] ) ) {
+		if ( ! function_exists( 'WC' ) || empty( \WC()->cart ) || empty( \WC()->cart->cart_contents[ $item_key ] ) ) {
 			return;
 		}
 		$cart_item = \WC()->cart->cart_contents[ $item_key ];
@@ -115,7 +118,7 @@ class YAYDP_WooCommerce_Composite_Products_Integration {
 
 		if ( ! empty( $cart_item['yaydp_custom_data']['item_extra_data']['wc_composite']['is_composite_item'] ) ) {
 			$composite_parent_key = $cart_item['composite_parent'] ?? '';
-			$composite_parent     = \WC()->cart->cart_contents[ $composite_parent_key ];
+			$composite_parent     = \WC()->cart->cart_contents[ $composite_parent_key ] ?? null;
 			if ( ! empty( $composite_parent ) ) {
 				$discount_amount           = $composite_parent['yaydp_custom_data']['item_extra_data']['wc_composite']['remaining_discount_amount'] ?? 0;
 				$remaining_discount_amount = $base_price < $discount_amount ? abs( $base_price - $discount_amount ) : 0;

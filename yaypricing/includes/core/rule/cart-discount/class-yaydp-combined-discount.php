@@ -99,6 +99,9 @@ class YAYDP_Combined_Discount {
 	 * Handle add coupon
 	 */
 	public static function add_coupon() {
+		if ( ! function_exists( 'WC' ) || empty( \WC()->cart ) ) {
+			return;
+		}
 		$settings = \YAYDP\Settings\YAYDP_Cart_Discount_Settings::get_instance();
 		if ( $settings->use_id_as_code() ) {
 			$coupon = self::$coupon_code;
@@ -147,6 +150,6 @@ class YAYDP_Combined_Discount {
 		if ( \YAYDP\Settings\YAYDP_Cart_Discount_Settings::get_instance()->use_id_as_code() ) {
 			return self::$coupon_code === $code;
 		}
-		return mb_strtolower( self::$coupon_name, 'UTF-8' ) === mb_strtolower( $code, 'UTF-8' );
+		return wc_format_coupon_code( self::$coupon_name ) === wc_format_coupon_code( $code );
 	}
 }

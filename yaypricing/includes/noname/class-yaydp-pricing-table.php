@@ -52,7 +52,7 @@ class YAYDP_Pricing_Table {
 	 * Returns table title
 	 */
 	public function get_table_title() {
-		return $this->settings->get_pricing_table_title();
+		return \YAYDP\Integrations\Translations\YAYDP_WPML_Integration::translate_pricing_table_title( $this->settings->get_pricing_table_title(), 'table_title' );
 	}
 
 	/**
@@ -66,21 +66,21 @@ class YAYDP_Pricing_Table {
 	 * Returns quantity title
 	 */
 	public function get_quantity_title() {
-		return $this->settings->get_pricing_table_quantity_title();
+		return \YAYDP\Integrations\Translations\YAYDP_WPML_Integration::translate_pricing_table_title( $this->settings->get_pricing_table_quantity_title(), 'quantity_title' );
 	}
 
 	/**
 	 * Returns discount title
 	 */
 	public function get_discount_title() {
-		return $this->settings->get_pricing_table_discount_title();
+		return \YAYDP\Integrations\Translations\YAYDP_WPML_Integration::translate_pricing_table_title( $this->settings->get_pricing_table_discount_title(), 'discount_title' );
 	}
 
 	/**
 	 * Returns price title
 	 */
 	public function get_price_title() {
-		return $this->settings->get_pricing_table_price_title();
+		return \YAYDP\Integrations\Translations\YAYDP_WPML_Integration::translate_pricing_table_title( $this->settings->get_pricing_table_price_title(), 'price_title' );
 	}
 
 	/**
@@ -129,7 +129,7 @@ class YAYDP_Pricing_Table {
 	 */
 	public function get_discount_text( $range ) {
 		$pricing_type   = $range->get_pricing_type();
-		$origin_item    = \YAYDP\Helper\YAYDP_Helper::initialize_custom_cart_item( $this->product, $range->get_min_quantity() );
+		$origin_item    = \YAYDP\Helper\YAYDP_Helper::initialize_custom_cart_item( $this->product, $range->get_min_quantity(), $this->get_table_base_price() );
 		$discount_value = $this->rule->get_discount_value_per_item( $origin_item );
 		if ( ! \yaydp_is_percentage_pricing_type( $pricing_type ) ) {
 			$discount_value = \YAYDP\Helper\YAYDP_Pricing_Helper::convert_price( $discount_value );
@@ -179,11 +179,28 @@ class YAYDP_Pricing_Table {
 	 * @return string
 	 */
 	public function get_discounted_price_text( $range ) {
-		$origin_item      = \YAYDP\Helper\YAYDP_Helper::initialize_custom_cart_item( $this->product, $range->get_min_quantity() );
+		$origin_item      = \YAYDP\Helper\YAYDP_Helper::initialize_custom_cart_item( $this->product, $range->get_min_quantity(), $this->get_table_base_price() );
 		$discount_amount  = $this->rule->get_discount_amount_per_item( $origin_item );
 		$discounted_price = max( 0, $origin_item->get_price() - $discount_amount );
 		$discounted_price = \YAYDP\Helper\YAYDP_Pricing_Helper::convert_price( $discounted_price );
 		$discounted_price = \wc_get_price_to_display( $this->product, array( 'price' => $discounted_price ) );
 		return apply_filters( 'yaydp_pricing_table_discounted_price_text', \wc_price( $discounted_price ), $this->product, $discount_amount );
+	}
+
+	/**
+	 * Returns the base price used for Pricing Table discount math.
+	 *
+	 * Exposes the `yaydp_pricing_table_base_price` filter so integrations
+	 * (e.g. yay-wholesale-b2b-pro) can swap retail for wholesale base while
+	 * keeping the value in store base currency — currency conversion still
+	 * runs later via YAYDP_Pricing_Helper::convert_price().
+	 *
+	 * @since 3.x
+	 *
+	 * @return float
+	 */
+	private function get_table_base_price() {
+		$base = \YAYDP\Helper\YAYDP_Pricing_Helper::get_product_price( $this->product );
+		return apply_filters( 'yaydp_pricing_table_base_price', $base, $this->product );
 	}
 }

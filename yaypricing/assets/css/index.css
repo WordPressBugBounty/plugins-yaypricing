@@ -217,3 +217,15 @@
 .wp-block-post-template .wp-block-post {
   position: relative;
 }
+
+.yaydp-discounted-price.yaydp-labeled {
+  display: block;
+}
+.yaydp-discounted-price.yaydp-labeled .yaydp-original-prices,
+.yaydp-discounted-price.yaydp-labeled .yaydp-calculated-prices {
+  display: block;
+}
+.yaydp-discounted-price.yaydp-labeled .yaydp-price-label {
+  opacity: 0.7;
+  margin-right: 0.25em;
+}

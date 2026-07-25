@@ -50,6 +50,10 @@ class YAYDP_Enqueue_Frontend {
 			$this->enqueue_script( 'shipping', 'shipping.js', array( 'jquery' ) );
 		}
 
+		if ( $this->has_billing_email_condition() ) {
+			$this->enqueue_script( 'billing-email', 'billing-email.js', array( 'jquery' ) );
+		}
+
 		/**
 		 * Main script
 		 */
@@ -112,6 +116,28 @@ class YAYDP_Enqueue_Frontend {
 			$conditions = $rule->get_conditions();
 			foreach ( $conditions as $condition ) {
 				if ( 'payment_method' === $condition['type'] ) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+
+	/**
+	 * Check if there is a billing email order count condition
+	 *
+	 * @return boolean
+	 * @since 3.5.8
+	 */
+	public function has_billing_email_condition() {
+		$product_pricing_rules = \yaydp_get_running_product_pricing_rules();
+		$cart_discount_rules   = \yaydp_get_running_cart_discount_rules();
+		$checkout_fee_rules    = \yaydp_get_running_checkout_fee_rules();
+		$rules                 = array_merge( $product_pricing_rules, $cart_discount_rules, $checkout_fee_rules );
+		foreach ( $rules as $rule ) {
+			$conditions = $rule->get_conditions();
+			foreach ( $conditions as $condition ) {
+				if ( 'billing_email_order_count' === $condition['type'] ) {
 					return true;
 				}
 			}

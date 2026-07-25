@@ -81,16 +81,43 @@ class YAYDP_Discounted_Price {
 		}
 
 		$show_discounted_with_regular_price = \YAYDP\Settings\YAYDP_Product_Pricing_Settings::get_instance()->show_discounted_with_regular_price();
-		ob_start();
-		echo '<span class="hidden yaydp-product-discounted-data" style="display: none" data-product-id="' . $product->get_id() . '" data-min-rate="' . $min_discounted_rate . '" data-max-rate="' . $max_discounted_rate . '"></span>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-		\wc_get_template(
-			'product/yaydp-discounted-price.php',
-			array(
+
+		// Use the labeled two-line layout only for the main variable product on a single product page.
+		$is_main_variable = \yaydp_is_variable_product( $product )
+			&& function_exists( 'is_product' ) && is_product()
+			&& (int) $product->get_id() === (int) get_queried_object_id();
+		$use_labeled      = $is_main_variable && $show_discounted_with_regular_price;
+
+		$discounted_range = null;
+		if ( $use_labeled ) {
+			$discounted_range = $product_sale->get_discounted_variations_min_max_price();
+			if ( is_null( $discounted_range ) ) {
+				$use_labeled = false; // No actually-discounted variation, fall back to compact.
+			}
+		}
+
+		if ( $use_labeled ) {
+			$template = 'product/yaydp-discounted-price-variable-labeled.php';
+			$args     = array(
+				'product'        => $product,
+				'discounted_min' => $discounted_range['min'],
+				'discounted_max' => $discounted_range['max'],
+			);
+		} else {
+			$template = 'product/yaydp-discounted-price.php';
+			$args     = array(
 				'product'                            => $product,
 				'min_discounted_price'               => $min_discounted_price,
 				'max_discounted_price'               => $max_discounted_price,
 				'show_discounted_with_regular_price' => $show_discounted_with_regular_price,
-			),
+			);
+		}
+
+		ob_start();
+		echo '<span class="hidden yaydp-product-discounted-data" style="display: none" data-product-id="' . $product->get_id() . '" data-min-rate="' . $min_discounted_rate . '" data-max-rate="' . $max_discounted_rate . '"></span>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+		\wc_get_template(
+			$template,
+			$args,
 			'',
 			YAYDP_PLUGIN_PATH . 'includes/templates/'
 		);

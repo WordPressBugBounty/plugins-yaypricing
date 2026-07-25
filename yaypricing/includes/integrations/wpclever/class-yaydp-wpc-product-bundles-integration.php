@@ -46,7 +46,7 @@ class YAYDP_WPC_Product_Bundles_Integration {
 	}
 
 	private function get_bundle_item_prices( $cart_item ) {
-		$cart_items = \WC()->cart->get_cart();
+		$cart_items = ( function_exists( 'WC' ) && ! empty( \WC()->cart ) ) ? \WC()->cart->get_cart() : array();
 		$item_price = 0;
 		$item_initial_price = 0;
 		

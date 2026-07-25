@@ -31,11 +31,23 @@ if ( ! function_exists( 'yaydp_get_running_product_pricing_rules' ) ) {
 	 * @since 2.4
 	 */
 	function yaydp_get_running_product_pricing_rules() {
-		$rules = \yaydp_get_product_pricing_rules();
-		return array_filter(
-			$rules,
-			function ( $rule ) {
-				return $rule->is_running();
+		// Building the running set re-reads the option, re-instantiates every rule
+		// object via the factory, and runs is_running() (which constructs several
+		// DateTime objects) on each. On archive pages this is called per product and
+		// per variation, so memoize it for the request. Rule objects are stateless
+		// w.r.t. the product being checked (they take $product as a method arg), so
+		// sharing instances within a request is safe. Flushed on yaydp_clear_cache.
+		return \YAYDP\Core\Caches\YAYDP_Request_Cache::get_instance()->remember(
+			'rules',
+			'running_product_pricing',
+			function () {
+				$rules = \yaydp_get_product_pricing_rules();
+				return array_filter(
+					$rules,
+					function ( $rule ) {
+						return $rule->is_running();
+					}
+				);
 			}
 		);
 	}

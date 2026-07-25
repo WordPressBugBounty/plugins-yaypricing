@@ -35,7 +35,8 @@ abstract class YAYDP_Cart_Discount_Rule extends YAYDP_Rule {
 	 */
 	public function get_coupon_code() {
 		$use_id_as_code = \YAYDP\Settings\YAYDP_Cart_Discount_Settings::get_instance()->use_id_as_code();
-		return $use_id_as_code ? $this->get_id() : $this->get_name();
+		$code           = $use_id_as_code ? $this->get_id() : $this->get_name();
+		return wc_format_coupon_code( $code );
 	}
 
 	/**
@@ -44,9 +45,6 @@ abstract class YAYDP_Cart_Discount_Rule extends YAYDP_Rule {
 	 * @param string $code Coupon code.
 	 */
 	public function is_match_coupon( $code ) {
-		if ( \YAYDP\Settings\YAYDP_Cart_Discount_Settings::get_instance()->use_id_as_code() ) {
-			return $this->get_id() === $code;
-		}
-		return mb_strtolower( $this->get_name(), 'UTF-8' ) === mb_strtolower( $code, 'UTF-8' );
+		return $this->get_coupon_code() === wc_format_coupon_code( $code );
 	}
 }
