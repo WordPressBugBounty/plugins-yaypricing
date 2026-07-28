@@ -86,7 +86,27 @@ class YAYDP_Discounted_Price {
 		$is_main_variable = \yaydp_is_variable_product( $product )
 			&& function_exists( 'is_product' ) && is_product()
 			&& (int) $product->get_id() === (int) get_queried_object_id();
-		$use_labeled      = $is_main_variable && $show_discounted_with_regular_price;
+
+		/**
+		 * Filters whether the discounted price renders with the labeled two-line layout.
+		 *
+		 * Return true for the two-line layout (an "Original price" row and a "Discounted price" row,
+		 * where the discounted range covers only variations that actually receive a discount).
+		 * Defaults to false, which keeps the compact single-line layout.
+		 *
+		 * Only consulted for the main variable product on a single product page, and only while
+		 * the "Show product regular price within discounted" setting is enabled.
+		 *
+		 * @since 3.5.8
+		 *
+		 * @param bool        $use_two_lines Whether to use the two-line layout. Default false.
+		 * @param \WC_Product $product       Product being rendered.
+		 */
+		$use_two_lines = apply_filters( 'yaydp_use_two_lines_discounted_price', false, $product );
+
+		$use_labeled = $is_main_variable
+			&& $show_discounted_with_regular_price
+			&& $use_two_lines;
 
 		$discounted_range = null;
 		if ( $use_labeled ) {

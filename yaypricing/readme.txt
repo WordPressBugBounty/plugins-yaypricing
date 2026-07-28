@@ -4,7 +4,7 @@ Donate link: https://yaycommerce.com/yaypricing-woocommerce-dynamic-pricing-and-
 Tags: dynamic pricing, discounts, cart fee, bogo, coupon
 Requires at least: 3.0
 Tested up to: 7.0
-Stable tag: 3.5.7
+Stable tag: 3.5.7.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -133,6 +133,9 @@ A big yes! YayPricing is compliant with GDPR. It doesn't collect your WooCommerc
 6. Gift item of "Buy one get one free" promotion automatically added to cart page
 
 == Changelog ==
+
+= Jul 28, 2026 – Version 3.5.7.2 =
+- Improved: Two-line discounted price layout is now controlled by the `yaydp_use_two_lines_discounted_price` filter
 
 = Jul 25, 2026 – Version 3.5.7 =
 - Added: Add compatibility with YayWholesale plugin
