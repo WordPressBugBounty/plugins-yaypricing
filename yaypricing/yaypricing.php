@@ -8,7 +8,7 @@
  * Author URI: https://yaycommerce.com/
  * Text Domain: yaypricing
  * WC requires at least: 3.0.0
- * WC tested up to: 10.9
+ * WC tested up to: 11.0
  * Requires PHP: 5.7
  * Domain Path: /languages
  *
