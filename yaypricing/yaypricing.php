@@ -3,12 +3,12 @@
  * Plugin Name: YayPricing Lite - WooCommerce Dynamic Pricing And Discounts
  * Plugin URI: https://wordpress.org/plugins/yaypricing/
  * Description: Create automatic product pricing rules and cart discounts to design a powerful marketing strategy for your WooCommerce store.
- * Version: 3.5.7.2
+ * Version: 3.6.0
  * Author: YayCommerce
  * Author URI: https://yaycommerce.com/
  * Text Domain: yaypricing
  * WC requires at least: 3.0.0
- * WC tested up to: 11.0
+ * WC tested up to: 11.1.0
  * Requires PHP: 5.7
  * Domain Path: /languages
  *
@@ -47,7 +47,7 @@ if ( ! defined( 'YAYDP_PLUGIN_BASENAME' ) ) {
 	define( 'YAYDP_PLUGIN_BASENAME', plugin_basename( __FILE__ ) );
 }
 if ( ! defined( 'YAYDP_VERSION' ) ) {
-	define( 'YAYDP_VERSION', '3.5.7.2' );
+	define( 'YAYDP_VERSION', '3.6.0' );
 }
 if ( ! defined( 'YAYDP_MINIMUM_PHP_VERSION' ) ) {
 	define( 'YAYDP_MINIMUM_PHP_VERSION', 5.7 );
@@ -90,6 +90,16 @@ spl_autoload_register(
 	}
 );
 
+require_once __DIR__ . '/vendor/autoload.php';
+require_once __DIR__ . '/YaypricingPluginAdapter.php';  // unique per plugin
+
+add_action( 'plugins_loaded', function() {
+    \YayPricingScoped\YayCommerce\AdminShell\AdminShell::boot();
+    \YayPricingScoped\YayCommerce\AdminShell\AdminShell::register_plugin(
+        new \YayPricingPluginAdapter()
+    );
+}, 5 );
+
 add_action( 'plugins_loaded', '\\YAYDP\\load_plugin' );
 
 if ( ! function_exists( 'YAYDP\\load_plugin' ) ) {
@@ -99,6 +109,7 @@ if ( ! function_exists( 'YAYDP\\load_plugin' ) ) {
 	function load_plugin() { //phpcs:ignore
 		\YAYDP\before_load_plugin();
 		if ( function_exists( 'WC' ) && \version_compare( phpversion(), YAYDP_MINIMUM_PHP_VERSION, '>=' ) ) {
+
 			\YAYDP\YayPricing::get_instance();
 		} else {
 			\YAYDP\YAYDP_Fallback::get_instance();
@@ -111,7 +122,6 @@ if ( ! function_exists( 'YAYDP\\before_load_plugin' ) ) {
 	 * Do stuff before load plugin
 	 */
 	function before_load_plugin() {
-		\YAYDP\YayCommerceMenu\Register_Menu::get_instance(); // Initialize YayCommerce menu.
 		if ( function_exists( 'WC' ) ) {
 			/**
 			 * To set plugin is compatible for WC Custom Order Table (HPOS) feature.
@@ -127,7 +137,6 @@ if ( ! function_exists( 'YAYDP\\before_load_plugin' ) ) {
 		}
 	}
 }
-
 register_activation_hook( __FILE__, array( 'YAYDP\\YAYDP_Activation', 'initialize' ) );
 register_deactivation_hook( __FILE__, array( 'YAYDP\\YAYDP_Deactivation', 'initialize' ) );
 

@@ -1,0 +1,30 @@
+{
+    "name": "yaycommerce/admin-shell",
+    "description": "Shared admin shell for YayCommerce plugins: top-level menu, Licenses page, Other Plugins, Help, optional license subsystem",
+    "type": "library",
+    "license": "GPL-3.0-or-later",
+    "require": {
+        "php": ">=7.4"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "YayCommerce\\AdminShell\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "YayCommerce\\AdminShell\\Tests\\": "tests/"
+        }
+    },
+    "bin": [
+        "bin/yaycommerce-init",
+        "bin/yaycommerce-update",
+        "bin/yaycommerce-prerelease"
+    ],
+    "config": {
+        "sort-packages": true
+    }
+}

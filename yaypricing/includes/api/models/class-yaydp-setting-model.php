@@ -29,7 +29,6 @@ class YAYDP_Setting_Model {
 					'show_sale_tag'                      => true,
 					'show_discounted_price'              => false,
 					'show_order_saving_amount'           => false,
-					'order_saving_amount_position'       => 'after_order_total',
 					'show_discounted_with_regular_price' => true,
 					'how_to_apply'                       => 'all',
 					'countdown_timer'                    => \YAYDP\Constants\YAYDP_Countdown_Timer::get_default(),
@@ -54,7 +53,6 @@ class YAYDP_Setting_Model {
 				),
 				'general'         => array(
 					'sync_with_coupon_individual_use_only' => true,
-					'show_original_price_and_saved_amount' => false,
 				),
 			);
 		}

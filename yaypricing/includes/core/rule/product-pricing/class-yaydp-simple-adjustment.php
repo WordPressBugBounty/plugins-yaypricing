@@ -14,6 +14,8 @@ defined( 'ABSPATH' ) || exit;
  */
 class YAYDP_Simple_Adjustment extends \YAYDP\Abstracts\YAYDP_Product_Pricing_Rule {
 
+	use \YAYDP\Traits\YAYDP_Affected_Items;
+
 	/**
 	 * Return type of rule
 	 *
@@ -21,6 +23,18 @@ class YAYDP_Simple_Adjustment extends \YAYDP\Abstracts\YAYDP_Product_Pricing_Rul
 	 */
 	public function get_type() {
 		return 'simple_adjustment';
+	}
+
+	/**
+	 * Formulas are a pro feature; a stored using_formula flag is ignored and the
+	 * rule applies its plain pricing value.
+	 */
+	public function is_using_formula() {
+		return false;
+	}
+
+	public function get_pricing_formula() {
+		return $this->data['pricing']['pricing_formula'] ?? 0;
 	}
 
 	/**
@@ -49,6 +63,35 @@ class YAYDP_Simple_Adjustment extends \YAYDP\Abstracts\YAYDP_Product_Pricing_Rul
 	}
 
 	/**
+	 * Apply the rule to every discountable item of an adjustment.
+	 *
+	 * "Limited items" discounts at most affected_items.quantity units across the
+	 * matched lines, ranked by effect type on live price; anything else (no key,
+	 * single_item, or the shared new-rule default whole_bundle) discounts every
+	 * matching unit. Product Fee inherits this class but always charges every
+	 * unit, so it never takes the limited path.
+	 *
+	 * @param \YAYDP\Core\Single_Adjustment\YAYDP_Product_Pricing_Adjustment $adjustment The adjustment.
+	 */
+	public function discount_items( $adjustment ) {
+		$items = $adjustment->get_discountable_items();
+
+		if ( $this->is_limited_items() && ! \yaydp_is_product_fee( $this ) ) {
+			$this->sort_items_by_effect_type( $items );
+			$this->discount_limited_units(
+				$items,
+				$this->get_limited_quantity( PHP_INT_MAX ),
+				array( $this, 'get_discount_amount_per_item' )
+			);
+			return;
+		}
+
+		foreach ( $items as $item ) {
+			$this->discount_item( $item );
+		}
+	}
+
+	/**
 	 * Calculate the discount and apply modifier to the cart item.
 	 *
 	 * @override
@@ -71,18 +114,38 @@ class YAYDP_Simple_Adjustment extends \YAYDP\Abstracts\YAYDP_Product_Pricing_Rul
 	}
 
 	/**
-	 * Get minimim discount information that can apply to the product
+	 * Rule-level pricing, with the value taken from the formula when enabled.
+	 * `{n}` in the formula is the line quantity.
+	 *
+	 * @override
+	 */
+	public function get_item_pricing( $item ) {
+		$pricing = parent::get_item_pricing( $item );
+		if ( $this->is_using_formula() ) {
+			$pricing['value'] = $this->exec_formula(
+				$this->get_pricing_formula(),
+				$item->get_quantity(),
+				\YAYDP\Pricing_Type\YAYDP_Pricing_Type_Registry::formula_neutral_value( $pricing['type'] )
+			);
+		}
+		return $pricing;
+	}
+
+	/**
+	 * Get the minimum discount information that can be applied to the product.
 	 *
 	 * @override
 	 *
 	 * @param \WC_Product $product Product.
 	 */
 	public function get_min_discount( $product ) {
-		return array(
-			'pricing_value' => $this->get_pricing_value(),
-			'pricing_type'  => $this->get_pricing_type(),
-			'maximum'       => $this->get_maximum_adjustment_amount(),
-		);
+		// Limited items: only some matched units get the discount, so nothing is
+		// guaranteed per unit — same treatment as a rule gated by conditions.
+		if ( ! empty( $this->get_conditions() ) || $this->is_limited_items() ) {
+			return \YAYDP\Pricing_Type\YAYDP_Pricing_Type_Registry::zero_bounds();
+		}
+		// Smallest guaranteed discount: the formula evaluated for a single unit.
+		return $this->get_display_bounds_for_quantity( 1 );
 	}
 
 	/**
@@ -93,11 +156,20 @@ class YAYDP_Simple_Adjustment extends \YAYDP\Abstracts\YAYDP_Product_Pricing_Rul
 	 * @param \WC_Product $product Product.
 	 */
 	public function get_max_discount( $product ) {
-		return array(
-			'pricing_value' => $this->get_pricing_value(),
-			'pricing_type'  => $this->get_pricing_type(),
-			'maximum'       => $this->get_maximum_adjustment_amount(),
-		);
+		// Largest possible discount: the formula evaluated for an unbounded quantity.
+		return $this->get_display_bounds_for_quantity( PHP_INT_MAX );
+	}
+
+	/**
+	 * Sale-display triple for the rule's pricing, with the formula (when enabled)
+	 * evaluated at the given quantity.
+	 */
+	protected function get_display_bounds_for_quantity( $quantity ) {
+		$pricing_type  = $this->get_pricing_type();
+		$pricing_value = $this->is_using_formula()
+			? $this->exec_formula( $this->get_pricing_formula(), $quantity, \YAYDP\Pricing_Type\YAYDP_Pricing_Type_Registry::formula_neutral_value( $pricing_type ) )
+			: $this->get_pricing_value();
+		return \YAYDP\Pricing_Type\YAYDP_Pricing_Type_Registry::display_bounds( $pricing_type, $pricing_value, $this->get_maximum_adjustment_amount() );
 	}
 
 	/**

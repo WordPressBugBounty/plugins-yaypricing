@@ -59,12 +59,12 @@ class YAYDP_Caching {
 			if ( ! $rule->is_enabled_schedule() ) {
 				continue;
 			}
-			$rule_data = $rule->get_data();
-			if ( ! empty( $rule_data['schedule']['start'] ) && strtotime( $rule_data['schedule']['start'] ) > strtotime( 'now' ) ) {
-				wp_schedule_event( strtotime( $rule_data['schedule']['start'] ), 'hourly', 'yaydp_clear_cache' );
+			$schedule = $rule->get_schedule();
+			if ( ! empty( $schedule['start_date'] ) && strtotime( $schedule['start_date'] ) > strtotime( 'now' ) ) {
+				wp_schedule_event( strtotime( $schedule['start_date'] ), 'hourly', 'yaydp_clear_cache' );
 			}
-			if ( ! empty( $rule_data['schedule']['end'] ) && strtotime( $rule_data['schedule']['end'] ) > strtotime( 'now' ) ) {
-				wp_schedule_event( strtotime( $rule_data['schedule']['end'] ), 'hourly', 'yaydp_clear_cache' );
+			if ( ! empty( $schedule['end_date'] ) && strtotime( $schedule['end_date'] ) > strtotime( 'now' ) ) {
+				wp_schedule_event( strtotime( $schedule['end_date'] ), 'hourly', 'yaydp_clear_cache' );
 			}
 		}
 	}

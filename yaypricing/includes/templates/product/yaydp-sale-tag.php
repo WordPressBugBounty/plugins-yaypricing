@@ -35,7 +35,7 @@ if ( ! empty( $is_variable_product ) && ! empty( $variation_rules_data ) && is_p
 	$data_attributes = ' data-variable-product="1" data-variation-rules="' . esc_attr( wp_json_encode( $variation_rules_data ) ) . '"';
 	$initial_rule_names = array();
 	foreach ( $matching_rules as $rule ) {
-		$initial_rule_names[] = $rule->get_name();
+		$initial_rule_names[] = $rule->get_translated_name();
 	}
 	$data_attributes .= ' data-initial-rules="' . esc_attr( wp_json_encode( $initial_rule_names ) ) . '"';
 	$sale_tag_template = \YAYDP\Settings\YAYDP_Product_Pricing_Settings::get_instance()->get_sale_tag_text();
@@ -71,7 +71,7 @@ if ( ! empty( $is_variable_product ) && ! empty( $variation_rules_data ) && is_p
 	}
 	$rule_names = [];
 	foreach ( $matching_rules as $rule ) {
-		$rule_names[] = $rule->get_name();
+		$rule_names[] = $rule->get_translated_name();
 	}
 	$sale_text = str_replace( '{rule_name}', implode( ', ', $rule_names ), __( $sale_text, 'yaypricing' ) );
 	echo esc_html( $sale_text );

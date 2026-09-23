@@ -50,6 +50,28 @@ class YAYDP_REST_REPORT_V1_CONTROLLER {
 		);
 		register_rest_route(
 			$this->namespace,
+			"/$this->rest_base/timeseries",
+			array(
+				array(
+					'methods'             => \WP_REST_Server::EDITABLE,
+					'callback'            => array( $this, 'get_timeseries_report' ),
+					'permission_callback' => array( $this, 'permission_callback' ),
+				),
+			)
+		);
+		register_rest_route(
+			$this->namespace,
+			"/$this->rest_base/rules",
+			array(
+				array(
+					'methods'             => \WP_REST_Server::EDITABLE,
+					'callback'            => array( $this, 'get_rules_report' ),
+					'permission_callback' => array( $this, 'permission_callback' ),
+				),
+			)
+		);
+		register_rest_route(
+			$this->namespace,
 			"/$this->rest_base/rule",
 			array(
 				array(
@@ -85,6 +107,56 @@ class YAYDP_REST_REPORT_V1_CONTROLLER {
 	}
 
 	/**
+	 * Retrieves orders, revenue and discount grouped by time.
+	 *
+	 * @param \WP_REST_Request $request Rest request.
+	 */
+	public function get_timeseries_report( \WP_REST_Request $request ) {
+		if ( ! \YAYDP\Helper\YAYDP_Helper::verify_rest_nonce( $request ) ) {
+			return \YAYDP\Helper\YAYDP_Helper::get_verify_rest_nonce_failure_response();
+		}
+		$body = (array) $request->get_json_params();
+		return new \WP_REST_Response(
+			array(
+				'success' => true,
+				'data'    => \YAYDP\API\Models\YAYDP_Report_Timeseries_Model::get(
+					isset( $body['range_type'] ) ? $body['range_type'] : '',
+					isset( $body['from'] ) ? $body['from'] : array(),
+					isset( $body['to'] ) ? $body['to'] : array(),
+					isset( $body['order_by'] ) ? $body['order_by'] : 'day'
+				),
+			)
+		);
+	}
+
+	/**
+	 * Retrieves revenue, discount and return per rule type, and per rule.
+	 *
+	 * The charts read the per-type figures; the per-rule figures back the
+	 * drilldown, so both are served by one request rather than two.
+	 *
+	 * @param \WP_REST_Request $request Rest request.
+	 */
+	public function get_rules_report( \WP_REST_Request $request ) {
+		if ( ! \YAYDP\Helper\YAYDP_Helper::verify_rest_nonce( $request ) ) {
+			return \YAYDP\Helper\YAYDP_Helper::get_verify_rest_nonce_failure_response();
+		}
+		$body       = (array) $request->get_json_params();
+		$range_type = isset( $body['range_type'] ) ? $body['range_type'] : '';
+		$from       = isset( $body['from'] ) ? $body['from'] : array();
+		$to         = isset( $body['to'] ) ? $body['to'] : array();
+		return new \WP_REST_Response(
+			array(
+				'success' => true,
+				'data'    => array(
+					'types' => \YAYDP\API\Models\YAYDP_Report_Rules_Model::get_by_type( $range_type, $from, $to ),
+					'rules' => \YAYDP\API\Models\YAYDP_Report_Rules_Model::get( $range_type, $from, $to ),
+				),
+			)
+		);
+	}
+
+	/**
 	 * Retrieves a rule from the database by its ID.
 	 *
 	 * @param \WP_REST_Request $request Rest request.
@@ -107,7 +179,7 @@ class YAYDP_REST_REPORT_V1_CONTROLLER {
 	 * It should return true if the user has permission, and false otherwise
 	 */
 	public function permission_callback() {
-		return \YAYDP\Helper\YAYDP_Helper::can_manage_pricing();
+		return current_user_can( 'manage_woocommerce' );
 	}
 
 }

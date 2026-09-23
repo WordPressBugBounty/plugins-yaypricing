@@ -7,8 +7,6 @@
 
 namespace YAYDP\Integrations\MarketPress;
 
-use YAYDP\Helper\YAYDP_Condition_Helper;
-
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
@@ -39,50 +37,17 @@ class YAYDP_B2B_Market_Integration {
 				3
 			);
 
-			add_filter( 'yaydp_extra_conditions', array( $this, 'user_group_condition' ) );
-			add_filter( 'yaydp_check_b2b_market_user_group_condition', array( $this, 'check_b2b_market_user_group_condition' ), 10, 2 );
+			add_action( 'yaydp_register_conditions', array( $this, 'register_conditions' ) );
 
 		}
 	}
 
-	public function user_group_condition( $conditions ) {
-
-		if ( ! class_exists( 'BM_User' ) || ! class_exists( 'BM_Helper' ) ) {
-			return $conditions;
-		}
-
-		$groups          = \BM_User::get_instance();
-		$all_user_groups = $groups->get_all_customer_groups();
-		$values          = array();
-		foreach ( $all_user_groups as $group ) {
-			foreach ( $group as $group_slug => $group_id ) {
-				$values[] = array(
-					'value' => $group_slug,
-					'label' => \BM_Helper::get_group_title( $group_id ),
-				);
-			}
-		}
-		$conditions[] = array(
-			'value'        => 'b2b_market_user_group',
-			'label'        => 'B2B Market User Group',
-			'comparations' => array(
-				array(
-					'value' => 'in_list',
-					'label' => 'In list',
-				),
-				array(
-					'value' => 'not_in_list',
-					'label' => 'Not in list',
-				),
-			),
-			'values'       => $values,
-		);
-		return $conditions;
+	/**
+	 * Register this integration's condition types.
+	 *
+	 * @param \YAYDP\Condition\YAYDP_Condition_Registry $registry Registry.
+	 */
+	public function register_conditions( $registry ) {
+		$registry->register( new YAYDP_B2B_Market_User_Group_Condition() );
 	}
-
-	public function check_b2b_market_user_group_condition( $result, $condition ) {
-
-		return YAYDP_Condition_Helper::check_customer_role( $condition );
-	}
-
 }

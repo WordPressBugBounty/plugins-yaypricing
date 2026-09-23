@@ -94,9 +94,35 @@ class YAYDP_Offer_Description {
 	 */
 	public function get_raw_content() {
 		if ( 'buy_content' !== $this->content_type ) {
-			return empty( $this->data['get_product_description'] ) ? '' : $this->data['get_product_description'];
+			$field   = 'get_product_description';
+			$content = empty( $this->data[ $field ] ) ? '' : $this->data[ $field ];
+		} else {
+			$field   = 'buy_product_description';
+			$content = empty( $this->data[ $field ] ) ? '' : $this->data[ $field ];
 		}
-		return empty( $this->data['buy_product_description'] ) ? '' : $this->data['buy_product_description'];
+		$content = $this->translate_content( $content, $field );
+		// Quill editor saves "<p><br></p>" for empty content — treat visually-empty HTML as truly empty,
+		// unless the content contains media/embed elements which are valid without text.
+		if ( ! empty( $content ) && empty( trim( wp_strip_all_tags( $content ) ) ) ) {
+			if ( ! preg_match( '/<(img|video|audio|iframe|embed|object)\b/i', $content ) ) {
+				return '';
+			}
+		}
+		return $content;
+	}
+
+	/**
+	 * Translates the admin-entered description using WPML, Polylang or the plugin
+	 * text domain (Loco Translate). Runs before variables such as [discount_value]
+	 * are replaced, so the placeholders stay intact in the translated string.
+	 *
+	 * @param string $content Raw description content.
+	 * @param string $field   Either 'buy_product_description' or 'get_product_description'.
+	 */
+	private function translate_content( $content, $field ) {
+		$rule_id = empty( $this->rule ) ? '' : $this->rule->get_id();
+		$name    = empty( $rule_id ) ? '' : "rule_{$rule_id}_{$field}";
+		return \YAYDP\Helper\YAYDP_Helper::translate_user_string( $content, 'yaypricing', $name );
 	}
 
 	/**
@@ -106,6 +132,7 @@ class YAYDP_Offer_Description {
 		$raw_content      = $this->get_raw_content();
 		$replaced_content = $this->replace_discount_value( $raw_content );
 		$replaced_content = $this->replace_discount_amount( $replaced_content );
+		$replaced_content = $this->replace_fee_amount( $replaced_content );
 		$replaced_content = $this->replace_discounted_price( $replaced_content );
 		return $replaced_content;
 	}
@@ -189,7 +216,7 @@ class YAYDP_Offer_Description {
 			$pricing_type   = $rule->get_pricing_type( $min_quantity );
 			$pricing_value  = $rule->get_pricing_value( $min_quantity );
 
-			if ( ! yaydp_is_percentage_pricing_type( $pricing_type ) ) {
+			if ( ! \YAYDP\Pricing_Type\YAYDP_Pricing_Type_Registry::is_percentage_adjustment( $pricing_type ) ) {
 				$discount_value = \YAYDP\Helper\YAYDP_Pricing_Helper::convert_price( $discount_value );
 			}
 
@@ -205,6 +232,7 @@ class YAYDP_Offer_Description {
 		$formatted_discount_values = array_map(
 			function( $item ) {
 				$formatted_discount_value = \yaydp_get_formatted_pricing_value( $item['value'], $item['pricing_type'] );
+				// Translators: translate discount value text.
 				return sprintf( __( 'from %1$s to %2$s: <span data-variable="discount_value" data-formula="%3$s">%4$s</span>', 'yaypricing' ), $item['min_quantity'], $item['max_quantity'], $item['formula'], $formatted_discount_value );
 			},
 			$discount_values
@@ -225,13 +253,14 @@ class YAYDP_Offer_Description {
 		$pricing_type   = $rule->get_pricing_type();
 		$pricing_value  = $rule->get_pricing_value();
 
-		if ( ! yaydp_is_percentage_pricing_type( $pricing_type ) ) {
+		if ( ! \YAYDP\Pricing_Type\YAYDP_Pricing_Type_Registry::is_percentage_adjustment( $pricing_type ) ) {
 			$discount_value = \YAYDP\Helper\YAYDP_Pricing_Helper::convert_price( $discount_value );
 		}
 
 		$maximum_value            = $rule->get_maximum_adjustment_amount();
 		$formatted_discount_value = \yaydp_format_discount_value( $discount_value, $rule->get_pricing_type() );
 		$formula                  = \YAYDP\Helper\YAYDP_Variable_Product_Helper::get_discount_value_formula( $pricing_type, $pricing_value, $maximum_value );
+		// Translators: translate discount value text.
 		return sprintf( __( '<span data-variable="discount_value" data-formula="%1$s">%2$s</span>', 'yaypricing' ), $formula, $formatted_discount_value );
 	}
 	/**
@@ -263,6 +292,7 @@ class YAYDP_Offer_Description {
 		$discount_value            = \YAYDP\Helper\YAYDP_Pricing_Helper::get_product_price( $product );
 		$formula                   = \YAYDP\Helper\YAYDP_Variable_Product_Helper::get_discount_amount_formula( 'percentage_discount', 100, PHP_INT_MAX );
 		$formatted_discount_amount = \wc_price( \YAYDP\Helper\YAYDP_Pricing_Helper::convert_price( $discount_value ) );
+		// Translators: translate discount amount text.
 		return sprintf( __( '<span data-variable="discount_amount" data-formula="%1$s">%2$s</span>', 'yaypricing' ), $formula, $formatted_discount_amount );
 	}
 	/**
@@ -283,7 +313,7 @@ class YAYDP_Offer_Description {
 			$discount_amount = $rule->get_discount_amount_per_item( $origin_item );
 			$pricing_type    = $rule->get_pricing_type( $min_quantity );
 			$pricing_value   = $rule->get_pricing_value( $min_quantity );
-			if ( \yaydp_is_percentage_pricing_type( $pricing_type ) ) {
+			if ( \YAYDP\Pricing_Type\YAYDP_Pricing_Type_Registry::is_percentage_adjustment( $pricing_type ) ) {
 				$discount_amount = \YAYDP\Helper\YAYDP_Pricing_Helper::convert_price( $discount_amount );
 			}
 			$maximum_value     = $rule->get_maximum_adjustment_amount( $min_quantity );
@@ -297,6 +327,7 @@ class YAYDP_Offer_Description {
 		$formatted_discount_values = array_map(
 			function( $item ) {
 				$formatted_discount_amount = \wc_price( $item['value'] );
+				// Translators: translate discount amount text.
 				return sprintf( __( 'from %1$s to %2$s: <span data-variable="discount_amount" data-formula="%3$s">%4$s</span>', 'yaypricing' ), $item['min_quantity'], $item['max_quantity'], $item['formula'], $formatted_discount_amount );
 			},
 			$discount_values
@@ -316,12 +347,13 @@ class YAYDP_Offer_Description {
 		$discount_amount = $rule->get_discount_amount_per_item( $origin_item );
 		$pricing_type    = $rule->get_pricing_type();
 		$pricing_value   = $rule->get_pricing_value();
-		if ( \yaydp_is_percentage_pricing_type( $pricing_type ) ) {
+		if ( \YAYDP\Pricing_Type\YAYDP_Pricing_Type_Registry::is_percentage_adjustment( $pricing_type ) ) {
 			$discount_amount = \YAYDP\Helper\YAYDP_Pricing_Helper::convert_price( $discount_amount );
 		}
 		$maximum_value             = $rule->get_maximum_adjustment_amount();
 		$formula                   = \YAYDP\Helper\YAYDP_Variable_Product_Helper::get_discount_amount_formula( $pricing_type, $pricing_value, $maximum_value );
 		$formatted_discount_amount = \wc_price( $discount_amount );
+		// Translators: translate discount amount text.
 		return sprintf( __( '<span data-variable="discount_amount" data-formula="%1$s">%2$s</span>', 'yaypricing' ), $formula, $formatted_discount_amount );
 	}
 	/**
@@ -379,6 +411,7 @@ class YAYDP_Offer_Description {
 		$formatted_discounted_prices = array_map(
 			function( $item ) {
 				$formatted_discounted_price = \wc_price( $item['value'] );
+				// Translators: translate discounted price text.
 				return sprintf( __( 'from %1$s to %2$s: <span data-variable="discounted_price" data-formula="%3$s">%4$s</span>', 'yaypricing' ), $item['min_quantity'], $item['max_quantity'], $item['formula'], $formatted_discounted_price );
 			},
 			$discounted_prices
@@ -401,7 +434,8 @@ class YAYDP_Offer_Description {
 		$pricing_value              = $rule->get_pricing_value();
 		$maximum_value              = $rule->get_maximum_adjustment_amount();
 		$formula                    = \YAYDP\Helper\YAYDP_Variable_Product_Helper::get_discounted_price_formula( $pricing_type, $pricing_value, $maximum_value );
-		$formatted_discounted_price = \wc_price( \YAYDP\Helper\YAYDP_Pricing_Helper::convert_price( $discounted_price ) );
+		$formatted_discounted_price = wc_price( \YAYDP\Helper\YAYDP_Pricing_Helper::convert_price( $discounted_price ) );
+		// Translators: translate formula.
 		return sprintf( __( '<span data-variable="discounted_price" data-formula="%1$s">%2$s</span>', 'yaypricing' ), $formula, $formatted_discounted_price );
 	}
 	/**
@@ -420,6 +454,48 @@ class YAYDP_Offer_Description {
 		} else {
 			return $this->get_formatted_discounted_price_for_other_cases();
 		}
+	}
+
+	/**
+	 * Fee_amount
+	 */
+	private function get_formatted_fee_amount() {
+		$rule    = $this->rule;
+		$product = $this->product;
+		if ( empty( $rule ) || empty( $product ) || ! \yaydp_is_product_fee( $rule ) ) {
+			return '';
+		}
+		$origin_item   = \YAYDP\Helper\YAYDP_Helper::initialize_custom_cart_item( $product, 1 );
+		$fee_amount    = abs( $rule->get_discount_amount_per_item( $origin_item ) );
+		$pricing_type  = $rule->get_pricing_type();
+		$pricing_value = $rule->get_pricing_value();
+		if ( ! \YAYDP\Pricing_Type\YAYDP_Pricing_Type_Registry::is_percentage_adjustment( $pricing_type ) ) {
+			$fee_amount = \YAYDP\Helper\YAYDP_Pricing_Helper::convert_price( $fee_amount );
+		}
+		$maximum_value        = $rule->get_maximum_adjustment_amount();
+		$formula              = \YAYDP\Helper\YAYDP_Variable_Product_Helper::get_discount_amount_formula( $pricing_type, $pricing_value, $maximum_value );
+		$formatted_fee_amount = \wc_price( $fee_amount );
+		// Translators: translate fee amount text.
+		return sprintf( __( '<span data-variable="fee_amount" data-formula="%1$s">%2$s</span>', 'yaypricing' ), $formula, $formatted_fee_amount );
+	}
+
+	/**
+	 * Replace [fee_amount] variable
+	 *
+	 * @param string $raw_content Raw content.
+	 *
+	 * @since 3.2
+	 */
+	private function replace_fee_amount( $raw_content ) {
+		$rule    = $this->rule;
+		$product = $this->product;
+		if ( empty( $rule ) || empty( $product ) ) {
+			return $raw_content;
+		}
+		$formatted_fee_amount = $this->get_formatted_fee_amount();
+		$replaced_content     = str_replace( '[fee_amount]', $formatted_fee_amount, $raw_content );
+		return $replaced_content;
+
 	}
 
 }

@@ -21,7 +21,22 @@ class YAYDP_Enqueue_Frontend {
 	public function __construct() {
 		if ( \yaydp_is_request( 'frontend' ) ) {
 			add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
+			// Fired while the Cart / Mini-Cart and Checkout blocks render, so the script
+			// only loads on pages that actually contain those blocks.
+			add_action( 'woocommerce_blocks_cart_enqueue_data', array( $this, 'enqueue_block_cart_tooltip' ) );
+			add_action( 'woocommerce_blocks_checkout_enqueue_data', array( $this, 'enqueue_block_cart_tooltip' ) );
 		}
+	}
+
+	/**
+	 * Cart item price tooltip for the WooCommerce Cart, Checkout and Mini-Cart blocks.
+	 * Depends on tooltip.js for the shared builder/behaviour.
+	 */
+	public function enqueue_block_cart_tooltip() {
+		if ( ! wp_script_is( 'wc-blocks-checkout', 'registered' ) ) {
+			return;
+		}
+		$this->enqueue_script( 'block-cart-tooltip', 'block-cart-tooltip.js', array( 'wc-blocks-checkout', 'wp-data', 'yaydp-frontend-tooltip' ) );
 	}
 
 	/**
@@ -42,17 +57,29 @@ class YAYDP_Enqueue_Frontend {
 			$this->enqueue_script( 'pricing-table', 'pricing-table.js', array( 'jquery' ) );
 		}
 
-		if ( $this->has_payment_condition() ) {
+		$features = $this->required_frontend_features();
+		if ( in_array( 'payment', $features, true ) ) {
 			$this->enqueue_script( 'payment', 'payment.js', array( 'jquery' ) );
 		}
-
-		if ( $this->has_shipping_condition() ) {
+		if ( in_array( 'shipping', $features, true ) ) {
 			$this->enqueue_script( 'shipping', 'shipping.js', array( 'jquery' ) );
 		}
-
-		if ( $this->has_billing_email_condition() ) {
+		if ( in_array( 'billing_email', $features, true ) ) {
 			$this->enqueue_script( 'billing-email', 'billing-email.js', array( 'jquery' ) );
 		}
+
+		/**
+		 * Rule tooltip (cart item price, coupon and fee rows); block-cart-tooltip.js builds on it
+		 */
+		$this->enqueue_script( 'tooltip', 'tooltip.js' );
+		$this->enqueue_style( 'tooltip', 'tooltip.css' );
+		wp_localize_script(
+			'yaydp-frontend-tooltip',
+			'yaydp_tooltip_data',
+			array(
+				'label' => __( 'Discount details', 'yaypricing' ),
+			)
+		);
 
 		/**
 		 * Main script
@@ -68,6 +95,13 @@ class YAYDP_Enqueue_Frontend {
 				'current_page'      => \yaydp_current_frontend_page(),
 				'discount_based_on' => \YAYDP\Settings\YAYDP_Product_Pricing_Settings::get_instance()->get_discount_base_on(),
 				'currency_settings' => \Automattic\WooCommerce\Internal\Admin\Settings::get_currency_settings(),
+				'i18n'              => array(
+					'days'                  => __( 'days', 'yaypricing' ),
+					'hours'                 => __( 'hours', 'yaypricing' ),
+					'minutes'               => __( 'mins', 'yaypricing' ),
+					'seconds'               => __( 'secs', 'yaypricing' ),
+					'choose_quantity_again' => __( 'Please choose your quantity again!', 'yaypricing' ),
+				),
 			)
 		);
 	}
@@ -107,66 +141,26 @@ class YAYDP_Enqueue_Frontend {
 
 	}
 
-	public function has_payment_condition() {
-		$product_pricing_rules = \yaydp_get_running_product_pricing_rules();
-		$cart_discount_rules   = \yaydp_get_running_cart_discount_rules();
-		$checkout_fee_rules    = \yaydp_get_running_checkout_fee_rules();
-		$rules                 = array_merge( $product_pricing_rules, $cart_discount_rules, $checkout_fee_rules );
-		foreach ( $rules as $rule ) {
-			$conditions = $rule->get_conditions();
-			foreach ( $conditions as $condition ) {
-				if ( 'payment_method' === $condition['type'] ) {
-					return true;
-				}
-			}
-		}
-		return false;
-	}
-
 	/**
-	 * Check if there is a billing email order count condition
+	 * Frontend features the running rules' condition types ask for
+	 * ('payment', 'shipping', 'billing_email', …), one pass over all rules.
 	 *
-	 * @return boolean
-	 * @since 3.5.8
+	 * @return string[]
 	 */
-	public function has_billing_email_condition() {
-		$product_pricing_rules = \yaydp_get_running_product_pricing_rules();
-		$cart_discount_rules   = \yaydp_get_running_cart_discount_rules();
-		$checkout_fee_rules    = \yaydp_get_running_checkout_fee_rules();
-		$rules                 = array_merge( $product_pricing_rules, $cart_discount_rules, $checkout_fee_rules );
+	public function required_frontend_features() {
+		$rules    = array_merge( \yaydp_get_running_product_pricing_rules(), \yaydp_get_running_cart_discount_rules(), \yaydp_get_running_checkout_fee_rules() );
+		$registry = \YAYDP\Condition\YAYDP_Condition_Registry::instance();
+		$features = array();
 		foreach ( $rules as $rule ) {
-			$conditions = $rule->get_conditions();
-			foreach ( $conditions as $condition ) {
-				if ( 'billing_email_order_count' === $condition['type'] ) {
-					return true;
+			foreach ( $rule->get_conditions() as $condition ) {
+				$type = $registry->get( isset( $condition['type'] ) ? $condition['type'] : '' );
+				if ( $type ) {
+					$features = array_merge( $features, $type->frontend_requirements() );
 				}
 			}
 		}
-		return false;
+		return array_values( array_unique( $features ) );
 	}
-
-	/**
-	 * Check if there is a shipping condition
-	 *
-	 * @return boolean
-	 * @since 3.5.2
-	 */
-	public function has_shipping_condition() {
-		$product_pricing_rules = \yaydp_get_running_product_pricing_rules();
-		$cart_discount_rules   = \yaydp_get_running_cart_discount_rules();
-		$checkout_fee_rules    = \yaydp_get_running_checkout_fee_rules();
-		$rules                 = array_merge( $product_pricing_rules, $cart_discount_rules, $checkout_fee_rules );
-		foreach ( $rules as $rule ) {
-			$conditions = $rule->get_conditions();
-			foreach ( $conditions as $condition ) {
-				if ( 'shipping_method' === $condition['type'] ) {
-					return true;
-				}
-			}
-		}
-		return false;
-	}
-
 }
 
 new YAYDP_Enqueue_Frontend();

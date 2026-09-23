@@ -21,24 +21,18 @@ class YAYDP_YayCurrency_Integration {
 	 * Constructor
 	 */
 	protected function __construct() {
-		if ( defined( 'YAYE_VERSION' ) ) {
-			return;
-		}
 		if ( class_exists( '\Yay_Currency\Helpers\YayCurrencyHelper' ) ) {
+			add_filter( 'YayCurrency/GetCouponAmount', array( __CLASS__, 'round_converted_coupon_amount' ), 10, 3 );
 			if ( ! self::is_disable_convert() ) {
 				add_filter( 'yaydp_converted_price', array( __CLASS__, 'convert_price' ) );
 				add_filter( 'yaydp_reversed_price', array( __CLASS__, 'reverse_price' ) );
 				add_filter( 'yaydp_product_fixed_price', array( __CLASS__, 'get_product_fixed_price' ), 10, 2 );
-				add_filter('wc_aelia_cs_convert', array( __CLASS__, 'convert_price' ));
 			}
 			add_action( 'yaydp_before_set_cart_item_price', array( __CLASS__, 'before_set_cart_item_price' ), 10, 2 );
 			add_action( 'yaydp_remove_3rd_currency_format', array( __CLASS__, 'remove_currency_formmat' ), 10 );
 			add_filter( 'yaydp_checkout_coupon_fee_html', array( __CLASS__, 'get_checkout_coupon_fee_html' ), 10, 2 );
-			add_filter( 'yaydp_extra_conditions', array( $this, 'currency_condition' ) );
-			add_filter( 'yaydp_check_yaycurrency_currency_condition', array( $this, 'check_yaycurrency_currency_condition' ), 10, 2 );
+			add_action( 'yaydp_register_conditions', array( $this, 'register_conditions' ) );
 			add_filter( 'yaydp_converted_fee', array( __CLASS__, 'convert_fee' ) );
-
-			add_filter('yay_currency_is_cart_fees_original', array( $this, 'is_cart_fees_original' ), 10, 1);
 		}
 		if ( class_exists( 'Yay_Currency\Engine\FEPages\WooCommerceCurrency' ) ) {
 			add_action(
@@ -58,6 +52,31 @@ class YAYDP_YayCurrency_Integration {
 	public static function before_set_cart_item_price() {
 		remove_filter( 'yay_currency_get_price_fixed_by_currency', array( __CLASS__, 'reject_fixed_price' ), 11 );
 		add_filter( 'yay_currency_get_price_fixed_by_currency', array( __CLASS__, 'reject_fixed_price' ), 11, 4 );
+	}
+
+	/**
+	 * Snap the converted amount of our coupons to the precision of the current currency.
+	 *
+	 * Our coupons hold an amount in the store currency, so converting it back for the cart goes
+	 * through a division and a multiplication and lands a few billionths beside the intended value.
+	 * WooCommerce hands out the leftover of a fixed cart discount as a whole cent per item
+	 * ( see WC_Discounts::apply_coupon_remainder ), so such a residue becomes a visible unit of
+	 * discount - a full 1 in a currency displayed without decimals.
+	 *
+	 * @param float      $converted_amount Coupon amount converted to the current currency.
+	 * @param \WC_Coupon $coupon Given coupon.
+	 * @param array      $apply_currency Current currency.
+	 *
+	 * @return float
+	 */
+	public static function round_converted_coupon_amount( $converted_amount, $coupon, $apply_currency ) {
+		if ( ! function_exists( '\yaydp_is_coupon' ) || ! $coupon instanceof \WC_Coupon ) {
+			return $converted_amount;
+		}
+		if ( ! \yaydp_is_coupon( $coupon->get_code() ) ) {
+			return $converted_amount;
+		}
+		return round( floatval( $converted_amount ), \wc_get_price_decimals() );
 	}
 
 	/**
@@ -156,60 +175,12 @@ class YAYDP_YayCurrency_Integration {
 		return $result;
 	}
 
-	public function currency_condition( $conditions ) {
-		if ( class_exists( '\Yay_Currency\Helpers\Helper' ) ) {
-			$currencies     = \Yay_Currency\Helpers\Helper::get_currencies_post_type();
-			$woo_currencies = \Yay_Currency\Helpers\Helper::woo_list_currencies();
-			if ( ! empty( $currencies ) ) {
-				$currencies_condition = array(
-					'value'        => 'yaycurrency_currency',
-					'label'        => 'YayCurrency current currency',
-					'comparations' => array(
-						array(
-							'value' => 'in_list',
-							'label' => 'In list',
-						),
-						array(
-							'value' => 'not_in_list',
-							'label' => 'Not in list',
-						),
-					),
-					'values'       => array_map(
-						function( $currency ) use ( $woo_currencies ) {
-							$currency_code = $currency->post_title;
-							$currency_name = isset( $woo_currencies[ $currency_code ] ) ? $woo_currencies[ $currency_code ] : '';
-							return array(
-								'value' => $currency->ID,
-								'label' => "$currency_name ( $currency_code )",
-							);
-						},
-						$currencies
-					),
-				);
-				$conditions[]         = $currencies_condition;
-			}
-		}
-		return $conditions;
+	/**
+	 * Register this integration's condition types.
+	 *
+	 * @param \YAYDP\Condition\YAYDP_Condition_Registry $registry Registry.
+	 */
+	public function register_conditions( $registry ) {
+		$registry->register( new YAYDP_YayCurrency_Currency_Condition() );
 	}
-
-	public static function check_yaycurrency_currency_condition( $result, $condition ) {
-		if ( class_exists( '\Yay_Currency\Helpers\YayCurrencyHelper' ) ) {
-			$current_currency = \Yay_Currency\Helpers\YayCurrencyHelper::detect_current_currency();
-			$currency_id      = isset( $current_currency['ID'] ) ? $current_currency['ID'] : 0;
-			$condition_values = array_map(
-				function( $item ) {
-					return $item['value'];
-				},
-				$condition['value']
-			);
-			$in_list          = in_array( $currency_id, $condition_values );
-			return 'in_list' === $condition['comparation'] ? $in_list : ! $in_list;
-		}
-		return false;
-	}
-
-	public function is_cart_fees_original( $flag ) {
-		return true;
-	}
-
 }

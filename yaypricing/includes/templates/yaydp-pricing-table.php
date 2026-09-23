@@ -53,7 +53,7 @@ if ( yaydp_is_variable_product( $product ) ) {
                                 break;
                         }
                         ?>
-                        <th data-key="<?php echo esc_attr( $column ); ?>" style="border-color: <?php echo esc_attr( $border_color ); ?>;">
+                        <th style="border-color: <?php echo esc_attr( $border_color ); ?>;">
                             <?php echo esc_html( $header_title ); ?>
                         </th>
                         <?php
@@ -71,17 +71,17 @@ if ( yaydp_is_variable_product( $product ) ) {
 						foreach ( $columns_order as $column ) {
 							switch ( $column ) {
 								case 'quantity_title':
-									echo '<td data-key="quantity" style="border-color: ' . esc_attr( $border_color ) . ';">' 
+									echo '<td style="border-color: ' . esc_attr( $border_color ) . ';">' 
 									. esc_html( $pricing_table->get_quantity_text( $range_instance ) ) . 
 									'</td>';
 									break;
 								case 'discount_title':
-									echo '<td data-key="discount" style="border-color: ' . esc_attr( $border_color ) . ';" data-variable="discount_value" data-formula="' . esc_attr( $pricing_table->get_discount_value_formula( $range_instance ) ) . '">' 
+									echo '<td style="border-color: ' . esc_attr( $border_color ) . ';" data-variable="discount_value" data-formula="' . esc_attr( $pricing_table->get_discount_value_formula( $range_instance ) ) . '">' 
 									. wp_kses_post( $pricing_table->get_discount_text( $range_instance ) ) . 
 									'</td>';
 									break;
 								case 'price_title':
-									echo '<td data-key="price" style="border-color:' . esc_attr( $border_color ) . ';" data-variable="discounted_price" data-formula="' . esc_attr( $pricing_table->get_discounted_price_formula( $range_instance ) ) . '">' 
+									echo '<td style="border-color:' . esc_attr( $border_color ) . ';" data-variable="discounted_price" data-formula="' . esc_attr( $pricing_table->get_discounted_price_formula( $range_instance ) ) . '">' 
 									. wp_kses_post( $pricing_table->get_discounted_price_text( $range_instance ) ) . 
 									'</td>';
 									break;

@@ -1,5 +1,4 @@
 <?php
-
 /**
  * This class represents a cart for storing and managing items
  * It provides methods for adding, removing, and updating items in the cart
@@ -17,13 +16,25 @@ defined( 'ABSPATH' ) || exit;
  */
 class YAYDP_Cart {
 
-
 	/**
 	 * Contains cart items
 	 *
 	 * @var array
 	 */
 	protected $items = array();
+
+	/**
+	 * Prices present on the WC product objects before YayPricing mutated them,
+	 * keyed by cart item key.
+	 *
+	 * Request-scoped only. Never persist this to cart_contents or the session:
+	 * WC re-hydrates the product object from the database on the next request,
+	 * so a restore value that survived would be applied to a clean object and
+	 * corrupt it.
+	 *
+	 * @var array
+	 */
+	protected static $original_prices = array();
 
 	/**
 	 * Constructor
@@ -69,7 +80,21 @@ class YAYDP_Cart {
 	 * @return array
 	 */
 	public function get_items_include_extra() {
-		 return $this->items;
+		return $this->items;
+	}
+
+	/**
+	 * Retrieves extra items in the cart
+	 *
+	 * @return array
+	 */
+	public function get_items_extra() {
+		return array_filter(
+			$this->items,
+			function ( $item ) {
+				return $item->is_extra();
+			}
+		);
 	}
 
 	/**
@@ -108,8 +133,7 @@ class YAYDP_Cart {
 						'extra_data'        => \yaydp_serialize_cart_data( $item->get_extra_data() ),
 						'modifiers'         => \yaydp_serialize_cart_data( $item->get_modifiers() ),
 						'yaydp_custom_data' => array(
-							'price'          => 0,
-							'original_price' => $item->get_initial_price(),
+							'price' => 0,
 						),
 					)
 				);
@@ -137,21 +161,44 @@ class YAYDP_Cart {
 			$new_price           = $item->get_price();
 			$has_item_in_wc_cart = isset( \WC()->cart->cart_contents[ $item_key ] );
 			if ( $has_item_in_wc_cart ) {
+				// Snapshot the pre-YayPricing price once per request, so a later pass that
+				// finds the item no longer eligible can rewind it. Only when absent: on a
+				// later pass the object already holds our own write.
+				if ( ! isset( self::$original_prices[ $item_key ] ) ) {
+					self::$original_prices[ $item_key ] = \WC()->cart->cart_contents[ $item_key ]['data']->get_price();
+				}
 				do_action( 'yaydp_before_set_cart_item_price', $item, $item_key );
 				\WC()->cart->cart_contents[ $item_key ]['data']->set_price( $new_price );
-				\WC()->cart->cart_contents[ $item_key ]['modifiers']         = \yaydp_serialize_cart_data( $item->get_modifiers() );
-				\WC()->cart->cart_contents[ $item_key ]['yaydp_custom_data'] = array(
+				\WC()->cart->cart_contents[ $item_key ]['modifiers']               = \yaydp_serialize_cart_data( $item->get_modifiers() );
+				\WC()->cart->cart_contents[ $item_key ]['yaydp_custom_data']       = array(
 					'price'           => $new_price,
 					'original_price'  => $item->get_initial_price(), //Deprecated
 					'initial_price'   => $item->get_initial_price(),
 					'item_extra_data' => $item->get_extra_data(),
 				);
-				if ( isset( $item->adjustment_values ) ) {
-					\WC()->cart->cart_contents[ $item_key ]['yaydp_adjustment_values'] = $item->adjustment_values;
-				}
+				\WC()->cart->cart_contents[ $item_key ]['yaydp_adjustment_values'] = $item->adjustment_values;
 				do_action( 'yaydp_after_set_cart_item_price', $item, $item_key );
 			}
 		}
+	}
+
+	/**
+	 * Restore product prices mutated by an earlier pricing pass in this request.
+	 *
+	 * publish() only writes prices for items a rule modified, so an item that
+	 * loses its discount on a later pass would otherwise keep the previous
+	 * pass's price. Idempotent: the map is emptied once replayed.
+	 */
+	public static function restore_original_prices() {
+		if ( ! function_exists( 'WC' ) || empty( \WC()->cart ) ) {
+			return;
+		}
+		foreach ( self::$original_prices as $item_key => $price ) {
+			if ( isset( \WC()->cart->cart_contents[ $item_key ]['data'] ) ) {
+				\WC()->cart->cart_contents[ $item_key ]['data']->set_price( $price );
+			}
+		}
+		self::$original_prices = array();
 	}
 
 	/**
@@ -225,8 +272,7 @@ class YAYDP_Cart {
 				continue;
 			}
 			$item_quantity = $item->get_quantity();
-			// $item_price    = $item->get_price();
-			$item_price = $item->can_modify() ? $item->get_price() : $item->get_store_price();
+			$item_price    = $item->get_effective_price();
 			if ( $inc_tax && ! empty( \WC()->cart ) && \WC()->cart->display_prices_including_tax() ) {
 				$subtotal += wc_get_price_including_tax(
 					$item->get_product(),
@@ -263,8 +309,6 @@ class YAYDP_Cart {
 	}
 
 	/**
-	 * Returns cart total
-	 *
 	 * @deprecated 3.3.1
 	 */
 	public function get_cart_total( $inc_tax = true ) {
@@ -274,7 +318,7 @@ class YAYDP_Cart {
 				continue;
 			}
 			$item_quantity = $item->get_quantity();
-			$item_price    = $item->can_modify() ? $item->get_price() : $item->get_store_price();
+			$item_price    = $item->get_effective_price();
 			if ( $inc_tax && ! empty( \WC()->cart ) && \WC()->cart->display_prices_including_tax() ) {
 				$total += wc_get_price_including_tax(
 					$item->get_product(),
@@ -312,7 +356,6 @@ class YAYDP_Cart {
 		}
 		return $total;
 	}
-
 
 	/**
 	 * Get cart coupon rules

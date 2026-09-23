@@ -106,7 +106,7 @@ class YAYDP_Combined_Discount {
 		if ( $settings->use_id_as_code() ) {
 			$coupon = self::$coupon_code;
 		} else {
-			$coupon = sprintf( __( '%s', 'yaypricing' ), self::$coupon_name );
+			$coupon = sprintf( '%s', self::$coupon_name );
 		}
 		\WC()->cart->add_discount( $coupon );
 	}
@@ -120,25 +120,9 @@ class YAYDP_Combined_Discount {
 		$adjustments->collect();
 		$tooltips = array();
 		foreach ( $adjustments->get_adjustments() as $adjustment ) {
-			$rule    = $adjustment->get_rule();
-			$tooltip = $rule->get_tooltip();
-			if ( ! $tooltip->is_enabled() ) {
-				continue;
-			}
-			$tooltips[] = $tooltip;
+			$tooltips[] = $adjustment->get_rule()->get_tooltip();
 		}
-		ob_start();
-		\wc_get_template(
-			'coupon/yaydp-cart-coupon.php',
-			array(
-				'tooltips' => $tooltips,
-			),
-			'',
-			YAYDP_PLUGIN_PATH . 'includes/templates/'
-		);
-		$html = ob_get_contents();
-		ob_end_clean();
-		return $html;
+		return \yaydp_render_tooltips( $tooltips );
 	}
 
 	/**

@@ -7,6 +7,8 @@
 
 namespace YAYDP\admin;
 
+use YAYDP\YAYDP_I18n;
+
 defined( 'ABSPATH' ) || exit;
 
 /**
@@ -43,9 +45,17 @@ class YAYDP_Admin_Report {
 			'yaydp_report_data',
 			array(
 				'nonce'                 => wp_create_nonce( 'yaydp_nonce' ),
+				'i18n'                  => YAYDP_I18n::get_report_translations(),
 				'rest_api'              => array(
 					'nonce' => wp_create_nonce( 'wp_rest' ),
 					'url'   => esc_url_raw( rest_url( 'yaydp/v1' ) ),
+				),
+				'currency'              => array(
+					'symbol'             => html_entity_decode( \get_woocommerce_currency_symbol() ),
+					'position'           => get_option( 'woocommerce_currency_pos', 'left' ),
+					'decimals'           => \wc_get_price_decimals(),
+					'decimal_separator'  => \wc_get_price_decimal_separator(),
+					'thousand_separator' => \wc_get_price_thousand_separator(),
 				),
 				'product_pricing_rules' => \YAYDP\API\Models\YAYDP_Report_Model::get_all_product_pricing_rules(),
 				'cart_discount_rules'   => \YAYDP\API\Models\YAYDP_Report_Model::get_all_cart_discount_rules(),

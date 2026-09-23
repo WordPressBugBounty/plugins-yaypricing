@@ -1,12 +1,12 @@
 # Copyright (C) 2024 YayCommerce
-# This file is distributed under the same license as the YayPricing Lite - WooCommerce Dynamic Pricing And Discounts plugin.
+# This file is distributed under the same license as the YayPricing Pro - WooCommerce Dynamic Pricing And Discounts plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: YayPricing Lite - WooCommerce Dynamic Pricing And "
-"Discounts 3.4.1\n"
-"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/yaypricing-lite\n"
-"POT-Creation-Date: 2024-12-06T02:19:02+00:00\n"
-"PO-Revision-Date: 2024-12-24 08:28+0700\n"
+"Project-Id-Version: YayPricing Pro - WooCommerce Dynamic Pricing And "
+"Discounts 3.4.1.1\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/yaypricing-edd\n"
+"POT-Creation-Date: 2025-06-16T03:04:36+00:00\n"
+"PO-Revision-Date: 2025-06-16 10:12+0700\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: de_AT\n"
@@ -17,39 +17,49 @@ msgstr ""
 "X-Domain: yaypricing\n"
 
 #. Plugin Name of the plugin
-msgid "YayPricing Lite - WooCommerce Dynamic Pricing And Discounts"
-msgstr ""
+msgid "YayPricing Pro - WooCommerce Dynamic Pricing And Discounts"
+msgstr "YayPricing Pro - WooCommerce Dynamische Preisgestaltung und Rabatte"
 
 #. Plugin URI of the plugin
-msgid "https://wordpress.org/plugins/yaypricing/"
+msgid ""
+"https://yaycommerce.com/yaypricing-woocommerce-dynamic-pricing-and-discounts/"
 msgstr ""
+"https://yaycommerce.com/yaypricing-woocommerce-dynamic-pricing-and-discounts/"
 
 #. Description of the plugin
 msgid ""
 "Create automatic product pricing rules and cart discounts to design a "
 "powerful marketing strategy for your WooCommerce store."
 msgstr ""
+"Erstellen Sie automatische Produktpreisregeln und Warenkorbrabatte, um eine "
+"leistungsstarke Marketingstrategie für Ihren WooCommerce-Shop zu entwickeln."
 
 #. Author of the plugin
 msgid "YayCommerce"
-msgstr ""
+msgstr "YayCommerce"
 
 #. Author URI of the plugin
 msgid "https://yaycommerce.com/"
-msgstr ""
+msgstr "https://yaycommerce.com/"
 
 #: includes/admin/class-yaydp-admin-menus.php:33
-#: includes/yaycommercemenu/class-register-menu.php:175
+#: includes/yaycommercemenu/class-register-menu.php:155
 msgid "YayPricing"
-msgstr ""
+msgstr "YayPreisgestaltung"
 
 #: includes/admin/class-yaydp-admin-menus.php:41
 msgid "YayPricing Report"
-msgstr ""
+msgstr "YayPricing-Bericht"
 
-#: includes/admin/class-yaydp-order-manager.php:32
+#: includes/admin/class-yaydp-order-manager.php:39
 msgid "YayPricing applied rules:"
-msgstr ""
+msgstr "YayPricing angewandte Regeln:"
+
+#: includes/admin/class-yaydp-order-manager.php:103
+#, fuzzy
+#| msgid "Saving amount"
+msgid "Saved Amount:"
+msgstr "Sparbetrag"
 
 #. Translators: %s: search WooCommerce plugin link.
 #: includes/admin/views/html-notice-require-wc.php:5
@@ -57,6 +67,8 @@ msgid ""
 "is enabled but not effective. It requires %1$sWooCommerce%2$s in order to "
 "work."
 msgstr ""
+"ist aktiviert, aber nicht wirksam. Es erfordert %1$sWooCommerce%2$s, um zu "
+"funktionieren."
 
 #. translators:
 #: includes/admin/views/html-require-php-version.php:15
@@ -65,2268 +77,2701 @@ msgid ""
 "version %1$s. Please contact your host and request a PHP upgrade to the "
 "latest one."
 msgstr ""
+"YayPricing benötigt PHP 5.6, um zu funktionieren, und unterstützt Ihre "
+"aktuelle PHP-Version %1$s nicht. Bitte wenden Sie sich an Ihren Host und "
+"fordern Sie ein PHP-Upgrade auf die neueste Version an."
 
-#: includes/class-yaydp-ajax.php:31
+#: includes/api/models/class-yaydp-data-model.php:73
+msgid "Custom"
+msgstr "Benutzerdefiniert"
+
+#: includes/class-yaydp-ajax.php:34 includes/class-yaydp-ajax.php:73
 msgid "Verify nonce failed"
-msgstr ""
+msgstr "Überprüfen Sie, ob die Nonce fehlgeschlagen ist"
+
+#: includes/class-yaydp-ajax.php:90
+#: includes/core/encouraged-notice/class-yaydp-product-pricing-encouraged-notice-handler.php:209
+msgid "Free gift added"
+msgstr "Kostenloses Geschenk hinzugefügt"
+
+#: includes/class-yaydp-change-free-products.php:37
+#: includes/class-yaydp-change-free-products.php:194
+msgid "Change"
+msgstr "Änderung"
+
+#: includes/class-yaydp-change-free-products.php:175
+msgid "Validation failed"
+msgstr "Fehler bei der Validierung"
+
+#: includes/class-yaydp-change-free-products.php:208
+msgid "Change Free Products"
+msgstr "Kostenlose Produkte ändern"
+
+#: includes/class-yaydp-change-free-products.php:215
+msgid "Suggested"
+msgstr "Vorgeschlagen"
+
+#: includes/class-yaydp-change-free-products.php:216
+msgid "Relative"
+msgstr "Relativ"
+
+#: includes/class-yaydp-change-free-products.php:217
+#: includes/class-yaydp-i18n.php:384
+msgid "All"
+msgstr "Alle"
+
+#: includes/class-yaydp-change-free-products.php:232
+msgid "Close this dialog window"
+msgstr "Dieses Dialogfenster schließen"
+
+#: includes/class-yaydp-change-free-products.php:232
+msgid "Close"
+msgstr "Schließen"
+
+#: includes/class-yaydp-change-free-products.php:233
+msgid "Save"
+msgstr "Speichern"
+
+#: includes/class-yaydp-enqueue-frontend.php:92
+msgid "days"
+msgstr "Tag(e)"
+
+#: includes/class-yaydp-enqueue-frontend.php:93
+msgid "hours"
+msgstr "Stunden"
+
+#: includes/class-yaydp-enqueue-frontend.php:94
+msgid "mins"
+msgstr "Minuten"
+
+#: includes/class-yaydp-enqueue-frontend.php:95
+msgid "secs"
+msgstr "s"
 
 #: includes/class-yaydp-i18n.php:35
-msgid "Last 7 days"
-msgstr ""
+msgid "Fixed Discount"
+msgstr "Fester Rabatt"
 
 #: includes/class-yaydp-i18n.php:36
-msgid "Product Pricing"
-msgstr ""
+msgid "Percentage Discount"
+msgstr "Prozentualer Rabatt"
 
 #: includes/class-yaydp-i18n.php:37
-msgid "Cart Discount"
-msgstr ""
+msgid "Fixed Fee"
+msgstr "Feste Gebühr"
 
 #: includes/class-yaydp-i18n.php:38
-msgid "Checkout Fee"
-msgstr ""
+msgid "Percentage Fee"
+msgstr "Prozentuale Gebühr"
 
 #: includes/class-yaydp-i18n.php:39
-msgid "Time"
-msgstr ""
+msgid "Reduce Shipping Fee"
+msgstr "Reduzieren Sie die Versandkosten"
 
 #: includes/class-yaydp-i18n.php:40
-msgid "Split rule"
-msgstr ""
+msgid "Add Custom Fee"
+msgstr "Benutzerdefinierte Gebühr hinzufügen"
 
 #: includes/class-yaydp-i18n.php:41
-msgid "Fixed Discount"
-msgstr ""
-
-#: includes/class-yaydp-i18n.php:42
-msgid "Percentage Discount"
-msgstr ""
-
-#: includes/class-yaydp-i18n.php:43
-msgid "Fixed Fee"
-msgstr ""
-
-#: includes/class-yaydp-i18n.php:44
-msgid "Percentage Fee"
-msgstr ""
-
-#: includes/class-yaydp-i18n.php:45
-msgid "Reduce Shipping Fee"
-msgstr ""
-
-#: includes/class-yaydp-i18n.php:46
-msgid "Add Custom Fee"
-msgstr ""
-
-#: includes/class-yaydp-i18n.php:47
 msgid "Add Custom Fee based on Shipping Fee"
 msgstr ""
+"Fügen Sie eine benutzerdefinierte Gebühr basierend auf der Versandgebühr "
+"hinzu"
+
+#: includes/class-yaydp-i18n.php:42
+msgid "Sample rule"
+msgstr "Beispielregel"
+
+#: includes/class-yaydp-i18n.php:43
+msgid "You"
+msgstr "du"
+
+#: includes/class-yaydp-i18n.php:44
+msgid "Sample collection"
+msgstr "Musterkollektion"
+
+#: includes/class-yaydp-i18n.php:45
+msgid "Simple Adjustment"
+msgstr "Einfache Einstellung"
+
+#: includes/class-yaydp-i18n.php:46
+msgid "Bulk Pricing"
+msgstr "Mengenmäßige Preisgestaltung"
+
+#: includes/class-yaydp-i18n.php:47
+msgid "Product Bundle"
+msgstr "Produkt-Bundle"
 
 #: includes/class-yaydp-i18n.php:48
-msgid "Sample rule"
-msgstr ""
+msgid "BOGO (same product)"
+msgstr "BOGO (gleiches Produkt)"
 
 #: includes/class-yaydp-i18n.php:49
-msgid "You"
-msgstr ""
+msgid "Buy X get Y"
+msgstr "Kaufen Sie X und erhalten Sie Y"
 
 #: includes/class-yaydp-i18n.php:50
-msgid "Simple Adjustment"
-msgstr ""
+msgid "Tiered Pricing"
+msgstr "Gestaffelte Preise"
 
 #: includes/class-yaydp-i18n.php:51
-msgid "Bulk Pricing"
-msgstr ""
+msgid "Product Fee"
+msgstr "Produktgebühr"
 
 #: includes/class-yaydp-i18n.php:52
-msgid "Product Bundle"
-msgstr ""
+msgid "Flat Price"
+msgstr "Pauschalpreis"
 
 #: includes/class-yaydp-i18n.php:53
-msgid "BOGO (same product)"
-msgstr ""
+msgid "All together"
+msgstr "Alle zusammen"
 
 #: includes/class-yaydp-i18n.php:54
-msgid "Buy X get Y"
-msgstr ""
+msgid "Item quantity in each cart line"
+msgstr "Artikelmenge in jeder Warenkorbzeile"
 
 #: includes/class-yaydp-i18n.php:55
-msgid "Tiered Pricing"
-msgstr ""
+msgid "Each single product/variable products"
+msgstr "Jedes einzelne Produkt/variable Produkte"
 
 #: includes/class-yaydp-i18n.php:56
-msgid "Product Fee"
-msgstr ""
+msgid "Purchase history"
+msgstr "Kaufhistorie"
 
 #: includes/class-yaydp-i18n.php:57
-msgid "Flat Price"
-msgstr ""
+msgid "Customer order count"
+msgstr "Anzahl der Kundenbestellungen"
 
 #: includes/class-yaydp-i18n.php:58
-msgid "All together"
-msgstr ""
-
-#: includes/class-yaydp-i18n.php:59
-msgid "Item quantity in each cart line"
-msgstr ""
-
-#: includes/class-yaydp-i18n.php:60
-msgid "Each single product/variable products"
-msgstr ""
-
-#: includes/class-yaydp-i18n.php:61
-msgid "Purchase history"
-msgstr ""
-
-#: includes/class-yaydp-i18n.php:62
-msgid "Customer order count"
-msgstr ""
-
-#: includes/class-yaydp-i18n.php:63
 msgid "Number of all the orders they have placed in the past."
 msgstr ""
+"Anzahl aller Bestellungen, die sie in der Vergangenheit aufgegeben haben."
 
-#: includes/class-yaydp-i18n.php:64
-msgid "Order count from last discount"
-msgstr ""
+#: includes/class-yaydp-i18n.php:59
+msgid "Orders since last discount"
+msgstr "Bestellanzahl ab dem letzten Rabatt"
 
-#: includes/class-yaydp-i18n.php:65
+#: includes/class-yaydp-i18n.php:60
 msgid ""
 "Number of orders counted from the last time they got a discount from "
 "YayPricing."
 msgstr ""
+"Anzahl der Bestellungen, die seit dem letzten Zeitpunkt gezählt wurden, als "
+"sie einen Rabatt von YayPricing erhalten haben."
 
-#: includes/class-yaydp-i18n.php:66
+#: includes/class-yaydp-i18n.php:61
 msgid "Previous purchase date"
-msgstr ""
+msgstr "Vorheriges Kaufdatum"
 
-#: includes/class-yaydp-i18n.php:67
+#: includes/class-yaydp-i18n.php:62
 msgid "Purchase date of orders placed in the past."
 msgstr ""
+"Kaufdatum von Bestellungen, die in der Vergangenheit aufgegeben wurden."
+
+#: includes/class-yaydp-i18n.php:63
+msgid "Past order - product"
+msgstr "Bestellhistorie Produkt"
+
+#: includes/class-yaydp-i18n.php:64
+msgid "Purchased products in a specific order."
+msgstr "Gekaufte Produkte in einer bestimmten Reihenfolge."
+
+#: includes/class-yaydp-i18n.php:65
+msgid "Past order - category"
+msgstr "Kategorie der Bestellhistorie"
+
+#: includes/class-yaydp-i18n.php:66
+msgid "Purchased product categories in a specific order."
+msgstr "Gekaufte Produktkategorien in einer bestimmten Reihenfolge."
+
+#: includes/class-yaydp-i18n.php:67
+msgid "Purchased products (lifetime)"
+msgstr "Gekaufte Produkte (Lebensdauer)"
 
 #: includes/class-yaydp-i18n.php:68
-msgid "Order history product"
-msgstr ""
-
-#: includes/class-yaydp-i18n.php:69
-msgid "Purchased products in a specific order."
-msgstr ""
-
-#: includes/class-yaydp-i18n.php:70
-msgid "Order history category"
-msgstr ""
-
-#: includes/class-yaydp-i18n.php:71
-msgid "Purchased product categories in a specific order."
-msgstr ""
-
-#: includes/class-yaydp-i18n.php:72
-msgid "Purchased products (lifetime)"
-msgstr ""
-
-#: includes/class-yaydp-i18n.php:73
 msgid "Purchased products among all the orders they have placed in the past."
 msgstr ""
+"Gekaufte Produkte unter allen Bestellungen, die sie in der Vergangenheit "
+"aufgegeben haben."
+
+#: includes/class-yaydp-i18n.php:69
+msgid "Account age"
+msgstr "Zeit zum Erstellen eines Kontos"
+
+#: includes/class-yaydp-i18n.php:70
+msgid "Account lifetime from the time they are created"
+msgstr "Lebensdauer des Kontos ab dem Zeitpunkt der Erstellung"
+
+#: includes/class-yaydp-i18n.php:71
+msgid "Cart"
+msgstr "Warenkorb"
+
+#: includes/class-yaydp-i18n.php:72
+msgid "Cart subtotal price"
+msgstr "Zwischensumme des Warenkorbs"
+
+#: includes/class-yaydp-i18n.php:73
+msgid "Cart quantity"
+msgstr "Menge des Warenkorbs"
 
 #: includes/class-yaydp-i18n.php:74
-msgid "Account create time"
-msgstr ""
+msgid "Cart total weight"
+msgstr "Gesamtgewicht des Warenkorbs"
 
 #: includes/class-yaydp-i18n.php:75
-msgid "Account lifetime from the time they are created"
-msgstr ""
+msgid "Cart items"
+msgstr "Artikel im Warenkorb"
 
 #: includes/class-yaydp-i18n.php:76
-msgid "Cart"
-msgstr ""
+msgid "Cart item - product"
+msgstr "Warenkorbartikel - Produkt"
 
 #: includes/class-yaydp-i18n.php:77
-msgid "Cart subtotal price"
-msgstr ""
+msgid "Cart item - variation"
+msgstr "Warenkorb Artikel - Variation"
 
 #: includes/class-yaydp-i18n.php:78
-msgid "Cart quantity"
-msgstr ""
+msgid "Cart item - attribute taxonomies"
+msgstr "Warenkorbartikel - Attribut-Taxonomien"
 
 #: includes/class-yaydp-i18n.php:79
-msgid "Cart total weight"
-msgstr ""
+msgid "Cart item - category"
+msgstr "Warenkorbartikel - Kategorie"
 
 #: includes/class-yaydp-i18n.php:80
-msgid "Cart Items"
-msgstr ""
+msgid "Cart item - tag"
+msgstr "Warenkorbartikel - Tag"
 
 #: includes/class-yaydp-i18n.php:81
-msgid "Cart item - product"
-msgstr ""
+msgid "Cart item - regular price"
+msgstr "Warenkorbartikel - regulärer Preis"
 
 #: includes/class-yaydp-i18n.php:82
-msgid "Cart item - variation"
-msgstr ""
+msgid "Customer"
+msgstr "Neuer Kunde"
 
 #: includes/class-yaydp-i18n.php:83
-msgid "Cart item - attribute taxonomies"
-msgstr ""
+msgid "Login status"
+msgstr "Ist eingeloggter Kunde"
 
 #: includes/class-yaydp-i18n.php:84
-msgid "Cart item - category"
-msgstr ""
+msgid "Customer role"
+msgstr "Rolle des Kunden"
 
 #: includes/class-yaydp-i18n.php:85
-msgid "Cart item - tag"
-msgstr ""
+msgid "Specific customer"
+msgstr "Spezifischer Kunde"
 
 #: includes/class-yaydp-i18n.php:86
-msgid "Customer"
+msgid "Checkout"
 msgstr ""
 
 #: includes/class-yaydp-i18n.php:87
-msgid "Is logged in customer"
-msgstr ""
+msgid "Shipping region"
+msgstr "Versandgebiet"
 
 #: includes/class-yaydp-i18n.php:88
-msgid "Customer role"
-msgstr ""
+msgid "Billing region"
+msgstr "Region der Rechnungsstellung"
 
 #: includes/class-yaydp-i18n.php:89
-msgid "Specific customer"
-msgstr ""
+msgid "Payment method"
+msgstr "Zahlungsmethode"
 
 #: includes/class-yaydp-i18n.php:90
-msgid "Others"
-msgstr ""
+#, fuzzy
+#| msgid "Shipping region"
+msgid "Shipping method"
+msgstr "Versandgebiet"
 
 #: includes/class-yaydp-i18n.php:91
-msgid "Shipping region"
-msgstr ""
+#, fuzzy
+#| msgid "Cart item - variation"
+msgid "Cart item - shipping class"
+msgstr "Warenkorb Artikel - Variation"
 
 #: includes/class-yaydp-i18n.php:92
-msgid "Billing region"
-msgstr ""
+msgid "Coupon used"
+msgstr "Angewendete Gutscheine"
 
 #: includes/class-yaydp-i18n.php:93
-msgid "Payment method"
-msgstr ""
+msgid "Combination"
+msgstr "Kombination"
 
 #: includes/class-yaydp-i18n.php:94
-msgid "Combination"
-msgstr ""
+msgid "Combined condition"
+msgstr "Kombinierter Zustand"
 
 #: includes/class-yaydp-i18n.php:95
-msgid "Combined condition"
-msgstr ""
+msgid "Shipping total"
+msgstr "Gesamtversandkosten"
 
 #: includes/class-yaydp-i18n.php:96
-msgid "Applied coupons"
-msgstr ""
+msgid "Items - Product"
+msgstr "Artikel - Produkt"
 
 #: includes/class-yaydp-i18n.php:97
-msgid "Total shipping fee"
-msgstr ""
+msgid "Items - Category"
+msgstr "Artikel - Kategorie"
 
 #: includes/class-yaydp-i18n.php:98
-msgid "Items - Product"
-msgstr ""
+msgid "Items - Tag"
+msgstr "Gegenstände - Tag"
 
 #: includes/class-yaydp-i18n.php:99
-msgid "Items - Category"
-msgstr ""
+msgid "Item totals"
+msgstr "Kombinierte Artikel"
 
 #: includes/class-yaydp-i18n.php:100
-msgid "Combined items"
-msgstr ""
+msgid "Items - Quantity"
+msgstr "Artikel - Menge"
 
 #: includes/class-yaydp-i18n.php:101
-msgid "Items - Quantity"
-msgstr ""
+msgid "Items - Subtotal price"
+msgstr "Artikel - Zwischensumme Preis"
 
 #: includes/class-yaydp-i18n.php:102
-msgid "Items - Subtotal price"
-msgstr ""
+msgid "Contains all of"
+msgstr "Alle enthalten"
 
 #: includes/class-yaydp-i18n.php:103
-msgid "Contain all"
-msgstr ""
+msgid "Contains any of"
+msgstr "In Liste enthalten"
 
 #: includes/class-yaydp-i18n.php:104
-msgid "Contain in list"
-msgstr ""
+msgid "Does not contain"
+msgstr "Nicht in Liste enthalten"
 
 #: includes/class-yaydp-i18n.php:105
-msgid "Not contain in list"
-msgstr ""
+msgid "Greater than"
+msgstr "Größer als"
 
 #: includes/class-yaydp-i18n.php:106
-msgid "Greater than"
-msgstr ""
+msgid "Less than"
+msgstr "Weniger als"
 
 #: includes/class-yaydp-i18n.php:107
-msgid "Less than"
-msgstr ""
+msgid "Greater than or equal to"
+msgstr "Größer als oder gleich"
 
 #: includes/class-yaydp-i18n.php:108
-msgid "Greater than or equal"
-msgstr ""
+msgid "Less than or equal to"
+msgstr "Kleiner oder gleich"
 
 #: includes/class-yaydp-i18n.php:109
-msgid "Less than or equal"
-msgstr ""
+msgid "In list"
+msgstr "In der Liste"
 
 #: includes/class-yaydp-i18n.php:110
-msgid "In list"
-msgstr ""
+msgid "Not in list"
+msgstr "Nicht in der Liste"
 
 #: includes/class-yaydp-i18n.php:111
-msgid "Not in list"
-msgstr ""
+msgid "Logged in"
+msgstr "Eingeloggt"
 
 #: includes/class-yaydp-i18n.php:112
-msgid "Logged in"
-msgstr ""
+msgid "Not logged in"
+msgstr "Nicht eingeloggt"
 
 #: includes/class-yaydp-i18n.php:113
-msgid "Not logged in"
-msgstr ""
+msgid "Before"
+msgstr "Vor"
 
 #: includes/class-yaydp-i18n.php:114
-msgid "Before"
-msgstr ""
+msgid "After"
+msgstr "Nach"
 
 #: includes/class-yaydp-i18n.php:115
-msgid "After"
-msgstr ""
+msgid "On"
+msgstr "Auf"
 
 #: includes/class-yaydp-i18n.php:116
-msgid "On"
-msgstr ""
+msgid "In range"
+msgstr "Im Bereich"
 
 #: includes/class-yaydp-i18n.php:117
-msgid "In range"
-msgstr ""
+msgid "Longer than"
+msgstr "Länger als"
 
 #: includes/class-yaydp-i18n.php:118
-msgid "Longer than"
-msgstr ""
+msgid "Within"
+msgstr "Innerhalb"
 
 #: includes/class-yaydp-i18n.php:119
-msgid "Within"
-msgstr ""
+msgid "Off"
+msgstr "Aus"
 
 #: includes/class-yaydp-i18n.php:120
-msgid "Off"
-msgstr ""
+msgid "Weekly"
+msgstr "Wöchentlich"
 
 #: includes/class-yaydp-i18n.php:121
-msgid "Weekly"
-msgstr ""
+msgid "Monthly"
+msgstr "Montalich"
 
 #: includes/class-yaydp-i18n.php:122
-msgid "Monthly"
-msgstr ""
+msgid "Yearly"
+msgstr "Jährlich"
 
 #: includes/class-yaydp-i18n.php:123
-msgid "Yearly"
-msgstr ""
+msgid "Product exclusions"
+msgstr "Produktausschlüsse"
 
 #: includes/class-yaydp-i18n.php:124
-msgid "Product exclusions"
-msgstr ""
+msgid "Coupon exclusions"
+msgstr "Ausschlüsse von Gutscheinen"
 
 #: includes/class-yaydp-i18n.php:125
-msgid "Coupon exclusions"
-msgstr ""
+msgid "Fixed Discount per Individual Cart Item"
+msgstr "Fester Rabatt pro einzelnem Warenkorbartikel"
 
 #: includes/class-yaydp-i18n.php:126
-msgid "Fixed Discount per Individual Cart Item"
-msgstr ""
+msgid "Your own campaign"
+msgstr "Ihre eigene Kampagne"
 
 #: includes/class-yaydp-i18n.php:127
-msgid "Your own campaign"
-msgstr ""
-
-#: includes/class-yaydp-i18n.php:128
 msgid ""
 "Refers to a tailored pricing or promotional strategy designed specifically "
 "for your business or product offerings"
 msgstr ""
+"Bezieht sich auf eine maßgeschneiderte Preis- oder Werbestrategie, die "
+"speziell für Ihr Unternehmen oder Ihr Produktangebot entwickelt wurde"
 
-#: includes/class-yaydp-i18n.php:129
+#: includes/class-yaydp-i18n.php:128
 msgid ""
 "You want to run a special promotional campaign offering 50% off every item "
 "in your store."
 msgstr ""
+"Sie möchten eine spezielle Werbekampagne durchführen, bei der 50% off für "
+"jeden Artikel in Ihrem Geschäft angeboten werden."
 
-#: includes/class-yaydp-i18n.php:130
+#: includes/class-yaydp-i18n.php:129
 msgid ""
 "When the promotion is activated, all products in your store automatically "
 "receive a 50% discount when added to cart"
 msgstr ""
+"Wenn die Aktion aktiviert ist, erhalten alle Produkte in Ihrem Shop "
+"automatisch eine Zählung von 50% dis, wenn sie in den Warenkorb gelegt werden"
+
+#: includes/class-yaydp-i18n.php:130
+msgid "Eg:"
+msgstr "Zb:"
 
 #: includes/class-yaydp-i18n.php:131
-msgid "Eg:"
-msgstr ""
+msgid "T-shirt:"
+msgstr "T-Shirt:"
 
 #: includes/class-yaydp-i18n.php:132
-msgid "T-shirt:"
-msgstr ""
+msgid "Hoodie:"
+msgstr "Kapuzenpullover:"
 
 #: includes/class-yaydp-i18n.php:133
-msgid "Hoodie:"
-msgstr ""
+msgid "Belt:"
+msgstr "Gürtel:"
 
 #: includes/class-yaydp-i18n.php:134
-msgid "Belt:"
-msgstr ""
+msgid "Sale 50% all products"
+msgstr "Sale 50% a alle Produkte"
 
 #: includes/class-yaydp-i18n.php:135
-msgid "Sale 50% all products"
-msgstr ""
+msgid "Sale 10$ all products"
+msgstr "Sale 10$ alle Produkte"
 
 #: includes/class-yaydp-i18n.php:136
-msgid "Sale 10$ all products"
-msgstr ""
+msgid "Sale [discount_value] all products"
+msgstr "Sale [discount_value] alle Produkte"
 
 #: includes/class-yaydp-i18n.php:137
-msgid "Sale [discount_value] all products"
-msgstr ""
-
-#: includes/class-yaydp-i18n.php:138
 msgid ""
 "You want to run a special promotional campaign offering 10$ off every item "
 "in your store."
 msgstr ""
+"Sie möchten eine spezielle Werbekampagne durchführen, bei der Sie 10 $ "
+"Rabatt auf jeden Artikel in Ihrem Geschäft erhalten."
 
-#: includes/class-yaydp-i18n.php:139
+#: includes/class-yaydp-i18n.php:138
 msgid ""
 "When the promotion is activated, all products in your store automatically "
 "receive a 10$ discount when added to cart"
 msgstr ""
+"Wenn die Aktion aktiviert ist, erhalten alle Produkte in Ihrem Shop "
+"automatisch einen Rabatt von 10 $, wenn sie in den Warenkorb gelegt werden"
+
+#: includes/class-yaydp-i18n.php:139
+msgid "Hoodie"
+msgstr "Kapuzenpullover"
 
 #: includes/class-yaydp-i18n.php:140
-msgid "Hoodie"
-msgstr ""
+msgid "Belt"
+msgstr "Gürtel"
 
 #: includes/class-yaydp-i18n.php:141
-msgid "Belt"
-msgstr ""
+msgid "Buy 3 get 1 free item"
+msgstr "Kaufe 3 und erhalte 1 kostenlosen Artikel"
 
 #: includes/class-yaydp-i18n.php:142
-msgid "Buy 3 get 1 free item"
-msgstr ""
+msgid "Get this free when buy 3 item"
+msgstr "Sichern Sie sich diesen Preis kostenlos, wenn Sie 3 Artikel kaufen"
 
 #: includes/class-yaydp-i18n.php:143
-msgid "Get this free when buy 3 item"
-msgstr ""
-
-#: includes/class-yaydp-i18n.php:144
 msgid ""
 "Rewards customers with a free item after purchasing a specified quantity of "
 "products."
 msgstr ""
+"Belohnt Kunden mit einem kostenlosen Artikel, nachdem sie eine bestimmte "
+"Menge an Produkten gekauft haben."
 
-#: includes/class-yaydp-i18n.php:145
+#: includes/class-yaydp-i18n.php:144
 msgid ""
 "In this case, customers who buy 3 items will receive an additional item for "
 "free."
 msgstr ""
+"In diesem Fall erhalten Kunden, die 3 Artikel kaufen, einen zusätzlichen "
+"Artikel kostenlos."
 
-#: includes/class-yaydp-i18n.php:146
+#: includes/class-yaydp-i18n.php:145
 msgid ""
 "For every 3 clothing purchased, a free same type clothing is added to the "
 "cart automatically."
 msgstr ""
+"Für jeweils 3 gekaufte Kleidungsstücke wird automatisch ein kostenloses "
+"Kleidungsstück desselben Typs in den Warenkorb gelegt."
+
+#: includes/class-yaydp-i18n.php:146
+msgid "Total items in cart:"
+msgstr "Gesamtzahl der Artikel im Warenkorb:"
 
 #: includes/class-yaydp-i18n.php:147
-msgid "Total items in cart:"
-msgstr ""
+msgid "Gift"
+msgstr "Geschenk"
 
 #: includes/class-yaydp-i18n.php:148
-msgid "Gift"
-msgstr ""
+msgid "Sale 30% from the third item"
+msgstr "Sale 30% fab dem dritten Artikel"
 
 #: includes/class-yaydp-i18n.php:149
-msgid "Sale 30% from the third item"
-msgstr ""
+msgid "Discount [discount_value] off from 3rd item"
+msgstr "Rabatt [discount_value] ab dem 3. Artikel"
 
 #: includes/class-yaydp-i18n.php:150
-msgid "Discount [discount_value] off from 3rd item"
-msgstr ""
+msgid "You will get 30% off when buy from 3 items"
+msgstr "Du erhältst 30% off beim Kauf von 3 Stück"
 
 #: includes/class-yaydp-i18n.php:151
-msgid "You will get 30% off when buy from 3 items"
-msgstr ""
-
-#: includes/class-yaydp-i18n.php:152
 msgid ""
 "Provides a 30% discount on specific product when they purchase 3 or more "
 "items."
 msgstr ""
+"Bietet eine 30% dZählung für ein bestimmtes Produkt, wenn sie 3 oder mehr "
+"Artikel kaufen."
 
-#: includes/class-yaydp-i18n.php:153
+#: includes/class-yaydp-i18n.php:152
 msgid ""
 "An store could offer a 30% discount for a purchased clothing type when "
 "customers buy 3 or more."
 msgstr ""
+"Ein Geschäft könnte eine Anzahl von 30 % d für eine gekaufte Kleidungsart "
+"anbieten, wenn Kunden 3 oder mehr kaufen."
+
+#: includes/class-yaydp-i18n.php:153
+msgid "Discounted"
+msgstr "Diskontierte"
 
 #: includes/class-yaydp-i18n.php:154
-msgid "Discounted"
-msgstr ""
+msgid "Black Friday Event"
+msgstr "Black Friday Veranstaltung"
 
 #: includes/class-yaydp-i18n.php:155
-msgid "Black Friday Event"
-msgstr ""
-
-#: includes/class-yaydp-i18n.php:156
 msgid "Today is Black Friday, so you will get 70% off when buy all products"
 msgstr ""
+"Heute ist Black Friday, ihr erhaltet also 70% off beim Kauf aller Produkte"
 
-#: includes/class-yaydp-i18n.php:157
+#: includes/class-yaydp-i18n.php:156
 msgid ""
 "The Black Friday Event campaign is a one-time, annual promotion that starts "
 "on the next Black Friday (the Friday after Thanksgiving this year)."
 msgstr ""
+"Die Black Friday Event-Kampagne ist eine einmalige, jährliche Aktion, die am "
+"nächsten Black Friday (dem Freitag nach Thanksgiving in diesem Jahr) startet."
 
-#: includes/class-yaydp-i18n.php:158
+#: includes/class-yaydp-i18n.php:157
 msgid ""
 "Campaign will add a schedule in this rule to detect the next Black Friday."
 msgstr ""
+"Campaign fügt dieser Regel einen Zeitplan hinzu, um den nächsten Black "
+"Friday zu erkennen."
 
-#: includes/class-yaydp-i18n.php:159
+#: includes/class-yaydp-i18n.php:158
 msgid ""
 "A clothing store could offer up to 70% off on all items and run flash sales "
 "on accessories like scarves and gloves."
 msgstr ""
+"Ein Bekleidungsgeschäft könnte bis zu 70% off auf alle Artikel anbieten und "
+"Flash-Verkäufe für Accessoires wie Schals und Handschuhe durchführen."
+
+#: includes/class-yaydp-i18n.php:159
+msgid "Buy 1 get 50% off the second one"
+msgstr "Kaufen Sie 1 und erhalten Sie 50% off das zweite"
 
 #: includes/class-yaydp-i18n.php:160
-msgid "Buy 1 get 50% off the second one"
-msgstr ""
+msgid "You will get 50% off when buy the this product"
+msgstr "Sie erhalten 50% off beim Kauf dieses Produkts"
 
 #: includes/class-yaydp-i18n.php:161
-msgid "You will get 50% off when buy the this product"
-msgstr ""
-
-#: includes/class-yaydp-i18n.php:162
 msgid ""
 "Promotion that allows customers to purchase one item at full price and "
 "receive a same second item at 50% off."
 msgstr ""
+"Aktion, die es Kunden ermöglicht, einen Artikel zum vollen Preis zu kaufen "
+"und denselben zweiten Artikel zu 50% off."
 
-#: includes/class-yaydp-i18n.php:163
+#: includes/class-yaydp-i18n.php:162
 msgid "Customers buy 1 T-Shirt at full price and get a second one at 50% off."
 msgstr ""
+"Kunden kaufen 1 T-Shirt zum vollen Preis und erhalten ein zweites zum Preis "
+"von 50% off."
+
+#: includes/class-yaydp-i18n.php:163
+msgid "Buy X get Y with discount"
+msgstr "Kaufen Sie X und erhalten Sie Y mit Rabatt"
 
 #: includes/class-yaydp-i18n.php:164
-msgid "Buy X get Y with discount"
-msgstr ""
+msgid "Discount [discount_value] off"
+msgstr "Rabatt [discount_value] aus"
 
 #: includes/class-yaydp-i18n.php:165
-msgid "Discount [discount_value] off"
-msgstr ""
-
-#: includes/class-yaydp-i18n.php:166
 msgid "You will get [discount_value] discount when buy 1 item of this product"
 msgstr ""
+"Sie erhalten [discount_value] Rabatt, wenn Sie 1 Artikel dieses Produkts "
+"kaufen"
 
-#: includes/class-yaydp-i18n.php:167
+#: includes/class-yaydp-i18n.php:166
 msgid ""
 "Campaign allows customers to purchase a specific product (X) and receive a "
 "second product (Y) at a discounted price."
 msgstr ""
+"Campaign ermöglicht es Kunden, ein bestimmtes Produkt (X) zu kaufen und ein "
+"zweites Produkt (Y) zu einem reduzierten Preis zu erhalten."
 
-#: includes/class-yaydp-i18n.php:168
+#: includes/class-yaydp-i18n.php:167
 msgid "Buy a Hoodie (Product X) and get a T-shirt (Product Y) at 10$ off."
 msgstr ""
+"Kaufen Sie einen Hoodie (Produkt X) und erhalten Sie ein T-Shirt (Produkt Y) "
+"mit 10$ Rabatt."
 
-#: includes/class-yaydp-i18n.php:169
+#: includes/class-yaydp-i18n.php:168
 msgid ""
 "For a limited time, get 50% off when you purchase any 3 selected items in a "
 "package."
 msgstr ""
+"Für eine begrenzte Zeit erhaltet ihr 50% off, wenn ihr 3 ausgewählte "
+"Gegenstände in einem Paket kauft."
 
-#: includes/class-yaydp-i18n.php:170
+#: includes/class-yaydp-i18n.php:169
 msgid ""
 "Select 3 items from our curated package options and receive 50% off the "
 "regular price of the 3 items in the package."
 msgstr ""
+"Wählen Sie 3 Artikel aus unseren kuratierten Paketoptionen aus und erhalten "
+"Sie 50% off den regulären Preis der 3 Artikel im Paket."
+
+#: includes/class-yaydp-i18n.php:170
+msgid "Package includes Hoodie, T-Shirt, Cap, ..."
+msgstr "Das Paket beinhaltet Hoodie, T-Shirt, Mütze, ..."
 
 #: includes/class-yaydp-i18n.php:171
-msgid "Package includes Hoodie, T-Shirt, Cap, ..."
-msgstr ""
+msgid "Sale 50% off 3 items in package"
+msgstr "Sale 50% off 3 Stück im Paket"
 
 #: includes/class-yaydp-i18n.php:172
-msgid "Sale 50% off 3 items in package"
-msgstr ""
+msgid "Sale 30% on the third item"
+msgstr "Verkauf 30% o der dritte Artikel"
 
 #: includes/class-yaydp-i18n.php:173
-msgid "Sale 30% on the third item"
-msgstr ""
-
-#: includes/class-yaydp-i18n.php:174
 msgid ""
 "Provides a 30% discount on a customer’s entire order when they purchase 3 or "
 "more items."
 msgstr ""
+"Bietet eine Zählung von 30 % d für die gesamte Bestellung eines Kunden, wenn "
+"er 3 oder mehr Artikel kauft."
 
-#: includes/class-yaydp-i18n.php:175
+#: includes/class-yaydp-i18n.php:174
 msgid "Store could offer a 30% discount for the 3rd purchased T-Shirt or Cap"
 msgstr ""
+"Das Geschäft kann einen Betrag von 30 % d für das 3. gekaufte T-Shirt oder "
+"die Kappe anbieten"
 
-#: includes/class-yaydp-i18n.php:176
+#: includes/class-yaydp-i18n.php:175
 msgid ""
 "Flexible promotional offer that allows you to apply a discount to the entire "
 "shopping cart based on custom rules that you define."
 msgstr ""
+"Flexibles Werbeangebot, mit dem Sie einen Rabatt auf den gesamten Warenkorb "
+"anwenden können, basierend auf benutzerdefinierten Regeln, die Sie "
+"definieren."
+
+#: includes/class-yaydp-i18n.php:176
+msgid "Apply 100$ discount to the whole cart."
+msgstr "Wenden Sie 100$ Rabatt auf den gesamten Warenkorb an."
 
 #: includes/class-yaydp-i18n.php:177
-msgid "Apply 100$ discount to the whole cart."
-msgstr ""
+msgid "Cart subtotal:"
+msgstr "Zwischensumme des Warenkorbs:"
 
 #: includes/class-yaydp-i18n.php:178
-msgid "Cart subtotal:"
-msgstr ""
+msgid "Discount:"
+msgstr "Rabatt:"
 
 #: includes/class-yaydp-i18n.php:179
-msgid "Discount:"
-msgstr ""
+msgid "Final total:"
+msgstr "Gesamtsumme:"
 
 #: includes/class-yaydp-i18n.php:180
-msgid "Final total:"
-msgstr ""
+msgid "Discount 50% campaign"
+msgstr "Rabatt 50% campaign"
 
 #: includes/class-yaydp-i18n.php:181
-msgid "Discount 50% campaign"
-msgstr ""
+msgid "Discount [discount_value] all cart"
+msgstr "Rabatt [discount_value] alle Warenkorb"
 
 #: includes/class-yaydp-i18n.php:182
-msgid "Discount [discount_value] all cart"
-msgstr ""
-
-#: includes/class-yaydp-i18n.php:183
 msgid ""
 "Provides customers with a 50% discount on the total value of their shopping "
 "cart"
-msgstr ""
+msgstr "Bietet Kunden eine 50% dZählung des Gesamtwerts ihres Warenkorbs"
+
+#: includes/class-yaydp-i18n.php:183
+msgid "Customer will receive a 50% discount."
+msgstr "Der Kunde erhält eine Anzahl von 50% dis."
 
 #: includes/class-yaydp-i18n.php:184
-msgid "Customer will receive a 50% discount."
-msgstr ""
+msgid "Discount"
+msgstr "Ermäßigung"
 
 #: includes/class-yaydp-i18n.php:185
-msgid "Discount"
-msgstr ""
+msgid "campaign"
+msgstr "Feldzug"
 
 #: includes/class-yaydp-i18n.php:186
-msgid "campaign"
-msgstr ""
-
-#: includes/class-yaydp-i18n.php:187
 msgid ""
 "Provides customers with a 10$ discount on the total value of their shopping "
 "cart"
 msgstr ""
+"Bietet Kunden einen Rabatt von 10 $ auf den Gesamtwert ihres Warenkorbs"
+
+#: includes/class-yaydp-i18n.php:187
+msgid "Customer will receive a 10$ discount"
+msgstr "Der Kunde erhält einen Rabatt von 10 $"
 
 #: includes/class-yaydp-i18n.php:188
-msgid "Customer will receive a 10$ discount"
-msgstr ""
+msgid "Black Friday campaign"
+msgstr "Black Friday-Kampagne"
 
 #: includes/class-yaydp-i18n.php:189
-msgid "Black Friday campaign"
-msgstr ""
+msgid "Black friday discount! Discount [discount_value] all cart"
+msgstr "Black Friday Rabatt! Rabatt [discount_value] alle Warenkorb"
 
 #: includes/class-yaydp-i18n.php:190
-msgid "Black friday discount! Discount [discount_value] all cart"
-msgstr ""
-
-#: includes/class-yaydp-i18n.php:191
 msgid "A clothing store could offer up to 100$ off cart totals on Black Friday"
 msgstr ""
+"Ein Bekleidungsgeschäft kann am Black Friday bis zu 100 $ Rabatt auf den "
+"Warenkorb anbieten"
+
+#: includes/class-yaydp-i18n.php:191
+msgid "Discount 10$ on the total when spending 100$"
+msgstr "Rabatt 10 $ auf den Gesamtbetrag bei einem Einkauf von 100 $"
 
 #: includes/class-yaydp-i18n.php:192
-msgid "Discount 10$ on the total when spending 100$"
-msgstr ""
-
-#: includes/class-yaydp-i18n.php:193
 msgid ""
 "Provides customers with a 10$ discount on the total value of their shopping "
 "cart when spending 100$"
 msgstr ""
+"Bietet Kunden einen Rabatt von 10 $ auf den Gesamtwert ihres Warenkorbs, "
+"wenn sie 100 $ ausgeben"
 
-#: includes/class-yaydp-i18n.php:194
+#: includes/class-yaydp-i18n.php:193
 msgid ""
 "If the customer has items worth $100 in their cart, they will receive a 10$ "
 "discount, making their final cart total $90."
 msgstr ""
+"Wenn der Kunde Artikel im Wert von 100 $ in seinem Warenkorb hat, erhält er "
+"einen Rabatt von 10 $, so dass sein endgültiger Warenkorb insgesamt 90 $ "
+"beträgt."
 
-#: includes/class-yaydp-i18n.php:195
+#: includes/class-yaydp-i18n.php:194
 msgid ""
 "Promotion that allows you to apply a customized fee at checkout based on "
 "specific rules that you define. Unlike typical discounts, this campaign lets "
 "you add a fee to a customer’s order under certain conditions."
 msgstr ""
+"Aktion, die es Ihnen ermöglicht, an der Kasse eine individuelle Gebühr zu "
+"erheben, die auf bestimmten Regeln basiert, die Sie definieren. Im Gegensatz "
+"zu typischen Rabatten können Sie bei dieser Kampagne unter bestimmten "
+"Bedingungen eine Gebühr auf die Bestellung eines Kunden aufschlagen."
+
+#: includes/class-yaydp-i18n.php:195
+msgid "Apply 10$ extra fee to the order"
+msgstr "Wenden Sie eine zusätzliche Gebühr von 10 $ auf die Bestellung an"
 
 #: includes/class-yaydp-i18n.php:196
-msgid "Apply 10$ extra fee to the order"
-msgstr ""
+msgid "Fee:"
+msgstr "Honorar:"
 
 #: includes/class-yaydp-i18n.php:197
-msgid "Fee:"
-msgstr ""
+msgid "Free shipping fee"
+msgstr "Kostenloser Versand"
 
 #: includes/class-yaydp-i18n.php:198
-msgid "Free shipping fee"
-msgstr ""
+msgid "Get free shipping"
+msgstr "Erhalten Sie kostenlosen Versand"
 
 #: includes/class-yaydp-i18n.php:199
-msgid "Get free shipping"
-msgstr ""
-
-#: includes/class-yaydp-i18n.php:200
 msgid ""
 "Offers customers free delivery on their orders under certain conditions."
 msgstr ""
+"Bietet Kunden unter bestimmten Bedingungen eine kostenlose Lieferung für "
+"ihre Bestellungen."
+
+#: includes/class-yaydp-i18n.php:200
+msgid "Reduce shipping fee in order to customers get free on shipping."
+msgstr "Reduzieren Sie die Versandkosten, damit Kunden versandkostenfrei sind."
 
 #: includes/class-yaydp-i18n.php:201
-msgid "Reduce shipping fee in order to customers get free on shipping."
-msgstr ""
+msgid "Shipping fee:"
+msgstr "Versandkosten:"
 
 #: includes/class-yaydp-i18n.php:202
-msgid "Shipping fee:"
-msgstr ""
+msgid "Reduce 50% shipping fee for order below"
+msgstr "Reduzieren Sie die 50% sVersandgebühr für die Bestellung unten"
 
 #: includes/class-yaydp-i18n.php:203
-msgid "Reduce 50% shipping fee for order below"
-msgstr ""
+msgid "Discount 50% of the shipping cost"
+msgstr "Rabatt 50% of die Versandkosten"
 
 #: includes/class-yaydp-i18n.php:204
-msgid "Discount 50% of the shipping cost"
-msgstr ""
-
-#: includes/class-yaydp-i18n.php:205
 msgid ""
 "Offers a 50% discount on the shipping fee for customers who place orders "
 "with a total value below $100."
 msgstr ""
+"Bietet eine Versandkostenpauschale von 50 % d für Kunden, die Bestellungen "
+"mit einem Gesamtwert von unter 100 US-Dollar aufgeben."
 
-#: includes/class-yaydp-i18n.php:206
+#: includes/class-yaydp-i18n.php:205
 msgid ""
 "A customer spending $80 on kitchen utensils could have their $12 shipping "
 "fee reduced to $6, which would encourage them to complete the checkout."
 msgstr ""
+"Ein Kunde, der 80 US-Dollar für Küchenutensilien ausgibt, könnte seine "
+"Versandgebühr von 12 US-Dollar auf 6 US-Dollar reduzieren, was ihn dazu "
+"ermutigen würde, den Checkout abzuschließen."
+
+#: includes/class-yaydp-i18n.php:206
+msgid "Add"
+msgstr "Hinzufügen"
 
 #: includes/class-yaydp-i18n.php:207
-msgid "Add"
-msgstr ""
+msgid "fee to order"
+msgstr "Gebühr für die Bestellung"
 
 #: includes/class-yaydp-i18n.php:208
-msgid "fee to order"
-msgstr ""
+msgid "Add [discount_value] to the order"
+msgstr "Fügen Sie der Bestellung [discount_value] hinzu"
 
 #: includes/class-yaydp-i18n.php:209
-msgid "Add [discount_value] to the order"
-msgstr ""
+msgid "Automatically apply a $10 fee to a customer"
+msgstr "Automatisches Anwenden einer Gebühr von 10 USD auf einen Kunden"
 
 #: includes/class-yaydp-i18n.php:210
-msgid "Automatically apply a $10 fee to a customer"
-msgstr ""
+msgid "A $10 fee is automatically added to the order."
+msgstr "Der Bestellung wird automatisch eine Gebühr von 10 USD hinzugefügt."
 
 #: includes/class-yaydp-i18n.php:211
-msgid "A $10 fee is automatically added to the order."
-msgstr ""
+msgid "Extra fee:"
+msgstr "Zuschlagsgebühr:"
 
 #: includes/class-yaydp-i18n.php:212
-msgid "Extra fee:"
-msgstr ""
+msgid "Custom collection"
+msgstr "Benutzerdefinierte Kollektion"
 
 #: includes/class-yaydp-i18n.php:213
-msgid "Upgrade"
-msgstr ""
+msgid "Duplicate of"
+msgstr "Duplikat von"
 
 #: includes/class-yaydp-i18n.php:214
-msgid "Duplicate of"
-msgstr ""
+msgid "Name"
+msgstr "Name"
 
 #: includes/class-yaydp-i18n.php:215
-msgid "Before "
-msgstr ""
+msgid "Collection name"
+msgstr "Name der Sammlung"
 
 #: includes/class-yaydp-i18n.php:216
-msgid "After "
-msgstr ""
+msgid "Choose products to make your collection"
+msgstr "Wählen Sie Produkte aus, um Ihre Sammlung zu vervollständigen"
 
 #: includes/class-yaydp-i18n.php:217
-msgid "Before Product short description"
-msgstr ""
+msgid "Before "
+msgstr "Vor "
 
 #: includes/class-yaydp-i18n.php:218
-msgid "After Product short description"
-msgstr ""
+msgid "After "
+msgstr "Nach "
 
 #: includes/class-yaydp-i18n.php:219
-msgid "Product meta start"
-msgstr ""
+msgid "Before Product short description"
+msgstr "Vorher Kurzbeschreibung des Produkts"
 
 #: includes/class-yaydp-i18n.php:220
-msgid "Product meta end"
-msgstr ""
+msgid "After Product short description"
+msgstr "Nachher Kurzbeschreibung des Produkts"
 
 #: includes/class-yaydp-i18n.php:221
-msgid "None"
-msgstr ""
+msgid "Product meta start"
+msgstr "Produkt-Meta-Start"
 
 #: includes/class-yaydp-i18n.php:222
-msgid "Style has been reset"
-msgstr ""
+msgid "Product meta end"
+msgstr "Produkt-Meta-Ende"
 
 #: includes/class-yaydp-i18n.php:223
-msgid "Quantity discounts"
-msgstr ""
+msgid "None"
+msgstr "Nichts"
 
 #: includes/class-yaydp-i18n.php:224
-msgid "Quantity"
-msgstr ""
+msgid "Style has been reset"
+msgstr "Stil wurde zurückgesetzt"
 
 #: includes/class-yaydp-i18n.php:225
-msgid "Price"
-msgstr ""
+msgid "Quantity discounts"
+msgstr "Mengenrabatte"
 
 #: includes/class-yaydp-i18n.php:226
-msgid "Pricing table"
-msgstr ""
+#: includes/templates/change-free-items.php:28
+msgid "Quantity"
+msgstr "Menge"
 
 #: includes/class-yaydp-i18n.php:227
-msgid "Table position"
-msgstr ""
+msgid "Price"
+msgstr "Preis"
 
 #: includes/class-yaydp-i18n.php:228
-msgid "Table title"
-msgstr ""
+msgid "Pricing table"
+msgstr "Preistabelle"
 
 #: includes/class-yaydp-i18n.php:229
-msgid "Ex: Quantity discounts"
-msgstr ""
+msgid "Table position"
+msgstr "Position des Tisches"
 
 #: includes/class-yaydp-i18n.php:230
-msgid "Quantity title"
-msgstr ""
+msgid "Table title"
+msgstr "Titel der Tabelle"
 
 #: includes/class-yaydp-i18n.php:231
-msgid "Ex: Quantity"
-msgstr ""
+msgid "Ex: Quantity discounts"
+msgstr "Beispiel: Mengenrabatte"
 
 #: includes/class-yaydp-i18n.php:232
-msgid "Discount title"
-msgstr ""
+msgid "Quantity title"
+msgstr "Titel der Menge"
 
 #: includes/class-yaydp-i18n.php:233
-msgid "Ex: Discount"
-msgstr ""
+msgid "Ex: Quantity"
+msgstr "Bsp.: Menge"
 
 #: includes/class-yaydp-i18n.php:234
-msgid "Price title"
-msgstr ""
+msgid "Discount title"
+msgstr "Titel des Rabatts"
 
 #: includes/class-yaydp-i18n.php:235
-msgid "Ex: Price"
-msgstr ""
+msgid "Ex: Discount"
+msgstr "Bsp.: Rabatt"
 
 #: includes/class-yaydp-i18n.php:236
-msgid "Border color"
-msgstr ""
+msgid "Price title"
+msgstr "Preis Titel"
 
 #: includes/class-yaydp-i18n.php:237
-msgid "Preview"
-msgstr ""
+msgid "Ex: Price"
+msgstr "Bsp.: Preis"
 
 #: includes/class-yaydp-i18n.php:238
-msgid "Reset"
-msgstr ""
+msgid "Border color"
+msgstr "Rahmenfarbe"
 
 #: includes/class-yaydp-i18n.php:239
-msgid "Encourage notice"
-msgstr ""
+msgid "Preview"
+msgstr "Vorschau"
 
 #: includes/class-yaydp-i18n.php:240
-msgid "Show notices after product description to encourage purchasing"
-msgstr ""
+msgid "Reset"
+msgstr "Zurücksetzen"
 
 #: includes/class-yaydp-i18n.php:241
-msgid "Show notices at bottom of Cart page to encourage purchasing"
-msgstr ""
+msgid "Encourage notice"
+msgstr "Ermutigen Sie zur Benachrichtigung"
 
 #: includes/class-yaydp-i18n.php:242
-msgid "Show notices at bottom of Checkout page to encourage purchasing"
-msgstr ""
+msgid "Product Pricing"
+msgstr "Produktpreise"
 
 #: includes/class-yaydp-i18n.php:243
-msgid "Import successfully"
+msgid "Show notices after product description to encourage purchasing"
 msgstr ""
+"Zeigen Sie Hinweise nach der Produktbeschreibung an, um zum Kauf zu anregen"
 
 #: includes/class-yaydp-i18n.php:244
-msgid "Import failed"
-msgstr ""
+msgid "Show at bottom of Shop page and Product page"
+msgstr "Unten auf der Shop-Seite und der Produktseite anzeigen"
 
 #: includes/class-yaydp-i18n.php:245
-msgid "Import/Export"
-msgstr ""
+msgid "Encouraged notice text"
+msgstr "Empfohlener Hinweistext"
 
 #: includes/class-yaydp-i18n.php:246
-msgid "Export rules"
-msgstr ""
+msgid "Cart Discount"
+msgstr "Warenkorb-Rabatt"
 
 #: includes/class-yaydp-i18n.php:247
-msgid "Choose file"
+msgid "Show notices at bottom of Cart page to encourage purchasing"
 msgstr ""
+"Zeigen Sie Hinweise am unteren Rand der Warenkorbseite an, um zum Kauf zu "
+"anregen"
 
 #: includes/class-yaydp-i18n.php:248
-msgid "Import"
-msgstr ""
+msgid "Checkout Fee"
+msgstr "Checkout-Gebühr"
 
 #: includes/class-yaydp-i18n.php:249
-msgid "Countdown timer"
+msgid "Show notices at bottom of Checkout page to encourage purchasing"
 msgstr ""
+"Zeigen Sie Hinweise am unteren Rand der Checkout-Seite an, um zum Kauf zu "
+"anregen"
 
 #: includes/class-yaydp-i18n.php:250
-msgid "Show countdown timer"
-msgstr ""
+msgid "Import successfully"
+msgstr "Erfolgreicher Import"
 
 #: includes/class-yaydp-i18n.php:251
-msgid "Discountable price range"
-msgstr ""
+msgid "Import failed"
+msgstr "Import fehlgeschlagen"
 
 #: includes/class-yaydp-i18n.php:252
-msgid "Current discount tier"
-msgstr ""
+msgid "Import/Export"
+msgstr "Import/Export"
 
 #: includes/class-yaydp-i18n.php:253
-msgid "Next discount tier as if 1 more item is added"
-msgstr ""
+msgid "Export rules"
+msgstr "Regeln für den Export"
 
 #: includes/class-yaydp-i18n.php:254
-msgid "Product sale display"
-msgstr ""
+msgid "Choose file"
+msgstr "Datei auswählen"
 
 #: includes/class-yaydp-i18n.php:255
-msgid "Show sale tag and discounted price as"
-msgstr ""
+msgid "Import"
+msgstr "Importieren"
 
 #: includes/class-yaydp-i18n.php:256
-msgid "Product price display"
-msgstr ""
+msgid "Countdown timer"
+msgstr "Countdown-Timer"
 
 #: includes/class-yaydp-i18n.php:257
-msgid "Show product discounted price"
-msgstr ""
+msgid "Automatically show countdown timer on bottom of page"
+msgstr "Zeigt automatisch den Countdown-Timer am unteren Rand der Seite an"
 
 #: includes/class-yaydp-i18n.php:258
-msgid "Replace product price with the discounted one"
-msgstr ""
+msgid "Start notification"
+msgstr "Benachrichtigung starten"
 
 #: includes/class-yaydp-i18n.php:259
-msgid "Show product regular price within discounted"
-msgstr ""
+msgid "End notification"
+msgstr "Benachrichtigung beenden"
 
 #: includes/class-yaydp-i18n.php:260
-msgid "Regular price is displayed as strike-through text on product price"
-msgstr ""
+msgid "Discountable price range"
+msgstr "Diskontierbare Preisspanne"
 
 #: includes/class-yaydp-i18n.php:261
-msgid "Saving amount"
-msgstr ""
+msgid "Current discount tier"
+msgstr "Aktuelle Rabattstufe"
 
 #: includes/class-yaydp-i18n.php:262
-msgid "Show order saving amount"
-msgstr ""
+msgid "Next discount tier as if 1 more item is added"
+msgstr "Nächste Rabattstufe, als ob 1 weiterer Artikel hinzugefügt wird"
 
 #: includes/class-yaydp-i18n.php:263
-msgid "Show products saving amount on cart page (Only for cart shortcode)."
-msgstr ""
+msgid "Product sale display"
+msgstr "Präsentation von Produktverkäufen"
 
 #: includes/class-yaydp-i18n.php:264
-msgid "Position"
-msgstr ""
+msgid "Show sale tag and discounted price as"
+msgstr "Sale-Tag und reduzierten Preis anzeigen als"
 
 #: includes/class-yaydp-i18n.php:265
-msgid "Before order total"
-msgstr ""
+msgid "Product price display"
+msgstr "Anzeige des Produktpreises"
 
 #: includes/class-yaydp-i18n.php:266
-msgid "After order total"
-msgstr ""
+msgid "Show product discounted price"
+msgstr "Produkt anzeigen reduzierter Preis"
 
 #: includes/class-yaydp-i18n.php:267
-msgid "General"
-msgstr ""
+msgid "Replace product price with the discounted one"
+msgstr "Ersetzen Sie den Produktpreis durch den reduzierten Preis"
 
 #: includes/class-yaydp-i18n.php:268
-msgid "Discount based on"
-msgstr ""
+msgid "Show product regular price within discounted"
+msgstr "Produkt anzeigen regulärer Preis innerhalb des reduzierten Rahmens"
 
 #: includes/class-yaydp-i18n.php:269
-msgid "Disable product pricing rules when product is on sale"
+msgid "Regular price is displayed as strike-through text on product price"
 msgstr ""
+"Der reguläre Preis wird als durchgestrichener Text auf dem Produktpreis "
+"angezeigt"
 
 #: includes/class-yaydp-i18n.php:270
+msgid "Saving amount"
+msgstr "Sparbetrag"
+
+#: includes/class-yaydp-i18n.php:271
+msgid "Show order saving amount"
+msgstr "Sparbetrag der Bestellung anzeigen"
+
+#: includes/class-yaydp-i18n.php:272
+msgid "Show products saving amount on cart page (Only for cart shortcode)."
+msgstr ""
+"Zeigen Sie den Sparbetrag der Produkte auf der Warenkorbseite an (nur für "
+"den Warenkorb-Shortcode)."
+
+#: includes/class-yaydp-i18n.php:273
+msgid "Position"
+msgstr "Position"
+
+#: includes/class-yaydp-i18n.php:274
+msgid "Before order total"
+msgstr "Vor Auftragssumme"
+
+#: includes/class-yaydp-i18n.php:275
+msgid "After order total"
+msgstr "Nach Auftragssumme"
+
+#: includes/class-yaydp-i18n.php:276
+msgid "Regular price"
+msgstr "Regulärer Preis"
+
+#: includes/class-yaydp-i18n.php:277
+msgid "Sale price"
+msgstr "Sonderangebotspreis"
+
+#: includes/class-yaydp-i18n.php:278
+msgid "General"
+msgstr "Allgemein"
+
+#: includes/class-yaydp-i18n.php:279
+msgid "Discount based on"
+msgstr "Rabatt basierend auf"
+
+#: includes/class-yaydp-i18n.php:280
+msgid "Disable product pricing rules when product is on sale"
+msgstr ""
+"Deaktivieren Sie die Produktpreisregeln, wenn das Produkt im Angebot ist"
+
+#: includes/class-yaydp-i18n.php:281
 msgid ""
 "When product is on sale, it will not be discounted by product pricing rule."
 msgstr ""
+"Wenn das Produkt im Angebot ist, wird es nicht durch die Produktpreisregel "
+"rabattiert."
 
-#: includes/class-yaydp-i18n.php:271
+#: includes/class-yaydp-i18n.php:282
 msgid "Prevent cart discount applied when Single use WC Coupon applied"
 msgstr ""
+"Verhindern Sie, dass der Warenkorbrabatt angewendet wird, wenn der WC-"
+"Gutschein für den einmaligen Gebrauch angewendet wird"
 
-#: includes/class-yaydp-i18n.php:272
+#: includes/class-yaydp-i18n.php:283
 msgid ""
 "WC coupon cannot be applied when it is single use and cart items have "
 "discounted by YayPricing"
 msgstr ""
+"WC Gutschein kann nicht angewendet werden, wenn er einmalig verwendet wird "
+"und Warenkorbartikel von YayPricing rabattiert wurden"
 
-#: includes/class-yaydp-i18n.php:273
+#: includes/class-yaydp-i18n.php:284
 msgid "Show regular price on cart item"
-msgstr ""
+msgstr "Regulärer Preis für den Warenkorb Artikel anzeigen"
 
-#: includes/class-yaydp-i18n.php:274
+#: includes/class-yaydp-i18n.php:285
 msgid ""
 "Regular price is displayed as strike-through text on cart page and checkout "
 "page"
 msgstr ""
+"Der reguläre Preis wird als durchgestrichener Text auf der Warenkorbseite "
+"und der Checkout-Seite angezeigt"
 
-#: includes/class-yaydp-i18n.php:275
+#: includes/class-yaydp-i18n.php:286
 msgid "Show original subtotal price on cart item"
-msgstr ""
+msgstr "Zeige den ursprünglichen Zwischensummenpreis des Warenkorbartikels an"
 
-#: includes/class-yaydp-i18n.php:276
+#: includes/class-yaydp-i18n.php:287
 msgid ""
 "Original subtotal price is displayed as strike-through text. This setting "
 "cannot affect to WC Block"
 msgstr ""
+"Der ursprüngliche Zwischensummenpreis wird als durchgestrichener Text "
+"angezeigt. Diese Einstellung kann sich nicht auf WC-Block auswirken"
 
-#: includes/class-yaydp-i18n.php:277
+#: includes/class-yaydp-i18n.php:288
 msgid "Combine cart discounts"
-msgstr ""
+msgstr "Kombinieren Sie Warenkorb-Rabatte"
 
-#: includes/class-yaydp-i18n.php:278
+#: includes/class-yaydp-i18n.php:289
 msgid ""
 "All rules will be calculated and combined into a single rule to apply in cart"
 msgstr ""
+"Alle Regeln werden berechnet und in einer einzigen Regel zusammengefasst, "
+"die im Warenkorb angewendet wird"
 
-#: includes/class-yaydp-i18n.php:279
+#: includes/class-yaydp-i18n.php:290
 msgid "Use discount ID as coupon code"
-msgstr ""
+msgstr "Verwenden Sie die Rabatt-ID als Gutscheincode"
 
-#: includes/class-yaydp-i18n.php:280
+#: includes/class-yaydp-i18n.php:291
 msgid ""
 "Automatically generate cart discount ID to be used as a coupon code in the "
 "admin order details"
 msgstr ""
+"Generieren Sie automatisch eine Warenkorb-Rabatt-ID, die als Gutscheincode "
+"in den Admin-Bestelldetails verwendet werden kann"
 
-#: includes/class-yaydp-i18n.php:281
+#: includes/class-yaydp-i18n.php:292
 msgid "Use cart discount together with Single use WC Coupon"
 msgstr ""
+"Verwenden Sie den Warenkorbrabatt zusammen mit dem WC-Gutschein zur "
+"einmaligen Verwendung"
 
-#: includes/class-yaydp-i18n.php:282
+#: includes/class-yaydp-i18n.php:293
+msgid "Include tax in checkout fees"
+msgstr "Steuern in die Checkout-Gebühren einbeziehen"
+
+#: includes/class-yaydp-i18n.php:294
+msgid "Enable tax calculation in checkout fees"
+msgstr "Aktivieren Sie die Steuerberechnung in den Checkout-Gebühren"
+
+#: includes/class-yaydp-i18n.php:295
 msgid "Sale Tag"
-msgstr ""
+msgstr "Verkaufs-Tag"
 
-#: includes/class-yaydp-i18n.php:283
+#: includes/class-yaydp-i18n.php:296
 msgid "Show sale tag for sale products"
-msgstr ""
+msgstr "Sale-Tag für Sale-Produkte anzeigen"
 
-#: includes/class-yaydp-i18n.php:284
+#: includes/class-yaydp-i18n.php:297
 msgid ""
 "Display a sale tag on product image on shop page and single product page"
 msgstr ""
-
-#: includes/class-yaydp-i18n.php:285
-msgid "Show sale off amount on the sale tag"
-msgstr ""
-
-#: includes/class-yaydp-i18n.php:286
-msgid "Display a discount range tag on the sale tag"
-msgstr ""
-
-#: includes/class-yaydp-i18n.php:287
-msgid "Background color"
-msgstr ""
-
-#: includes/class-yaydp-i18n.php:288
-msgid "Text color"
-msgstr ""
-
-#: includes/class-yaydp-i18n.php:289
-#: includes/templates/product/yaydp-sale-tag.php:31
-msgid "SALE!"
-msgstr ""
-
-#: includes/class-yaydp-i18n.php:290
-#: includes/templates/product/yaydp-sale-tag.php:32
-msgid "Up to %s"
-msgstr ""
-
-#: includes/class-yaydp-i18n.php:291
-msgid "What"
-msgstr ""
-
-#: includes/class-yaydp-i18n.php:292
-msgid "Version"
-msgstr ""
-
-#: includes/class-yaydp-i18n.php:293
-msgid "Shortcodes"
-msgstr ""
-
-#: includes/class-yaydp-i18n.php:294
-msgid "Shortcode to load all products which has discount through YayPricing"
-msgstr ""
-
-#: includes/class-yaydp-i18n.php:295
-msgid "Please paste it in your promotion page to show list on sale products"
-msgstr ""
-
-#: includes/class-yaydp-i18n.php:296
-msgid "Select rules for on sale products"
-msgstr ""
-
-#: includes/class-yaydp-i18n.php:297
-msgid "Apply all applicable rules"
-msgstr ""
+"Zeigen Sie ein Verkaufs-Tag auf dem Produktbild auf der Shop-Seite und auf "
+"der einzelnen Produktseite an"
 
 #: includes/class-yaydp-i18n.php:298
-msgid "Apply the first applicable rule in your list"
-msgstr ""
+msgid "Show sale off amount on the sale tag"
+msgstr "Zeigen Sie den Ausverkaufsbetrag auf dem Verkaufsetikett an"
 
 #: includes/class-yaydp-i18n.php:299
-msgid "Apply the rule with minimum discount amount"
-msgstr ""
+msgid "Display a discount range tag on the sale tag"
+msgstr "Anzeigen eines Rabattbereichs-Tags auf dem Sale-Tag"
 
 #: includes/class-yaydp-i18n.php:300
-msgid "Apply the rule with maximum discount amount"
-msgstr ""
+msgid "Background color"
+msgstr "Hintergrund-Position"
 
 #: includes/class-yaydp-i18n.php:301
-msgid "How the rules are applied"
-msgstr ""
+msgid "Text color"
+msgstr "Textfarbe"
 
 #: includes/class-yaydp-i18n.php:302
-msgid "Apply to non discount product"
-msgstr ""
+#: includes/templates/product/yaydp-sale-tag.php:31
+msgid "SALE!"
+msgstr "AUSVERKAUF!"
 
 #: includes/class-yaydp-i18n.php:303
-msgid "Count quantity by"
-msgstr ""
+#: includes/templates/product/yaydp-sale-tag.php:32
+msgid "Up to %s"
+msgstr "Bis zu %s"
 
 #: includes/class-yaydp-i18n.php:304
-msgid "Is repeat"
-msgstr ""
+msgid "What"
+msgstr "Was"
 
 #: includes/class-yaydp-i18n.php:305
-msgid "Discount will apply once or repeat after each quantities matching"
-msgstr ""
+msgid "Version"
+msgstr "Version"
 
 #: includes/class-yaydp-i18n.php:306
-msgid "Buy"
-msgstr ""
+msgid "All Product Pricing rules"
+msgstr "Alle Regeln für die Produktpreisgestaltung"
 
 #: includes/class-yaydp-i18n.php:307
-msgid "Get"
-msgstr ""
+msgid "Shortcodes"
+msgstr "Shortcodes"
 
 #: includes/class-yaydp-i18n.php:308
-#: includes/templates/cart-item-price/extra-item.php:14
-msgid "Free"
+msgid "Shortcode to load all products which have discount through YayPricing"
 msgstr ""
+"Shortcode zum Laden aller Produkte, die einen Rabatt über YayPricing haben"
 
 #: includes/class-yaydp-i18n.php:309
-msgid "Pricing type"
+msgid "Please paste it in your promotion page to show list on sale products"
 msgstr ""
+"Bitte fügen Sie es auf Ihrer Aktionsseite ein, um die Liste der angebotenen "
+"Produkte anzuzeigen"
 
 #: includes/class-yaydp-i18n.php:310
+msgid "Select rules for on sale products"
+msgstr "Regeln für im Angebot befindliche Produkte auswählen"
+
+#: includes/class-yaydp-i18n.php:311
+msgid "Select rule"
+msgstr "Regel auswählen"
+
+#: includes/class-yaydp-i18n.php:312
+msgid ""
+"This shortcode is deprecated and will be removed in future, please use On "
+"sale products ver 2 instead. You can generate it with Shortcode generator"
+msgstr ""
+"Dieser Shortcode ist veraltet und wird in Zukunft entfernt, bitte verwenden "
+"Sie stattdessen Sale-Produkte Version 2. Sie können es mit dem Shortcode-"
+"Generator generieren"
+
+#: includes/class-yaydp-i18n.php:313
+msgid "Your campaign name"
+msgstr "Ihr Kampagnenname"
+
+#: includes/class-yaydp-i18n.php:314
+msgid "Apply all applicable rules"
+msgstr "Wenden Sie alle anwendbaren Regeln an"
+
+#: includes/class-yaydp-i18n.php:315
+msgid "Apply the first applicable rule in your list"
+msgstr "Wenden Sie die erste anwendbare Regel in Ihrer Liste an"
+
+#: includes/class-yaydp-i18n.php:316
+msgid "Apply the rule with minimum discount amount"
+msgstr "Wenden Sie die Regel mit minimalem Skontobetrag an"
+
+#: includes/class-yaydp-i18n.php:317
+msgid "Apply the rule with maximum discount amount"
+msgstr "Wenden Sie die Regel mit dem maximalen Skontobetrag an"
+
+#: includes/class-yaydp-i18n.php:318
+msgid "How the rules are applied"
+msgstr "Anwendung der Regeln"
+
+#: includes/class-yaydp-i18n.php:319
+msgid "Apply to non discount product"
+msgstr "Auf Nicht-Rabatt-Produkte anwenden"
+
+#: includes/class-yaydp-i18n.php:320
+msgid "Pricing type"
+msgstr "Art der Preisgestaltung"
+
+#: includes/class-yaydp-i18n.php:321
+msgid "Pricing value"
+msgstr "Preis-Leistungs-Verhältnis"
+
+#: includes/class-yaydp-i18n.php:322
+msgid "Maximum value"
+msgstr "Maximalwert"
+
+#: includes/class-yaydp-i18n.php:323
+msgid "This adds a cap so that the discount amount will not exceed this amount"
+msgstr ""
+"Dadurch wird eine Obergrenze hinzugefügt, so dass der Rabattbetrag diesen "
+"Betrag nicht überschreitet"
+
+#: includes/class-yaydp-i18n.php:324
+msgid "Count quantity by"
+msgstr "Zählen Sie die Menge nach"
+
+#: includes/class-yaydp-i18n.php:325
+msgid "Repeat"
+msgstr "Wiederholen"
+
+#: includes/class-yaydp-i18n.php:326
+msgid "Discount will apply once or repeat after each quantities matching"
+msgstr "Der Rabatt gilt einmal oder wiederholt sich nach jedem Mengenabgleich"
+
+#: includes/class-yaydp-i18n.php:327
+msgid "Buy"
+msgstr "Kaufen"
+
+#: includes/class-yaydp-i18n.php:328
+msgid "Get"
+msgstr "Erhalten"
+
+#: includes/class-yaydp-i18n.php:329
 msgid ""
 "Fact: The maximum allowable flat price will be limited to the product price."
 msgstr ""
+"Fakt: Der maximal zulässige Pauschalpreis ist auf den Produktpreis "
+"beschränkt."
 
-#: includes/class-yaydp-i18n.php:311
-msgid "Pricing value"
-msgstr ""
+#: includes/class-yaydp-i18n.php:330
+msgid "Is repeat"
+msgstr "Ist Wiederholung"
 
-#: includes/class-yaydp-i18n.php:312
-msgid "Maximum value"
-msgstr ""
-
-#: includes/class-yaydp-i18n.php:313
-msgid "This adds a cap so that the discount amount will not exceed this amount"
-msgstr ""
-
-#: includes/class-yaydp-i18n.php:314
+#: includes/class-yaydp-i18n.php:331
 msgid "Using formula"
-msgstr ""
+msgstr "Verwenden der Formel"
 
-#: includes/class-yaydp-i18n.php:315
+#: includes/class-yaydp-i18n.php:332
 msgid ""
 "E.g: quantity: {n}*2, pricing: {n}*10 => Buy 2 items get 10$ discount. 4 "
 "items get 20$ discount, etc. Interpretation: {n} is the quantity of "
 "purchased items for a single product. "
 msgstr ""
+"Beispiel: Menge: {n} * 2, Preisgestaltung: {n} * 10 = > Kaufen Sie 2 Artikel "
+"und erhalten Sie 10 $ Rabatt. 4 Artikel erhalten 20 $ Rabatt usw. "
+"Interpretation: {n} ist die Menge der gekauften Artikel für ein einzelnes "
+"Produkt. "
 
-#: includes/class-yaydp-i18n.php:316
+#: includes/class-yaydp-i18n.php:333
+msgid "Pricing formula"
+msgstr "Formel für die Preisgestaltung"
+
+#: includes/class-yaydp-i18n.php:334
 msgid "Simple discount"
-msgstr ""
+msgstr "Einfacher Rabatt"
 
-#: includes/class-yaydp-i18n.php:317
+#: includes/class-yaydp-i18n.php:335
 msgid "Product Collection"
-msgstr ""
+msgstr "Produktkollektion"
 
-#: includes/class-yaydp-i18n.php:318
+#: includes/class-yaydp-i18n.php:336
 msgid "Choose your desired campaign"
-msgstr ""
+msgstr "Wählen Sie Ihre gewünschte Kampagne"
 
-#: includes/class-yaydp-i18n.php:319
+#: includes/class-yaydp-i18n.php:337
 msgid "Cancel"
-msgstr ""
+msgstr "Abbrechen"
 
-#: includes/class-yaydp-i18n.php:320
+#: includes/class-yaydp-i18n.php:338
 msgid "Add Campaign"
-msgstr ""
+msgstr "Kampagne hinzufügen"
 
-#: includes/class-yaydp-i18n.php:321
+#: includes/class-yaydp-i18n.php:339
 msgid "No campaign found"
-msgstr ""
+msgstr "Keine Kampagne gefunden"
 
-#: includes/class-yaydp-i18n.php:322
+#: includes/class-yaydp-i18n.php:340
 msgid "From"
-msgstr ""
+msgstr "Von"
 
-#: includes/class-yaydp-i18n.php:323
+#: includes/class-yaydp-i18n.php:341
 msgid "to"
-msgstr ""
+msgstr "nach"
 
-#: includes/class-yaydp-i18n.php:324
+#: includes/class-yaydp-i18n.php:342
 msgid ""
 "Leaving this blank means there will be no restriction on the number of items "
 "checked."
 msgstr ""
+"Wenn Sie dieses Feld leer lassen, gibt es keine Beschränkung für die Anzahl "
+"der geprüften Elemente."
 
-#: includes/class-yaydp-i18n.php:325
+#: includes/class-yaydp-i18n.php:343
 msgid ""
 "Discount will apply to single item. E.g: Buy 4 items, then discount 5$ each "
 "item. Or Buy 4 items, then each item has flat price 5$"
 msgstr ""
+"Der Rabatt gilt für einen einzelnen Artikel. Beispiel: Kaufe 4 Artikel, dann "
+"Rabatte von 5$ pro Artikel. Oder kaufen Sie 4 Artikel, dann hat jeder "
+"Artikel einen Pauschalpreis von 5 $"
 
-#: includes/class-yaydp-i18n.php:326
+#: includes/class-yaydp-i18n.php:344
 msgid "Pricing Ranges"
-msgstr ""
+msgstr "Preisspannen"
 
-#: includes/class-yaydp-i18n.php:327
+#: includes/class-yaydp-i18n.php:345
 msgid "Import Data"
-msgstr ""
+msgstr "Importieren von Daten"
 
-#: includes/class-yaydp-i18n.php:328
-msgid "You have no pricing range, please"
-msgstr ""
-
-#: includes/class-yaydp-i18n.php:329
-msgid "add one"
-msgstr ""
-
-#: includes/class-yaydp-i18n.php:330
+#: includes/class-yaydp-i18n.php:346
 msgid "Tiered Pricing Data Import"
-msgstr ""
+msgstr "Import von Daten zur gestaffelten Preisgestaltung"
 
-#: includes/class-yaydp-i18n.php:331
+#: includes/class-yaydp-i18n.php:347
+msgid "You have no pricing range, please"
+msgstr "Sie haben bitte keine Preisspanne"
+
+#: includes/class-yaydp-i18n.php:348
+msgid "add one"
+msgstr "Füge einen hinzu"
+
+#: includes/class-yaydp-i18n.php:349
 msgid "Bulk Pricing Data Import"
-msgstr ""
+msgstr "Import von Massenpreisfindungsdaten"
 
-#: includes/class-yaydp-i18n.php:332
+#: includes/class-yaydp-i18n.php:350
 msgid "Number of items required to be classified as a bundle"
-msgstr ""
+msgstr "Anzahl der Artikel, die als Bundle klassifiziert werden müssen"
 
-#: includes/class-yaydp-i18n.php:333
-msgid "Affected Items:"
-msgstr ""
-
-#: includes/class-yaydp-i18n.php:334
-msgid ""
-"E.g: Apply amount 50$ discount to whole bundle instead of 50$ to each bundle "
-"item."
-msgstr ""
-
-#: includes/class-yaydp-i18n.php:335
-msgid "Single item"
-msgstr ""
-
-#: includes/class-yaydp-i18n.php:336
-msgid "Whole bundle"
-msgstr ""
-
-#: includes/class-yaydp-i18n.php:337
+#: includes/class-yaydp-i18n.php:351
 msgid ""
 "E.g: quantity: {n}*2, pricing: {n}*10 => Buy 2 items get 10$ discount. 4 "
 "items get 20$ discount, etc. Interpretation: {n} is the time when the bundle "
 "is purchased. "
 msgstr ""
+"Beispiel: Menge: {n} * 2, Preisgestaltung: {n} * 10 = > Kaufen Sie 2 Artikel "
+"und erhalten Sie 10 $ Rabatt. 4 Artikel erhalten 20 $ Rabatt usw. "
+"Interpretation: {n} ist der Zeitpunkt, zu dem das Bundle gekauft wird. "
 
-#: includes/class-yaydp-i18n.php:338
+#: includes/class-yaydp-i18n.php:352
+msgid "Quantity formula"
+msgstr "Formel für die Menge"
+
+#: includes/class-yaydp-i18n.php:353
+msgid "Affected Items:"
+msgstr "Betroffene Artikel:"
+
+#: includes/class-yaydp-i18n.php:354
+msgid ""
+"E.g: Apply amount 50$ discount to whole bundle instead of 50$ to each bundle "
+"item."
+msgstr ""
+"Z.B.: Wenden Sie einen Rabatt von 50 $ auf das gesamte Bundle an, anstatt 50 "
+"$ auf jeden Bundle-Artikel."
+
+#: includes/class-yaydp-i18n.php:355
+msgid "Single item"
+msgstr "Einzelposten"
+
+#: includes/class-yaydp-i18n.php:356
+msgid "Whole bundle"
+msgstr "Gesamtes Bundle"
+
+#: includes/class-yaydp-i18n.php:357
 msgid "Filter"
-msgstr ""
+msgstr "Filter"
 
-#: includes/class-yaydp-i18n.php:339
+#: includes/class-yaydp-i18n.php:358
+msgid "Affect to"
+msgstr "Beeinflussen auf"
+
+#: includes/class-yaydp-i18n.php:359
+msgid "Lowest price"
+msgstr "Niedrigster Preis"
+
+#: includes/class-yaydp-i18n.php:360
+msgid "Highest price"
+msgstr "Höchster Preis"
+
+#: includes/class-yaydp-i18n.php:361
+msgid "Bundle"
+msgstr "Bündel"
+
+#: includes/class-yaydp-i18n.php:362
+msgid "items"
+msgstr "Artikel"
+
+#: includes/class-yaydp-i18n.php:363
+msgid "Mark each buy products line as a bundle"
+msgstr "Markieren Sie jede Produktlinie als Bundle"
+
+#: includes/class-yaydp-i18n.php:364
+msgid "This mean discount scope will affect every matching line items"
+msgstr ""
+"Dieser mittlere Rabattumfang wirkt sich auf alle übereinstimmenden "
+"Einzelposten aus"
+
+#: includes/class-yaydp-i18n.php:365
 msgid "Apply discount to only first matching product"
-msgstr ""
+msgstr "Wenden Sie den Rabatt nur auf das erste passende Produkt an"
 
-#: includes/class-yaydp-i18n.php:340
+#: includes/class-yaydp-i18n.php:366
 msgid "Show offer description in product page"
-msgstr ""
+msgstr "Angebotsbeschreibung auf der Produktseite anzeigen"
 
-#: includes/class-yaydp-i18n.php:341
+#: includes/class-yaydp-i18n.php:367
+msgid "Show this description only when conditions match"
+msgstr "Diese Beschreibung nur anzeigen, wenn die Bedingungen übereinstimmen"
+
+#: includes/class-yaydp-i18n.php:368
+msgid ""
+"This description will be displayed only if the conditions defined in the "
+"next tab are true."
+msgstr ""
+"Diese Beschreibung wird nur angezeigt, wenn die auf der nächsten "
+"Registerkarte definierten Bedingungen wahr sind."
+
+#: includes/class-yaydp-i18n.php:369
 msgid "Offer description for X"
-msgstr ""
+msgstr "Angebotsbeschreibung für X"
 
-#: includes/class-yaydp-i18n.php:342
+#: includes/class-yaydp-i18n.php:370
 msgid "Offer description for Y"
-msgstr ""
+msgstr "Angebotsbeschreibung für Y"
 
-#: includes/class-yaydp-i18n.php:343
+#: includes/class-yaydp-i18n.php:371
 msgid "Show tooltip on cart item price"
-msgstr ""
+msgstr "Tooltip zum Preis des Warenkorbartikels anzeigen"
 
-#: includes/class-yaydp-i18n.php:344
+#: includes/class-yaydp-i18n.php:372
 msgid "Enter your tooltip"
-msgstr ""
+msgstr "Geben Sie Ihren Tooltip ein"
 
-#: includes/class-yaydp-i18n.php:345
+#: includes/class-yaydp-i18n.php:373
 msgid "Enable schedule"
-msgstr ""
+msgstr "Zeitplan aktivieren"
 
-#: includes/class-yaydp-i18n.php:346
+#: includes/class-yaydp-i18n.php:374
 msgid "Recurring"
-msgstr ""
+msgstr "Wiederkehrend"
 
-#: includes/class-yaydp-i18n.php:347
+#: includes/class-yaydp-i18n.php:375
 msgid "This will grab the start/end "
-msgstr ""
+msgstr "Dadurch wird der Start/das Ende erfasst "
 
-#: includes/class-yaydp-i18n.php:348
+#: includes/class-yaydp-i18n.php:376
 msgid "Usage limits"
-msgstr ""
+msgstr "Nutzungsbeschränkungen"
 
-#: includes/class-yaydp-i18n.php:349
+#: includes/class-yaydp-i18n.php:377
 msgid ""
 "Once the discount/pricing rule is applied in the completed order, it is "
 "counted as a discount use. The rule will no longer apply if its use count "
 "reaches this number"
 msgstr ""
+"Sobald die Rabatt-/Preisregel in der abgeschlossenen Bestellung angewendet "
+"wurde, wird sie als Rabattverwendung gezählt. Die Regel wird nicht mehr "
+"angewendet, wenn die Anzahl der Verwendungen diese Zahl erreicht"
 
-#: includes/class-yaydp-i18n.php:350
-msgid "off"
-msgstr ""
+#: includes/class-yaydp-i18n.php:378
+msgid "Used"
+msgstr "Verwendet"
 
-#: includes/class-yaydp-i18n.php:351
-msgid "if cart subtotal price is greater than 200"
-msgstr ""
+#: includes/class-yaydp-i18n.php:379
+msgid "This rule is always used"
+msgstr "Diese Regel wird immer verwendet"
 
-#: includes/class-yaydp-i18n.php:352
-msgid "Get 10% off"
-msgstr ""
+#: includes/class-yaydp-i18n.php:380
+msgid "If you want to decide when this rule will be used, please"
+msgstr "Wenn Sie entscheiden möchten, wann diese Regel verwendet wird,"
 
-#: includes/class-yaydp-i18n.php:353
-msgid "if cart quantity is greater than 5"
-msgstr ""
+#: includes/class-yaydp-i18n.php:381
+msgid "add a condition"
+msgstr "Hinzufügen einer Bedingung"
 
-#: includes/class-yaydp-i18n.php:354
-msgid "if the customers have 10 orders in past"
-msgstr ""
+#: includes/class-yaydp-i18n.php:382
+msgid "This rule will be used if"
+msgstr "Diese Regel wird verwendet, wenn"
 
-#: includes/class-yaydp-i18n.php:355
-msgid "And much more"
-msgstr ""
+#: includes/class-yaydp-i18n.php:383
+msgid "Any"
+msgstr "Jegliche"
 
-#: includes/class-yaydp-i18n.php:356
-msgid "Conditions"
-msgstr ""
+#: includes/class-yaydp-i18n.php:385
+msgid "of these conditions is available."
+msgstr "dieser Bedingungen ist verfügbar."
 
-#: includes/class-yaydp-i18n.php:357
-msgid ""
-"With conditions feature, you can decide when this rule will be used. It "
-"helps you create a product pricing more powerful"
-msgstr ""
+#: includes/class-yaydp-i18n.php:386
+msgid "Add condition"
+msgstr "Bedingung hinzufügen"
 
-#: includes/class-yaydp-i18n.php:358
-msgid "For example"
-msgstr ""
-
-#: includes/class-yaydp-i18n.php:359
-msgid "Upgrade to unlock this feature"
-msgstr ""
-
-#: includes/class-yaydp-i18n.php:360
-msgid "Pricing"
-msgstr ""
-
-#: includes/class-yaydp-i18n.php:361
+#: includes/class-yaydp-i18n.php:387
 msgid "Settings"
-msgstr ""
+msgstr "Einstellungen"
 
-#: includes/class-yaydp-i18n.php:362
+#: includes/class-yaydp-i18n.php:388
+msgid "Conditions"
+msgstr "Bedingungen"
+
+#: includes/class-yaydp-i18n.php:389
 msgid ""
 "The Simple Discount enables you to set a fixed amount or percentage off the "
 "original price."
 msgstr ""
+"Mit dem einfachen Rabatt können Sie einen festen Betrag oder Prozentsatz vom "
+"ursprünglichen Preis festlegen."
 
-#: includes/class-yaydp-i18n.php:363
+#: includes/class-yaydp-i18n.php:390
 msgid ""
 "The Bulk Pricing rule incentivizes customers to purchase larger quantities "
 "of a product by offering tiered discounts based on the volume bought."
 msgstr ""
+"Die Mengenpreisregel schafft Anreize für Kunden, größere Mengen eines "
+"Produkts zu kaufen, indem sie gestaffelte Rabatte basierend auf dem "
+"gekauften Volumen anbietet."
 
-#: includes/class-yaydp-i18n.php:364
+#: includes/class-yaydp-i18n.php:391
 msgid ""
 "The Bundle Discount rule allows customers to save by purchasing multiple "
 "related products together as a package."
 msgstr ""
+"Die Bundle-Rabattregel ermöglicht es Kunden, zu sparen, indem sie mehrere "
+"verwandte Produkte zusammen als Paket kaufen."
 
-#: includes/class-yaydp-i18n.php:365
+#: includes/class-yaydp-i18n.php:392
 msgid ""
 "The BOGO (Buy One, Get One) rule entices customers by offering a free or "
 "discounted product when they purchase a specific item."
 msgstr ""
+"Die BOGO-Regel (Buy One, Get One) lockt Kunden, indem sie beim Kauf eines "
+"bestimmten Artikels ein kostenloses oder reduziertes Produkt anbietet."
 
-#: includes/class-yaydp-i18n.php:366
+#: includes/class-yaydp-i18n.php:393
 msgid ""
 "The Buy X, Get Y rule offers customers a strategic incentive to purchase a "
 "specified quantity of one product (X) in order to receive another product "
 "(Y) at a discount or for free."
 msgstr ""
+"Die \"Buy X, Get Y\"-Regel bietet Kunden einen strategischen Anreiz, eine "
+"bestimmte Menge eines Produkts (X) zu kaufen, um ein anderes Produkt (Y) mit "
+"einem Rabatt oder kostenlos zu erhalten."
 
-#: includes/class-yaydp-i18n.php:367
+#: includes/class-yaydp-i18n.php:394
 msgid ""
 "The Tiered Pricing rule enables businesses to set distinct price levels for "
 "a product based on specific quantity ranges, without applying discounts to "
 "quantities that do not meet those ranges."
 msgstr ""
-
-#: includes/class-yaydp-i18n.php:368
-msgid "Name"
-msgstr ""
-
-#: includes/class-yaydp-i18n.php:369
-msgid "Rule name"
-msgstr ""
-
-#: includes/class-yaydp-i18n.php:370
-msgid "Rule type"
-msgstr ""
-
-#: includes/class-yaydp-i18n.php:371
-msgid "Upload Image"
-msgstr ""
-
-#: includes/class-yaydp-i18n.php:372
-msgid "Source"
-msgstr ""
-
-#: includes/class-yaydp-i18n.php:373
-msgid "Show HTML source"
-msgstr ""
-
-#: includes/class-yaydp-i18n.php:374
-msgid "Enter your description"
-msgstr ""
-
-#: includes/class-yaydp-i18n.php:375
-msgid "Inactive"
-msgstr ""
-
-#: includes/class-yaydp-i18n.php:376
-msgid "Running"
-msgstr ""
-
-#: includes/class-yaydp-i18n.php:377
-msgid "Max use reached"
-msgstr ""
-
-#: includes/class-yaydp-i18n.php:378
-msgid "Completed"
-msgstr ""
-
-#: includes/class-yaydp-i18n.php:379
-msgid "Scheduled"
-msgstr ""
-
-#: includes/class-yaydp-i18n.php:380
-msgid "Remove rule"
-msgstr ""
-
-#: includes/class-yaydp-i18n.php:381
-msgid "Do you want to remove"
-msgstr ""
-
-#: includes/class-yaydp-i18n.php:382
-msgid "Remove"
-msgstr ""
-
-#: includes/class-yaydp-i18n.php:383
-msgid "Duplicate"
-msgstr ""
-
-#: includes/class-yaydp-i18n.php:384
-msgid "Combined condition is empty, please"
-msgstr ""
-
-#: includes/class-yaydp-i18n.php:385
-msgid "All Product Pricing rules"
-msgstr ""
-
-#: includes/class-yaydp-i18n.php:386
-msgid "Exclude Rules (Product pricing)"
-msgstr ""
-
-#: includes/class-yaydp-i18n.php:387
-msgid "You don"
-msgstr ""
-
-#: includes/class-yaydp-i18n.php:388
-msgid "Select at least one rule"
-msgstr ""
-
-#: includes/class-yaydp-i18n.php:389
-msgid "Exclude by coupons"
-msgstr ""
-
-#: includes/class-yaydp-i18n.php:390
-msgid "Prevent product pricing rules being applied when specific coupons added"
-msgstr ""
-
-#: includes/class-yaydp-i18n.php:391
-msgid "Learn more"
-msgstr ""
-
-#: includes/class-yaydp-i18n.php:392
-msgid "Coupons"
-msgstr ""
-
-#: includes/class-yaydp-i18n.php:393
-msgid "Exclude selected rules when these coupons are applied"
-msgstr ""
-
-#: includes/class-yaydp-i18n.php:394
-msgid "All coupons"
-msgstr ""
+"Die Regel für die gestaffelte Preisgestaltung ermöglicht es Unternehmen, "
+"unterschiedliche Preisniveaus für ein Produkt basierend auf bestimmten "
+"Mengenbereichen festzulegen, ohne Rabatte auf Mengen anzuwenden, die diese "
+"Bereiche nicht erfüllen."
 
 #: includes/class-yaydp-i18n.php:395
-msgid "Select at least one coupon"
-msgstr ""
+msgid "Rule type"
+msgstr "Regel-Typ"
 
 #: includes/class-yaydp-i18n.php:396
-msgid "Exclude Rules"
-msgstr ""
+msgid "Upload Image"
+msgstr "Bild hochladen"
 
 #: includes/class-yaydp-i18n.php:397
-msgid "Select one rule to exclude"
-msgstr ""
+msgid "Source"
+msgstr "Quelle"
 
 #: includes/class-yaydp-i18n.php:398
-msgid "All Product Pricing Rules"
-msgstr ""
+msgid "Show HTML source"
+msgstr "HTML-Quelltext anzeigen"
 
 #: includes/class-yaydp-i18n.php:399
-msgid "All Cart Discount Rules"
-msgstr ""
+msgid "Enter your description"
+msgstr "Geben Sie Ihre Beschreibung ein"
 
 #: includes/class-yaydp-i18n.php:400
-msgid "All Checkout Fee Rules"
-msgstr ""
+msgid "Inactive"
+msgstr "Inaktiv"
 
 #: includes/class-yaydp-i18n.php:401
-msgid "This rule is always used"
-msgstr ""
+msgid "Running"
+msgstr "Laufend"
 
 #: includes/class-yaydp-i18n.php:402
-msgid "If you want to decide when this rule will be used, please"
-msgstr ""
+msgid "Max use reached"
+msgstr "Maximale Nutzung erreicht"
 
 #: includes/class-yaydp-i18n.php:403
-msgid "add a condition"
-msgstr ""
+msgid "Completed"
+msgstr "Abgeschlossen"
 
 #: includes/class-yaydp-i18n.php:404
-msgid "This rule will be used if"
-msgstr ""
+msgid "Scheduled"
+msgstr "Geplante"
 
 #: includes/class-yaydp-i18n.php:405
-msgid "Any"
-msgstr ""
+msgid "Remove rule"
+msgstr "Regel entfernen"
 
 #: includes/class-yaydp-i18n.php:406
-msgid "All"
-msgstr ""
+msgid "Do you want to remove"
+msgstr "Möchten Sie"
 
 #: includes/class-yaydp-i18n.php:407
-msgid "of these conditions is available."
-msgstr ""
+msgid "Remove"
+msgstr "Löschen"
 
 #: includes/class-yaydp-i18n.php:408
-msgid "Exclusions"
-msgstr ""
+msgid "Shortcode copied"
+msgstr "Shortcode kopiert"
 
 #: includes/class-yaydp-i18n.php:409
-msgid "Product Collections"
-msgstr ""
+msgid "Products shortcode"
+msgstr "Shortcode für Produkte"
 
-#: includes/class-yaydp-i18n.php:410 includes/class-yaypricing.php:125
-msgid "Go Pro"
-msgstr ""
+#: includes/class-yaydp-i18n.php:410
+msgid "Offer description shortcode"
+msgstr "Shortcode für die Angebotsbeschreibung"
 
 #: includes/class-yaydp-i18n.php:411
-msgid "On sale products"
-msgstr ""
+msgid "Countdown shortcode"
+msgstr "Countdown-Shortcode"
 
 #: includes/class-yaydp-i18n.php:412
-msgid "All on sale products"
-msgstr ""
+msgid "Duplicate"
+msgstr "Duplizieren"
 
 #: includes/class-yaydp-i18n.php:413
-msgid "Order saved amount"
-msgstr ""
+msgid "Combined condition is empty, please"
+msgstr "Kombinierter Zustand ist leer, bitte"
 
 #: includes/class-yaydp-i18n.php:414
-msgid "Product pricing countdowns"
-msgstr ""
+msgid "Exclude Rules (Product pricing)"
+msgstr "Ausschlussregeln (Produktpreisgestaltung)"
 
 #: includes/class-yaydp-i18n.php:415
-msgid "Cart discount countdowns"
-msgstr ""
+msgid "You don"
+msgstr "Sie tun"
 
 #: includes/class-yaydp-i18n.php:416
-msgid "Checkout fee countdowns"
-msgstr ""
+msgid "Select at least one rule"
+msgstr "Wählen Sie mindestens eine Regel aus"
 
 #: includes/class-yaydp-i18n.php:417
-msgid "Product offer description"
-msgstr ""
+msgid "Coupons"
+msgstr "Gutscheine"
 
 #: includes/class-yaydp-i18n.php:418
-msgid "Product sale tag"
+msgid "Exclude selected rules when these coupons are applied"
 msgstr ""
+"Ausgewählte Regeln ausschließen, wenn diese Gutscheine angewendet werden"
 
 #: includes/class-yaydp-i18n.php:419
-msgid "Shortcode generator"
-msgstr ""
+msgid "All coupons"
+msgstr "Alle Gutscheine"
 
 #: includes/class-yaydp-i18n.php:420
-msgid "Generate shortcode"
-msgstr ""
+msgid "Select at least one coupon"
+msgstr "Wählen Sie mindestens einen Gutschein aus"
 
 #: includes/class-yaydp-i18n.php:421
-msgid "Product"
-msgstr ""
+msgid "Exclude Rules"
+msgstr "Regeln ausschließen"
 
 #: includes/class-yaydp-i18n.php:422
-msgid "Status"
-msgstr ""
+msgid "Select one rule to exclude"
+msgstr "Wählen Sie eine Regel aus, die ausgeschlossen werden soll"
 
 #: includes/class-yaydp-i18n.php:423
-msgid "In stock"
-msgstr ""
+msgid "All Product Pricing Rules"
+msgstr "Alle Regeln für die Produktpreisgestaltung"
 
 #: includes/class-yaydp-i18n.php:424
-msgid "Selected products"
-msgstr ""
+msgid "All Cart Discount Rules"
+msgstr "Alle Warenkorb-Rabattregeln"
 
 #: includes/class-yaydp-i18n.php:425
-msgid "Loading products"
-msgstr ""
+msgid "All Checkout Fee Rules"
+msgstr "Alle Regeln für die Checkout-Gebühr"
 
 #: includes/class-yaydp-i18n.php:426
-msgid "No product matched"
-msgstr ""
+msgid "Exclusions"
+msgstr "Ausschlüsse"
 
 #: includes/class-yaydp-i18n.php:427
-msgid ""
-"Show ad countdown timer to let customers know how much time is left until "
-"sales on products are over and helps boost your sale."
-msgstr ""
+msgid "Rule name"
+msgstr "Name der Regel"
 
 #: includes/class-yaydp-i18n.php:428
-msgid ""
-"Contain a pitch of your products that your visitors go through and decide "
-"whether they want to buy."
-msgstr ""
+msgid "Product Collections"
+msgstr "Produktkollektionen"
 
 #: includes/class-yaydp-i18n.php:429
-msgid ""
-"Encouraged notice is used to motivate customers to buy more items in order "
-"to receive a discount or other promotional offer. It is a marketing strategy "
-"aimed at increasing sales and customer loyalty."
-msgstr ""
+msgid "Load all products which have discount through YayPricing."
+msgstr "Laden Sie alle Produkte, die einen Rabatt haben, über YayPricing."
 
 #: includes/class-yaydp-i18n.php:430
-msgid "Shortcode copied"
-msgstr ""
+msgid "Select product rules to display"
+msgstr "Auswählen der anzuzeigenden Produktregeln"
 
 #: includes/class-yaydp-i18n.php:431
-msgid "Discount type"
-msgstr ""
+msgid "Leaving empty to select all"
+msgstr "Leer lassen, um alle auszuwählen"
 
 #: includes/class-yaydp-i18n.php:432
-msgid "Discount value"
-msgstr ""
+msgid "Include WooCommerce on sale products?"
+msgstr "WooCommerce in Sale-Produkte aufnehmen?"
 
 #: includes/class-yaydp-i18n.php:433
+msgid "On sale products:"
+msgstr "Im Angebot Produkte:"
+
+#: includes/class-yaydp-i18n.php:434
+msgid "Generate shortcode"
+msgstr "Shortcode generieren"
+
+#: includes/class-yaydp-i18n.php:435
+msgid "Your shortcode:"
+msgstr "Ihr Shortcode:"
+
+#: includes/class-yaydp-i18n.php:436
+msgid "Display order saved amount."
+msgstr "Zeigen Sie den gespeicherten Bestellbetrag an."
+
+#: includes/class-yaydp-i18n.php:437
+msgid "The legacy shortcode is: [yaydp-saved-amount]"
+msgstr "Der Legacy-Shortcode lautet: [yaydp-saved-amount]"
+
+#: includes/class-yaydp-i18n.php:438
+msgid "Shortcode preview:"
+msgstr "Shortcode-Vorschau:"
+
+#: includes/class-yaydp-i18n.php:439
+msgid "Deprecated"
+msgstr "Veraltet"
+
+#: includes/class-yaydp-i18n.php:440
+msgid ""
+"Display all on sale products (includes WooCommerce sale products and "
+"YayPricing discountable products). This will be marked as deprecated from "
+"this version."
+msgstr ""
+"Zeigen Sie alle im Angebot befindlichen Produkte an (einschließlich "
+"WooCommerce-Verkaufsprodukte und YayPricing-Produkte mit Rabatten). Dies "
+"wird in dieser Version als veraltet markiert."
+
+#: includes/class-yaydp-i18n.php:441
+msgid "You should use "
+msgstr "Sie sollten verwenden "
+
+#: includes/class-yaydp-i18n.php:442
+msgid "On sale products"
+msgstr "Im Angebot Produkte"
+
+#: includes/class-yaydp-i18n.php:443
+msgid "All on sale products"
+msgstr "Alle im Angebot befindlichen Produkte"
+
+#: includes/class-yaydp-i18n.php:444
+msgid "Order saved amount"
+msgstr "Gespeicherte Bestellmenge"
+
+#: includes/class-yaydp-i18n.php:445
+msgid "Product pricing countdowns"
+msgstr "Countdowns für Produktpreise"
+
+#: includes/class-yaydp-i18n.php:446
+msgid "Cart discount countdowns"
+msgstr "Countdowns für Warenkorb-Rabatte"
+
+#: includes/class-yaydp-i18n.php:447
+msgid "Checkout fee countdowns"
+msgstr "Countdowns für die Checkout-Gebühren"
+
+#: includes/class-yaydp-i18n.php:448
+msgid "Product offer description"
+msgstr "Beschreibung des Produktangebots"
+
+#: includes/class-yaydp-i18n.php:449
+msgid "Product sale tag"
+msgstr "Produktverkaufs-Tag"
+
+#: includes/class-yaydp-i18n.php:450
+msgid "Shortcode generator"
+msgstr "Shortcode-Generator"
+
+#: includes/class-yaydp-i18n.php:451
+msgid "Display sale tag within product."
+msgstr "Zeigen Sie das Verkaufsetikett innerhalb des Produkts an."
+
+#: includes/class-yaydp-i18n.php:452
+msgid "Custom product?"
+msgstr "Kundenspezifisches Produkt?"
+
+#: includes/class-yaydp-i18n.php:453
+msgid "Enabled status?"
+msgstr "Status aktiviert?"
+
+#: includes/class-yaydp-i18n.php:454
+msgid "Inherit"
+msgstr "Übernehmen"
+
+#: includes/class-yaydp-i18n.php:455
+msgid "Always show"
+msgstr "Immer anzeigen"
+
+#: includes/class-yaydp-i18n.php:456
+msgid "Show amount?"
+msgstr "Betrag anzeigen?"
+
+#: includes/class-yaydp-i18n.php:457
+msgid "Show"
+msgstr "Zeige"
+
+#: includes/class-yaydp-i18n.php:458
+msgid "Hide"
+msgstr "Ausblenden"
+
+#: includes/class-yaydp-i18n.php:459
+msgid "Sale tag:"
+msgstr "Verkaufs-Tag:"
+
+#: includes/class-yaydp-i18n.php:460
+msgid ""
+"You are not activating sale tag in Product sale display settings. Please "
+"activate it or check at custom settings"
+msgstr ""
+"Sie aktivieren das Verkaufs-Tag nicht in den Anzeigeeinstellungen für "
+"Produktangebote. Bitte aktivieren Sie es oder überprüfen Sie es in den "
+"benutzerdefinierten Einstellungen"
+
+#: includes/class-yaydp-i18n.php:461
+msgid "Display product offer description"
+msgstr "Beschreibung des Produktangebots anzeigen"
+
+#: includes/class-yaydp-i18n.php:462
+msgid "Display when match conditions??"
+msgstr "Anzeige, wenn Übereinstimmungsbedingungen??"
+
+#: includes/class-yaydp-i18n.php:463
+msgid "Inherit rule setting"
+msgstr "Regeleinstellung erben"
+
+#: includes/class-yaydp-i18n.php:464
+msgid "Check conditions"
+msgstr "Bedingungen prüfen"
+
+#: includes/class-yaydp-i18n.php:465
+msgid "No check conditions"
+msgstr "Keine Prüfbedingungen"
+
+#: includes/class-yaydp-i18n.php:466
+msgid "For Y products?"
+msgstr "Für Y-Produkte?"
+
+#: includes/class-yaydp-i18n.php:467
+msgid "Offer description preview:"
+msgstr "Vorschau der Angebotsbeschreibung:"
+
+#: includes/class-yaydp-i18n.php:468
+msgid "Display %s countdown timers"
+msgstr "Anzeige von %s Countdown-Timern"
+
+#: includes/class-yaydp-i18n.php:469
+msgid "Select rules to display"
+msgstr "Anzuzeigende Regeln auswählen"
+
+#: includes/class-yaydp-i18n.php:470
+msgid "Countdowns preview:"
+msgstr "Vorschau der Countdowns:"
+
+#: includes/class-yaydp-i18n.php:471
+#: includes/templates/change-free-items.php:27
+msgid "Product"
+msgstr "Produkt"
+
+#: includes/class-yaydp-i18n.php:472
+msgid "Status"
+msgstr "Status"
+
+#: includes/class-yaydp-i18n.php:473
+msgid "In stock"
+msgstr "Vorrätig"
+
+#: includes/class-yaydp-i18n.php:474
+msgid "Selected products"
+msgstr "Ausgewählte Produkte"
+
+#: includes/class-yaydp-i18n.php:475
+msgid "Loading products"
+msgstr "Produkte werden geladen"
+
+#: includes/class-yaydp-i18n.php:476
+msgid "No product matched"
+msgstr "Kein Produkt passt"
+
+#: includes/class-yaydp-i18n.php:477
+msgid "Discount type"
+msgstr "Art des Rabatts"
+
+#: includes/class-yaydp-i18n.php:478
+msgid "Discount value"
+msgstr "Wert des Rabatts"
+
+#: includes/class-yaydp-i18n.php:479
 msgid ""
 "This adds a cap so that the discount amount will not exceed this amount. "
 "When discount type is "
 msgstr ""
+"Dadurch wird eine Obergrenze hinzugefügt, so dass der Rabattbetrag diesen "
+"Betrag nicht überschreitet. Wenn die Rabattart "
 
-#: includes/class-yaydp-i18n.php:434
+#: includes/class-yaydp-i18n.php:480
 msgid "Show tooltip on cart discount"
-msgstr ""
+msgstr "Tooltip zum Warenkorbrabatt anzeigen"
 
-#: includes/class-yaydp-i18n.php:435
-msgid "Used"
-msgstr ""
-
-#: includes/class-yaydp-i18n.php:436
-msgid "Add condition"
-msgstr ""
-
-#: includes/class-yaydp-i18n.php:437
+#: includes/class-yaydp-i18n.php:481
 msgid "Default"
-msgstr ""
+msgstr "Standard"
 
-#: includes/class-yaydp-i18n.php:438
+#: includes/class-yaydp-i18n.php:482
 msgid ""
 "Discount applies to the items specified below, starting from the left to "
 "right"
 msgstr ""
+"Der Rabatt gilt für die unten angegebenen Artikel, beginnend von links nach "
+"rechts"
 
-#: includes/class-yaydp-i18n.php:439
+#: includes/class-yaydp-i18n.php:483
 msgid "Cheapest one"
-msgstr ""
+msgstr "Günstigster"
 
-#: includes/class-yaydp-i18n.php:440
+#: includes/class-yaydp-i18n.php:484
 msgid ""
 "Discount applies to the items specified below, starting from the cheapest one"
 msgstr ""
+"Der Rabatt gilt für die unten angegebenen Artikel, beginnend mit dem "
+"günstigsten"
 
-#: includes/class-yaydp-i18n.php:441
+#: includes/class-yaydp-i18n.php:485
 msgid "Most expensive one"
-msgstr ""
+msgstr "Teuerster"
 
-#: includes/class-yaydp-i18n.php:442
+#: includes/class-yaydp-i18n.php:486
 msgid ""
 "Discount applies to the items specified below, starting from the most "
 "expensive one"
 msgstr ""
+"Der Rabatt gilt für die unten angegebenen Artikel, beginnend mit dem "
+"teuersten"
 
-#: includes/class-yaydp-i18n.php:443
+#: includes/class-yaydp-i18n.php:487
 msgid "Buy Products"
-msgstr ""
+msgstr "Produkte kaufen"
 
-#: includes/class-yaydp-i18n.php:444
+#: includes/class-yaydp-i18n.php:488
 msgid "Get Products"
-msgstr ""
+msgstr "Produkte abrufen"
 
-#: includes/class-yaydp-i18n.php:445
+#: includes/class-yaydp-i18n.php:489
 msgid "(Which products will get discount?)"
-msgstr ""
+msgstr "(Welche Produkte erhalten Rabatt?)"
 
-#: includes/class-yaydp-i18n.php:446
+#: includes/class-yaydp-i18n.php:490
 msgid "(X Products)"
-msgstr ""
+msgstr "(X Produkte)"
 
-#: includes/class-yaydp-i18n.php:447
+#: includes/class-yaydp-i18n.php:491
 msgid "Item get type"
-msgstr ""
+msgstr "Typ zum Abrufen des Elements"
 
-#: includes/class-yaydp-i18n.php:448
+#: includes/class-yaydp-i18n.php:492
+msgid " Maximum value"
+msgstr " Maximalwert"
+
+#: includes/class-yaydp-i18n.php:493
 msgid "No product excluded. Please"
-msgstr ""
+msgstr "Kein Produkt ausgeschlossen. Bitte"
 
-#: includes/class-yaydp-i18n.php:449
+#: includes/class-yaydp-i18n.php:494
 msgid "add product"
-msgstr ""
+msgstr "Produkt hinzufügen"
 
-#: includes/class-yaydp-i18n.php:450
+#: includes/class-yaydp-i18n.php:495
 msgid "to exclude."
-msgstr ""
+msgstr "ausschließen."
 
-#: includes/class-yaydp-i18n.php:451
+#: includes/class-yaydp-i18n.php:496
 msgid "This rule is not assigned to any product. Please"
-msgstr ""
+msgstr "Diese Regel ist keinem Produkt zugeordnet. Bitte"
 
-#: includes/class-yaydp-i18n.php:452
+#: includes/class-yaydp-i18n.php:497
 msgid "to assign it."
-msgstr ""
+msgstr ", um es zuzuweisen."
 
-#: includes/class-yaydp-i18n.php:453
+#: includes/class-yaydp-i18n.php:498
 msgid "Exclude those products that match"
-msgstr ""
+msgstr "Ausschließen von Produkten, die übereinstimmen"
 
-#: includes/class-yaydp-i18n.php:454
+#: includes/class-yaydp-i18n.php:499
 msgid "This rule applies to those products that match"
-msgstr ""
+msgstr "Diese Regel gilt für die Produkte, die"
 
-#: includes/class-yaydp-i18n.php:455
+#: includes/class-yaydp-i18n.php:500
 msgid "of these filters"
-msgstr ""
+msgstr "dieser Filter"
 
-#: includes/class-yaydp-i18n.php:456
+#: includes/class-yaydp-i18n.php:501
 msgid "View selected products"
-msgstr ""
+msgstr "Ausgewählte Produkte anzeigen"
 
-#: includes/class-yaydp-i18n.php:457
+#: includes/class-yaydp-i18n.php:502
 msgid ""
 "In a combined condition, you must select the eligible products. Then, the "
 "values of cart amount and quantity of items are restricted to these filtered "
 "products in the same condition"
 msgstr ""
+"In einem kombinierten Zustand müssen Sie die berechtigten Produkte "
+"auswählen. Dann werden die Werte für die Warenkorbmenge und die Menge der "
+"Artikel auf diese gefilterten Produkte im gleichen Zustand beschränkt"
 
-#: includes/class-yaydp-i18n.php:458
+#: includes/class-yaydp-i18n.php:503
 msgid "The discount value. Example: “50%“ or “10$“"
-msgstr ""
+msgstr "Der Rabattwert. Beispiel: \"50%\" oder \"10$\""
 
-#: includes/class-yaydp-i18n.php:459
+#: includes/class-yaydp-i18n.php:504
 msgid "The calculated value of discount"
-msgstr ""
+msgstr "Der berechnete Wert des Rabatts"
 
-#: includes/class-yaydp-i18n.php:460
+#: includes/class-yaydp-i18n.php:505
+msgid "The calculated value of fee"
+msgstr ""
+"Der berechnete Wert der Gebühr, der nur in der Regel \"Produktgebühr\" "
+"verfügbar ist"
+
+#: includes/class-yaydp-i18n.php:506
 msgid "Product price after discounting"
-msgstr ""
+msgstr "Produktpreis nach Rabattierung"
 
-#: includes/class-yaydp-i18n.php:461
+#: includes/class-yaydp-i18n.php:507
 msgid "Name of the campaign"
-msgstr ""
+msgstr "Name der Kampagne"
 
-#: includes/class-yaydp-i18n.php:462
+#: includes/class-yaydp-i18n.php:508
 msgid "Timer clock, it will countdown to the schedule day"
-msgstr ""
+msgstr "Timer-Uhr, es wird ein Countdown bis zum geplanten Tag durchgeführt"
 
-#: includes/class-yaydp-i18n.php:463
+#: includes/class-yaydp-i18n.php:509
 msgid ""
 "The action customer need to do to get the discount. Example: “buy more 100$” "
 "or “buy more 1 item of Product A” "
 msgstr ""
+"Die Aktion, die der Kunde ausführen muss, um den Rabatt zu erhalten. "
+"Beispiel: \"Kaufen Sie mehr als 100$\" oder \"Kaufen Sie mehr als 1 Artikel "
+"von Produkt A\" "
 
-#: includes/class-yaydp-i18n.php:464
+#: includes/class-yaydp-i18n.php:510
 msgid "Current discounting product"
-msgstr ""
+msgstr "Aktuelles Rabattprodukt"
 
-#: includes/class-yaydp-i18n.php:465
+#: includes/class-yaydp-i18n.php:511
 msgid "Copied"
-msgstr ""
+msgstr "Kopiert"
 
-#: includes/class-yaydp-i18n.php:466
+#: includes/class-yaydp-i18n.php:512
 msgid "Description"
-msgstr ""
+msgstr "Beschreibung"
 
-#: includes/class-yaydp-i18n.php:467
+#: includes/class-yaydp-i18n.php:513
 msgid "Variables"
-msgstr ""
+msgstr "Variablen"
 
-#: includes/class-yaydp-i18n.php:468
+#: includes/class-yaydp-i18n.php:514
 msgid "Variable list"
-msgstr ""
+msgstr "Liste der Variablen"
 
-#: includes/class-yaydp-i18n.php:469
+#: includes/class-yaydp-i18n.php:515
 msgid ""
 "Automatically add gift item(s) once the base product(s) are added to cart"
 msgstr ""
+"Fügen Sie automatisch Geschenkartikel hinzu, sobald die Basisprodukte in den "
+"Warenkorb gelegt wurden"
 
-#: includes/class-yaydp-i18n.php:470
+#: includes/class-yaydp-i18n.php:516
+#: includes/templates/cart-item-price/extra-item.php:14
+msgid "Free"
+msgstr "Gratis"
+
+#: includes/class-yaydp-i18n.php:517
 msgid ""
 "Customers need to add the quantity of items specified below to their cart"
 msgstr ""
-
-#: includes/class-yaydp-i18n.php:471
-msgid "More result"
-msgstr ""
-
-#: includes/class-yaydp-i18n.php:472
-msgid "Select at least one product"
-msgstr ""
-
-#: includes/class-yaydp-i18n.php:473
-msgid "Select at least one variation"
-msgstr ""
-
-#: includes/class-yaydp-i18n.php:474
-msgid "Select at least one category"
-msgstr ""
-
-#: includes/class-yaydp-i18n.php:475
-msgid "Select at least one attribute"
-msgstr ""
-
-#: includes/class-yaydp-i18n.php:476
-msgid "Select at least one taxonomy"
-msgstr ""
-
-#: includes/class-yaydp-i18n.php:477
-msgid "Select at least one tag"
-msgstr ""
-
-#: includes/class-yaydp-i18n.php:478
-msgid "Select at least one role"
-msgstr ""
-
-#: includes/class-yaydp-i18n.php:479
-msgid "Select at least one customer"
-msgstr ""
-
-#: includes/class-yaydp-i18n.php:480
-msgid "Select at least one region"
-msgstr ""
-
-#: includes/class-yaydp-i18n.php:481
-msgid "Select at least one payment"
-msgstr ""
-
-#: includes/class-yaydp-i18n.php:482
-msgid "Select at least one value"
-msgstr ""
-
-#: includes/class-yaydp-i18n.php:483
-msgid "Fee type"
-msgstr ""
-
-#: includes/class-yaydp-i18n.php:484
-msgid "Fee value"
-msgstr ""
-
-#: includes/class-yaydp-i18n.php:485
-msgid "Show tooltip on checkout fee"
-msgstr ""
-
-#: includes/class-yaydp-i18n.php:486
-msgid "Apply to shipping"
-msgstr ""
-
-#: includes/class-yaydp-i18n.php:487
-msgid "Custom Fee"
-msgstr ""
-
-#: includes/class-yaydp-i18n.php:488
-msgid "Features"
-msgstr ""
-
-#: includes/class-yaydp-i18n.php:489
-msgid "YayPricing Free"
-msgstr ""
-
-#: includes/class-yaydp-i18n.php:490
-msgid "YayPricing Pro"
-msgstr ""
-
-#: includes/class-yaydp-i18n.php:491
-msgid "Allow switching gift products on cart page"
-msgstr ""
-
-#: includes/class-yaydp-i18n.php:492
-msgid "Coupon Exclusions"
-msgstr ""
-
-#: includes/class-yaydp-i18n.php:493
-msgid "This setting allows you to apply YayPricing"
-msgstr ""
-
-#: includes/class-yaydp-i18n.php:494
-msgid "Analytics & reports"
-msgstr ""
-
-#: includes/class-yaydp-i18n.php:495
-msgid ""
-"View charts and analytics for your pricing rules. You can see how a "
-"promotion campaign performs in a date range"
-msgstr ""
-
-#: includes/class-yaydp-i18n.php:496
-msgid "Product fee"
-msgstr ""
-
-#: includes/class-yaydp-i18n.php:497
-msgid "Add handling fees or charge extra fees for product"
-msgstr ""
-
-#: includes/class-yaydp-i18n.php:498
-msgid "Custom fees"
-msgstr ""
-
-#: includes/class-yaydp-i18n.php:499
-msgid ""
-"Add handling fees or charge extra fees based on shipping region, payment "
-"method, and other criteria"
-msgstr ""
-
-#: includes/class-yaydp-i18n.php:500
-msgid "Custom Fee based on Shipping Fee"
-msgstr ""
-
-#: includes/class-yaydp-i18n.php:501
-msgid "Add handling fees which is calculated based on Shipping fee"
-msgstr ""
-
-#: includes/class-yaydp-i18n.php:502
-msgid "Product pricing conditions"
-msgstr ""
-
-#: includes/class-yaydp-i18n.php:503
-msgid ""
-"Set up additional conditions that need to be met before the promotion is "
-"applied"
-msgstr ""
-
-#: includes/class-yaydp-i18n.php:504
-msgid "Combined conditions"
-msgstr ""
-
-#: includes/class-yaydp-i18n.php:505
-msgid ""
-"Create cart discount conditions that are restricted to those cart items. For "
-"example, minimum spend on specific product categories will get the discount"
-msgstr ""
-
-#: includes/class-yaydp-i18n.php:506
-msgid ""
-"Use shortcode to output all discounted products on any WordPress page/post"
-msgstr ""
-
-#: includes/class-yaydp-i18n.php:507
-msgid "Sales triggers"
-msgstr ""
-
-#: includes/class-yaydp-i18n.php:508
-msgid "Upselling notices"
-msgstr ""
-
-#: includes/class-yaydp-i18n.php:509
-msgid "VIP live chat support"
-msgstr ""
-
-#: includes/class-yaydp-i18n.php:510
-msgid "Latest features & updates"
-msgstr ""
-
-#: includes/class-yaydp-i18n.php:511
-msgid "BOGO"
-msgstr ""
-
-#: includes/class-yaydp-i18n.php:512
-msgid "Buy X Get Y"
-msgstr ""
-
-#: includes/class-yaydp-i18n.php:513
-msgid "Bulk discounts"
-msgstr ""
-
-#: includes/class-yaydp-i18n.php:514
-msgid "Scheduled discounts"
-msgstr ""
-
-#: includes/class-yaydp-i18n.php:515
-msgid "User role discounts"
-msgstr ""
-
-#: includes/class-yaydp-i18n.php:516
-msgid "Free shipping"
-msgstr ""
-
-#: includes/class-yaydp-i18n.php:517
-msgid "Your current"
-msgstr ""
+"Kunden müssen die unten angegebene Anzahl von Artikeln in ihren Warenkorb "
+"legen"
 
 #: includes/class-yaydp-i18n.php:518
-msgid "Get YayPricing Pro"
-msgstr ""
+msgid "times"
+msgstr "mal"
 
 #: includes/class-yaydp-i18n.php:519
-msgid "Consider upgrading to"
-msgstr ""
+msgid "time"
+msgstr "Zeit"
 
 #: includes/class-yaydp-i18n.php:520
-msgid ""
-"It would be the best move you can make for your ecommerce store. Check it "
-"out!"
-msgstr ""
+msgid "No"
+msgstr "Nein"
 
 #: includes/class-yaydp-i18n.php:521
-msgid "Manage Exclude Rule"
-msgstr ""
+msgid "found"
+msgstr "gründen"
 
 #: includes/class-yaydp-i18n.php:522
+msgid "Select at least one product"
+msgstr "Wählen Sie mindestens ein Produkt aus"
+
+#: includes/class-yaydp-i18n.php:523
+msgid "Select at least one variation"
+msgstr "Wählen Sie mindestens eine Variante aus"
+
+#: includes/class-yaydp-i18n.php:524
+msgid "Select at least one category"
+msgstr "Wählen Sie mindestens eine Kategorie aus"
+
+#: includes/class-yaydp-i18n.php:525
+msgid "Select at least one attribute"
+msgstr "Wählen Sie mindestens ein Attribut aus"
+
+#: includes/class-yaydp-i18n.php:526
+msgid "Select at least one taxonomy"
+msgstr "Wählen Sie mindestens eine Taxonomie aus"
+
+#: includes/class-yaydp-i18n.php:527
+msgid "Select at least one collection"
+msgstr "Wählen Sie mindestens eine Sammlung aus"
+
+#: includes/class-yaydp-i18n.php:528
+msgid "Select at least one tag"
+msgstr "Wählen Sie mindestens ein Tag aus"
+
+#: includes/class-yaydp-i18n.php:529
+msgid "Select at least one role"
+msgstr "Wählen Sie mindestens eine Rolle aus"
+
+#: includes/class-yaydp-i18n.php:530
+msgid "Select at least one customer"
+msgstr "Wählen Sie mindestens einen Kunden aus"
+
+#: includes/class-yaydp-i18n.php:531
+msgid "Select at least one region"
+msgstr "Wählen Sie mindestens eine Region aus"
+
+#: includes/class-yaydp-i18n.php:532
+msgid "Select at least one payment"
+msgstr "Wählen Sie mindestens eine Zahlung aus"
+
+#: includes/class-yaydp-i18n.php:533
+msgid "Select at least one value"
+msgstr "Wählen Sie mindestens einen Wert aus"
+
+#: includes/class-yaydp-i18n.php:534
+msgid "Fee type"
+msgstr "Art der Gebühr"
+
+#: includes/class-yaydp-i18n.php:535
+msgid "Fee value"
+msgstr "Gebührenwert"
+
+#: includes/class-yaydp-i18n.php:536
+msgid "Show tooltip on checkout fee"
+msgstr "Tooltip zur Checkout-Gebühr anzeigen"
+
+#: includes/class-yaydp-i18n.php:537
+msgid "Apply to shipping"
+msgstr "Auf den Versand anwenden"
+
+#: includes/class-yaydp-i18n.php:538
+msgid "Custom Fee"
+msgstr "Benutzerdefinierte Gebühr"
+
+#: includes/class-yaydp-i18n.php:539
+msgid "Tax"
+msgstr "Steuer"
+
+#: includes/class-yaydp-i18n.php:540
+msgid "Manage Exclude Rule"
+msgstr "Ausschlussregel verwalten"
+
+#: includes/class-yaydp-i18n.php:541
 msgid ""
 "Create rule to decide which products will not be affected by Product pricing "
 "rules."
 msgstr ""
+"Erstellen Sie eine Regel, um zu entscheiden, welche Produkte nicht von den "
+"Produktpreisregeln betroffen sind."
 
-#: includes/class-yaydp-i18n.php:523
+#: includes/class-yaydp-i18n.php:542
 msgid "Add Your First Rule"
-msgstr ""
+msgstr "Fügen Sie Ihre erste Regel hinzu"
 
-#: includes/class-yaydp-i18n.php:524
+#: includes/class-yaydp-i18n.php:543
 msgid "Add Rule"
-msgstr ""
+msgstr "Regel hinzufügen"
 
-#: includes/class-yaydp-i18n.php:525
+#: includes/class-yaydp-i18n.php:544
 msgid "Manage Cart Discounts Rule"
-msgstr ""
+msgstr "Regel für Warenkorbrabatte verwalten"
 
-#: includes/class-yaydp-i18n.php:526
+#: includes/class-yaydp-i18n.php:545
 msgid ""
 "Cart discounts rules is used to create cart discount coupons that apply at "
 "checkout. You can also combine discount at Settings section."
 msgstr ""
+"Die Regeln für Warenkorbrabatte werden verwendet, um Warenkorb-"
+"Rabattgutscheine zu erstellen, die an der Kasse angewendet werden. Sie "
+"können den Rabatt auch im Abschnitt Einstellungen kombinieren."
 
-#: includes/class-yaydp-i18n.php:527
+#: includes/class-yaydp-i18n.php:546
 msgid "Manage Product Pricing Rule"
-msgstr ""
+msgstr "Verwalten der Produktpreisregel"
 
-#: includes/class-yaydp-i18n.php:528
+#: includes/class-yaydp-i18n.php:547
 msgid ""
 "Create product pricing rules that affect price of products. You can also "
 "create product fee or discount."
 msgstr ""
+"Erstellen Sie Produktpreisregeln, die sich auf den Preis von Produkten "
+"auswirken. Sie können auch eine Produktgebühr oder einen Rabatt erstellen."
 
-#: includes/class-yaydp-i18n.php:529
+#: includes/class-yaydp-i18n.php:548
 msgid "Manage Checkout Fees Rule"
-msgstr ""
+msgstr "Regel \"Checkout-Gebühren verwalten\""
 
-#: includes/class-yaydp-i18n.php:530
+#: includes/class-yaydp-i18n.php:549
 msgid "Fee rules is used to affect fees that apply at checkout."
 msgstr ""
+"Gebührenregeln werden verwendet, um sich auf Gebühren auszuwirken, die an "
+"der Kasse anfallen."
 
-#: includes/class-yaydp-i18n.php:531
+#: includes/class-yaydp-i18n.php:550
 msgid "Save failed"
-msgstr ""
+msgstr "Speichern fehlgeschlagen"
 
-#: includes/class-yaydp-i18n.php:532
+#: includes/class-yaydp-i18n.php:551
 msgid "Saved"
-msgstr ""
+msgstr "Gesichert"
 
-#: includes/class-yaydp-i18n.php:533
-msgid "Save"
-msgstr ""
+#: includes/class-yaydp-i18n.php:552
+msgid "Manage Product Collections"
+msgstr "Verwalten von Produktsammlungen"
 
-#: includes/class-yaydp-i18n.php:534
-msgid ""
-"With Product Collections, you can easily create and manage groups of product "
-"filters, allowing you to apply multiple filters with a single click."
+#: includes/class-yaydp-i18n.php:553
+msgid "Create Product Collections for quickly using in Product Filters"
 msgstr ""
+"Erstellen Sie Produktsammlungen für die schnelle Verwendung in Produktfiltern"
 
-#: includes/class-yaydp-i18n.php:535
+#: includes/class-yaydp-i18n.php:554
+msgid "Add Your First Collection"
+msgstr "Fügen Sie Ihre erste Kollektion hinzu"
+
+#: includes/class-yaydp-i18n.php:555
+msgid "Add Collection"
+msgstr "Sammlung hinzufügen"
+
+#: includes/class-yaydp-i18n.php:556
 msgid "Imported rule"
-msgstr ""
+msgstr "Importierte Regel"
 
 #: includes/class-yaydp-logger.php:27
 msgid "SYSTEM ERROR:"
-msgstr ""
+msgstr "SYSTEMFEHLER:"
 
 #: includes/class-yaydp-logger.php:44
 msgid "log-"
-msgstr ""
+msgstr "Log-"
 
 #. Translators: link href.
-#: includes/class-yaypricing.php:119
+#: includes/class-yaypricing.php:122
 msgid "%1$s Settings %2$s"
-msgstr ""
+msgstr "%1$s Einstellungen %2$s"
+
+#. Translators: link href.
+#: includes/class-yaypricing.php:138
+msgid "%1$s Docs %2$s"
+msgstr "%1$s Docs %2$s"
 
 #. Translators: link href.
 #: includes/class-yaypricing.php:140
-msgid "%1$s Docs %2$s"
-msgstr ""
-
-#. Translators: link href.
-#: includes/class-yaypricing.php:142
 msgid "%1$s Support %2$s"
-msgstr ""
+msgstr "%1$s Support %2$s"
 
 #: includes/constants/class-yaydp-admin-settings.php:176
-msgid "WooCommerce on sale status"
-msgstr ""
+msgid "On sale (WooCommerce)"
+msgstr "WooCommerce im Verkaufsstatus"
 
 #: includes/constants/class-yaydp-admin-settings.php:180
 msgid "On sale"
-msgstr ""
+msgstr "Zum Verkauf"
 
 #: includes/constants/class-yaydp-admin-settings.php:184
 msgid "Not on sale"
-msgstr ""
+msgstr "Nicht im Angebot"
 
-#: includes/core/manager/class-yaydp-cart-discount-manager.php:176
-#: includes/core/rule/cart-discount/class-yaydp-combined-discount.php:106
-msgid "%s"
-msgstr ""
+#: includes/constants/class-yaydp-admin-settings.php:200
+msgid "Product collections"
+msgstr "Produktkollektionen"
 
-#: includes/core/manager/class-yaydp-product-pricing-manager.php:381
+#: includes/constants/class-yaydp-admin-settings.php:214
+#, fuzzy
+#| msgid "Shipping fee:"
+msgid "Shipping class"
+msgstr "Versandkosten:"
+
+#. Translators: buy more text.
+#: includes/core/encouragement/class-yaydp-cart-discount-encouragement.php:113
+#: includes/core/encouragement/class-yaydp-checkout-fee-encouragement.php:110
+#: includes/core/encouragement/class-yaydp-product-pricing-encouragement.php:164
+msgid "add %s more"
+msgstr "%s mehr hinzufügen"
+
+#. Translators: buy more text.
+#: includes/core/encouragement/class-yaydp-cart-discount-encouragement.php:118
+#: includes/core/encouragement/class-yaydp-checkout-fee-encouragement.php:115
+#: includes/core/encouragement/class-yaydp-product-pricing-encouragement.php:169
+msgid "add %1$s more item%2$s"
+msgstr "Fügen Sie %1$s weiteren Artikel hinzu%2$s"
+
+#: includes/core/encouragement/class-yaydp-cart-discount-encouragement.php:122
+#: includes/core/encouragement/class-yaydp-checkout-fee-encouragement.php:119
+#: includes/core/encouragement/class-yaydp-product-pricing-encouragement.php:173
+msgid "login"
+msgstr "einloggen"
+
+#. translators: %s value.
+#: includes/core/encouragement/class-yaydp-cart-discount-encouragement.php:127
+#: includes/core/encouragement/class-yaydp-checkout-fee-encouragement.php:124
+#: includes/core/encouragement/class-yaydp-product-pricing-encouragement.php:178
+msgid "make more %1$s order%2$s"
+msgstr "Machen Sie mehr %1$s Bestellung%2$s"
+
+#. translators: %s value.
+#: includes/core/encouragement/class-yaydp-cart-discount-encouragement.php:132
+#: includes/core/encouragement/class-yaydp-checkout-fee-encouragement.php:129
+#: includes/core/encouragement/class-yaydp-product-pricing-encouragement.php:183
+msgid "take more %1$s shipping fee"
+msgstr "Nehmen Sie mehr %1$s Versandkosten"
+
+#. translators: %s value.
+#: includes/core/encouragement/class-yaydp-cart-discount-encouragement.php:137
+#: includes/core/encouragement/class-yaydp-checkout-fee-encouragement.php:134
+#: includes/core/encouragement/class-yaydp-product-pricing-encouragement.php:188
+msgid "add %1$skg more"
+msgstr "%1$skg mehr hinzufügen"
+
+#: includes/core/encouragement/class-yaydp-cart-discount-encouragement.php:141
+#: includes/core/encouragement/class-yaydp-checkout-fee-encouragement.php:138
+#: includes/core/encouragement/class-yaydp-product-pricing-encouragement.php:144
+#: includes/core/encouragement/class-yaydp-product-pricing-encouragement.php:192
+msgid "add more items"
+msgstr "Weitere Artikel hinzufügen"
+
+#. Translators: buy more text.
+#: includes/core/encouragement/class-yaydp-product-pricing-encouragement.php:141
+msgid "add %1$s more item%2$s of %3$s"
+msgstr "Fügen Sie %1$s weiteren Artikel hinzu%2$s von %3$s"
+
+#: includes/core/manager/class-yaydp-product-pricing-manager.php:431
 msgid "Product discounts"
-msgstr ""
+msgstr "Produkt-Rabatte"
 
 #: includes/core/manager/class-yaydp-wc-coupon-manager.php:121
 msgid "Coupon cannot be used in combination with other discounts."
-msgstr ""
+msgstr "Der Gutschein kann nicht mit anderen Rabatten kombiniert werden."
 
-#: includes/core/offer-description/class-yaydp-offer-description.php:199
-#: includes/core/offer-description/class-yaydp-offer-description.php:292
-#: includes/core/offer-description/class-yaydp-offer-description.php:374
+#: includes/core/offer-description/class-yaydp-offer-description.php:200
+#: includes/core/offer-description/class-yaydp-offer-description.php:296
+#: includes/core/offer-description/class-yaydp-offer-description.php:380
 msgid "unlimited"
-msgstr ""
+msgstr "unbegrenzt"
 
-#: includes/core/offer-description/class-yaydp-offer-description.php:208
+#. Translators: translate discount value text.
+#: includes/core/offer-description/class-yaydp-offer-description.php:210
 msgid ""
 "from %1$s to %2$s: <span data-variable=\"discount_value\" data-"
 "formula=\"%3$s\">%4$s</span>"
 msgstr ""
+"von %1$s bis %2$s: <span data-variable=\"discount_value\" data-"
+"formula=\"%3$s\">%4$s</span>"
 
-#: includes/core/offer-description/class-yaydp-offer-description.php:235
+#. Translators: translate discount value text.
+#: includes/core/offer-description/class-yaydp-offer-description.php:238
 msgid ""
 "<span data-variable=\"discount_value\" data-formula=\"%1$s\">%2$s</span>"
 msgstr ""
+"<span data-variable=\"discount_value\" data-formula=\"%1$s\">%2$s</span>"
 
-#: includes/core/offer-description/class-yaydp-offer-description.php:266
-#: includes/core/offer-description/class-yaydp-offer-description.php:325
+#. Translators: translate discount amount text.
+#: includes/core/offer-description/class-yaydp-offer-description.php:270
+#: includes/core/offer-description/class-yaydp-offer-description.php:331
 msgid ""
 "<span data-variable=\"discount_amount\" data-formula=\"%1$s\">%2$s</span>"
 msgstr ""
+"<span data-variable=\"discount_amount\" data-formula=\"%1$s\">%2$s</span>"
 
-#: includes/core/offer-description/class-yaydp-offer-description.php:300
+#. Translators: translate discount amount text.
+#: includes/core/offer-description/class-yaydp-offer-description.php:305
 msgid ""
 "from %1$s to %2$s: <span data-variable=\"discount_amount\" data-"
 "formula=\"%3$s\">%4$s</span>"
 msgstr ""
+"von %1$s bis %2$s: <span data-variable=\"discount_amount\" data-"
+"formula=\"%3$s\">%4$s</span>"
 
-#: includes/core/offer-description/class-yaydp-offer-description.php:382
+#. Translators: translate discounted price text.
+#: includes/core/offer-description/class-yaydp-offer-description.php:389
 msgid ""
 "from %1$s to %2$s: <span data-variable=\"discounted_price\" data-"
 "formula=\"%3$s\">%4$s</span>"
 msgstr ""
+"von %1$s bis %2$s: <span data-variable=\"discounted_price\" data-"
+"formula=\"%3$s\">%4$s</span>"
 
-#: includes/core/offer-description/class-yaydp-offer-description.php:405
+#. Translators: translate formula.
+#: includes/core/offer-description/class-yaydp-offer-description.php:413
 msgid ""
 "<span data-variable=\"discounted_price\" data-formula=\"%1$s\">%2$s</span>"
 msgstr ""
+"<span data-variable=\"discounted_price\" data-formula=\"%1$s\">%2$s</span>"
+
+#. Translators: translate fee amount text.
+#: includes/core/offer-description/class-yaydp-offer-description.php:453
+msgid "<span data-variable=\"fee_amount\" data-formula=\"%1$s\">%2$s</span>"
+msgstr "<span data-variable=\"fee_amount\" data-formula=\"%1$s\">%2$s</span>"
 
 #. translators: %s Rule name.
 #: includes/core/use-time/class-yaydp-product-pricing-use-time.php:46
 msgid "%s has expired. Please reload the page to continue checkout."
 msgstr ""
+"%s ist abgelaufen. Bitte laden Sie die Seite neu, um mit dem Checkout "
+"fortzufahren."
 
 #: includes/helper/class-yaydp-helper.php:26
 msgid "Nonce is invalid"
-msgstr ""
+msgstr "Nonce ist ungültig"
 
-#: includes/noname/class-yaydp-pricing-table.php:104
+#: includes/integrations/woocommerce/class-yaydp-woocommerce-subscriptions-integration.php:117
+#, fuzzy
+#| msgid "Description"
+msgid "Subscription status"
+msgstr "Beschreibung"
+
+#: includes/integrations/woocommerce/class-yaydp-woocommerce-subscriptions-integration.php:121
+#, fuzzy
+#| msgid "Description"
+msgid "Has subscription"
+msgstr "Beschreibung"
+
+#: includes/integrations/woocommerce/class-yaydp-woocommerce-subscriptions-integration.php:125
+#, fuzzy
+#| msgid "Description"
+msgid "No subscription"
+msgstr "Beschreibung"
+
+#. translators: %s: search WooCommerce plugin link
+#: includes/license/class-license-handler.php:77
+msgid ""
+"%1$s license key is required. %2$sPlease enter your license key to start "
+"using the plugin%3$s."
+msgstr ""
+"%1$s Lizenzschlüssel ist erforderlich. %2$sBitte geben Sie Ihren "
+"Lizenzschlüssel ein, um das Plugin %3$s verwenden zu können."
+
+#: includes/noname/class-yaydp-pricing-table.php:110
 msgid "Unlimited"
-msgstr ""
+msgstr "Unbegrenzt"
 
-#: includes/yaycommercemenu/class-register-menu.php:70
-msgid "Help"
-msgstr ""
+#: includes/templates/change-free-items.php:4
+msgid "Choose Option"
+msgstr "Option wählen"
 
-#: includes/yaycommercemenu/class-register-menu.php:103
-msgid "Licenses"
-msgstr ""
+#: includes/templates/change-free-items.php:20
+msgid "You can choose maximum %s products"
+msgstr "Sie können maximal %s Produkte auswählen"
 
-#: includes/yaycommercemenu/class-register-menu.php:112
-msgid "Other plugins"
-msgstr ""
+#: includes/templates/change-free-items.php:53
+msgid "any"
+msgstr "jegliche"
 
 #: includes/yaydp-duplicate-fallback.php:24
 msgid ""
@@ -2334,7 +2779,10 @@ msgid ""
 "it before activating this new version. All current settings and data are "
 "still preserved."
 msgstr ""
+"Es sieht so aus, als hätten Sie eine andere YayPricing-Version installiert, "
+"bitte löschen Sie diese, bevor Sie diese neue Version aktivieren. Alle "
+"aktuellen Einstellungen und Daten bleiben weiterhin erhalten."
 
 #: includes/yaydp-duplicate-fallback.php:25
 msgid "Read more details."
-msgstr ""
+msgstr "Lesen Sie mehr Details."

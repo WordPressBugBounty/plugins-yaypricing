@@ -1,3 +1,7 @@
+:root {
+  --yaydp-primary-color: #2271b1;
+}
+
 .yaydp-cart-item-price {
   display: inline-flex;
   align-items: center;
@@ -43,10 +47,26 @@
   color: #faad14;
 }
 
+.yaydp-notice-icon {
+  width: 15px;
+  height: 15px;
+  display: flex;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+}
+
+.yaydp-notice-info .yaydp-notice-icon {
+  background-image: url("../images/info-icon.svg");
+}
+.yaydp-notice-warning .yaydp-notice-icon {
+  background-image: url("../images/warning-icon.svg");
+}
+
 .yaydp-free-item-badge,
 .yaydp-free-item-change {
   padding: 2px 10px;
-  background: #2271b1;
+  background: var(--yaydp-primary-color);
   border-radius: 3px;
   color: #fff;
 }
@@ -95,98 +115,6 @@
   .yaydp-sale-tag {
   left: var(--wc-sale-badge-distance, 0.875rem) !important;
   right: auto !important;
-}
-
-/* Tooltip */
-.yaydp-tooltip-icon::before {
-  content: "\f223";
-}
-
-.yaydp-tooltip-icon {
-  position: relative;
-  cursor: help;
-  font-family: dashicons;
-  display: inline-block;
-  line-height: 1;
-  font-weight: 400;
-  font-style: normal;
-  text-decoration: inherit;
-  text-transform: none;
-  text-rendering: auto;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  width: 20px;
-  height: 20px;
-  font-size: 20px;
-  vertical-align: sub;
-  text-align: center;
-  transition: color 0.1s ease-in;
-  color: #363636;
-}
-
-.yaydp-tooltip-icon:hover .yaydp-tooltip-content {
-  visibility: visible;
-  opacity: 1;
-  transform: translate(-50%, -0.6em);
-}
-.yaydp-tooltip-icon:hover::after {
-  visibility: visible;
-  opacity: 1;
-  transform: translate(-50%, -9px);
-}
-
-.yaydp-tooltip-content {
-  visibility: hidden;
-  opacity: 0;
-  max-width: 250px;
-  width: max-content;
-  font-weight: normal;
-  background-color: #363636;
-  color: #fff;
-  text-align: center;
-  border-radius: 4px;
-  padding: 0.5rem 0.5rem;
-  font-weight: 400;
-  position: absolute;
-  z-index: 1;
-  bottom: 100%;
-  left: 50%;
-  font-size: 0.8rem;
-  font-family: "Source Sans Pro", "HelveticaNeue-Light", "Helvetica Neue Light",
-    "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
-  transform: translateX(-50%);
-  transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out,
-    visibility 0.3s ease-in-out;
-}
-.yaydp-tooltip-icon::after {
-  content: "";
-  position: absolute;
-  width: 0;
-  height: 0;
-  border-left: 6px solid transparent;
-  border-right: 6px solid transparent;
-  border-top: 6px solid #363636;
-  border-radius: 2px;
-  transform-origin: center;
-  z-index: 1;
-  left: 50%;
-  transform: translateX(-50%);
-  visibility: hidden;
-  opacity: 0;
-  transition: all 0.3s ease-in-out;
-}
-
-.yaydp-tooltip-content > div {
-  padding: 10px 0;
-  border-bottom: 1px solid white;
-}
-
-.yaydp-tooltip-content > div:last-child {
-  border: none;
-  padding-bottom: 0;
-}
-.yaydp-tooltip-content > div:first-child {
-  padding-top: 0;
 }
 
 /* Matching products */

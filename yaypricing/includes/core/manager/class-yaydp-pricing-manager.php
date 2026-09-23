@@ -25,8 +25,8 @@ class YAYDP_Pricing_Manager {
 		\YAYDP\Core\Manager\YAYDP_Checkout_Fee_Manager::get_instance();
 		\YAYDP\Core\Manager\YAYDP_WC_Coupon_Manager::get_instance();
 		\YAYDP\Core\Shortcode\YAYDP_Shortcode_Handler::get_instance();
+		\YAYDP\Core\Blocks\YAYDP_Store_Api_Cart_Item_Extension::get_instance();
 	}
-
 }
 
 new YAYDP_Pricing_Manager();

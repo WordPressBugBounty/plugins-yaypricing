@@ -19,10 +19,13 @@ class YAYDP_Ctx_Feed_Integration {
 			return;
 		}
 
-		add_filter( 'woo_feed_filter_product_sale_price', array( $this, 'get_sale_price' ), 10, 5 );
+		add_filter( 'woo_feed_filter_product_sale_price', array( $this, 'get_discounted_price' ), 10, 5 );
+		add_filter( 'woo_feed_filter_product_sale_price_with_tax', array( $this, 'get_discounted_price' ), 10, 5 );
+		add_filter( 'woo_feed_filter_product_price_with_tax', array( $this, 'get_discounted_price' ), 10, 5 );
+		add_filter( 'woo_feed_filter_product_regular_price_with_tax', array( $this, 'get_discounted_price' ), 10, 5 );
 	}
 
-	public function get_sale_price( $price, $product, $config, $with_tax, $price_type ) {
+	public function get_discounted_price( $price, $product, $config, $with_tax, $price_type ) {
 		if ( empty( $product ) ) {
 			return $price;
 		}
@@ -34,9 +37,12 @@ class YAYDP_Ctx_Feed_Integration {
 			return $price;
 		}
 
-		$min_discounted_price = $min_max_discounted_price['min'];
-		$price = \wc_get_price_including_tax( $product, array( 'price' => $min_discounted_price ) );
+		$discounted_price = $min_max_discounted_price['min'];
 
-		return $price;
+		if ( $with_tax ) {
+			$discounted_price = \wc_get_price_including_tax( $product, array( 'price' => $discounted_price ) );
+		}
+
+		return $discounted_price;
 	}
 }

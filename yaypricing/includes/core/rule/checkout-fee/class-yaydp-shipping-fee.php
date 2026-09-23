@@ -56,13 +56,8 @@ class YAYDP_Shipping_Fee extends \YAYDP\Abstracts\YAYDP_Checkout_Fee_Rule {
 		$adjustment_amount = $this->get_adjustment_amount();
 		$pricing_type      = $this->get_pricing_type();
 		$cart_shipping_fee = \yaydp_get_shipping_fee();
-		if ( \yaydp_is_percentage_pricing_type( $pricing_type ) ) {
-			return min( $cart_shipping_fee, $adjustment_amount );
-		}
-		if ( \yaydp_is_fixed_pricing_type( $pricing_type ) ) {
-			return min( $cart_shipping_fee, $adjustment_amount );
-		}
-		return 0;
+		// Only percentage and money-amount types reduce shipping, never by more than the fee itself.
+		return ( \YAYDP\Pricing_Type\YAYDP_Pricing_Type_Registry::is_percentage_adjustment( $pricing_type ) || \YAYDP\Pricing_Type\YAYDP_Pricing_Type_Registry::is_money_amount( $pricing_type ) ) ? min( $cart_shipping_fee, $adjustment_amount ) : 0;
 	}
 
 	/**
@@ -73,18 +68,30 @@ class YAYDP_Shipping_Fee extends \YAYDP\Abstracts\YAYDP_Checkout_Fee_Rule {
 			return;
 		}
 		$discount_amount = $this->get_total_discount_amount();
+		$settings = \YAYDP\Settings\YAYDP_Checkout_Fee_Settings::get_instance();
+		$tax_class = $this->get_tax_class() !== 'standard' ? $this->get_tax_class() : '';
 
 		if ( empty( $discount_amount ) ) {
 			return;
-		}
+		}	
 
-		$taxable = true;
+		$default_taxable = $settings->checkout_fees_include_tax();
+		
+		$taxable = apply_filters( 
+			'yaydp_checkout_fee_taxable', 
+			$default_taxable, 
+			$this->get_id(), 
+			$this->get_name(),
+			$discount_amount,
+			$tax_class
+		);
 
 		$fee_data = array(
-			'id'     => $this->get_id(),
-			'name'   => $this->get_name(),
-			'amount' => \YAYDP\Helper\YAYDP_Pricing_Helper::convert_fee( - $discount_amount ),
-			'taxable' => $taxable
+			'id'        => $this->get_id(),
+			'name'      => $this->get_translated_name(),
+			'amount'    => \YAYDP\Helper\YAYDP_Pricing_Helper::convert_fee( - $discount_amount ),
+			'taxable'   => $taxable,
+			'tax_class' => $tax_class,
 		);
 		\WC()->cart->fees_api()->add_fee( $fee_data );
 	}
@@ -101,7 +108,13 @@ class YAYDP_Shipping_Fee extends \YAYDP\Abstracts\YAYDP_Checkout_Fee_Rule {
 		if ( empty( $conditions_encouragements ) ) {
 			return null;
 		}
-		return null;
+		return new \YAYDP\Core\Encouragement\YAYDP_Checkout_Fee_Encouragement(
+			array(
+				'cart'                      => $cart,
+				'rule'                      => $this,
+				'conditions_encouragements' => $conditions_encouragements,
+			)
+		);
 	}
 
 	/**
@@ -125,7 +138,9 @@ class YAYDP_Shipping_Fee extends \YAYDP\Abstracts\YAYDP_Checkout_Fee_Rule {
 				$adjustment_amount = \YAYDP\Helper\YAYDP_Pricing_Helper::calculate_adjustment_amount( $rate_cost, $pricing_type, $pricing_value, $maximum_adjustment_amount );
 				$final_cost        = max( 0, $rate_cost - $adjustment_amount );
 				$packages[ $package_index ]['rates'][ $rate_id ]->set_cost( $final_cost );
-				$packages[ $package_index ]['rates'][ $rate_id ]->modified_rules = array_merge( $packages[ $package_index ]['rates'][ $rate_id ]->modified_rules ?? array(), [ $this->get_id() ] );
+				// No fee line carries this amount, so it is recorded here for the report.
+				\YAYDP\Helper\YAYDP_Shipping_Adjustment_Tracker::record( $this->get_id(), $package_index, $rate_id, $rate_cost - $final_cost );
+				$packages[ $package_index ]['rates'][ $rate_id ]->modified_rules = array_merge( $packages[ $package_index ]['rates'][ $rate_id ]->modified_rules ?? array(), array( $this->get_id() ) );
 				$packages[ $package_index ]['rates'][ $rate_id ]->set_taxes( \WC_Tax::calc_shipping_tax( $final_cost, \WC_Tax::get_shipping_tax_rates() ) );
 			}
 		}

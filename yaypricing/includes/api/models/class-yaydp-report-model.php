@@ -108,7 +108,7 @@ class YAYDP_Report_Model {
 			function( $res, $order ) use ( $order_by ) {
 				$created_date = $order->get_date_created()->date( 'Y/m/d' );
 				if ( 'month' === $order_by ) {
-					$created_date = gmdate( 'M', strtotime( $created_date ) );
+					$created_date = gmdate( 'Y/m', strtotime( $created_date ) );
 				}
 				if ( 'year' === $order_by ) {
 					$created_date = gmdate( 'Y', strtotime( $created_date ) );
@@ -119,9 +119,20 @@ class YAYDP_Report_Model {
 					);
 				}
 
-				$res[ $created_date ]['Orders'] ++;
+				$product_pricing_rules = $order->get_meta( 'yaydp_product_pricing_rules' );
+				$cart_discount_rules   = $order->get_meta( 'yaydp_cart_discount_rules' );
+				$checkout_fee_rules    = $order->get_meta( 'yaydp_checkout_fee_rules' );
 
-				$product_pricing_rules     = get_post_meta( $order->get_id(), 'yaydp_product_pricing_rules', true );
+				/**
+				 * Only orders that had at least one rule applied are counted.
+				 * Orders without any YayPricing discount still create the date
+				 * bucket, so a day with sales but no discounts shows zero
+				 * instead of dropping out of the chart.
+				 */
+				if ( ! empty( $product_pricing_rules ) || ! empty( $cart_discount_rules ) || ! empty( $checkout_fee_rules ) ) {
+					$res[ $created_date ]['Orders'] ++;
+				}
+
 				$all_product_pricing_rules = self::get_all_product_pricing_rules();
 				if ( ! empty( $product_pricing_rules ) ) {
 					foreach ( $product_pricing_rules as $rule_id ) {
@@ -147,7 +158,6 @@ class YAYDP_Report_Model {
 					}
 				}
 
-				$cart_discount_rules     = get_post_meta( $order->get_id(), 'yaydp_cart_discount_rules', true );
 				$all_cart_discount_rules = self::get_all_cart_discount_rules();
 
 				if ( ! empty( $cart_discount_rules ) ) {
@@ -174,7 +184,6 @@ class YAYDP_Report_Model {
 					}
 				}
 
-				$checkout_fee_rules     = get_post_meta( $order->get_id(), 'yaydp_checkout_fee_rules', true );
 				$all_checkout_fee_rules = self::get_all_checkout_fee_rules();
 
 				if ( ! empty( $checkout_fee_rules ) ) {
@@ -205,6 +214,13 @@ class YAYDP_Report_Model {
 			},
 			array()
 		);
+		/**
+		 * The chart plots the periods in the order they arrive and
+		 * wc_get_orders returns the newest orders first, so without this the x
+		 * axis runs backwards. Every period key is zero padded, so sorting them
+		 * as text is chronological.
+		 */
+		ksort( $result, SORT_STRING );
 		return $result;
 	}
 

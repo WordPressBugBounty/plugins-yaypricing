@@ -56,127 +56,6 @@ class YAYDP_REST_PAGE_DATA_V1_CONTROLLER {
 
 		register_rest_route(
 			$this->namespace,
-			"/{$this->rest_base}/products",
-			array(
-				array(
-					'methods'             => \WP_REST_Server::READABLE,
-					'callback'            => array( $this, 'get_products' ),
-					'permission_callback' => array( $this, 'permission_callback' ),
-				),
-			)
-		);
-		register_rest_route(
-			$this->namespace,
-			"/{$this->rest_base}/variations",
-			array(
-				array(
-					'methods'             => \WP_REST_Server::READABLE,
-					'callback'            => array( $this, 'get_variations' ),
-					'permission_callback' => array( $this, 'permission_callback' ),
-				),
-			)
-		);
-		register_rest_route(
-			$this->namespace,
-			"/{$this->rest_base}/categories",
-			array(
-				array(
-					'methods'             => \WP_REST_Server::READABLE,
-					'callback'            => array( $this, 'get_categories' ),
-					'permission_callback' => array( $this, 'permission_callback' ),
-				),
-			)
-		);
-		register_rest_route(
-			$this->namespace,
-			"/{$this->rest_base}/specific-attributes",
-			array(
-				array(
-					'methods'             => \WP_REST_Server::READABLE,
-					'callback'            => array( $this, 'get_specific_attributes' ),
-					'permission_callback' => array( $this, 'permission_callback' ),
-				),
-			)
-		);
-		register_rest_route(
-			$this->namespace,
-			"/{$this->rest_base}/tags",
-			array(
-				array(
-					'methods'             => \WP_REST_Server::READABLE,
-					'callback'            => array( $this, 'get_tags' ),
-					'permission_callback' => array( $this, 'permission_callback' ),
-				),
-			)
-		);
-		register_rest_route(
-			$this->namespace,
-			"/{$this->rest_base}/customer-roles",
-			array(
-				array(
-					'methods'             => \WP_REST_Server::READABLE,
-					'callback'            => array( $this, 'get_customer_roles' ),
-					'permission_callback' => array( $this, 'permission_callback' ),
-				),
-			)
-		);
-		register_rest_route(
-			$this->namespace,
-			"/{$this->rest_base}/customers",
-			array(
-				array(
-					'methods'             => \WP_REST_Server::READABLE,
-					'callback'            => array( $this, 'get_customers' ),
-					'permission_callback' => array( $this, 'permission_callback' ),
-				),
-			)
-		);
-		register_rest_route(
-			$this->namespace,
-			"/{$this->rest_base}/shipping-regions",
-			array(
-				array(
-					'methods'             => \WP_REST_Server::READABLE,
-					'callback'            => array( $this, 'get_shipping_regions' ),
-					'permission_callback' => array( $this, 'permission_callback' ),
-				),
-			)
-		);
-		register_rest_route(
-			$this->namespace,
-			"/{$this->rest_base}/billing-regions",
-			array(
-				array(
-					'methods'             => \WP_REST_Server::READABLE,
-					'callback'            => array( $this, 'get_billing_regions' ),
-					'permission_callback' => array( $this, 'permission_callback' ),
-				),
-			)
-		);
-		register_rest_route(
-			$this->namespace,
-			"/{$this->rest_base}/payment-methods",
-			array(
-				array(
-					'methods'             => \WP_REST_Server::READABLE,
-					'callback'            => array( $this, 'get_payment_methods' ),
-					'permission_callback' => array( $this, 'permission_callback' ),
-				),
-			)
-		);
-		register_rest_route(
-			$this->namespace,
-			"/{$this->rest_base}/coupons",
-			array(
-				array(
-					'methods'             => \WP_REST_Server::READABLE,
-					'callback'            => array( $this, 'get_coupons' ),
-					'permission_callback' => array( $this, 'permission_callback' ),
-				),
-			)
-		);
-		register_rest_route(
-			$this->namespace,
 			"/{$this->rest_base}/custom-filter",
 			array(
 				array(
@@ -187,13 +66,33 @@ class YAYDP_REST_PAGE_DATA_V1_CONTROLLER {
 			)
 		);
 
+		// One route per picker collection that declares one (YAYDP_Collections).
+		foreach ( \YAYDP\API\Models\YAYDP_Collections::all() as $source => $entry ) {
+			if ( empty( $entry['route'] ) ) {
+				continue;
+			}
+			register_rest_route(
+				$this->namespace,
+				"/{$this->rest_base}/{$entry['route']}",
+				array(
+					array(
+						'methods'             => \WP_REST_Server::READABLE,
+						'callback'            => function ( \WP_REST_Request $request ) use ( $source ) {
+							return $this->get_collection( $request, $source );
+						},
+						'permission_callback' => array( $this, 'permission_callback' ),
+					),
+				)
+			);
+		}
+
 		register_rest_route(
 			$this->namespace,
-			"/{$this->rest_base}/attributes",
+			"/{$this->rest_base}/seeds",
 			array(
 				array(
 					'methods'             => \WP_REST_Server::READABLE,
-					'callback'            => array( $this, 'get_attributes' ),
+					'callback'            => array( $this, 'get_seeds' ),
 					'permission_callback' => array( $this, 'permission_callback' ),
 				),
 			)
@@ -253,6 +152,39 @@ class YAYDP_REST_PAGE_DATA_V1_CONTROLLER {
 	}
 
 	/**
+	 * Carry the stored use_time of each rule onto the incoming rule of the same id.
+	 *
+	 * The settings page sends back the use_time it loaded, which is stale as soon
+	 * as any order completes while the page is open. The server is the source of
+	 * truth for that counter, so an admin save must never overwrite it.
+	 *
+	 * @param array $current_rules Rules from the database.
+	 * @param array $saving_rules  Rules are saving from the request.
+	 * @return array Saving rules with use_time restored from the database.
+	 */
+	public function preserve_use_time( $current_rules, $saving_rules ) {
+		$saving_rules  = ! empty( $saving_rules ) ? $saving_rules : array();
+		$current_rules = ! empty( $current_rules ) ? $current_rules : array();
+
+		$stored_use_times = array();
+		foreach ( $current_rules as $rule ) {
+			if ( ! empty( $rule['id'] ) ) {
+				$stored_use_times[ $rule['id'] ] = (int) ( $rule['use_time'] ?? 0 );
+			}
+		}
+
+		return array_map(
+			function( $rule ) use ( $stored_use_times ) {
+				if ( ! empty( $rule['id'] ) && isset( $stored_use_times[ $rule['id'] ] ) ) {
+					$rule['use_time'] = $stored_use_times[ $rule['id'] ];
+				}
+				return $rule;
+			},
+			$saving_rules
+		);
+	}
+
+	/**
 	 * Saving the removing rules in the database.
 	 *
 	 * @param array $body Data.
@@ -282,15 +214,17 @@ class YAYDP_REST_PAGE_DATA_V1_CONTROLLER {
 			$body = $params['body'];
 			$this->save_removing_rules( $body );
 
+			$body['rules']['product_pricing'] = $this->preserve_use_time( get_option( 'yaydp_product_pricing_rules' ), $body['rules']['product_pricing'] );
+			$body['rules']['cart_discount']   = $this->preserve_use_time( get_option( 'yaydp_cart_discount_rules' ), $body['rules']['cart_discount'] );
+			$body['rules']['checkout_fee']    = $this->preserve_use_time( get_option( 'yaydp_checkout_fee_rules' ), $body['rules']['checkout_fee'] );
+
 			update_option( 'yaydp_product_pricing_rules', $body['rules']['product_pricing'] );
 			update_option( 'yaydp_cart_discount_rules', $body['rules']['cart_discount'] );
 			update_option( 'yaydp_checkout_fee_rules', $body['rules']['checkout_fee'] );
 			update_option( 'yaydp_exclude_rules', $body['rules']['exclude'] );
-			update_option( 'yaydp_product_collections_rules', $body['rules']['product_collections'] ?? array() );
 			update_option( 'yaydp_core_settings', $body['settings'] );
 
 			do_action( 'yaydp_after_saving_data', $body );
-
 			return new \WP_REST_Response(
 				array(
 					'success' => true,
@@ -314,236 +248,6 @@ class YAYDP_REST_PAGE_DATA_V1_CONTROLLER {
 	}
 
 	/**
-	 * Retrieves products from the database based on the specified parameters
-	 *
-	 * @param \WP_REST_Request $request Rest request.
-	 */
-	public function get_products( \WP_REST_Request $request ) {
-		if ( ! \YAYDP\Helper\YAYDP_Helper::verify_rest_nonce( $request ) ) {
-			return \YAYDP\Helper\YAYDP_Helper::get_verify_rest_nonce_failure_response();
-		}
-		$search_text = ! is_null( $request->get_param( 'search' ) ) ? $request->get_param( 'search' ) : '';
-		$page        = ! is_null( $request->get_param( 'page' ) ) ? $request->get_param( 'page' ) : 1;
-		$limit       = ! is_null( $request->get_param( 'limit' ) ) ? $request->get_param( 'limit' ) : YAYDP_SEARCH_LIMIT;
-		$products    = \YAYDP\API\Models\YAYDP_Data_Model::get_products( $search_text, $page, $limit );
-		return new \WP_REST_Response(
-			array(
-				'success'  => true,
-				'data_arr' => $products,
-			)
-		);
-	}
-
-	/**
-	 * Retrieves product variations from the database based on the specified parameters
-	 *
-	 * @param \WP_REST_Request $request Rest request.
-	 */
-	public function get_variations( \WP_REST_Request $request ) {
-		if ( ! \YAYDP\Helper\YAYDP_Helper::verify_rest_nonce( $request ) ) {
-			return \YAYDP\Helper\YAYDP_Helper::get_verify_rest_nonce_failure_response();
-		}
-		$search_text = ! is_null( $request->get_param( 'search' ) ) ? $request->get_param( 'search' ) : '';
-		$page        = ! is_null( $request->get_param( 'page' ) ) ? $request->get_param( 'page' ) : 1;
-		$limit       = ! is_null( $request->get_param( 'limit' ) ) ? $request->get_param( 'limit' ) : YAYDP_SEARCH_LIMIT;
-		$variations  = \YAYDP\API\Models\YAYDP_Data_Model::get_variations( $search_text, $page, $limit );
-		return new \WP_REST_Response(
-			array(
-				'success'  => true,
-				'data_arr' => $variations,
-			)
-		);
-	}
-
-	/**
-	 * Retrieves product categories from the database based on the specified parameters
-	 *
-	 * @param \WP_REST_Request $request Rest request.
-	 */
-	public function get_categories( \WP_REST_Request $request ) {
-		if ( ! \YAYDP\Helper\YAYDP_Helper::verify_rest_nonce( $request ) ) {
-			return \YAYDP\Helper\YAYDP_Helper::get_verify_rest_nonce_failure_response();
-		}
-		$search_text = ! is_null( $request->get_param( 'search' ) ) ? $request->get_param( 'search' ) : '';
-		$page        = ! is_null( $request->get_param( 'page' ) ) ? $request->get_param( 'page' ) : 1;
-		$limit       = ! is_null( $request->get_param( 'limit' ) ) ? $request->get_param( 'limit' ) : YAYDP_SEARCH_LIMIT;
-		$categories  = \YAYDP\API\Models\YAYDP_Data_Model::get_categories( $search_text, $page, $limit );
-		return new \WP_REST_Response(
-			array(
-				'success'  => true,
-				'data_arr' => $categories,
-			)
-		);
-	}
-
-	/**
-	 * Retrieves specific product attributes from the database based on the specified parameters
-	 *
-	 * @param \WP_REST_Request $request Rest request.
-	 */
-	public function get_specific_attributes( \WP_REST_Request $request ) {
-		if ( ! \YAYDP\Helper\YAYDP_Helper::verify_rest_nonce( $request ) ) {
-			return \YAYDP\Helper\YAYDP_Helper::get_verify_rest_nonce_failure_response();
-		}
-		$search_text = ! is_null( $request->get_param( 'search' ) ) ? $request->get_param( 'search' ) : '';
-		$page        = ! is_null( $request->get_param( 'page' ) ) ? $request->get_param( 'page' ) : 1;
-		$limit       = ! is_null( $request->get_param( 'limit' ) ) ? $request->get_param( 'limit' ) : YAYDP_SEARCH_LIMIT;
-		$attributes  = \YAYDP\API\Models\YAYDP_Data_Model::get_product_specific_attributes( $search_text, $page, $limit );
-		return new \WP_REST_Response(
-			array(
-				'success'  => true,
-				'data_arr' => $attributes,
-			)
-		);
-	}
-
-	/**
-	 * Retrieves product tags from the database based on the specified parameters
-	 *
-	 * @param \WP_REST_Request $request Rest request.
-	 */
-	public function get_tags( \WP_REST_Request $request ) {
-		if ( ! \YAYDP\Helper\YAYDP_Helper::verify_rest_nonce( $request ) ) {
-			return \YAYDP\Helper\YAYDP_Helper::get_verify_rest_nonce_failure_response();
-		}
-		$search_text = ! is_null( $request->get_param( 'search' ) ) ? $request->get_param( 'search' ) : '';
-		$page        = ! is_null( $request->get_param( 'page' ) ) ? $request->get_param( 'page' ) : 1;
-		$limit       = ! is_null( $request->get_param( 'limit' ) ) ? $request->get_param( 'limit' ) : YAYDP_SEARCH_LIMIT;
-		$tags        = \YAYDP\API\Models\YAYDP_Data_Model::get_tags( $search_text, $page, $limit );
-		return new \WP_REST_Response(
-			array(
-				'success'  => true,
-				'data_arr' => $tags,
-			)
-		);
-	}
-
-	/**
-	 * Retrieves customer roles from the database based on the specified parameters
-	 *
-	 * @param \WP_REST_Request $request Rest request.
-	 */
-	public function get_customer_roles( \WP_REST_Request $request ) {
-		if ( ! \YAYDP\Helper\YAYDP_Helper::verify_rest_nonce( $request ) ) {
-			return \YAYDP\Helper\YAYDP_Helper::get_verify_rest_nonce_failure_response();
-		}
-
-		if ( ! current_user_can( 'manage_woocommerce' ) ) {
-			return new \WP_REST_Response(
-				array(
-					'success' => false,
-					'message' => 'You have no permission to access customers data',
-				)
-			);
-		}
-
-		$search_text = ! is_null( $request->get_param( 'search' ) ) ? $request->get_param( 'search' ) : '';
-		$page        = ! is_null( $request->get_param( 'page' ) ) ? $request->get_param( 'page' ) : 1;
-		$limit       = ! is_null( $request->get_param( 'limit' ) ) ? $request->get_param( 'limit' ) : YAYDP_SEARCH_LIMIT;
-		$tags        = \YAYDP\API\Models\YAYDP_Data_Model::get_customer_roles( $search_text, $page, $limit );
-		return new \WP_REST_Response(
-			array(
-				'success'  => true,
-				'data_arr' => $tags,
-			)
-		);
-	}
-
-	/**
-	 * Retrieves customers from the database based on the specified parameters
-	 *
-	 * @param \WP_REST_Request $request Rest request.
-	 */
-	public function get_customers( \WP_REST_Request $request ) {
-		if ( ! \YAYDP\Helper\YAYDP_Helper::verify_rest_nonce( $request ) ) {
-			return \YAYDP\Helper\YAYDP_Helper::get_verify_rest_nonce_failure_response();
-		}
-
-		if ( ! current_user_can( 'manage_woocommerce' ) ) {
-			return new \WP_REST_Response(
-				array(
-					'success' => false,
-					'message' => 'You have no permission to access customers data',
-				)
-			);
-		}
-
-		$search_text = ! is_null( $request->get_param( 'search' ) ) ? $request->get_param( 'search' ) : '';
-		$page        = ! is_null( $request->get_param( 'page' ) ) ? $request->get_param( 'page' ) : 1;
-		$limit       = ! is_null( $request->get_param( 'limit' ) ) ? $request->get_param( 'limit' ) : YAYDP_SEARCH_LIMIT;
-		$tags        = \YAYDP\API\Models\YAYDP_Data_Model::get_customers( $search_text, $page, $limit );
-		return new \WP_REST_Response(
-			array(
-				'success'  => true,
-				'data_arr' => $tags,
-			)
-		);
-	}
-
-	/**
-	 * Retrieves shipping regions from the database based on the specified parameters
-	 *
-	 * @param \WP_REST_Request $request Rest request.
-	 */
-	public function get_shipping_regions( \WP_REST_Request $request ) {
-		if ( ! \YAYDP\Helper\YAYDP_Helper::verify_rest_nonce( $request ) ) {
-			return \YAYDP\Helper\YAYDP_Helper::get_verify_rest_nonce_failure_response();
-		}
-		$search_text = ! is_null( $request->get_param( 'search' ) ) ? $request->get_param( 'search' ) : '';
-		$page        = ! is_null( $request->get_param( 'page' ) ) ? $request->get_param( 'page' ) : 1;
-		$limit       = ! is_null( $request->get_param( 'limit' ) ) ? $request->get_param( 'limit' ) : YAYDP_SEARCH_LIMIT;
-		$tags        = \YAYDP\API\Models\YAYDP_Data_Model::get_shipping_regions( $search_text, $page, $limit );
-		return new \WP_REST_Response(
-			array(
-				'success'  => true,
-				'data_arr' => $tags,
-			)
-		);
-	}
-
-	/**
-	 * Retrieves payment methods from the database based on the specified parameters
-	 *
-	 * @param \WP_REST_Request $request Rest request.
-	 */
-	public function get_payment_methods( \WP_REST_Request $request ) {
-		if ( ! \YAYDP\Helper\YAYDP_Helper::verify_rest_nonce( $request ) ) {
-			return \YAYDP\Helper\YAYDP_Helper::get_verify_rest_nonce_failure_response();
-		}
-		$search_text = ! is_null( $request->get_param( 'search' ) ) ? $request->get_param( 'search' ) : '';
-		$page        = ! is_null( $request->get_param( 'page' ) ) ? $request->get_param( 'page' ) : 1;
-		$limit       = ! is_null( $request->get_param( 'limit' ) ) ? $request->get_param( 'limit' ) : YAYDP_SEARCH_LIMIT;
-		$tags        = \YAYDP\API\Models\YAYDP_Data_Model::get_payment_methods( $search_text, $page, $limit );
-		return new \WP_REST_Response(
-			array(
-				'success'  => true,
-				'data_arr' => $tags,
-			)
-		);
-	}
-
-	/**
-	 * Retrieves all available coupons from the database based on the specified parameters
-	 *
-	 * @param \WP_REST_Request $request Rest request.
-	 */
-	public function get_coupons( \WP_REST_Request $request ) {
-		if ( ! \YAYDP\Helper\YAYDP_Helper::verify_rest_nonce( $request ) ) {
-			return \YAYDP\Helper\YAYDP_Helper::get_verify_rest_nonce_failure_response();
-		}
-		$search_text = ! is_null( $request->get_param( 'search' ) ) ? $request->get_param( 'search' ) : '';
-		$page        = ! is_null( $request->get_param( 'page' ) ) ? $request->get_param( 'page' ) : 1;
-		$limit       = ! is_null( $request->get_param( 'limit' ) ) ? $request->get_param( 'limit' ) : YAYDP_SEARCH_LIMIT;
-		$coupons     = \YAYDP\API\Models\YAYDP_Data_Model::get_coupons( $search_text, $page, $limit );
-		return new \WP_REST_Response(
-			array(
-				'success'  => true,
-				'data_arr' => $coupons,
-			)
-		);
-	}
-
-	/**
 	 * Retrieves custom filter data from the database based on the specified parameters
 	 *
 	 * @param \WP_REST_Request $request Rest request.
@@ -556,7 +260,11 @@ class YAYDP_REST_PAGE_DATA_V1_CONTROLLER {
 		$page        = ! is_null( $request->get_param( 'page' ) ) ? $request->get_param( 'page' ) : 1;
 		$limit       = ! is_null( $request->get_param( 'limit' ) ) ? $request->get_param( 'limit' ) : YAYDP_SEARCH_LIMIT;
 		$filter_name = ! is_null( $request->get_param( 'filter_name' ) ) ? $request->get_param( 'filter_name' ) : '';
-		$result      = apply_filters( "yaydp_admin_custom_filter_{$filter_name}_result", array(), $filter_name, $search_text, $page, $limit );
+		$type        = \YAYDP\Product_Filter\YAYDP_Product_Filter_Registry::instance()->get( $filter_name );
+		$result      = $type ? $type->search_options( $search_text, $page, $limit ) : null;
+		if ( is_null( $result ) ) {
+			$result = \YAYDP\Product_Filter\YAYDP_Legacy_Product_Filter_Hooks::search_options( $filter_name, $search_text, $page, $limit );
+		}
 		return new \WP_REST_Response(
 			array(
 				'success'  => true,
@@ -566,22 +274,52 @@ class YAYDP_REST_PAGE_DATA_V1_CONTROLLER {
 	}
 
 	/**
-	 * Retrieves product categories from the database based on the specified parameters
+	 * One page of a picker collection: `search`, `page`, `limit` query params,
+	 * `{ success, data_arr }` envelope, at most `limit + 1` rows.
 	 *
 	 * @param \WP_REST_Request $request Rest request.
+	 * @param string           $source  Collection key in YAYDP_Collections::all().
 	 */
-	public function get_attributes( \WP_REST_Request $request ) {
+	public function get_collection( \WP_REST_Request $request, $source ) {
 		if ( ! \YAYDP\Helper\YAYDP_Helper::verify_rest_nonce( $request ) ) {
 			return \YAYDP\Helper\YAYDP_Helper::get_verify_rest_nonce_failure_response();
 		}
-		$search_text = ! is_null( $request->get_param( 'search' ) ) ? $request->get_param( 'search' ) : '';
-		$page        = ! is_null( $request->get_param( 'page' ) ) ? $request->get_param( 'page' ) : 1;
-		$limit       = ! is_null( $request->get_param( 'limit' ) ) ? $request->get_param( 'limit' ) : YAYDP_SEARCH_LIMIT;
-		$categories  = \YAYDP\API\Models\YAYDP_Data_Model::get_attributes( $search_text, $page, $limit );
+		$collections = \YAYDP\API\Models\YAYDP_Collections::all();
+		if ( ! isset( $collections[ $source ] ) ) {
+			return new \WP_REST_Response(
+				array(
+					'success' => false,
+					'message' => 'Unknown collection',
+				),
+				404
+			);
+		}
+		$search = ! is_null( $request->get_param( 'search' ) ) ? $request->get_param( 'search' ) : '';
+		$page   = ! is_null( $request->get_param( 'page' ) ) ? $request->get_param( 'page' ) : 1;
+		$limit  = ! is_null( $request->get_param( 'limit' ) ) ? $request->get_param( 'limit' ) : YAYDP_SEARCH_LIMIT;
 		return new \WP_REST_Response(
 			array(
 				'success'  => true,
-				'data_arr' => $categories,
+				'data_arr' => call_user_func( $collections[ $source ]['getter'], $search, $page, $limit ),
+			)
+		);
+	}
+
+	/**
+	 * First page of every seed collection in one reply: `{ source: rows }`.
+	 * The admin fetches this once after first paint instead of receiving the
+	 * lists inline.
+	 *
+	 * @param \WP_REST_Request $request Rest request.
+	 */
+	public function get_seeds( \WP_REST_Request $request ) {
+		if ( ! \YAYDP\Helper\YAYDP_Helper::verify_rest_nonce( $request ) ) {
+			return \YAYDP\Helper\YAYDP_Helper::get_verify_rest_nonce_failure_response();
+		}
+		return new \WP_REST_Response(
+			array(
+				'success'  => true,
+				'data_arr' => \YAYDP\API\Models\YAYDP_Collections::seeds(),
 			)
 		);
 	}
@@ -591,29 +329,6 @@ class YAYDP_REST_PAGE_DATA_V1_CONTROLLER {
 	 * It should return true if the user has permission, and false otherwise
 	 */
 	public function permission_callback() {
-		return \YAYDP\Helper\YAYDP_Helper::can_manage_pricing();
-	}
-
-	/**
-	 * Retrieves billing regions from the database based on the specified parameters
-	 *
-	 * @param \WP_REST_Request $request Rest request.
-	 *
-	 * @since 3.4.2
-	 */
-	public function get_billing_regions( \WP_REST_Request $request ) {
-		if ( ! \YAYDP\Helper\YAYDP_Helper::verify_rest_nonce( $request ) ) {
-			return \YAYDP\Helper\YAYDP_Helper::get_verify_rest_nonce_failure_response();
-		}
-		$search_text = ! is_null( $request->get_param( 'search' ) ) ? $request->get_param( 'search' ) : '';
-		$page        = ! is_null( $request->get_param( 'page' ) ) ? $request->get_param( 'page' ) : 1;
-		$limit       = ! is_null( $request->get_param( 'limit' ) ) ? $request->get_param( 'limit' ) : YAYDP_SEARCH_LIMIT;
-		$tags        = \YAYDP\API\Models\YAYDP_Data_Model::get_billing_regions( $search_text, $page, $limit );
-		return new \WP_REST_Response(
-			array(
-				'success'  => true,
-				'data_arr' => $tags,
-			)
-		);
+		return current_user_can( 'manage_woocommerce' );
 	}
 }

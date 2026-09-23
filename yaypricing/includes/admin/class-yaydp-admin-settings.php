@@ -32,7 +32,7 @@ class YAYDP_Admin_Settings {
 	 * Initializes class by setting up the necessary configurations and dependencies
 	 */
 	public static function init() {
-		\YAYDP\Vite::enqueue_vite( 'admin-settings.jsx', '3001' );
+		\YAYDP\Vite::enqueue_vite( 'admin-settings.jsx', '3050' );
 		add_action( 'admin_enqueue_scripts', array( __CLASS__, 'enqueue_scripts' ) );
 	}
 
@@ -41,43 +41,35 @@ class YAYDP_Admin_Settings {
 	 */
 	public static function enqueue_scripts() {
 		wp_enqueue_media();
-		$default_data  = array(
-			'nonce'                        => wp_create_nonce( 'yaydp_nonce' ),
-			'rest_api'                     => array(
+		$default_data = array(
+			'nonce'                     => wp_create_nonce( 'yaydp_nonce' ),
+			'rest_api'                  => array(
 				'nonce' => wp_create_nonce( 'wp_rest' ),
 				'url'   => esc_url_raw( rest_url( 'yaydp/v1' ) ),
 			),
-			'image_url'                    => YAYDP_PLUGIN_URL . 'assets/images',
-			'search_limit'                 => YAYDP_SEARCH_LIMIT,
-			'product_filters'              => \YAYDP\Constants\YAYDP_Admin_Settings::get_product_filters(),
-			'conditions'                   => \YAYDP\Constants\YAYDP_Admin_Settings::get_extra_conditions(),
-			'products'                     => \YAYDP\API\Models\YAYDP_Data_Model::get_products(),
-			'product_variations'           => \YAYDP\API\Models\YAYDP_Data_Model::get_variations(),
-			'product_categories'           => \YAYDP\API\Models\YAYDP_Data_Model::get_categories(),
-			'product_attributes'           => \YAYDP\API\Models\YAYDP_Data_Model::get_attributes(),
-			'product_specific_attributes'  => \YAYDP\API\Models\YAYDP_Data_Model::get_product_specific_attributes(),
-			'product_attribute_taxonomies' => \YAYDP\API\Models\YAYDP_Data_Model::get_attribute_taxonomies(),
-			'product_tags'                 => \YAYDP\API\Models\YAYDP_Data_Model::get_tags(),
-			'customer_roles'               => \YAYDP\API\Models\YAYDP_Data_Model::get_customer_roles(),
-			'customers'                    => \YAYDP\API\Models\YAYDP_Data_Model::get_customers(),
-			'payment_methods'              => \YAYDP\API\Models\YAYDP_Data_Model::get_payment_methods(),
-			'shipping_methods'             => \YAYDP\API\Models\YAYDP_Data_Model::get_shipping_methods(),
-			'shipping_classes'             => \YAYDP\API\Models\YAYDP_Data_Model::get_shipping_classes(),
-			'shipping_regions'             => \YAYDP\API\Models\YAYDP_Data_Model::get_shipping_regions(),
-			'billing_regions'              => \YAYDP\API\Models\YAYDP_Data_Model::get_billing_regions(), //@since 3.4.2
-			'coupons'                      => \YAYDP\API\Models\YAYDP_Data_Model::get_coupons(),
-			'wc'                           => array(
+			'image_url'                 => YAYDP_PLUGIN_URL . 'assets/images',
+			'search_limit'              => YAYDP_SEARCH_LIMIT,
+			// Product filter vocabulary (labels, comparators, editors, defaults); the single source for the admin's filter rows.
+			'product_filters'           => \YAYDP\Product_Filter\YAYDP_Product_Filter_Registry::instance()->for_localize(),
+			// Condition vocabulary (groups, labels, comparators, editors, defaults); the single source for the admin's condition rows.
+			'conditions'                => \YAYDP\Condition\YAYDP_Condition_Registry::instance()->for_localize(),
+			// Picker collections (products, categories, roles, …) are not inlined:
+			// the admin fetches yaydp/v1/page-data/seeds once after first paint.
+			'tax_classes'               => \YAYDP\API\Models\YAYDP_Data_Model::get_tax_classes(),
+			'wc'                        => array(
 				'currency'        => \get_woocommerce_currency(),
 				'currency_symbol' => html_entity_decode( \get_woocommerce_currency_symbol(), ENT_COMPAT ),
 			),
-			'sample_pricing_table_data'    => \YAYDP\Constants\YAYDP_Pricing_Table::get_sample_data(),
-			'date_format'                  => get_option( 'date_format' ),
-			'time_format'                  => get_option( 'time_format' ),
-			'timezone_string'              => yaydp_get_timezone_offset(),
-			'image_url'                    => YAYDP_PLUGIN_URL . 'assets/images/',
-			'locale_direction'             => is_rtl() ? 'rtl' : 'ltr',
-			'i18n'                         => YAYDP_I18n::get_translations(),
-			'version'                      => YAYDP_VERSION,
+			'sample_pricing_table_data' => \YAYDP\Constants\YAYDP_Pricing_Table::get_sample_data(),
+			'date_format'               => get_option( 'date_format' ),
+			'time_format'               => get_option( 'time_format' ),
+			'timezone_string'           => yaydp_get_timezone_offset(),
+			'image_url'                 => YAYDP_PLUGIN_URL . 'assets/images/',
+			'locale_direction'          => is_rtl() ? 'rtl' : 'ltr',
+			'i18n'                      => YAYDP_I18n::get_translations(),
+			// Pricing type metadata + per-rule-type availability; the single source for the admin's pricing fields.
+			'pricing_types'             => \YAYDP\Pricing_Type\YAYDP_Pricing_Type_Registry::all_for_localize(),
+			'version'                   => YAYDP_VERSION,
 		);
 		$extra_data    = apply_filters( 'yaydp_admin_extra_localize_data', array() );
 		$localize_data = array_merge( $default_data, $extra_data );

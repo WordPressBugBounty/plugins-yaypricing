@@ -52,23 +52,10 @@ abstract class YAYDP_Checkout_Fee_Rule extends YAYDP_Rule {
 	 * Return fee content
 	 */
 	public function get_fee_content() {
-		$tooltips = array();
-		$tooltip  = $this->get_tooltip();
-		if ( ! $tooltip->is_enabled() ) {
-			return '';
-		}
-		$tooltips[] = $tooltip;
-		ob_start();
-		\wc_get_template(
-			'fee/yaydp-cart-fee.php',
-			array(
-				'tooltips' => $tooltips,
-			),
-			'',
-			YAYDP_PLUGIN_PATH . 'includes/templates/'
-		);
-		$html = ob_get_contents();
-		ob_end_clean();
-		return $html;
+		return \yaydp_render_tooltips( array( $this->get_tooltip() ) );
+	}
+
+	public function get_tax_class() {
+		return ! empty( $this->data['tax'] ) ? $this->data['tax'] : 'standard';
 	}
 }

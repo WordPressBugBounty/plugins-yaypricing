@@ -1,12 +1,12 @@
 # Copyright (C) 2024 YayCommerce
-# This file is distributed under the same license as the YayPricing Lite - WooCommerce Dynamic Pricing And Discounts plugin.
+# This file is distributed under the same license as the YayPricing Pro - WooCommerce Dynamic Pricing And Discounts plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: YayPricing Lite - WooCommerce Dynamic Pricing And "
+"Project-Id-Version: YayPricing Pro - WooCommerce Dynamic Pricing And "
 "Discounts 3.3\n"
-"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/yaypricing-lite\n"
-"POT-Creation-Date: 2024-12-06T02:19:02+00:00\n"
-"PO-Revision-Date: 2024-12-06 09:31+0700\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/yaypricing-edd\n"
+"POT-Creation-Date: 2025-06-16T03:04:36+00:00\n"
+"PO-Revision-Date: 2025-06-16 10:13+0700\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: cs\n"
@@ -18,13 +18,15 @@ msgstr ""
 
 #. Plugin Name of the plugin
 #, fuzzy
-msgid "YayPricing Lite - WooCommerce Dynamic Pricing And Discounts"
-msgstr "YayPricing Lite - WooCommerce Dynamické ceny a slevy"
+msgid "YayPricing Pro - WooCommerce Dynamic Pricing And Discounts"
+msgstr "YayPricing Pro - WooCommerce Dynamické ceny a slevy"
 
 #. Plugin URI of the plugin
 #, fuzzy
-msgid "https://wordpress.org/plugins/yaypricing/"
-msgstr "https://wordpress.org/plugins/yaypricing/"
+msgid ""
+"https://yaycommerce.com/yaypricing-woocommerce-dynamic-pricing-and-discounts/"
+msgstr ""
+"https://yaycommerce.com/yaypricing-woocommerce-dynamic-pricing-and-discounts/"
 
 #. Description of the plugin
 #, fuzzy
@@ -46,7 +48,7 @@ msgid "https://yaycommerce.com/"
 msgstr "https://yaycommerce.com/"
 
 #: includes/admin/class-yaydp-admin-menus.php:33
-#: includes/yaycommercemenu/class-register-menu.php:175
+#: includes/yaycommercemenu/class-register-menu.php:155
 #, fuzzy
 msgid "YayPricing"
 msgstr "YayCeník"
@@ -56,10 +58,15 @@ msgstr "YayCeník"
 msgid "YayPricing Report"
 msgstr "Zpráva o cenách YayPricing"
 
-#: includes/admin/class-yaydp-order-manager.php:32
+#: includes/admin/class-yaydp-order-manager.php:39
 #, fuzzy
 msgid "YayPricing applied rules:"
 msgstr "Pravidla použitá pro YayPricing :"
+
+#: includes/admin/class-yaydp-order-manager.php:103
+#, fuzzy
+msgid "Saved Amount:"
+msgstr "Úsporná částka"
 
 #. Translators: %s: search WooCommerce plugin link.
 #: includes/admin/views/html-notice-require-wc.php:5
@@ -81,156 +88,199 @@ msgstr ""
 "verzi PHP %1$s. Obraťte se prosím na svého hostitele a požádejte o upgrade "
 "PHP na nejnovější verzi."
 
-#: includes/class-yaydp-ajax.php:31
+#: includes/api/models/class-yaydp-data-model.php:73
+msgid "Custom"
+msgstr "Vlastní"
+
+#: includes/class-yaydp-ajax.php:34 includes/class-yaydp-ajax.php:73
 #, fuzzy
 msgid "Verify nonce failed"
 msgstr "Ověření nonce se nezdařilo"
 
+#: includes/class-yaydp-ajax.php:90
+#: includes/core/encouraged-notice/class-yaydp-product-pricing-encouraged-notice-handler.php:209
+msgid "Free gift added"
+msgstr "Dárek zdarma přidán"
+
+#: includes/class-yaydp-change-free-products.php:37
+#: includes/class-yaydp-change-free-products.php:194
+msgid "Change"
+msgstr "Změnit"
+
+#: includes/class-yaydp-change-free-products.php:175
+msgid "Validation failed"
+msgstr "Validace neúspěšná"
+
+#: includes/class-yaydp-change-free-products.php:208
+#, fuzzy
+msgid "Change Free Products"
+msgstr "Změnit produkty zdarma"
+
+#: includes/class-yaydp-change-free-products.php:215
+msgid "Suggested"
+msgstr "Navržené"
+
+#: includes/class-yaydp-change-free-products.php:216
+msgid "Relative"
+msgstr "Příbuzné"
+
+#: includes/class-yaydp-change-free-products.php:217
+#: includes/class-yaydp-i18n.php:384
+msgid "All"
+msgstr "Vše"
+
+#: includes/class-yaydp-change-free-products.php:232
+msgid "Close this dialog window"
+msgstr "Zavře toto dialogové okno."
+
+#: includes/class-yaydp-change-free-products.php:232
+msgid "Close"
+msgstr "Zavřít"
+
+#: includes/class-yaydp-change-free-products.php:233
+msgid "Save"
+msgstr "Uložit"
+
+#: includes/class-yaydp-enqueue-frontend.php:92
+msgid "days"
+msgstr "dny"
+
+#: includes/class-yaydp-enqueue-frontend.php:93
+msgid "hours"
+msgstr "hodin"
+
+#: includes/class-yaydp-enqueue-frontend.php:94
+msgid "mins"
+msgstr "minut"
+
+#: includes/class-yaydp-enqueue-frontend.php:95
+msgid "secs"
+msgstr "sekund"
+
 #: includes/class-yaydp-i18n.php:35
-msgid "Last 7 days"
-msgstr "Posledních 7 dní"
-
-#: includes/class-yaydp-i18n.php:36
-msgid "Product Pricing"
-msgstr "Ceny produktů"
-
-#: includes/class-yaydp-i18n.php:37
-msgid "Cart Discount"
-msgstr "Sleva na košík"
-
-#: includes/class-yaydp-i18n.php:38
-#, fuzzy
-msgid "Checkout Fee"
-msgstr "Poplatek za pokladnu"
-
-#: includes/class-yaydp-i18n.php:39
-msgid "Time"
-msgstr "Čas"
-
-#: includes/class-yaydp-i18n.php:40
-#, fuzzy
-msgid "Split rule"
-msgstr "Pravidlo rozdělení"
-
-#: includes/class-yaydp-i18n.php:41
 msgid "Fixed Discount"
 msgstr "Pevná sleva"
 
-#: includes/class-yaydp-i18n.php:42
+#: includes/class-yaydp-i18n.php:36
 #, fuzzy
 msgid "Percentage Discount"
 msgstr "Procentuální sleva"
 
-#: includes/class-yaydp-i18n.php:43
+#: includes/class-yaydp-i18n.php:37
 #, fuzzy
 msgid "Fixed Fee"
 msgstr "Pevný poplatek"
 
-#: includes/class-yaydp-i18n.php:44
+#: includes/class-yaydp-i18n.php:38
 #, fuzzy
 msgid "Percentage Fee"
 msgstr "Procentuální poplatek"
 
-#: includes/class-yaydp-i18n.php:45
+#: includes/class-yaydp-i18n.php:39
 #, fuzzy
 msgid "Reduce Shipping Fee"
 msgstr "Snižte poplatek za dopravu"
 
-#: includes/class-yaydp-i18n.php:46
+#: includes/class-yaydp-i18n.php:40
 #, fuzzy
 msgid "Add Custom Fee"
 msgstr "Přidat vlastní poplatek"
 
-#: includes/class-yaydp-i18n.php:47
+#: includes/class-yaydp-i18n.php:41
 #, fuzzy
 msgid "Add Custom Fee based on Shipping Fee"
 msgstr "Přidejte vlastní poplatek na základě poplatku za dopravu"
 
-#: includes/class-yaydp-i18n.php:48
+#: includes/class-yaydp-i18n.php:42
 #, fuzzy
 msgid "Sample rule"
 msgstr "Ukázkové pravidlo"
 
-#: includes/class-yaydp-i18n.php:49
+#: includes/class-yaydp-i18n.php:43
 msgid "You"
 msgstr "Vy"
 
-#: includes/class-yaydp-i18n.php:50
+#: includes/class-yaydp-i18n.php:44
+#, fuzzy
+msgid "Sample collection"
+msgstr "Ukázkové pravidlo"
+
+#: includes/class-yaydp-i18n.php:45
 #, fuzzy
 msgid "Simple Adjustment"
 msgstr "Jednoduché nastavení"
 
-#: includes/class-yaydp-i18n.php:51
+#: includes/class-yaydp-i18n.php:46
 #, fuzzy
 msgid "Bulk Pricing"
 msgstr "Hromadné ceny"
 
-#: includes/class-yaydp-i18n.php:52
+#: includes/class-yaydp-i18n.php:47
 msgid "Product Bundle"
 msgstr "Balíček produktů"
 
-#: includes/class-yaydp-i18n.php:53
+#: includes/class-yaydp-i18n.php:48
 #, fuzzy
 msgid "BOGO (same product)"
 msgstr "BOGO (stejný produkt)"
 
-#: includes/class-yaydp-i18n.php:54
+#: includes/class-yaydp-i18n.php:49
 #, fuzzy
 msgid "Buy X get Y"
 msgstr "Koupit X Získejte Y"
 
-#: includes/class-yaydp-i18n.php:55
+#: includes/class-yaydp-i18n.php:50
 #, fuzzy
 #| msgid "Product Pricing"
 msgid "Tiered Pricing"
 msgstr "Ceny produktů"
 
-#: includes/class-yaydp-i18n.php:56
+#: includes/class-yaydp-i18n.php:51
 #, fuzzy
 #| msgid "Product"
 msgid "Product Fee"
 msgstr "Produkt"
 
-#: includes/class-yaydp-i18n.php:57
+#: includes/class-yaydp-i18n.php:52
 #, fuzzy
 msgid "Flat Price"
 msgstr "Paušální cena"
 
-#: includes/class-yaydp-i18n.php:58
+#: includes/class-yaydp-i18n.php:53
 #, fuzzy
 msgid "All together"
 msgstr "Všichni dohromady"
 
-#: includes/class-yaydp-i18n.php:59
+#: includes/class-yaydp-i18n.php:54
 #, fuzzy
 msgid "Item quantity in each cart line"
 msgstr "Množství položky v každé řadě košíku"
 
-#: includes/class-yaydp-i18n.php:60
+#: includes/class-yaydp-i18n.php:55
 #, fuzzy
 msgid "Each single product/variable products"
 msgstr "Každý jednotlivý produkt/variabilní produkt"
 
-#: includes/class-yaydp-i18n.php:61
+#: includes/class-yaydp-i18n.php:56
 msgid "Purchase history"
 msgstr "Historie nákupů"
 
-#: includes/class-yaydp-i18n.php:62
+#: includes/class-yaydp-i18n.php:57
 #, fuzzy
 msgid "Customer order count"
 msgstr "Počet objednávek zákazníků"
 
-#: includes/class-yaydp-i18n.php:63
+#: includes/class-yaydp-i18n.php:58
 #, fuzzy
 msgid "Number of all the orders they have placed in the past."
 msgstr "Počet všech objednávek, které v minulosti zadali."
 
-#: includes/class-yaydp-i18n.php:64
+#: includes/class-yaydp-i18n.php:59
 #, fuzzy
-msgid "Order count from last discount"
+msgid "Orders since last discount"
 msgstr "Počet objednávek od poslední slevy"
 
-#: includes/class-yaydp-i18n.php:65
+#: includes/class-yaydp-i18n.php:60
 #, fuzzy
 msgid ""
 "Number of orders counted from the last time they got a discount from "
@@ -238,299 +288,318 @@ msgid ""
 msgstr ""
 "Počet objednávek započítaných od posledního získání slevy z YayPricing."
 
-#: includes/class-yaydp-i18n.php:66
+#: includes/class-yaydp-i18n.php:61
 #, fuzzy
 msgid "Previous purchase date"
 msgstr "Datum předchozího nákupu"
 
-#: includes/class-yaydp-i18n.php:67
+#: includes/class-yaydp-i18n.php:62
 #, fuzzy
 msgid "Purchase date of orders placed in the past."
 msgstr "Datum nákupu objednávek podaných v minulosti."
 
-#: includes/class-yaydp-i18n.php:68
+#: includes/class-yaydp-i18n.php:63
 #, fuzzy
-msgid "Order history product"
+msgid "Past order - product"
 msgstr "Produkt historie objednávek"
 
-#: includes/class-yaydp-i18n.php:69
+#: includes/class-yaydp-i18n.php:64
 #, fuzzy
 msgid "Purchased products in a specific order."
 msgstr "Zakoupené produkty v konkrétní objednávce."
 
-#: includes/class-yaydp-i18n.php:70
+#: includes/class-yaydp-i18n.php:65
 #, fuzzy
-msgid "Order history category"
+msgid "Past order - category"
 msgstr "Kategorie historie objednávek"
 
-#: includes/class-yaydp-i18n.php:71
+#: includes/class-yaydp-i18n.php:66
 #, fuzzy
 msgid "Purchased product categories in a specific order."
 msgstr "Zakoupené kategorie produktů v konkrétní objednávce."
 
-#: includes/class-yaydp-i18n.php:72
+#: includes/class-yaydp-i18n.php:67
 #, fuzzy
 msgid "Purchased products (lifetime)"
 msgstr "Zakoupené produkty (životnost)"
 
-#: includes/class-yaydp-i18n.php:73
+#: includes/class-yaydp-i18n.php:68
 #, fuzzy
 msgid "Purchased products among all the orders they have placed in the past."
 msgstr "Zakoupené produkty mezi všemi objednávkami, které zadali v minulosti."
 
-#: includes/class-yaydp-i18n.php:74
+#: includes/class-yaydp-i18n.php:69
 #, fuzzy
-msgid "Account create time"
+msgid "Account age"
 msgstr "Čas vytvoření účtu"
 
-#: includes/class-yaydp-i18n.php:75
+#: includes/class-yaydp-i18n.php:70
 #, fuzzy
 msgid "Account lifetime from the time they are created"
 msgstr "Životnost účtu od okamžiku jeho vytvoření"
 
-#: includes/class-yaydp-i18n.php:76
+#: includes/class-yaydp-i18n.php:71
 msgid "Cart"
 msgstr "Košík"
 
-#: includes/class-yaydp-i18n.php:77
+#: includes/class-yaydp-i18n.php:72
 #, fuzzy
 msgid "Cart subtotal price"
 msgstr "Mezisoučet košíku Cena"
 
-#: includes/class-yaydp-i18n.php:78
+#: includes/class-yaydp-i18n.php:73
 #, fuzzy
 msgid "Cart quantity"
 msgstr "Množství košíku"
 
-#: includes/class-yaydp-i18n.php:79
+#: includes/class-yaydp-i18n.php:74
 #, fuzzy
 msgid "Cart total weight"
 msgstr "Celková hmotnost košíku"
 
-#: includes/class-yaydp-i18n.php:80
-msgid "Cart Items"
+#: includes/class-yaydp-i18n.php:75
+msgid "Cart items"
 msgstr "Zvolené služby"
 
-#: includes/class-yaydp-i18n.php:81
+#: includes/class-yaydp-i18n.php:76
 #, fuzzy
 msgid "Cart item - product"
 msgstr "Položka košíku - produkt"
 
-#: includes/class-yaydp-i18n.php:82
+#: includes/class-yaydp-i18n.php:77
 #, fuzzy
 msgid "Cart item - variation"
 msgstr "Položka košíku - varianta"
 
-#: includes/class-yaydp-i18n.php:83
+#: includes/class-yaydp-i18n.php:78
 #, fuzzy
 msgid "Cart item - attribute taxonomies"
 msgstr "Položka košíku - varianta"
 
-#: includes/class-yaydp-i18n.php:84
+#: includes/class-yaydp-i18n.php:79
 #, fuzzy
 msgid "Cart item - category"
 msgstr "Položka košíku - kategorie"
 
-#: includes/class-yaydp-i18n.php:85
+#: includes/class-yaydp-i18n.php:80
 #, fuzzy
 msgid "Cart item - tag"
 msgstr "Položka košíku - štítek"
 
-#: includes/class-yaydp-i18n.php:86
+#: includes/class-yaydp-i18n.php:81
+#, fuzzy
+msgid "Cart item - regular price"
+msgstr "Položka košíku - produkt"
+
+#: includes/class-yaydp-i18n.php:82
 msgid "Customer"
 msgstr "Zákazník"
 
-#: includes/class-yaydp-i18n.php:87
+#: includes/class-yaydp-i18n.php:83
 #, fuzzy
-msgid "Is logged in customer"
+msgid "Login status"
 msgstr "Je přihlášen jako zákazník"
 
-#: includes/class-yaydp-i18n.php:88
+#: includes/class-yaydp-i18n.php:84
 #, fuzzy
 msgid "Customer role"
 msgstr "Role zákazníka"
 
-#: includes/class-yaydp-i18n.php:89
+#: includes/class-yaydp-i18n.php:85
 #, fuzzy
 msgid "Specific customer"
 msgstr "Konkrétní zákazník"
 
-#: includes/class-yaydp-i18n.php:90
-msgid "Others"
-msgstr "Ostatní"
+#: includes/class-yaydp-i18n.php:86
+msgid "Checkout"
+msgstr ""
 
-#: includes/class-yaydp-i18n.php:91
+#: includes/class-yaydp-i18n.php:87
 #, fuzzy
 msgid "Shipping region"
 msgstr "Oblast dodání"
 
-#: includes/class-yaydp-i18n.php:92
+#: includes/class-yaydp-i18n.php:88
 #, fuzzy
 msgid "Billing region"
 msgstr "Oblast dodání"
 
-#: includes/class-yaydp-i18n.php:93
+#: includes/class-yaydp-i18n.php:89
 msgid "Payment method"
 msgstr "Způsob platby"
 
-#: includes/class-yaydp-i18n.php:94
+#: includes/class-yaydp-i18n.php:90
+msgid "Shipping method"
+msgstr "Způsob dopravy"
+
+#: includes/class-yaydp-i18n.php:91
+#, fuzzy
+msgid "Cart item - shipping class"
+msgstr "Položka košíku - varianta"
+
+#: includes/class-yaydp-i18n.php:92
+#, fuzzy
+msgid "Coupon used"
+msgstr "Uplatněné kupóny"
+
+#: includes/class-yaydp-i18n.php:93
 #, fuzzy
 msgid "Combination"
 msgstr "Kombinace"
 
-#: includes/class-yaydp-i18n.php:95
+#: includes/class-yaydp-i18n.php:94
 #, fuzzy
 msgid "Combined condition"
 msgstr "Kombinovaná podmínka"
 
-#: includes/class-yaydp-i18n.php:96
+#: includes/class-yaydp-i18n.php:95
 #, fuzzy
-msgid "Applied coupons"
-msgstr "Uplatněné kupóny"
-
-#: includes/class-yaydp-i18n.php:97
-#, fuzzy
-msgid "Total shipping fee"
+msgid "Shipping total"
 msgstr "Celkový poplatek za dopravu"
 
-#: includes/class-yaydp-i18n.php:98
+#: includes/class-yaydp-i18n.php:96
 #, fuzzy
 msgid "Items - Product"
 msgstr "Předměty - Produkt"
 
-#: includes/class-yaydp-i18n.php:99
+#: includes/class-yaydp-i18n.php:97
 #, fuzzy
 msgid "Items - Category"
 msgstr "Předměty - Kategorie"
 
-#: includes/class-yaydp-i18n.php:100
+#: includes/class-yaydp-i18n.php:98
 #, fuzzy
-msgid "Combined items"
+msgid "Items - Tag"
+msgstr "Předměty - Kategorie"
+
+#: includes/class-yaydp-i18n.php:99
+#, fuzzy
+msgid "Item totals"
 msgstr "Kombinované položky"
 
-#: includes/class-yaydp-i18n.php:101
+#: includes/class-yaydp-i18n.php:100
 #, fuzzy
 msgid "Items - Quantity"
 msgstr "Položky - množství"
 
-#: includes/class-yaydp-i18n.php:102
+#: includes/class-yaydp-i18n.php:101
 #, fuzzy
 msgid "Items - Subtotal price"
 msgstr "Položky - mezisoučet ceny"
 
+#: includes/class-yaydp-i18n.php:102
+#, fuzzy
+msgid "Contains all of"
+msgstr "Obsahovat vše"
+
 #: includes/class-yaydp-i18n.php:103
 #, fuzzy
-msgid "Contain all"
-msgstr "Obsahovat vše"
+msgid "Contains any of"
+msgstr "Obsahovat v seznamu"
 
 #: includes/class-yaydp-i18n.php:104
 #, fuzzy
-msgid "Contain in list"
-msgstr "Obsahovat v seznamu"
-
-#: includes/class-yaydp-i18n.php:105
-#, fuzzy
-msgid "Not contain in list"
+msgid "Does not contain"
 msgstr "Neobsahují v seznamu"
 
-#: includes/class-yaydp-i18n.php:106
+#: includes/class-yaydp-i18n.php:105
 msgid "Greater than"
 msgstr "Větší než"
 
-#: includes/class-yaydp-i18n.php:107
+#: includes/class-yaydp-i18n.php:106
 msgid "Less than"
 msgstr "Méně než"
 
-#: includes/class-yaydp-i18n.php:108
-msgid "Greater than or equal"
+#: includes/class-yaydp-i18n.php:107
+msgid "Greater than or equal to"
 msgstr "Větší než nebo rovno"
 
-#: includes/class-yaydp-i18n.php:109
-msgid "Less than or equal"
+#: includes/class-yaydp-i18n.php:108
+msgid "Less than or equal to"
 msgstr "Méně než nebo rovno"
 
-#: includes/class-yaydp-i18n.php:110
+#: includes/class-yaydp-i18n.php:109
 #, fuzzy
 msgid "In list"
 msgstr "V seznamu"
 
-#: includes/class-yaydp-i18n.php:111
+#: includes/class-yaydp-i18n.php:110
 #, fuzzy
 msgid "Not in list"
 msgstr "Není v seznamu"
 
-#: includes/class-yaydp-i18n.php:112
+#: includes/class-yaydp-i18n.php:111
 msgid "Logged in"
 msgstr "Přihlášení"
 
-#: includes/class-yaydp-i18n.php:113
+#: includes/class-yaydp-i18n.php:112
 msgid "Not logged in"
 msgstr "Nepřihlášen"
 
-#: includes/class-yaydp-i18n.php:114
+#: includes/class-yaydp-i18n.php:113
 msgid "Before"
 msgstr "Před"
 
-#: includes/class-yaydp-i18n.php:115
+#: includes/class-yaydp-i18n.php:114
 msgid "After"
 msgstr "Po"
 
-#: includes/class-yaydp-i18n.php:116
+#: includes/class-yaydp-i18n.php:115
 msgid "On"
 msgstr "Zapnuto"
 
-#: includes/class-yaydp-i18n.php:117
+#: includes/class-yaydp-i18n.php:116
 #, fuzzy
 msgid "In range"
 msgstr "V dosahu"
 
-#: includes/class-yaydp-i18n.php:118
+#: includes/class-yaydp-i18n.php:117
 #, fuzzy
 #| msgid "Less than"
 msgid "Longer than"
 msgstr "Méně než"
 
-#: includes/class-yaydp-i18n.php:119
+#: includes/class-yaydp-i18n.php:118
 msgid "Within"
 msgstr "Uvnitř"
 
-#: includes/class-yaydp-i18n.php:120
+#: includes/class-yaydp-i18n.php:119
 msgid "Off"
 msgstr "Vypnuto"
 
-#: includes/class-yaydp-i18n.php:121
+#: includes/class-yaydp-i18n.php:120
 msgid "Weekly"
 msgstr "Týdně"
 
-#: includes/class-yaydp-i18n.php:122
+#: includes/class-yaydp-i18n.php:121
 msgid "Monthly"
 msgstr "Měsíčně"
 
-#: includes/class-yaydp-i18n.php:123
+#: includes/class-yaydp-i18n.php:122
 msgid "Yearly"
 msgstr "Ročně"
 
-#: includes/class-yaydp-i18n.php:124
+#: includes/class-yaydp-i18n.php:123
 #, fuzzy
 msgid "Product exclusions"
 msgstr "Vyloučení produktů"
 
-#: includes/class-yaydp-i18n.php:125
+#: includes/class-yaydp-i18n.php:124
 #, fuzzy
 msgid "Coupon exclusions"
 msgstr "Vyloučení kupónů"
 
-#: includes/class-yaydp-i18n.php:126
+#: includes/class-yaydp-i18n.php:125
 #, fuzzy
 msgid "Fixed Discount per Individual Cart Item"
 msgstr "Fixní sleva na jednotlivou položku košíku"
 
-#: includes/class-yaydp-i18n.php:127
+#: includes/class-yaydp-i18n.php:126
 #, fuzzy
 msgid "Your own campaign"
 msgstr "Vaše vlastní kampaň"
 
-#: includes/class-yaydp-i18n.php:128
+#: includes/class-yaydp-i18n.php:127
 #, fuzzy
 msgid ""
 "Refers to a tailored pricing or promotional strategy designed specifically "
@@ -539,7 +608,7 @@ msgstr ""
 "Odkazuje na přizpůsobenou cenovou nebo propagační strategii navrženou "
 "speciálně pro vaši firmu nebo nabídku produktů"
 
-#: includes/class-yaydp-i18n.php:129
+#: includes/class-yaydp-i18n.php:128
 #, fuzzy
 msgid ""
 "You want to run a special promotional campaign offering 50% off every item "
@@ -548,7 +617,7 @@ msgstr ""
 "Chcete spustit speciální propagační kampaň, která nabízí 50% off na každou "
 "položku ve vašem obchodě."
 
-#: includes/class-yaydp-i18n.php:130
+#: includes/class-yaydp-i18n.php:129
 #, fuzzy
 msgid ""
 "When the promotion is activated, all products in your store automatically "
@@ -557,42 +626,42 @@ msgstr ""
 "Po aktivaci propagační akce obdrží všechny produkty ve vašem obchodě po "
 "přidání do košíku automaticky 50% discount"
 
-#: includes/class-yaydp-i18n.php:131
+#: includes/class-yaydp-i18n.php:130
 #, fuzzy
 msgid "Eg:"
 msgstr "Např:"
 
-#: includes/class-yaydp-i18n.php:132
+#: includes/class-yaydp-i18n.php:131
 #, fuzzy
 msgid "T-shirt:"
 msgstr "Triko:"
 
-#: includes/class-yaydp-i18n.php:133
+#: includes/class-yaydp-i18n.php:132
 #, fuzzy
 msgid "Hoodie:"
 msgstr "Hoodie:"
 
-#: includes/class-yaydp-i18n.php:134
+#: includes/class-yaydp-i18n.php:133
 #, fuzzy
 msgid "Belt:"
 msgstr "Pás:"
 
-#: includes/class-yaydp-i18n.php:135
+#: includes/class-yaydp-i18n.php:134
 #, fuzzy
 msgid "Sale 50% all products"
 msgstr "Výprodej 50% all produktů"
 
-#: includes/class-yaydp-i18n.php:136
+#: includes/class-yaydp-i18n.php:135
 #, fuzzy
 msgid "Sale 10$ all products"
 msgstr "Výprodej 50% all produktů"
 
-#: includes/class-yaydp-i18n.php:137
+#: includes/class-yaydp-i18n.php:136
 #, fuzzy
 msgid "Sale [discount_value] all products"
 msgstr "Výprodej [discount_value] všechny produkty"
 
-#: includes/class-yaydp-i18n.php:138
+#: includes/class-yaydp-i18n.php:137
 #, fuzzy
 msgid ""
 "You want to run a special promotional campaign offering 10$ off every item "
@@ -601,7 +670,7 @@ msgstr ""
 "Chcete spustit speciální propagační kampaň nabízející 10 $ slevu na každou "
 "položku ve vašem obchodě."
 
-#: includes/class-yaydp-i18n.php:139
+#: includes/class-yaydp-i18n.php:138
 #, fuzzy
 msgid ""
 "When the promotion is activated, all products in your store automatically "
@@ -610,25 +679,25 @@ msgstr ""
 "Když je akce aktivována, všechny produkty ve vašem obchodě automaticky "
 "obdrží slevu 10 $ po přidání do košíku"
 
-#: includes/class-yaydp-i18n.php:140
+#: includes/class-yaydp-i18n.php:139
 msgid "Hoodie"
 msgstr "Mikina"
 
-#: includes/class-yaydp-i18n.php:141
+#: includes/class-yaydp-i18n.php:140
 msgid "Belt"
 msgstr "Pás"
 
-#: includes/class-yaydp-i18n.php:142
+#: includes/class-yaydp-i18n.php:141
 #, fuzzy
 msgid "Buy 3 get 1 free item"
 msgstr "Kup 3 a dostaneš 1 položku zdarma"
 
-#: includes/class-yaydp-i18n.php:143
+#: includes/class-yaydp-i18n.php:142
 #, fuzzy
 msgid "Get this free when buy 3 item"
 msgstr "Získejte to zdarma při nákupu 3 položek"
 
-#: includes/class-yaydp-i18n.php:144
+#: includes/class-yaydp-i18n.php:143
 #, fuzzy
 msgid ""
 "Rewards customers with a free item after purchasing a specified quantity of "
@@ -636,7 +705,7 @@ msgid ""
 msgstr ""
 "Odměňuje zákazníky položkou zdarma po zakoupení určitého množství produktů."
 
-#: includes/class-yaydp-i18n.php:145
+#: includes/class-yaydp-i18n.php:144
 #, fuzzy
 msgid ""
 "In this case, customers who buy 3 items will receive an additional item for "
@@ -645,7 +714,7 @@ msgstr ""
 "V takovém případě zákazníci, kteří si koupí 3 položky, obdrží další položku "
 "zdarma."
 
-#: includes/class-yaydp-i18n.php:146
+#: includes/class-yaydp-i18n.php:145
 #, fuzzy
 msgid ""
 "For every 3 clothing purchased, a free same type clothing is added to the "
@@ -654,31 +723,31 @@ msgstr ""
 "Za každé 3 zakoupené oblečení je do košíku automaticky přidáno bezplatné "
 "oblečení stejného typu."
 
-#: includes/class-yaydp-i18n.php:147
+#: includes/class-yaydp-i18n.php:146
 #, fuzzy
 msgid "Total items in cart:"
 msgstr "Celkový počet položek v košíku:"
 
-#: includes/class-yaydp-i18n.php:148
+#: includes/class-yaydp-i18n.php:147
 msgid "Gift"
 msgstr "Dárek"
 
-#: includes/class-yaydp-i18n.php:149
+#: includes/class-yaydp-i18n.php:148
 #, fuzzy
 msgid "Sale 30% from the third item"
 msgstr "Výprodej 30% fz třetí položky"
 
-#: includes/class-yaydp-i18n.php:150
+#: includes/class-yaydp-i18n.php:149
 #, fuzzy
 msgid "Discount [discount_value] off from 3rd item"
 msgstr "Sleva [discount_value] sleva na 3. položku"
 
-#: includes/class-yaydp-i18n.php:151
+#: includes/class-yaydp-i18n.php:150
 #, fuzzy
 msgid "You will get 30% off when buy from 3 items"
 msgstr "Získáte 30% off při nákupu od 3 položek"
 
-#: includes/class-yaydp-i18n.php:152
+#: includes/class-yaydp-i18n.php:151
 #, fuzzy
 msgid ""
 "Provides a 30% discount on specific product when they purchase 3 or more "
@@ -686,7 +755,7 @@ msgid ""
 msgstr ""
 "Poskytuje 30% discount na konkrétní produkt při nákupu 3 nebo více položek."
 
-#: includes/class-yaydp-i18n.php:153
+#: includes/class-yaydp-i18n.php:152
 #, fuzzy
 msgid ""
 "An store could offer a 30% discount for a purchased clothing type when "
@@ -695,22 +764,22 @@ msgstr ""
 "Obchod může nabídnout 30% discount za zakoupený typ oblečení, když si "
 "zákazníci koupí 3 nebo více."
 
-#: includes/class-yaydp-i18n.php:154
+#: includes/class-yaydp-i18n.php:153
 msgid "Discounted"
 msgstr "Slevněno"
 
-#: includes/class-yaydp-i18n.php:155
+#: includes/class-yaydp-i18n.php:154
 #, fuzzy
 #| msgid "Black Friday"
 msgid "Black Friday Event"
 msgstr "Černý pátek"
 
-#: includes/class-yaydp-i18n.php:156
+#: includes/class-yaydp-i18n.php:155
 #, fuzzy
 msgid "Today is Black Friday, so you will get 70% off when buy all products"
 msgstr "Dnes je Black Friday, takže při nákupu všech produktů získáte 70% off"
 
-#: includes/class-yaydp-i18n.php:157
+#: includes/class-yaydp-i18n.php:156
 #, fuzzy
 msgid ""
 "The Black Friday Event campaign is a one-time, annual promotion that starts "
@@ -719,14 +788,14 @@ msgstr ""
 "Kampaň Black Friday Event je jednorázová každoroční propagační akce, která "
 "začíná příštím Black Friday (letos pátek po Dni díkůvzdání)."
 
-#: includes/class-yaydp-i18n.php:158
+#: includes/class-yaydp-i18n.php:157
 #, fuzzy
 msgid ""
 "Campaign will add a schedule in this rule to detect the next Black Friday."
 msgstr ""
 "Kampaň do tohoto pravidla přidá plán pro detekci příštího Black Friday."
 
-#: includes/class-yaydp-i18n.php:159
+#: includes/class-yaydp-i18n.php:158
 #, fuzzy
 msgid ""
 "A clothing store could offer up to 70% off on all items and run flash sales "
@@ -735,17 +804,17 @@ msgstr ""
 "Obchod s oblečením by mohl nabízet až 70% off na všechny položky a "
 "provozovat bleskové výprodeje na doplňky, jako jsou šály a rukavice."
 
-#: includes/class-yaydp-i18n.php:160
+#: includes/class-yaydp-i18n.php:159
 #, fuzzy
 msgid "Buy 1 get 50% off the second one"
 msgstr "Kupte 1 a získejte 50% off druhého"
 
-#: includes/class-yaydp-i18n.php:161
+#: includes/class-yaydp-i18n.php:160
 #, fuzzy
 msgid "You will get 50% off when buy the this product"
-msgstr "Při nákupu tohoto produktu získáte 50% off"
+msgstr "Při koupi tohoto produktu získáte 50% off"
 
-#: includes/class-yaydp-i18n.php:162
+#: includes/class-yaydp-i18n.php:161
 #, fuzzy
 msgid ""
 "Promotion that allows customers to purchase one item at full price and "
@@ -754,27 +823,27 @@ msgstr ""
 "Propagační akce, která zákazníkům umožňuje zakoupit jednu položku za plnou "
 "cenu a získat stejnou druhou položku za 50% off."
 
-#: includes/class-yaydp-i18n.php:163
+#: includes/class-yaydp-i18n.php:162
 #, fuzzy
 msgid "Customers buy 1 T-Shirt at full price and get a second one at 50% off."
 msgstr "Zákazník si koupí 1 tričko za plnou cenu a druhé získá za 50% off."
 
-#: includes/class-yaydp-i18n.php:164
+#: includes/class-yaydp-i18n.php:163
 #, fuzzy
 msgid "Buy X get Y with discount"
 msgstr "Kupte X a získejte Y se slevou"
 
-#: includes/class-yaydp-i18n.php:165
+#: includes/class-yaydp-i18n.php:164
 #, fuzzy
 msgid "Discount [discount_value] off"
 msgstr "Sleva [discount_value] sleva"
 
-#: includes/class-yaydp-i18n.php:166
+#: includes/class-yaydp-i18n.php:165
 #, fuzzy
 msgid "You will get [discount_value] discount when buy 1 item of this product"
 msgstr "Slevu [discount_value] získáte při nákupu 1 kusu tohoto produktu"
 
-#: includes/class-yaydp-i18n.php:167
+#: includes/class-yaydp-i18n.php:166
 #, fuzzy
 msgid ""
 "Campaign allows customers to purchase a specific product (X) and receive a "
@@ -784,14 +853,14 @@ msgstr ""
 "určitého množství jednoho produktu (X), aby získali jiný produkt (Y) se "
 "slevou nebo zdarma."
 
-#: includes/class-yaydp-i18n.php:168
+#: includes/class-yaydp-i18n.php:167
 #, fuzzy
 msgid "Buy a Hoodie (Product X) and get a T-shirt (Product Y) at 10$ off."
 msgstr ""
 "Kupte si mikinu s kapucí (produkt X) a získejte tričko (produkt Y) se slevou "
 "10 $."
 
-#: includes/class-yaydp-i18n.php:169
+#: includes/class-yaydp-i18n.php:168
 #, fuzzy
 msgid ""
 "For a limited time, get 50% off when you purchase any 3 selected items in a "
@@ -800,7 +869,7 @@ msgstr ""
 "Po omezenou dobu získáte 50% off při nákupu libovolných 3 vybraných položek "
 "v balíčku."
 
-#: includes/class-yaydp-i18n.php:170
+#: includes/class-yaydp-i18n.php:169
 #, fuzzy
 msgid ""
 "Select 3 items from our curated package options and receive 50% off the "
@@ -809,22 +878,22 @@ msgstr ""
 "Vyberte si 3 položky z našich vybraných možností balíčků a získejte 50% off "
 "běžné ceny 3 položek v balíčku."
 
-#: includes/class-yaydp-i18n.php:171
+#: includes/class-yaydp-i18n.php:170
 #, fuzzy
 msgid "Package includes Hoodie, T-Shirt, Cap, ..."
 msgstr "Balení obsahuje mikinu, tričko, čepici, ..."
 
-#: includes/class-yaydp-i18n.php:172
+#: includes/class-yaydp-i18n.php:171
 #, fuzzy
 msgid "Sale 50% off 3 items in package"
 msgstr "Výprodej 50% off 3 ks v balení"
 
-#: includes/class-yaydp-i18n.php:173
+#: includes/class-yaydp-i18n.php:172
 #, fuzzy
 msgid "Sale 30% on the third item"
 msgstr "Výprodej 30% fz třetí položky"
 
-#: includes/class-yaydp-i18n.php:174
+#: includes/class-yaydp-i18n.php:173
 #, fuzzy
 msgid ""
 "Provides a 30% discount on a customer’s entire order when they purchase 3 or "
@@ -833,12 +902,12 @@ msgstr ""
 "Poskytuje 30% discount na celou objednávku zákazníka při nákupu 3 nebo více "
 "položek."
 
-#: includes/class-yaydp-i18n.php:175
+#: includes/class-yaydp-i18n.php:174
 #, fuzzy
 msgid "Store could offer a 30% discount for the 3rd purchased T-Shirt or Cap"
 msgstr "Obchod může nabídnout 30% discount za 3. zakoupené tričko nebo čepici"
 
-#: includes/class-yaydp-i18n.php:176
+#: includes/class-yaydp-i18n.php:175
 #, fuzzy
 msgid ""
 "Flexible promotional offer that allows you to apply a discount to the entire "
@@ -847,35 +916,35 @@ msgstr ""
 "Flexibilní propagační nabídka, která vám umožní uplatnit slevu na celý "
 "nákupní košík na základě vlastních pravidel, která si sami definujete."
 
-#: includes/class-yaydp-i18n.php:177
+#: includes/class-yaydp-i18n.php:176
 #, fuzzy
 msgid "Apply 100$ discount to the whole cart."
 msgstr "Přidejte [discount_value] do objednávky"
 
-#: includes/class-yaydp-i18n.php:178
+#: includes/class-yaydp-i18n.php:177
 #, fuzzy
 msgid "Cart subtotal:"
 msgstr "Mezisoučet košíku Cena"
 
-#: includes/class-yaydp-i18n.php:179
+#: includes/class-yaydp-i18n.php:178
 msgid "Discount:"
 msgstr "Sleva:"
 
-#: includes/class-yaydp-i18n.php:180
+#: includes/class-yaydp-i18n.php:179
 msgid "Final total:"
 msgstr "Celková cena bez DPH:"
 
-#: includes/class-yaydp-i18n.php:181
+#: includes/class-yaydp-i18n.php:180
 #, fuzzy
 msgid "Discount 50% campaign"
 msgstr "Sleva 50% campaign"
 
-#: includes/class-yaydp-i18n.php:182
+#: includes/class-yaydp-i18n.php:181
 #, fuzzy
 msgid "Discount [discount_value] all cart"
 msgstr "Sleva [discount_value] celý košík"
 
-#: includes/class-yaydp-i18n.php:183
+#: includes/class-yaydp-i18n.php:182
 #, fuzzy
 msgid ""
 "Provides customers with a 50% discount on the total value of their shopping "
@@ -883,21 +952,21 @@ msgid ""
 msgstr ""
 "Poskytuje zákazníkům 50% discount na celkovou hodnotu jejich nákupního košíku"
 
-#: includes/class-yaydp-i18n.php:184
+#: includes/class-yaydp-i18n.php:183
 #, fuzzy
 msgid "Customer will receive a 50% discount."
 msgstr "Zákazník obdrží 50% discount."
 
-#: includes/class-yaydp-i18n.php:185
+#: includes/class-yaydp-i18n.php:184
 msgid "Discount"
 msgstr "Sleva"
 
-#: includes/class-yaydp-i18n.php:186
+#: includes/class-yaydp-i18n.php:185
 #, fuzzy
 msgid "campaign"
 msgstr "kampaň"
 
-#: includes/class-yaydp-i18n.php:187
+#: includes/class-yaydp-i18n.php:186
 #, fuzzy
 msgid ""
 "Provides customers with a 10$ discount on the total value of their shopping "
@@ -905,34 +974,34 @@ msgid ""
 msgstr ""
 "Poskytuje zákazníkům slevu 10 $ z celkové hodnoty jejich nákupního košíku"
 
-#: includes/class-yaydp-i18n.php:188
+#: includes/class-yaydp-i18n.php:187
 #, fuzzy
 msgid "Customer will receive a 10$ discount"
 msgstr "Počet objednávek zákazníků"
 
-#: includes/class-yaydp-i18n.php:189
+#: includes/class-yaydp-i18n.php:188
 #, fuzzy
 msgid "Black Friday campaign"
 msgstr "Kampaň na Black Friday"
 
-#: includes/class-yaydp-i18n.php:190
+#: includes/class-yaydp-i18n.php:189
 #, fuzzy
 msgid "Black friday discount! Discount [discount_value] all cart"
 msgstr "Sleva na Černý pátek! Sleva [discount_value] celý košík"
 
-#: includes/class-yaydp-i18n.php:191
+#: includes/class-yaydp-i18n.php:190
 #, fuzzy
 msgid "A clothing store could offer up to 100$ off cart totals on Black Friday"
 msgstr ""
 "Obchod s oblečením by mohl na Černý pátek nabídnout celkovou slevu až 100 $ "
 "z košíku"
 
-#: includes/class-yaydp-i18n.php:192
+#: includes/class-yaydp-i18n.php:191
 #, fuzzy
 msgid "Discount 10$ on the total when spending 100$"
 msgstr "Sleva 10$ z celkové částky při útratě 100$"
 
-#: includes/class-yaydp-i18n.php:193
+#: includes/class-yaydp-i18n.php:192
 #, fuzzy
 msgid ""
 "Provides customers with a 10$ discount on the total value of their shopping "
@@ -941,7 +1010,7 @@ msgstr ""
 "Poskytuje zákazníkům slevu 10 $ z celkové hodnoty jejich nákupního košíku "
 "při útratě 100 $"
 
-#: includes/class-yaydp-i18n.php:194
+#: includes/class-yaydp-i18n.php:193
 #, fuzzy
 msgid ""
 "If the customer has items worth $100 in their cart, they will receive a 10$ "
@@ -950,7 +1019,7 @@ msgstr ""
 "Pokud má zákazník ve svém košíku položky v hodnotě 100 $, obdrží slevu 10 $, "
 "takže jeho konečný košík bude mít celkovou hodnotu 90 $."
 
-#: includes/class-yaydp-i18n.php:195
+#: includes/class-yaydp-i18n.php:194
 #, fuzzy
 msgid ""
 "Promotion that allows you to apply a customized fee at checkout based on "
@@ -962,54 +1031,54 @@ msgstr ""
 "typických slev vám tato kampaň umožňuje za určitých podmínek přidat poplatek "
 "k objednávce zákazníka."
 
-#: includes/class-yaydp-i18n.php:196
+#: includes/class-yaydp-i18n.php:195
 #, fuzzy
 msgid "Apply 10$ extra fee to the order"
 msgstr "Uplatněte na objednávku příplatek 10 $"
 
-#: includes/class-yaydp-i18n.php:197
+#: includes/class-yaydp-i18n.php:196
 #, fuzzy
 msgid "Fee:"
 msgstr "Poplatek:"
 
-#: includes/class-yaydp-i18n.php:198
+#: includes/class-yaydp-i18n.php:197
 #, fuzzy
 msgid "Free shipping fee"
 msgstr "Poplatek za dopravu zdarma"
 
-#: includes/class-yaydp-i18n.php:199
+#: includes/class-yaydp-i18n.php:198
 #, fuzzy
 msgid "Get free shipping"
 msgstr "Získejte dopravu zdarma"
 
-#: includes/class-yaydp-i18n.php:200
+#: includes/class-yaydp-i18n.php:199
 #, fuzzy
 msgid ""
 "Offers customers free delivery on their orders under certain conditions."
 msgstr ""
 "Nabízí zákazníkům za určitých podmínek bezplatné doručení jejich objednávek."
 
-#: includes/class-yaydp-i18n.php:201
+#: includes/class-yaydp-i18n.php:200
 #, fuzzy
 msgid "Reduce shipping fee in order to customers get free on shipping."
 msgstr "Snižte poplatek za dopravu, aby zákazníci získali dopravu zdarma."
 
-#: includes/class-yaydp-i18n.php:202
+#: includes/class-yaydp-i18n.php:201
 #, fuzzy
 msgid "Shipping fee:"
 msgstr "Poplatek za dopravu zdarma"
 
-#: includes/class-yaydp-i18n.php:203
+#: includes/class-yaydp-i18n.php:202
 #, fuzzy
 msgid "Reduce 50% shipping fee for order below"
-msgstr "Snížit poplatek za objednávku pod 100 % shipping 50"
+msgstr "Snižte poplatek 50% shipping za objednávku níže "
 
-#: includes/class-yaydp-i18n.php:204
+#: includes/class-yaydp-i18n.php:203
 #, fuzzy
 msgid "Discount 50% of the shipping cost"
 msgstr "Sleva 50% oz nákladů na dopravu"
 
-#: includes/class-yaydp-i18n.php:205
+#: includes/class-yaydp-i18n.php:204
 #, fuzzy
 msgid ""
 "Offers a 50% discount on the shipping fee for customers who place orders "
@@ -1018,7 +1087,7 @@ msgstr ""
 "Nabízí 50% discount na poštovném pro zákazníky, kteří zadají objednávky v "
 "celkové hodnotě nižší než 100 $."
 
-#: includes/class-yaydp-i18n.php:206
+#: includes/class-yaydp-i18n.php:205
 #, fuzzy
 msgid ""
 "A customer spending $80 on kitchen utensils could have their $12 shipping "
@@ -1028,314 +1097,370 @@ msgstr ""
 "dopravu ve výši 12 USD snížen na 6 USD, což by ho povzbudilo k dokončení "
 "platby."
 
-#: includes/class-yaydp-i18n.php:207
+#: includes/class-yaydp-i18n.php:206
 msgid "Add"
 msgstr "Přidat"
 
-#: includes/class-yaydp-i18n.php:208
+#: includes/class-yaydp-i18n.php:207
 #, fuzzy
 msgid "fee to order"
 msgstr "Poplatek na objednávku"
 
-#: includes/class-yaydp-i18n.php:209
+#: includes/class-yaydp-i18n.php:208
 #, fuzzy
 msgid "Add [discount_value] to the order"
 msgstr "Přidejte [discount_value] do objednávky"
 
-#: includes/class-yaydp-i18n.php:210
+#: includes/class-yaydp-i18n.php:209
 #, fuzzy
 msgid "Automatically apply a $10 fee to a customer"
 msgstr "Automaticky uplatnit poplatek 10 USD na zákazníka"
 
-#: includes/class-yaydp-i18n.php:211
+#: includes/class-yaydp-i18n.php:210
 #, fuzzy
 msgid "A $10 fee is automatically added to the order."
 msgstr "K objednávce je automaticky přidán poplatek 10 USD."
 
-#: includes/class-yaydp-i18n.php:212
+#: includes/class-yaydp-i18n.php:211
 #, fuzzy
 msgid "Extra fee:"
 msgstr "Příplatky:"
 
-#: includes/class-yaydp-i18n.php:213
-msgid "Upgrade"
-msgstr "Upgrade"
+#: includes/class-yaydp-i18n.php:212
+#, fuzzy
+msgid "Custom collection"
+msgstr "Role zákazníka"
 
-#: includes/class-yaydp-i18n.php:214
+#: includes/class-yaydp-i18n.php:213
 msgid "Duplicate of"
 msgstr "Duplikát k"
 
+#: includes/class-yaydp-i18n.php:214
+msgid "Name"
+msgstr "Jméno"
+
 #: includes/class-yaydp-i18n.php:215
+#, fuzzy
+msgid "Collection name"
+msgstr "Název kolekce"
+
+#: includes/class-yaydp-i18n.php:216
+#, fuzzy
+msgid "Choose products to make your collection"
+msgstr "Vyberte si produkty do své kolekce"
+
+#: includes/class-yaydp-i18n.php:217
 #, fuzzy
 #| msgid "Before"
 msgid "Before "
 msgstr "Před"
 
-#: includes/class-yaydp-i18n.php:216
+#: includes/class-yaydp-i18n.php:218
 msgid "After "
 msgstr "Po"
 
-#: includes/class-yaydp-i18n.php:217
+#: includes/class-yaydp-i18n.php:219
 #, fuzzy
 msgid "Before Product short description"
 msgstr "Před Krátký popis produktu"
 
-#: includes/class-yaydp-i18n.php:218
+#: includes/class-yaydp-i18n.php:220
 #, fuzzy
 msgid "After Product short description"
 msgstr "Krátký popis po produktu"
 
-#: includes/class-yaydp-i18n.php:219
+#: includes/class-yaydp-i18n.php:221
 #, fuzzy
 msgid "Product meta start"
 msgstr "Meta start produktu"
 
-#: includes/class-yaydp-i18n.php:220
+#: includes/class-yaydp-i18n.php:222
 #, fuzzy
 msgid "Product meta end"
 msgstr "Konec meta produktu"
 
-#: includes/class-yaydp-i18n.php:221
+#: includes/class-yaydp-i18n.php:223
 msgid "None"
 msgstr "Žádný"
 
-#: includes/class-yaydp-i18n.php:222
+#: includes/class-yaydp-i18n.php:224
 #, fuzzy
 msgid "Style has been reset"
 msgstr "Styl byl resetován"
 
-#: includes/class-yaydp-i18n.php:223
+#: includes/class-yaydp-i18n.php:225
 #, fuzzy
 msgid "Quantity discounts"
 msgstr "Množstevní slevy"
 
-#: includes/class-yaydp-i18n.php:224
+#: includes/class-yaydp-i18n.php:226
+#: includes/templates/change-free-items.php:28
 msgid "Quantity"
 msgstr "Množství"
 
-#: includes/class-yaydp-i18n.php:225
+#: includes/class-yaydp-i18n.php:227
 msgid "Price"
 msgstr "Cena"
 
-#: includes/class-yaydp-i18n.php:226
+#: includes/class-yaydp-i18n.php:228
 msgid "Pricing table"
 msgstr "Cenová tabulka"
 
-#: includes/class-yaydp-i18n.php:227
+#: includes/class-yaydp-i18n.php:229
 msgid "Table position"
 msgstr "Umístění tabulky"
 
-#: includes/class-yaydp-i18n.php:228
+#: includes/class-yaydp-i18n.php:230
 msgid "Table title"
 msgstr "Název tabulky"
 
-#: includes/class-yaydp-i18n.php:229
+#: includes/class-yaydp-i18n.php:231
 #, fuzzy
 msgid "Ex: Quantity discounts"
 msgstr "Příklad: Množstevní slevy"
 
-#: includes/class-yaydp-i18n.php:230
+#: includes/class-yaydp-i18n.php:232
 #, fuzzy
 msgid "Quantity title"
 msgstr "Název množství"
 
-#: includes/class-yaydp-i18n.php:231
+#: includes/class-yaydp-i18n.php:233
 #, fuzzy
 msgid "Ex: Quantity"
 msgstr "Příklad: Množství"
 
-#: includes/class-yaydp-i18n.php:232
+#: includes/class-yaydp-i18n.php:234
 #, fuzzy
 msgid "Discount title"
 msgstr "Slevový titul"
 
-#: includes/class-yaydp-i18n.php:233
+#: includes/class-yaydp-i18n.php:235
 #, fuzzy
 msgid "Ex: Discount"
 msgstr "Příklad: Sleva"
 
-#: includes/class-yaydp-i18n.php:234
+#: includes/class-yaydp-i18n.php:236
 msgid "Price title"
 msgstr "Název ceny"
 
-#: includes/class-yaydp-i18n.php:235
+#: includes/class-yaydp-i18n.php:237
 #, fuzzy
 msgid "Ex: Price"
 msgstr "Příklad: Cena"
 
-#: includes/class-yaydp-i18n.php:236
+#: includes/class-yaydp-i18n.php:238
 msgid "Border color"
 msgstr "Barva ohraničení"
 
-#: includes/class-yaydp-i18n.php:237
+#: includes/class-yaydp-i18n.php:239
 msgid "Preview"
 msgstr "Náhled"
 
-#: includes/class-yaydp-i18n.php:238
+#: includes/class-yaydp-i18n.php:240
 msgid "Reset"
 msgstr "Resetovat"
 
-#: includes/class-yaydp-i18n.php:239
+#: includes/class-yaydp-i18n.php:241
 #, fuzzy
 msgid "Encourage notice"
 msgstr "Vybízt k upozornění"
 
-#: includes/class-yaydp-i18n.php:240
+#: includes/class-yaydp-i18n.php:242
+msgid "Product Pricing"
+msgstr "Ceny produktů"
+
+#: includes/class-yaydp-i18n.php:243
 #, fuzzy
 msgid "Show notices after product description to encourage purchasing"
-msgstr "Zobrazení upozornění za popisem produktu pro podporu nákupu"
+msgstr "Zobrazovat upozornění za popisem produktu pro podporu nákupu"
 
-#: includes/class-yaydp-i18n.php:241
+#: includes/class-yaydp-i18n.php:244
+#, fuzzy
+msgid "Show at bottom of Shop page and Product page"
+msgstr "Zobrazit v dolní části stránky obchodu a stránky produktu"
+
+#: includes/class-yaydp-i18n.php:245
+#, fuzzy
+msgid "Encouraged notice text"
+msgstr "Doporučený text upozornění"
+
+#: includes/class-yaydp-i18n.php:246
+msgid "Cart Discount"
+msgstr "Sleva na košík"
+
+#: includes/class-yaydp-i18n.php:247
 #, fuzzy
 msgid "Show notices at bottom of Cart page to encourage purchasing"
-msgstr "Zobrazení oznámení ve spodní části stránky košíku pro podporu nákupu"
+msgstr ""
+"Zobrazovat oznámení v dolní části stránky košíku a vybízet tak k nákupu"
 
-#: includes/class-yaydp-i18n.php:242
+#: includes/class-yaydp-i18n.php:248
+#, fuzzy
+msgid "Checkout Fee"
+msgstr "Poplatek za pokladnu"
+
+#: includes/class-yaydp-i18n.php:249
 #, fuzzy
 msgid "Show notices at bottom of Checkout page to encourage purchasing"
 msgstr "Zobrazení oznámení v dolní části stránky pokladny pro podporu nákupu"
 
-#: includes/class-yaydp-i18n.php:243
+#: includes/class-yaydp-i18n.php:250
 msgid "Import successfully"
 msgstr "Úspěšný import"
 
-#: includes/class-yaydp-i18n.php:244
+#: includes/class-yaydp-i18n.php:251
 msgid "Import failed"
 msgstr "Import selhal"
 
-#: includes/class-yaydp-i18n.php:245
+#: includes/class-yaydp-i18n.php:252
 msgid "Import/Export"
 msgstr "Import/Export"
 
-#: includes/class-yaydp-i18n.php:246
+#: includes/class-yaydp-i18n.php:253
 #, fuzzy
 msgid "Export rules"
 msgstr "Pravidla exportu"
 
-#: includes/class-yaydp-i18n.php:247
+#: includes/class-yaydp-i18n.php:254
 msgid "Choose file"
 msgstr "Zvolte soubor"
 
-#: includes/class-yaydp-i18n.php:248
+#: includes/class-yaydp-i18n.php:255
 msgid "Import"
 msgstr "Import"
 
-#: includes/class-yaydp-i18n.php:249
+#: includes/class-yaydp-i18n.php:256
 #, fuzzy
 msgid "Countdown timer"
 msgstr "Odpočítávací časovač"
 
-#: includes/class-yaydp-i18n.php:250
+#: includes/class-yaydp-i18n.php:257
 #, fuzzy
-msgid "Show countdown timer"
-msgstr "Zobrazit odpočítávací časovač"
+msgid "Automatically show countdown timer on bottom of page"
+msgstr "Automaticky zobrazit odpočítávací časovač v dolní části stránky"
 
-#: includes/class-yaydp-i18n.php:251
+#: includes/class-yaydp-i18n.php:258
+#, fuzzy
+msgid "Start notification"
+msgstr "Spustit notifikaci"
+
+#: includes/class-yaydp-i18n.php:259
+#, fuzzy
+msgid "End notification"
+msgstr "Ukončení notifikace"
+
+#: includes/class-yaydp-i18n.php:260
 #, fuzzy
 msgid "Discountable price range"
 msgstr "Zvýhodněné cenové rozpětí"
 
-#: includes/class-yaydp-i18n.php:252
+#: includes/class-yaydp-i18n.php:261
 #, fuzzy
 msgid "Current discount tier"
 msgstr "Aktuální úroveň slevy"
 
-#: includes/class-yaydp-i18n.php:253
+#: includes/class-yaydp-i18n.php:262
 #, fuzzy
 msgid "Next discount tier as if 1 more item is added"
 msgstr "Další úroveň slevy, jako kdyby byla přidána 1 další položka"
 
-#: includes/class-yaydp-i18n.php:254
+#: includes/class-yaydp-i18n.php:263
 #, fuzzy
 msgid "Product sale display"
 msgstr "Zobrazení prodeje produktů"
 
-#: includes/class-yaydp-i18n.php:255
+#: includes/class-yaydp-i18n.php:264
 #, fuzzy
 msgid "Show sale tag and discounted price as"
 msgstr "Zobrazit prodejní štítek a zlevněnou cenu jako"
 
-#: includes/class-yaydp-i18n.php:256
+#: includes/class-yaydp-i18n.php:265
 #, fuzzy
 msgid "Product price display"
 msgstr "Zobrazení ceny produktu"
 
-#: includes/class-yaydp-i18n.php:257
+#: includes/class-yaydp-i18n.php:266
 #, fuzzy
 msgid "Show product discounted price"
 msgstr "Zobrazit produkt se zvýhodněnou cenou"
 
-#: includes/class-yaydp-i18n.php:258
+#: includes/class-yaydp-i18n.php:267
 #, fuzzy
 msgid "Replace product price with the discounted one"
 msgstr "Nahraďte cenu produktu cenou za zlevněnou"
 
-#: includes/class-yaydp-i18n.php:259
+#: includes/class-yaydp-i18n.php:268
 #, fuzzy
 msgid "Show product regular price within discounted"
 msgstr "Zobrazit produkt běžná cena se slevou"
 
-#: includes/class-yaydp-i18n.php:260
+#: includes/class-yaydp-i18n.php:269
 #, fuzzy
 msgid "Regular price is displayed as strike-through text on product price"
 msgstr "Běžná cena je zobrazena jako přeškrtnutý text na ceně produktu"
 
-#: includes/class-yaydp-i18n.php:261
+#: includes/class-yaydp-i18n.php:270
 #, fuzzy
 msgid "Saving amount"
 msgstr "Úsporná částka"
 
-#: includes/class-yaydp-i18n.php:262
+#: includes/class-yaydp-i18n.php:271
 #, fuzzy
 msgid "Show order saving amount"
 msgstr "Zobrazit částku úspory objednávky"
 
-#: includes/class-yaydp-i18n.php:263
+#: includes/class-yaydp-i18n.php:272
 #, fuzzy
 msgid "Show products saving amount on cart page (Only for cart shortcode)."
 msgstr ""
 "Zobrazit produkty ušetřenou na stránce košíku (Pouze pro košík shortcode)"
 
-#: includes/class-yaydp-i18n.php:264
+#: includes/class-yaydp-i18n.php:273
 msgid "Position"
 msgstr "Pozice"
 
-#: includes/class-yaydp-i18n.php:265
+#: includes/class-yaydp-i18n.php:274
 msgid "Before order total"
 msgstr "Před shrnutím objednávky"
 
-#: includes/class-yaydp-i18n.php:266
+#: includes/class-yaydp-i18n.php:275
 msgid "After order total"
 msgstr "Po shrnutí objednávce"
 
-#: includes/class-yaydp-i18n.php:267
+#: includes/class-yaydp-i18n.php:276
+msgid "Regular price"
+msgstr "Běžná cena"
+
+#: includes/class-yaydp-i18n.php:277
+msgid "Sale price"
+msgstr "Akční cena"
+
+#: includes/class-yaydp-i18n.php:278
 msgid "General"
 msgstr "Hlavní"
 
-#: includes/class-yaydp-i18n.php:268
+#: includes/class-yaydp-i18n.php:279
 #, fuzzy
 msgid "Discount based on"
 msgstr "Sleva na základě"
 
-#: includes/class-yaydp-i18n.php:269
+#: includes/class-yaydp-i18n.php:280
 #, fuzzy
 msgid "Disable product pricing rules when product is on sale"
 msgstr "Vypnutí pravidel pro stanovení cen produktů, když je produkt ve slevě"
 
-#: includes/class-yaydp-i18n.php:270
+#: includes/class-yaydp-i18n.php:281
 #, fuzzy
 msgid ""
 "When product is on sale, it will not be discounted by product pricing rule."
-msgstr ""
-"Pokud je produkt ve slevě, nebude zlevněn podle pravidla pro stanovení ceny "
-"produktu."
+msgstr "Když je produkt ve slevě, nebude zlevněn o cenu produktu"
 
-#: includes/class-yaydp-i18n.php:271
+#: includes/class-yaydp-i18n.php:282
 #, fuzzy
 msgid "Prevent cart discount applied when Single use WC Coupon applied"
 msgstr "Zabránit uplatnění slevy košíku při uplatnění jednorázového WC kupónu"
 
-#: includes/class-yaydp-i18n.php:272
+#: includes/class-yaydp-i18n.php:283
 #, fuzzy
 msgid ""
 "WC coupon cannot be applied when it is single use and cart items have "
@@ -1344,235 +1469,263 @@ msgstr ""
 "WC kupón nelze uplatnit, pokud se jedná o jednorázové použití a položky "
 "košíku mají slevu YayPricing"
 
-#: includes/class-yaydp-i18n.php:273
+#: includes/class-yaydp-i18n.php:284
 #, fuzzy
 msgid "Show regular price on cart item"
 msgstr "Zobrazit běžnou cenu na položce košíku"
 
-#: includes/class-yaydp-i18n.php:274
+#: includes/class-yaydp-i18n.php:285
 #, fuzzy
 msgid ""
 "Regular price is displayed as strike-through text on cart page and checkout "
 "page"
-msgstr ""
-"Běžná cena je zobrazena jako přeškrtnutý text na stránce košíku a na stránce "
-"pokladny"
+msgstr "Běžná cena je zobrazena jako přeškrtnutý text na stránce košíku a"
 
-#: includes/class-yaydp-i18n.php:275
+#: includes/class-yaydp-i18n.php:286
 #, fuzzy
 msgid "Show original subtotal price on cart item"
 msgstr "Zobrazit běžnou cenu na položce košíku"
 
-#: includes/class-yaydp-i18n.php:276
+#: includes/class-yaydp-i18n.php:287
 #, fuzzy
 msgid ""
 "Original subtotal price is displayed as strike-through text. This setting "
 "cannot affect to WC Block"
-msgstr ""
-"Běžná cena je zobrazena jako přeškrtnutý text na stránce košíku a na stránce "
-"pokladny"
+msgstr "Běžná cena je zobrazena jako přeškrtnutý text na stránce košíku a"
 
-#: includes/class-yaydp-i18n.php:277
+#: includes/class-yaydp-i18n.php:288
 #, fuzzy
 msgid "Combine cart discounts"
 msgstr "Kombinovat slevy košíku"
 
-#: includes/class-yaydp-i18n.php:278
+#: includes/class-yaydp-i18n.php:289
 #, fuzzy
 msgid ""
 "All rules will be calculated and combined into a single rule to apply in cart"
 msgstr ""
-"Všechna pravidla budou vypočítána a sloučena do jednoho pravidla, které bude "
-"použito v košíku"
+"Všechna pravidla budou vypočítána a sloučena do jednoho pravidla, které se "
+"použije"
 
-#: includes/class-yaydp-i18n.php:279
+#: includes/class-yaydp-i18n.php:290
 #, fuzzy
 msgid "Use discount ID as coupon code"
-msgstr "Použít ID slevy jako kód kupónu"
+msgstr "Použití ID slevy jako kódu kupónu"
 
-#: includes/class-yaydp-i18n.php:280
+#: includes/class-yaydp-i18n.php:291
 #, fuzzy
 msgid ""
 "Automatically generate cart discount ID to be used as a coupon code in the "
 "admin order details"
 msgstr ""
-"Automaticky vygenerovat ID slevy košíku, které se použije jako kód kupónu v "
-"podrobnostech administrační objednávky"
+"Automaticky vygenerovat ID slevy košíku, které se použije jako kód kupónu v"
 
-#: includes/class-yaydp-i18n.php:281
+#: includes/class-yaydp-i18n.php:292
 #, fuzzy
 msgid "Use cart discount together with Single use WC Coupon"
 msgstr "Použijte slevu na košík spolu s kupónem na jednorázové WC"
 
-#: includes/class-yaydp-i18n.php:282
+#: includes/class-yaydp-i18n.php:293
+#, fuzzy
+msgid "Include tax in checkout fees"
+msgstr "Zobrazit tooltip k poplatku za pokladnu"
+
+#: includes/class-yaydp-i18n.php:294
+#, fuzzy
+msgid "Enable tax calculation in checkout fees"
+msgstr "Povolení výpočtu daně v pokladních poplatcích"
+
+#: includes/class-yaydp-i18n.php:295
 #, fuzzy
 msgid "Sale Tag"
 msgstr "Prodejní štítek"
 
-#: includes/class-yaydp-i18n.php:283
+#: includes/class-yaydp-i18n.php:296
 #, fuzzy
 msgid "Show sale tag for sale products"
 msgstr "Zobrazit prodejní štítek pro prodej produktů"
 
-#: includes/class-yaydp-i18n.php:284
+#: includes/class-yaydp-i18n.php:297
 #, fuzzy
 msgid ""
 "Display a sale tag on product image on shop page and single product page"
 msgstr ""
-"Zobrazení štítku slevy na obrázku produktu na stránce obchodu a na stránce "
+"Zobrazení štítku výprodeje na obrázku produktu na stránce obchodu a "
 "jednotlivého produktu"
 
-#: includes/class-yaydp-i18n.php:285
+#: includes/class-yaydp-i18n.php:298
 #, fuzzy
 msgid "Show sale off amount on the sale tag"
 msgstr "Zobrazit prodejní částku na štítku prodeje"
 
-#: includes/class-yaydp-i18n.php:286
+#: includes/class-yaydp-i18n.php:299
 #, fuzzy
 msgid "Display a discount range tag on the sale tag"
 msgstr "Zobrazení štítku rozsahu slevy na štítku prodeje"
 
-#: includes/class-yaydp-i18n.php:287
+#: includes/class-yaydp-i18n.php:300
 msgid "Background color"
 msgstr "Barva pozadí"
 
-#: includes/class-yaydp-i18n.php:288
+#: includes/class-yaydp-i18n.php:301
 msgid "Text color"
 msgstr "Barva textu"
 
-#: includes/class-yaydp-i18n.php:289
+#: includes/class-yaydp-i18n.php:302
 #: includes/templates/product/yaydp-sale-tag.php:31
 #, fuzzy
 msgid "SALE!"
 msgstr "PRODEJ!"
 
-#: includes/class-yaydp-i18n.php:290
+#: includes/class-yaydp-i18n.php:303
 #: includes/templates/product/yaydp-sale-tag.php:32
 #, fuzzy
 msgid "Up to %s"
 msgstr "Až %s"
 
-#: includes/class-yaydp-i18n.php:291
+#: includes/class-yaydp-i18n.php:304
 msgid "What"
 msgstr "Co"
 
-#: includes/class-yaydp-i18n.php:292
+#: includes/class-yaydp-i18n.php:305
 msgid "Version"
 msgstr "Verze"
 
-#: includes/class-yaydp-i18n.php:293
+#: includes/class-yaydp-i18n.php:306
+#, fuzzy
+msgid "All Product Pricing rules"
+msgstr "Všechna pravidla pro stanovení cen produktů"
+
+#: includes/class-yaydp-i18n.php:307
 msgid "Shortcodes"
 msgstr "Zkratky (Shortcodes)"
 
-#: includes/class-yaydp-i18n.php:294
+#: includes/class-yaydp-i18n.php:308
 #, fuzzy
-msgid "Shortcode to load all products which has discount through YayPricing"
+msgid "Shortcode to load all products which have discount through YayPricing"
 msgstr ""
 "Krátký kód pro načtení všech produktů, které mají slevu prostřednictvím "
 "YayPricing"
 
-#: includes/class-yaydp-i18n.php:295
+#: includes/class-yaydp-i18n.php:309
 #, fuzzy
 msgid "Please paste it in your promotion page to show list on sale products"
 msgstr ""
-"Vložte jej prosím na stránku propagace a zobrazte seznam produktů ve "
-"výprodeji"
+"Vložte jej prosím na stránku propagace a zobrazí se seznam produktů ve slevě."
 
-#: includes/class-yaydp-i18n.php:296
+#: includes/class-yaydp-i18n.php:310
 #, fuzzy
 msgid "Select rules for on sale products"
-msgstr "Vyberte pravidla pro zlevněné produkty"
+msgstr "Vyberte pravidla pro produkty v akci"
 
-#: includes/class-yaydp-i18n.php:297
+#: includes/class-yaydp-i18n.php:311
+#, fuzzy
+msgid "Select rule"
+msgstr "Vybrat pravidlo"
+
+#: includes/class-yaydp-i18n.php:312
+#, fuzzy
+msgid ""
+"This shortcode is deprecated and will be removed in future, please use On "
+"sale products ver 2 instead. You can generate it with Shortcode generator"
+msgstr ""
+"Tento krátký kód je zastaralý a bude v budoucnu odstraněn, použijte místo "
+"toho možnost Produkty ve slevě verze 2. Můžete jej vygenerovat pomocí "
+"generátoru krátkých kódů"
+
+#: includes/class-yaydp-i18n.php:313
+#, fuzzy
+msgid "Your campaign name"
+msgstr "Vaše vlastní kampaň"
+
+#: includes/class-yaydp-i18n.php:314
 #, fuzzy
 msgid "Apply all applicable rules"
 msgstr "Aplikujte všechna platná pravidla"
 
-#: includes/class-yaydp-i18n.php:298
+#: includes/class-yaydp-i18n.php:315
 #, fuzzy
 msgid "Apply the first applicable rule in your list"
 msgstr "Použití prvního použitelného pravidla v seznamu"
 
-#: includes/class-yaydp-i18n.php:299
+#: includes/class-yaydp-i18n.php:316
 #, fuzzy
 msgid "Apply the rule with minimum discount amount"
-msgstr "Použít pravidlo s minimální výší slevy"
+msgstr "Použít pravidlo s minimální částkou slevy"
 
-#: includes/class-yaydp-i18n.php:300
+#: includes/class-yaydp-i18n.php:317
 #, fuzzy
 msgid "Apply the rule with maximum discount amount"
 msgstr "Použít pravidlo s maximální částkou slevy"
 
-#: includes/class-yaydp-i18n.php:301
+#: includes/class-yaydp-i18n.php:318
 #, fuzzy
 msgid "How the rules are applied"
 msgstr "Jak se pravidla uplatňují"
 
-#: includes/class-yaydp-i18n.php:302
+#: includes/class-yaydp-i18n.php:319
 #, fuzzy
 msgid "Apply to non discount product"
 msgstr "Aktuální diskontní produkt"
 
-#: includes/class-yaydp-i18n.php:303
-#, fuzzy
-msgid "Count quantity by"
-msgstr "Spočítejte množství podle"
-
-#: includes/class-yaydp-i18n.php:304
-#, fuzzy
-msgid "Is repeat"
-msgstr "Je opakování"
-
-#: includes/class-yaydp-i18n.php:305
-#, fuzzy
-msgid "Discount will apply once or repeat after each quantities matching"
-msgstr "Sleva bude uplatněna jednou nebo opakovaně"
-
-#: includes/class-yaydp-i18n.php:306
-msgid "Buy"
-msgstr "Koupit"
-
-#: includes/class-yaydp-i18n.php:307
-msgid "Get"
-msgstr "Získat"
-
-#: includes/class-yaydp-i18n.php:308
-#: includes/templates/cart-item-price/extra-item.php:14
-msgid "Free"
-msgstr "Zdarma"
-
-#: includes/class-yaydp-i18n.php:309
+#: includes/class-yaydp-i18n.php:320
 #, fuzzy
 msgid "Pricing type"
 msgstr "Typ ceny"
 
-#: includes/class-yaydp-i18n.php:310
+#: includes/class-yaydp-i18n.php:321
+#, fuzzy
+msgid "Pricing value"
+msgstr "Cenová hodnota"
+
+#: includes/class-yaydp-i18n.php:322
+msgid "Maximum value"
+msgstr "Maximální hodnota"
+
+#: includes/class-yaydp-i18n.php:323
+#, fuzzy
+msgid "This adds a cap so that the discount amount will not exceed this amount"
+msgstr "Tím se přidá limit, aby výše slevy nepřesáhla tuto částku"
+
+#: includes/class-yaydp-i18n.php:324
+#, fuzzy
+msgid "Count quantity by"
+msgstr "Spočítejte množství podle"
+
+#: includes/class-yaydp-i18n.php:325
+msgid "Repeat"
+msgstr "Opakovat"
+
+#: includes/class-yaydp-i18n.php:326
+#, fuzzy
+msgid "Discount will apply once or repeat after each quantities matching"
+msgstr "Sleva bude uplatněna jednou nebo opakovaně"
+
+#: includes/class-yaydp-i18n.php:327
+msgid "Buy"
+msgstr "Koupit"
+
+#: includes/class-yaydp-i18n.php:328
+msgid "Get"
+msgstr "Získat"
+
+#: includes/class-yaydp-i18n.php:329
 #, fuzzy
 msgid ""
 "Fact: The maximum allowable flat price will be limited to the product price."
 msgstr ""
 "Skutečnost: Maximální povolená paušální cena bude omezena cenou produktu."
 
-#: includes/class-yaydp-i18n.php:311
+#: includes/class-yaydp-i18n.php:330
 #, fuzzy
-msgid "Pricing value"
-msgstr "Cenová hodnota"
+msgid "Is repeat"
+msgstr "Je opakování"
 
-#: includes/class-yaydp-i18n.php:312
-msgid "Maximum value"
-msgstr "Maximální hodnota"
-
-#: includes/class-yaydp-i18n.php:313
-#, fuzzy
-msgid "This adds a cap so that the discount amount will not exceed this amount"
-msgstr "Tím se přidá limit, aby výše slevy nepřesáhla tuto částku"
-
-#: includes/class-yaydp-i18n.php:314
+#: includes/class-yaydp-i18n.php:331
 #, fuzzy
 msgid "Using formula"
 msgstr "Použití vzorce"
 
-#: includes/class-yaydp-i18n.php:315
+#: includes/class-yaydp-i18n.php:332
 #, fuzzy
 msgid ""
 "E.g: quantity: {n}*2, pricing: {n}*10 => Buy 2 items get 10$ discount. 4 "
@@ -1583,43 +1736,49 @@ msgstr ""
 "položky získají slevu 20 $ atd. Výklad: {n} je množství zakoupených položek "
 "pro jeden produkt. "
 
-#: includes/class-yaydp-i18n.php:316
+#: includes/class-yaydp-i18n.php:333
 #, fuzzy
-msgid "Simple discount"
-msgstr "Plánované slevy"
+msgid "Pricing formula"
+msgstr "Cenová hodnota"
 
-#: includes/class-yaydp-i18n.php:317
+#: includes/class-yaydp-i18n.php:334
+#, fuzzy
+#| msgid "Fixed Discount"
+msgid "Simple discount"
+msgstr "Pevná sleva"
+
+#: includes/class-yaydp-i18n.php:335
 #, fuzzy
 msgid "Product Collection"
 msgstr "Vyloučení produktů"
 
-#: includes/class-yaydp-i18n.php:318
+#: includes/class-yaydp-i18n.php:336
 #, fuzzy
 msgid "Choose your desired campaign"
 msgstr "Vyberte požadovanou kampaň"
 
-#: includes/class-yaydp-i18n.php:319
+#: includes/class-yaydp-i18n.php:337
 msgid "Cancel"
 msgstr "Zrušit"
 
-#: includes/class-yaydp-i18n.php:320
+#: includes/class-yaydp-i18n.php:338
 msgid "Add Campaign"
 msgstr "Přidat kampaň"
 
-#: includes/class-yaydp-i18n.php:321
+#: includes/class-yaydp-i18n.php:339
 #, fuzzy
 msgid "No campaign found"
 msgstr "kampaň"
 
-#: includes/class-yaydp-i18n.php:322
+#: includes/class-yaydp-i18n.php:340
 msgid "From"
 msgstr "Od"
 
-#: includes/class-yaydp-i18n.php:323
+#: includes/class-yaydp-i18n.php:341
 msgid "to"
 msgstr "do"
 
-#: includes/class-yaydp-i18n.php:324
+#: includes/class-yaydp-i18n.php:342
 #, fuzzy
 msgid ""
 "Leaving this blank means there will be no restriction on the number of items "
@@ -1628,7 +1787,7 @@ msgstr ""
 "Pokud toto pole ponecháte prázdné, nebude zde žádné omezení počtu "
 "kontrolovaných položek."
 
-#: includes/class-yaydp-i18n.php:325
+#: includes/class-yaydp-i18n.php:343
 #, fuzzy
 msgid ""
 "Discount will apply to single item. E.g: Buy 4 items, then discount 5$ each "
@@ -1638,65 +1797,41 @@ msgstr ""
 "zlevněte 5$ za každou položku. Nebo Koupit 4 položky, pak každá položka má "
 "paušální cenu 5 $"
 
-#: includes/class-yaydp-i18n.php:326
+#: includes/class-yaydp-i18n.php:344
 #, fuzzy
 msgid "Pricing Ranges"
 msgstr "Cenové rozpětí"
 
-#: includes/class-yaydp-i18n.php:327
+#: includes/class-yaydp-i18n.php:345
 msgid "Import Data"
 msgstr "Importovat data"
 
-#: includes/class-yaydp-i18n.php:328
+#: includes/class-yaydp-i18n.php:346
+#, fuzzy
+msgid "Tiered Pricing Data Import"
+msgstr "Hromadné ceny"
+
+#: includes/class-yaydp-i18n.php:347
 #, fuzzy
 msgid "You have no pricing range, please"
 msgstr "Nemáte žádné cenové rozpětí, prosím"
 
-#: includes/class-yaydp-i18n.php:329
+#: includes/class-yaydp-i18n.php:348
 #, fuzzy
 msgid "add one"
 msgstr "přidat jeden"
 
-#: includes/class-yaydp-i18n.php:330
-#, fuzzy
-msgid "Tiered Pricing Data Import"
-msgstr "Odstupňovaný import cenových dat"
-
-#: includes/class-yaydp-i18n.php:331
+#: includes/class-yaydp-i18n.php:349
 #, fuzzy
 msgid "Bulk Pricing Data Import"
 msgstr "Hromadné ceny"
 
-#: includes/class-yaydp-i18n.php:332
+#: includes/class-yaydp-i18n.php:350
 #, fuzzy
 msgid "Number of items required to be classified as a bundle"
 msgstr "Počet položek, které musí být klasifikovány jako balíček"
 
-#: includes/class-yaydp-i18n.php:333
-#, fuzzy
-msgid "Affected Items:"
-msgstr "Dotčené položky:"
-
-#: includes/class-yaydp-i18n.php:334
-#, fuzzy
-msgid ""
-"E.g: Apply amount 50$ discount to whole bundle instead of 50$ to each bundle "
-"item."
-msgstr ""
-"Např.: Aplikujte slevu 50$ na celý balíček místo 50$ na každou položku "
-"balíčku."
-
-#: includes/class-yaydp-i18n.php:335
-#, fuzzy
-msgid "Single item"
-msgstr "Kombinované položky"
-
-#: includes/class-yaydp-i18n.php:336
-#, fuzzy
-msgid "Whole bundle"
-msgstr "Celý balíček"
-
-#: includes/class-yaydp-i18n.php:337
+#: includes/class-yaydp-i18n.php:351
 #, fuzzy
 msgid ""
 "E.g: quantity: {n}*2, pricing: {n}*10 => Buy 2 items get 10$ discount. 4 "
@@ -1706,59 +1841,134 @@ msgstr ""
 "Např.: množství: {n}*2, cena: {n}*10 => Kupte 2 kusy a získejte slevu 10$. 4 "
 "položky získají slevu 20 $ atd. Výklad: {n} je čas, kdy je balíček zakoupen. "
 
-#: includes/class-yaydp-i18n.php:338
+#: includes/class-yaydp-i18n.php:352
+#, fuzzy
+msgid "Quantity formula"
+msgstr "Název množství"
+
+#: includes/class-yaydp-i18n.php:353
+#, fuzzy
+msgid "Affected Items:"
+msgstr "Dotčené položky:"
+
+#: includes/class-yaydp-i18n.php:354
+#, fuzzy
+msgid ""
+"E.g: Apply amount 50$ discount to whole bundle instead of 50$ to each bundle "
+"item."
+msgstr ""
+"Např.: Aplikujte slevu 50$ na celý balíček místo 50$ na každou položku "
+"balíčku."
+
+#: includes/class-yaydp-i18n.php:355
+#, fuzzy
+msgid "Single item"
+msgstr "Kombinované položky"
+
+#: includes/class-yaydp-i18n.php:356
+#, fuzzy
+msgid "Whole bundle"
+msgstr "Celý balíček"
+
+#: includes/class-yaydp-i18n.php:357
 msgid "Filter"
 msgstr "Filtr"
 
-#: includes/class-yaydp-i18n.php:339
+#: includes/class-yaydp-i18n.php:358
+#, fuzzy
+msgid "Affect to"
+msgstr "Ovlivnit na"
+
+#: includes/class-yaydp-i18n.php:359
+msgid "Lowest price"
+msgstr "Nejnižší cena"
+
+#: includes/class-yaydp-i18n.php:360
+msgid "Highest price"
+msgstr "Nejvyšší cena"
+
+#: includes/class-yaydp-i18n.php:361
+msgid "Bundle"
+msgstr "Balíček"
+
+#: includes/class-yaydp-i18n.php:362
+msgid "items"
+msgstr "položky"
+
+#: includes/class-yaydp-i18n.php:363
+#, fuzzy
+msgid "Mark each buy products line as a bundle"
+msgstr "Označte každý řádek nákupu produktů jako balíček"
+
+#: includes/class-yaydp-i18n.php:364
+#, fuzzy
+msgid "This mean discount scope will affect every matching line items"
+msgstr ""
+"Tento střední rozsah slevy ovlivní všechny odpovídající řádkové položky"
+
+#: includes/class-yaydp-i18n.php:365
 #, fuzzy
 msgid "Apply discount to only first matching product"
 msgstr "Uplatnění slevy pouze na první odpovídající produkt"
 
-#: includes/class-yaydp-i18n.php:340
+#: includes/class-yaydp-i18n.php:366
 #, fuzzy
 msgid "Show offer description in product page"
 msgstr "Zobrazit popis nabídky na stránce produktu"
 
-#: includes/class-yaydp-i18n.php:341
+#: includes/class-yaydp-i18n.php:367
+#, fuzzy
+msgid "Show this description only when conditions match"
+msgstr "Tento popis zobrazit pouze v případě, že se podmínky shodují"
+
+#: includes/class-yaydp-i18n.php:368
+#, fuzzy
+msgid ""
+"This description will be displayed only if the conditions defined in the "
+"next tab are true."
+msgstr ""
+"Tento popis se zobrazí pouze v případě, že jsou splněny podmínky definované "
+"v následující záložce."
+
+#: includes/class-yaydp-i18n.php:369
 #, fuzzy
 msgid "Offer description for X"
 msgstr "Popis nabídky pro X"
 
-#: includes/class-yaydp-i18n.php:342
+#: includes/class-yaydp-i18n.php:370
 #, fuzzy
 msgid "Offer description for Y"
 msgstr "Popis nabídky pro Y"
 
-#: includes/class-yaydp-i18n.php:343
+#: includes/class-yaydp-i18n.php:371
 #, fuzzy
 msgid "Show tooltip on cart item price"
-msgstr "Zobrazit popisek na ceně položky košíku"
+msgstr "Zobrazit nápovědu na ceně položky košíku"
 
-#: includes/class-yaydp-i18n.php:344
+#: includes/class-yaydp-i18n.php:372
 #, fuzzy
 msgid "Enter your tooltip"
 msgstr "Zadejte svůj popisek"
 
-#: includes/class-yaydp-i18n.php:345
+#: includes/class-yaydp-i18n.php:373
 #, fuzzy
 msgid "Enable schedule"
 msgstr "Povolit plán"
 
-#: includes/class-yaydp-i18n.php:346
+#: includes/class-yaydp-i18n.php:374
 msgid "Recurring"
 msgstr "Opakovaně"
 
-#: includes/class-yaydp-i18n.php:347
+#: includes/class-yaydp-i18n.php:375
 #, fuzzy
 msgid "This will grab the start/end "
 msgstr "Toto pravidlo se použije, pokud"
 
-#: includes/class-yaydp-i18n.php:348
+#: includes/class-yaydp-i18n.php:376
 msgid "Usage limits"
 msgstr "Omezení využití"
 
-#: includes/class-yaydp-i18n.php:349
+#: includes/class-yaydp-i18n.php:377
 #, fuzzy
 msgid ""
 "Once the discount/pricing rule is applied in the completed order, it is "
@@ -1769,65 +1979,52 @@ msgstr ""
 "započítává se jako použití slevy. Pravidlo již nebude platit, pokud počet "
 "jeho použití dosáhne tohoto čísla"
 
-#: includes/class-yaydp-i18n.php:350
-msgid "off"
-msgstr "vypnuto"
+#: includes/class-yaydp-i18n.php:378
+msgid "Used"
+msgstr "Použití"
 
-#: includes/class-yaydp-i18n.php:351
+#: includes/class-yaydp-i18n.php:379
 #, fuzzy
-msgid "if cart subtotal price is greater than 200"
-msgstr "Pokud je mezisoučet ceny košíku vyšší než"
+msgid "This rule is always used"
+msgstr "Toto pravidlo se používá vždy"
 
-#: includes/class-yaydp-i18n.php:352
+#: includes/class-yaydp-i18n.php:380
 #, fuzzy
-msgid "Get 10% off"
-msgstr "Získejte 10% off"
+msgid "If you want to decide when this rule will be used, please"
+msgstr "Pokud chcete rozhodnout, kdy bude toto pravidlo použito, prosím"
 
-#: includes/class-yaydp-i18n.php:353
+#: includes/class-yaydp-i18n.php:381
 #, fuzzy
-msgid "if cart quantity is greater than 5"
-msgstr "pokud je množství v košíku větší než 5"
+msgid "add a condition"
+msgstr "Přidání podmínky"
 
-#: includes/class-yaydp-i18n.php:354
+#: includes/class-yaydp-i18n.php:382
 #, fuzzy
-msgid "if the customers have 10 orders in past"
-msgstr "pokud mají zákazníci v minulosti 10 objednávek"
+msgid "This rule will be used if"
+msgstr "Toto pravidlo se použije, pokud"
 
-#: includes/class-yaydp-i18n.php:355
+#: includes/class-yaydp-i18n.php:383
+msgid "Any"
+msgstr "Jakýkolv"
+
+#: includes/class-yaydp-i18n.php:385
 #, fuzzy
-msgid "And much more"
-msgstr "A mnoho dalšího"
+msgid "of these conditions is available."
+msgstr "těchto podmínek."
 
-#: includes/class-yaydp-i18n.php:356
-msgid "Conditions"
-msgstr "Podmínky"
+#: includes/class-yaydp-i18n.php:386
+msgid "Add condition"
+msgstr "Přidat podmínku"
 
-#: includes/class-yaydp-i18n.php:357
-#, fuzzy
-msgid ""
-"With conditions feature, you can decide when this rule will be used. It "
-"helps you create a product pricing more powerful"
-msgstr ""
-"Pomocí funkce podmínek se můžete rozhodnout, kdy bude toto pravidlo použito. "
-"Pomůže vám vytvořit produkt cenotvorby výkonnější"
-
-#: includes/class-yaydp-i18n.php:358
-msgid "For example"
-msgstr "Například"
-
-#: includes/class-yaydp-i18n.php:359
-msgid "Upgrade to unlock this feature"
-msgstr "Upgrade pro odemknutí této funkce"
-
-#: includes/class-yaydp-i18n.php:360
-msgid "Pricing"
-msgstr "Ceník"
-
-#: includes/class-yaydp-i18n.php:361
+#: includes/class-yaydp-i18n.php:387
 msgid "Settings"
 msgstr "Nastavení"
 
-#: includes/class-yaydp-i18n.php:362
+#: includes/class-yaydp-i18n.php:388
+msgid "Conditions"
+msgstr "Podmínky"
+
+#: includes/class-yaydp-i18n.php:389
 #, fuzzy
 msgid ""
 "The Simple Discount enables you to set a fixed amount or percentage off the "
@@ -1836,7 +2033,7 @@ msgstr ""
 "Jednoduchá sleva vám umožňuje nastavit pevnou částku nebo procento z původní "
 "ceny."
 
-#: includes/class-yaydp-i18n.php:363
+#: includes/class-yaydp-i18n.php:390
 #, fuzzy
 msgid ""
 "The Bulk Pricing rule incentivizes customers to purchase larger quantities "
@@ -1846,7 +2043,7 @@ msgstr ""
 "množství produktu tím, že nabízí odstupňované slevy na základě zakoupeného "
 "objemu."
 
-#: includes/class-yaydp-i18n.php:364
+#: includes/class-yaydp-i18n.php:391
 #, fuzzy
 msgid ""
 "The Bundle Discount rule allows customers to save by purchasing multiple "
@@ -1855,7 +2052,7 @@ msgstr ""
 "Pravidlo slevy ze sady umožňuje zákazníkům ušetřit nákupem více "
 "souvisejících produktů společně jako balíček."
 
-#: includes/class-yaydp-i18n.php:365
+#: includes/class-yaydp-i18n.php:392
 #, fuzzy
 msgid ""
 "The BOGO (Buy One, Get One) rule entices customers by offering a free or "
@@ -1864,7 +2061,7 @@ msgstr ""
 "Pravidlo BOGO (Buy One, Get One) láká zákazníky tím, že při nákupu konkrétní "
 "položky nabízí produkt zdarma nebo se slevou."
 
-#: includes/class-yaydp-i18n.php:366
+#: includes/class-yaydp-i18n.php:393
 #, fuzzy
 msgid ""
 "The Buy X, Get Y rule offers customers a strategic incentive to purchase a "
@@ -1875,7 +2072,7 @@ msgstr ""
 "určitého množství jednoho produktu (X), aby získali jiný produkt (Y) se "
 "slevou nebo zdarma."
 
-#: includes/class-yaydp-i18n.php:367
+#: includes/class-yaydp-i18n.php:394
 #, fuzzy
 msgid ""
 "The Tiered Pricing rule enables businesses to set distinct price levels for "
@@ -1886,442 +2083,538 @@ msgstr ""
 "pro produkt na základě konkrétních množstevních rozsahů, aniž by se "
 "uplatňovaly slevy na množství, která tato rozmezí nesplňují."
 
-#: includes/class-yaydp-i18n.php:368
-msgid "Name"
-msgstr "Jméno"
-
-#: includes/class-yaydp-i18n.php:369
-msgid "Rule name"
-msgstr "Název pravidla"
-
-#: includes/class-yaydp-i18n.php:370
+#: includes/class-yaydp-i18n.php:395
 msgid "Rule type"
 msgstr "Typ pravidla"
 
-#: includes/class-yaydp-i18n.php:371
+#: includes/class-yaydp-i18n.php:396
 msgid "Upload Image"
 msgstr "Nahrát obrázek"
 
-#: includes/class-yaydp-i18n.php:372
+#: includes/class-yaydp-i18n.php:397
 msgid "Source"
 msgstr "Zdroj"
 
-#: includes/class-yaydp-i18n.php:373
+#: includes/class-yaydp-i18n.php:398
 #, fuzzy
 msgid "Show HTML source"
 msgstr "Zobrazit zdrojový kód HTML"
 
-#: includes/class-yaydp-i18n.php:374
+#: includes/class-yaydp-i18n.php:399
 msgid "Enter your description"
 msgstr "Zadejte svůj popis"
 
-#: includes/class-yaydp-i18n.php:375
+#: includes/class-yaydp-i18n.php:400
 msgid "Inactive"
 msgstr "Neaktivní"
 
-#: includes/class-yaydp-i18n.php:376
+#: includes/class-yaydp-i18n.php:401
 msgid "Running"
 msgstr "Právě běží"
 
-#: includes/class-yaydp-i18n.php:377
+#: includes/class-yaydp-i18n.php:402
 #, fuzzy
 msgid "Max use reached"
 msgstr "Dosaženo maximálního využití"
 
-#: includes/class-yaydp-i18n.php:378
+#: includes/class-yaydp-i18n.php:403
 msgid "Completed"
 msgstr "Dokončeno"
 
-#: includes/class-yaydp-i18n.php:379
+#: includes/class-yaydp-i18n.php:404
 msgid "Scheduled"
 msgstr "Naplánované"
 
-#: includes/class-yaydp-i18n.php:380
+#: includes/class-yaydp-i18n.php:405
 msgid "Remove rule"
 msgstr "Odstranit pravidlo"
 
-#: includes/class-yaydp-i18n.php:381
+#: includes/class-yaydp-i18n.php:406
 #, fuzzy
 msgid "Do you want to remove"
 msgstr "Chcete odstranit"
 
-#: includes/class-yaydp-i18n.php:382
+#: includes/class-yaydp-i18n.php:407
 msgid "Remove"
 msgstr "Odstranit"
 
-#: includes/class-yaydp-i18n.php:383
-msgid "Duplicate"
-msgstr "Duplikovat"
-
-#: includes/class-yaydp-i18n.php:384
-#, fuzzy
-msgid "Combined condition is empty, please"
-msgstr "Kombinovaný stav je prázdný, prosím"
-
-#: includes/class-yaydp-i18n.php:385
-#, fuzzy
-msgid "All Product Pricing rules"
-msgstr "Všechna pravidla pro stanovení cen produktů"
-
-#: includes/class-yaydp-i18n.php:386
-#, fuzzy
-msgid "Exclude Rules (Product pricing)"
-msgstr "Vyloučit pravidla (ceny produktu)"
-
-#: includes/class-yaydp-i18n.php:387
-#, fuzzy
-msgid "You don"
-msgstr "Ty ne"
-
-#: includes/class-yaydp-i18n.php:388
-#, fuzzy
-msgid "Select at least one rule"
-msgstr "Vyberte alespoň jedno pravidlo"
-
-#: includes/class-yaydp-i18n.php:389
-#, fuzzy
-msgid "Exclude by coupons"
-msgstr "Vyloučit pravidla"
-
-#: includes/class-yaydp-i18n.php:390
-#, fuzzy
-msgid "Prevent product pricing rules being applied when specific coupons added"
-msgstr "Vypnutí pravidel pro stanovení cen produktů, když je produkt ve slevě"
-
-#: includes/class-yaydp-i18n.php:391
-msgid "Learn more"
-msgstr "Zjistit více"
-
-#: includes/class-yaydp-i18n.php:392
-msgid "Coupons"
-msgstr "Kupóny"
-
-#: includes/class-yaydp-i18n.php:393
-#, fuzzy
-msgid "Exclude selected rules when these coupons are applied"
-msgstr "Vyloučit vybraná pravidla při použití těchto kupónů"
-
-#: includes/class-yaydp-i18n.php:394
-msgid "All coupons"
-msgstr "Všechny kupóny"
-
-#: includes/class-yaydp-i18n.php:395
-#, fuzzy
-msgid "Select at least one coupon"
-msgstr "Vyberte alespoň jeden kupón"
-
-#: includes/class-yaydp-i18n.php:396
-#, fuzzy
-msgid "Exclude Rules"
-msgstr "Vyloučit pravidla"
-
-#: includes/class-yaydp-i18n.php:397
-#, fuzzy
-msgid "Select one rule to exclude"
-msgstr "Vyberte jedno pravidlo, které chcete vyloučit"
-
-#: includes/class-yaydp-i18n.php:398
-#, fuzzy
-msgid "All Product Pricing Rules"
-msgstr "Všechna pravidla pro stanovení cen produktů"
-
-#: includes/class-yaydp-i18n.php:399
-#, fuzzy
-msgid "All Cart Discount Rules"
-msgstr "Všechna pravidla slev na košík"
-
-#: includes/class-yaydp-i18n.php:400
-#, fuzzy
-msgid "All Checkout Fee Rules"
-msgstr "Všechna pravidla poplatku za platbu"
-
-#: includes/class-yaydp-i18n.php:401
-#, fuzzy
-msgid "This rule is always used"
-msgstr "Toto pravidlo se použije, pokud"
-
-#: includes/class-yaydp-i18n.php:402
-#, fuzzy
-msgid "If you want to decide when this rule will be used, please"
-msgstr "Pokud chcete rozhodnout, kdy bude toto pravidlo použito, prosím"
-
-#: includes/class-yaydp-i18n.php:403
-#, fuzzy
-msgid "add a condition"
-msgstr "Přidání podmínky"
-
-#: includes/class-yaydp-i18n.php:404
-#, fuzzy
-msgid "This rule will be used if"
-msgstr "Toto pravidlo se použije, pokud"
-
-#: includes/class-yaydp-i18n.php:405
-msgid "Any"
-msgstr "Jakýkolv"
-
-#: includes/class-yaydp-i18n.php:406
-msgid "All"
-msgstr "Vše"
-
-#: includes/class-yaydp-i18n.php:407
-#, fuzzy
-msgid "of these conditions is available."
-msgstr "těchto podmínek."
-
 #: includes/class-yaydp-i18n.php:408
-msgid "Exclusions"
-msgstr "Výjimky"
-
-#: includes/class-yaydp-i18n.php:409
-#, fuzzy
-msgid "Product Collections"
-msgstr "Vyloučení produktů"
-
-#: includes/class-yaydp-i18n.php:410 includes/class-yaypricing.php:125
-msgid "Go Pro"
-msgstr "Získat verzi Pro"
-
-#: includes/class-yaydp-i18n.php:411
-#, fuzzy
-msgid "On sale products"
-msgstr "Všechny produkty"
-
-#: includes/class-yaydp-i18n.php:412
-#, fuzzy
-msgid "All on sale products"
-msgstr "Vyberte pravidla pro zlevněné produkty"
-
-#: includes/class-yaydp-i18n.php:413
-#, fuzzy
-msgid "Order saved amount"
-msgstr "Zobrazit částku úspory objednávky"
-
-#: includes/class-yaydp-i18n.php:414
-#, fuzzy
-msgid "Product pricing countdowns"
-msgstr "Cenové podmínky produktu"
-
-#: includes/class-yaydp-i18n.php:415
-#, fuzzy
-msgid "Cart discount countdowns"
-msgstr "Slevy na košík"
-
-#: includes/class-yaydp-i18n.php:416
-#, fuzzy
-msgid "Checkout fee countdowns"
-msgstr "Poplatek za pokladnu"
-
-#: includes/class-yaydp-i18n.php:417
-#, fuzzy
-msgid "Product offer description"
-msgstr "Krátký popis po produktu"
-
-#: includes/class-yaydp-i18n.php:418
-#, fuzzy
-msgid "Product sale tag"
-msgstr "Zobrazení prodeje produktů"
-
-#: includes/class-yaydp-i18n.php:419
-msgid "Shortcode generator"
-msgstr "Generátor Shortcode"
-
-#: includes/class-yaydp-i18n.php:420
-msgid "Generate shortcode"
-msgstr "Generovat krátký kód"
-
-#: includes/class-yaydp-i18n.php:421
-msgid "Product"
-msgstr "Produkt"
-
-#: includes/class-yaydp-i18n.php:422
-msgid "Status"
-msgstr "Stav"
-
-#: includes/class-yaydp-i18n.php:423
-msgid "In stock"
-msgstr "Skladem"
-
-#: includes/class-yaydp-i18n.php:424
-msgid "Selected products"
-msgstr "Vybrané produkty"
-
-#: includes/class-yaydp-i18n.php:425
-#, fuzzy
-msgid "Loading products"
-msgstr "Načítání produktů"
-
-#: includes/class-yaydp-i18n.php:426
-#, fuzzy
-msgid "No product matched"
-msgstr "Žádný produkt není spárován"
-
-#: includes/class-yaydp-i18n.php:427
-#, fuzzy
-msgid ""
-"Show ad countdown timer to let customers know how much time is left until "
-"sales on products are over and helps boost your sale."
-msgstr ""
-"Zobrazte časovač odpočítávání reklam, abyste zákazníkům věděli, kolik času "
-"zbývá do ukončení prodeje produktů, a pomozte zvýšit váš prodej."
-
-#: includes/class-yaydp-i18n.php:428
-#, fuzzy
-msgid ""
-"Contain a pitch of your products that your visitors go through and decide "
-"whether they want to buy."
-msgstr ""
-"Obsahujte prezentaci vašich produktů, kterou si vaši návštěvníci projdou a "
-"rozhodnou se, zda si ji chtějí koupit."
-
-#: includes/class-yaydp-i18n.php:429
-#, fuzzy
-msgid ""
-"Encouraged notice is used to motivate customers to buy more items in order "
-"to receive a discount or other promotional offer. It is a marketing strategy "
-"aimed at increasing sales and customer loyalty."
-msgstr ""
-"Povzbuzené upozornění se používá k motivaci zákazníků k nákupu dalších "
-"položek za účelem získání slevy nebo jiné propagační nabídky. Jedná se o "
-"marketingovou strategii zaměřenou na zvýšení prodejů a loajality zákazníků."
-
-#: includes/class-yaydp-i18n.php:430
 #, fuzzy
 msgid "Shortcode copied"
 msgstr "Krátký kód zkopírován"
 
+#: includes/class-yaydp-i18n.php:409
+#, fuzzy
+#| msgid "Copy shortcode"
+msgid "Products shortcode"
+msgstr "Kopírovat shortcode"
+
+#: includes/class-yaydp-i18n.php:410
+#, fuzzy
+msgid "Offer description shortcode"
+msgstr "Popis nabídky pro X"
+
+#: includes/class-yaydp-i18n.php:411
+#, fuzzy
+#| msgid "Copy shortcode"
+msgid "Countdown shortcode"
+msgstr "Kopírovat shortcode"
+
+#: includes/class-yaydp-i18n.php:412
+msgid "Duplicate"
+msgstr "Duplikovat"
+
+#: includes/class-yaydp-i18n.php:413
+#, fuzzy
+msgid "Combined condition is empty, please"
+msgstr "Kombinovaný stav je prázdný, prosím"
+
+#: includes/class-yaydp-i18n.php:414
+#, fuzzy
+msgid "Exclude Rules (Product pricing)"
+msgstr "Vyloučit pravidla (ceny produktu)"
+
+#: includes/class-yaydp-i18n.php:415
+#, fuzzy
+msgid "You don"
+msgstr "Ty ne"
+
+#: includes/class-yaydp-i18n.php:416
+#, fuzzy
+msgid "Select at least one rule"
+msgstr "Vyberte alespoň jedno pravidlo"
+
+#: includes/class-yaydp-i18n.php:417
+msgid "Coupons"
+msgstr "Kupóny"
+
+#: includes/class-yaydp-i18n.php:418
+#, fuzzy
+msgid "Exclude selected rules when these coupons are applied"
+msgstr "Vyloučit vybraná pravidla při použití těchto kupónů"
+
+#: includes/class-yaydp-i18n.php:419
+msgid "All coupons"
+msgstr "Všechny kupóny"
+
+#: includes/class-yaydp-i18n.php:420
+#, fuzzy
+msgid "Select at least one coupon"
+msgstr "Vyberte alespoň jeden kupón"
+
+#: includes/class-yaydp-i18n.php:421
+#, fuzzy
+msgid "Exclude Rules"
+msgstr "Vyloučit pravidla"
+
+#: includes/class-yaydp-i18n.php:422
+#, fuzzy
+msgid "Select one rule to exclude"
+msgstr "Vyberte jedno pravidlo, které chcete vyloučit"
+
+#: includes/class-yaydp-i18n.php:423
+#, fuzzy
+msgid "All Product Pricing Rules"
+msgstr "Všechna pravidla pro stanovení cen produktů"
+
+#: includes/class-yaydp-i18n.php:424
+#, fuzzy
+msgid "All Cart Discount Rules"
+msgstr "Všechna pravidla slev na košík"
+
+#: includes/class-yaydp-i18n.php:425
+#, fuzzy
+msgid "All Checkout Fee Rules"
+msgstr "Všechna pravidla poplatku za platbu"
+
+#: includes/class-yaydp-i18n.php:426
+msgid "Exclusions"
+msgstr "Výjimky"
+
+#: includes/class-yaydp-i18n.php:427
+msgid "Rule name"
+msgstr "Název pravidla"
+
+#: includes/class-yaydp-i18n.php:428
+#, fuzzy
+msgid "Product Collections"
+msgstr "Vyloučení produktů"
+
+#: includes/class-yaydp-i18n.php:429
+#, fuzzy
+msgid "Load all products which have discount through YayPricing."
+msgstr ""
+"Krátký kód pro načtení všech produktů, které mají slevu prostřednictvím "
+"YayPricing"
+
+#: includes/class-yaydp-i18n.php:430
+#, fuzzy
+msgid "Select product rules to display"
+msgstr "Zobrazení prodeje produktů"
+
 #: includes/class-yaydp-i18n.php:431
+#, fuzzy
+msgid "Leaving empty to select all"
+msgstr "Pokud necháte prázdné, znamená to vybrat vše"
+
+#: includes/class-yaydp-i18n.php:432
+#, fuzzy
+msgid "Include WooCommerce on sale products?"
+msgstr "Vyberte pravidla pro produkty v akci"
+
+#: includes/class-yaydp-i18n.php:433
+#, fuzzy
+msgid "On sale products:"
+msgstr "Všechny produkty"
+
+#: includes/class-yaydp-i18n.php:434
+msgid "Generate shortcode"
+msgstr "Generovat krátký kód"
+
+#: includes/class-yaydp-i18n.php:435
+#, fuzzy
+#| msgid "Copy shortcode"
+msgid "Your shortcode:"
+msgstr "Kopírovat shortcode"
+
+#: includes/class-yaydp-i18n.php:436
+#, fuzzy
+msgid "Display order saved amount."
+msgstr "Zobrazit částku úspory objednávky"
+
+#: includes/class-yaydp-i18n.php:437
+#, fuzzy
+msgid "The legacy shortcode is: [yaydp-saved-amount]"
+msgstr "Starší zkrácený kód je: [yaydp-uložená-částka]"
+
+#: includes/class-yaydp-i18n.php:438
+#, fuzzy
+msgid "Shortcode preview:"
+msgstr "Krátký kód zkopírován"
+
+#: includes/class-yaydp-i18n.php:439
+msgid "Deprecated"
+msgstr "Zastaralé"
+
+#: includes/class-yaydp-i18n.php:440
+#, fuzzy
+msgid ""
+"Display all on sale products (includes WooCommerce sale products and "
+"YayPricing discountable products). This will be marked as deprecated from "
+"this version."
+msgstr ""
+"Všechny produkty ve výprodeji (včetně produktů ve výprodeji WooCommerce a "
+"zlevněných produktů YayPricing"
+
+#: includes/class-yaydp-i18n.php:441
+#, fuzzy
+msgid "You should use "
+msgstr "Měli byste použít "
+
+#: includes/class-yaydp-i18n.php:442
+#, fuzzy
+msgid "On sale products"
+msgstr "Všechny produkty"
+
+#: includes/class-yaydp-i18n.php:443
+#, fuzzy
+msgid "All on sale products"
+msgstr "Vyberte pravidla pro produkty v akci"
+
+#: includes/class-yaydp-i18n.php:444
+#, fuzzy
+msgid "Order saved amount"
+msgstr "Zobrazit částku úspory objednávky"
+
+#: includes/class-yaydp-i18n.php:445
+#, fuzzy
+msgid "Product pricing countdowns"
+msgstr "Ceny produktů"
+
+#: includes/class-yaydp-i18n.php:446
+#, fuzzy
+msgid "Cart discount countdowns"
+msgstr "Slevy na košík"
+
+#: includes/class-yaydp-i18n.php:447
+#, fuzzy
+msgid "Checkout fee countdowns"
+msgstr "Poplatek za pokladnu"
+
+#: includes/class-yaydp-i18n.php:448
+#, fuzzy
+msgid "Product offer description"
+msgstr "Krátký popis po produktu"
+
+#: includes/class-yaydp-i18n.php:449
+#, fuzzy
+msgid "Product sale tag"
+msgstr "Zobrazení prodeje produktů"
+
+#: includes/class-yaydp-i18n.php:450
+msgid "Shortcode generator"
+msgstr "Generátor Shortcode"
+
+#: includes/class-yaydp-i18n.php:451
+#, fuzzy
+msgid "Display sale tag within product."
+msgstr "Zobrazit prodejní štítek v rámci produktu."
+
+#: includes/class-yaydp-i18n.php:452
+#, fuzzy
+msgid "Custom product?"
+msgstr "Položka košíku - produkt"
+
+#: includes/class-yaydp-i18n.php:453
+#, fuzzy
+msgid "Enabled status?"
+msgstr "Povolit plán"
+
+#: includes/class-yaydp-i18n.php:454
+msgid "Inherit"
+msgstr "Zdědit"
+
+#: includes/class-yaydp-i18n.php:455
+#, fuzzy
+msgid "Always show"
+msgstr "Vždy zobrazit"
+
+#: includes/class-yaydp-i18n.php:456
+#, fuzzy
+msgid "Show amount?"
+msgstr "Úsporná částka"
+
+#: includes/class-yaydp-i18n.php:457
+msgid "Show"
+msgstr "Zobrazit"
+
+#: includes/class-yaydp-i18n.php:458
+msgid "Hide"
+msgstr "Skrýt"
+
+#: includes/class-yaydp-i18n.php:459
+#, fuzzy
+msgid "Sale tag:"
+msgstr "Prodejní štítek"
+
+#: includes/class-yaydp-i18n.php:460
+#, fuzzy
+msgid ""
+"You are not activating sale tag in Product sale display settings. Please "
+"activate it or check at custom settings"
+msgstr ""
+"Neaktivujete štítek prodeje v nastavení zobrazení prodeje produktů. "
+"Aktivujte jej nebo zkontrolujte ve vlastních nastaveních"
+
+#: includes/class-yaydp-i18n.php:461
+#, fuzzy
+msgid "Display product offer description"
+msgstr "Krátký popis po produktu"
+
+#: includes/class-yaydp-i18n.php:462
+#, fuzzy
+msgid "Display when match conditions??"
+msgstr "Zobrazit podmínky zápasu??"
+
+#: includes/class-yaydp-i18n.php:463
+#, fuzzy
+msgid "Inherit rule setting"
+msgstr "Převzít nastavení pravidla"
+
+#: includes/class-yaydp-i18n.php:464
+#, fuzzy
+#| msgid "Conditions"
+msgid "Check conditions"
+msgstr "Podmínky"
+
+#: includes/class-yaydp-i18n.php:465
+#, fuzzy
+msgid "No check conditions"
+msgstr "Kombinovaná podmínka"
+
+#: includes/class-yaydp-i18n.php:466
+#, fuzzy
+msgid "For Y products?"
+msgstr "Všechny produkty"
+
+#: includes/class-yaydp-i18n.php:467
+#, fuzzy
+msgid "Offer description preview:"
+msgstr "Popis nabídky pro X"
+
+#: includes/class-yaydp-i18n.php:468
+#, fuzzy
+msgid "Display %s countdown timers"
+msgstr "Zobrazit odpočítávací časovač"
+
+#: includes/class-yaydp-i18n.php:469
+#, fuzzy
+msgid "Select rules to display"
+msgstr "Vyberte jedno pravidlo, které chcete vyloučit"
+
+#: includes/class-yaydp-i18n.php:470
+#, fuzzy
+msgid "Countdowns preview:"
+msgstr "Odpočítávací časovač"
+
+#: includes/class-yaydp-i18n.php:471
+#: includes/templates/change-free-items.php:27
+msgid "Product"
+msgstr "Produkt"
+
+#: includes/class-yaydp-i18n.php:472
+msgid "Status"
+msgstr "Stav"
+
+#: includes/class-yaydp-i18n.php:473
+msgid "In stock"
+msgstr "Skladem"
+
+#: includes/class-yaydp-i18n.php:474
+msgid "Selected products"
+msgstr "Vybrané produkty"
+
+#: includes/class-yaydp-i18n.php:475
+#, fuzzy
+msgid "Loading products"
+msgstr "Načítání produktů"
+
+#: includes/class-yaydp-i18n.php:476
+#, fuzzy
+msgid "No product matched"
+msgstr "Žádný produkt není spárován"
+
+#: includes/class-yaydp-i18n.php:477
 msgid "Discount type"
 msgstr "Typ slevy"
 
-#: includes/class-yaydp-i18n.php:432
+#: includes/class-yaydp-i18n.php:478
 msgid "Discount value"
 msgstr "Hodnota slevy"
 
-#: includes/class-yaydp-i18n.php:433
+#: includes/class-yaydp-i18n.php:479
 #, fuzzy
 msgid ""
 "This adds a cap so that the discount amount will not exceed this amount. "
 "When discount type is "
 msgstr "Tím se přidá limit, aby výše slevy nepřesáhla tuto částku"
 
-#: includes/class-yaydp-i18n.php:434
+#: includes/class-yaydp-i18n.php:480
 #, fuzzy
 msgid "Show tooltip on cart discount"
 msgstr "Zobrazit tooltip na slevu v košíku"
 
-#: includes/class-yaydp-i18n.php:435
-msgid "Used"
-msgstr "Použití"
-
-#: includes/class-yaydp-i18n.php:436
-msgid "Add condition"
-msgstr "Přidat podmínku"
-
-#: includes/class-yaydp-i18n.php:437
+#: includes/class-yaydp-i18n.php:481
 msgid "Default"
 msgstr "Výchozí"
 
-#: includes/class-yaydp-i18n.php:438
+#: includes/class-yaydp-i18n.php:482
 #, fuzzy
 msgid ""
 "Discount applies to the items specified below, starting from the left to "
 "right"
 msgstr "Sleva se vztahuje na níže uvedené položky, a to zleva doprava"
 
-#: includes/class-yaydp-i18n.php:439
+#: includes/class-yaydp-i18n.php:483
 #, fuzzy
 msgid "Cheapest one"
 msgstr "Nejlevnější"
 
-#: includes/class-yaydp-i18n.php:440
+#: includes/class-yaydp-i18n.php:484
 #, fuzzy
 msgid ""
 "Discount applies to the items specified below, starting from the cheapest one"
 msgstr "Sleva se vztahuje na níže uvedené zboží, a to již od nejlevnějšího"
 
-#: includes/class-yaydp-i18n.php:441
+#: includes/class-yaydp-i18n.php:485
 #, fuzzy
 msgid "Most expensive one"
 msgstr "Nejdražší"
 
-#: includes/class-yaydp-i18n.php:442
+#: includes/class-yaydp-i18n.php:486
 #, fuzzy
 msgid ""
 "Discount applies to the items specified below, starting from the most "
 "expensive one"
 msgstr "Sleva se vztahuje na níže uvedené položky, počínaje tím nejdražším"
 
-#: includes/class-yaydp-i18n.php:443
+#: includes/class-yaydp-i18n.php:487
 #, fuzzy
 msgid "Buy Products"
 msgstr "Koupit produkty"
 
-#: includes/class-yaydp-i18n.php:444
+#: includes/class-yaydp-i18n.php:488
 #, fuzzy
 msgid "Get Products"
 msgstr "Získat produkty"
 
-#: includes/class-yaydp-i18n.php:445
+#: includes/class-yaydp-i18n.php:489
 #, fuzzy
 msgid "(Which products will get discount?)"
 msgstr "(Které produkty dostanou slevu?)"
 
-#: includes/class-yaydp-i18n.php:446
+#: includes/class-yaydp-i18n.php:490
 #, fuzzy
 msgid "(X Products)"
 msgstr "Koupit produkty"
 
-#: includes/class-yaydp-i18n.php:447
+#: includes/class-yaydp-i18n.php:491
 #, fuzzy
 msgid "Item get type"
 msgstr "Typ získání položky"
 
-#: includes/class-yaydp-i18n.php:448
+#: includes/class-yaydp-i18n.php:492
+#, fuzzy
+#| msgid "Maximum value"
+msgid " Maximum value"
+msgstr "Maximální hodnota"
+
+#: includes/class-yaydp-i18n.php:493
 #, fuzzy
 msgid "No product excluded. Please"
 msgstr "Žádný produkt není vyloučen. Prosím"
 
-#: includes/class-yaydp-i18n.php:449
+#: includes/class-yaydp-i18n.php:494
 #, fuzzy
 msgid "add product"
 msgstr "Přidat produkt"
 
-#: includes/class-yaydp-i18n.php:450
+#: includes/class-yaydp-i18n.php:495
 #, fuzzy
 msgid "to exclude."
 msgstr "vyloučit."
 
-#: includes/class-yaydp-i18n.php:451
+#: includes/class-yaydp-i18n.php:496
 #, fuzzy
 msgid "This rule is not assigned to any product. Please"
 msgstr "Toto pravidlo není přiřazeno žádnému produktu. Prosím"
 
-#: includes/class-yaydp-i18n.php:452
+#: includes/class-yaydp-i18n.php:497
 #, fuzzy
 msgid "to assign it."
 msgstr "přiřadit jej."
 
-#: includes/class-yaydp-i18n.php:453
+#: includes/class-yaydp-i18n.php:498
 #, fuzzy
 msgid "Exclude those products that match"
 msgstr "Vyloučit produkty, které odpovídají"
 
-#: includes/class-yaydp-i18n.php:454
+#: includes/class-yaydp-i18n.php:499
 #, fuzzy
 msgid "This rule applies to those products that match"
 msgstr "Toto pravidlo se vztahuje na produkty, které odpovídají"
 
-#: includes/class-yaydp-i18n.php:455
+#: includes/class-yaydp-i18n.php:500
 #, fuzzy
 msgid "of these filters"
 msgstr "těchto filtrů"
 
-#: includes/class-yaydp-i18n.php:456
+#: includes/class-yaydp-i18n.php:501
 #, fuzzy
 msgid "View selected products"
 msgstr "Zobrazit vybrané produkty"
 
-#: includes/class-yaydp-i18n.php:457
+#: includes/class-yaydp-i18n.php:502
 #, fuzzy
 msgid ""
 "In a combined condition, you must select the eligible products. Then, the "
@@ -2332,32 +2625,39 @@ msgstr ""
 "množství košíku a množství položek omezeny na tyto filtrované produkty ve "
 "stejném stavu"
 
-#: includes/class-yaydp-i18n.php:458
+#: includes/class-yaydp-i18n.php:503
 #, fuzzy
 msgid "The discount value. Example: “50%“ or “10$“"
 msgstr "Hodnota slevy. Příklad: \"50%\" nebo \"10$\""
 
-#: includes/class-yaydp-i18n.php:459
+#: includes/class-yaydp-i18n.php:504
 #, fuzzy
 msgid "The calculated value of discount"
 msgstr "Vypočtená hodnota slevy"
 
-#: includes/class-yaydp-i18n.php:460
+#: includes/class-yaydp-i18n.php:505
+#, fuzzy
+msgid "The calculated value of fee"
+msgstr ""
+"Vypočtená hodnota poplatku, která je k dispozici pouze v pravidle poplatku "
+"za produkt"
+
+#: includes/class-yaydp-i18n.php:506
 #, fuzzy
 msgid "Product price after discounting"
 msgstr "Cena produktu po slevě"
 
-#: includes/class-yaydp-i18n.php:461
+#: includes/class-yaydp-i18n.php:507
 #, fuzzy
 msgid "Name of the campaign"
 msgstr "Název kampaně"
 
-#: includes/class-yaydp-i18n.php:462
+#: includes/class-yaydp-i18n.php:508
 #, fuzzy
 msgid "Timer clock, it will countdown to the schedule day"
 msgstr "Časovač, bude se odpočítávat do naplánovaného dne"
 
-#: includes/class-yaydp-i18n.php:463
+#: includes/class-yaydp-i18n.php:509
 #, fuzzy
 msgid ""
 "The action customer need to do to get the discount. Example: “buy more 100$” "
@@ -2366,29 +2666,29 @@ msgstr ""
 "Akce, kterou musí zákazník udělat, aby získal slevu. Příklad: \"koupit více "
 "100 $\" nebo \"koupit více 1 položka produktu A\" "
 
-#: includes/class-yaydp-i18n.php:464
+#: includes/class-yaydp-i18n.php:510
 #, fuzzy
 msgid "Current discounting product"
 msgstr "Aktuální diskontní produkt"
 
-#: includes/class-yaydp-i18n.php:465
+#: includes/class-yaydp-i18n.php:511
 msgid "Copied"
 msgstr "Zkopírováno"
 
-#: includes/class-yaydp-i18n.php:466
+#: includes/class-yaydp-i18n.php:512
 msgid "Description"
 msgstr "Popis"
 
-#: includes/class-yaydp-i18n.php:467
+#: includes/class-yaydp-i18n.php:513
 msgid "Variables"
 msgstr "Proměnné"
 
-#: includes/class-yaydp-i18n.php:468
+#: includes/class-yaydp-i18n.php:514
 #, fuzzy
 msgid "Variable list"
 msgstr "Seznam proměnných"
 
-#: includes/class-yaydp-i18n.php:469
+#: includes/class-yaydp-i18n.php:515
 #, fuzzy
 msgid ""
 "Automatically add gift item(s) once the base product(s) are added to cart"
@@ -2396,293 +2696,128 @@ msgstr ""
 "Automaticky přidat dárkové předměty, jakmile jsou základní produkty přidány "
 "do košíku"
 
-#: includes/class-yaydp-i18n.php:470
+#: includes/class-yaydp-i18n.php:516
+#: includes/templates/cart-item-price/extra-item.php:14
+msgid "Free"
+msgstr "Zdarma"
+
+#: includes/class-yaydp-i18n.php:517
 #, fuzzy
 msgid ""
 "Customers need to add the quantity of items specified below to their cart"
 msgstr "Zákazníci musí do košíku přidat níže uvedené množství položek"
 
-#: includes/class-yaydp-i18n.php:471
-#, fuzzy
-msgid "More result"
-msgstr "Další výsledky"
+#: includes/class-yaydp-i18n.php:518
+msgid "times"
+msgstr "krát"
 
-#: includes/class-yaydp-i18n.php:472
+#: includes/class-yaydp-i18n.php:519
+msgid "time"
+msgstr "čas"
+
+#: includes/class-yaydp-i18n.php:520
+msgid "No"
+msgstr "Ne"
+
+#: includes/class-yaydp-i18n.php:521
+msgid "found"
+msgstr "nalezeno"
+
+#: includes/class-yaydp-i18n.php:522
 #, fuzzy
 msgid "Select at least one product"
 msgstr "Vyberte alespoň jeden produkt"
 
-#: includes/class-yaydp-i18n.php:473
+#: includes/class-yaydp-i18n.php:523
 #, fuzzy
 msgid "Select at least one variation"
 msgstr "Vyberte alespoň jednu variantu"
 
-#: includes/class-yaydp-i18n.php:474
+#: includes/class-yaydp-i18n.php:524
 #, fuzzy
 msgid "Select at least one category"
 msgstr "Vyberte alespoň jednu kategorii"
 
-#: includes/class-yaydp-i18n.php:475
+#: includes/class-yaydp-i18n.php:525
 #, fuzzy
 msgid "Select at least one attribute"
 msgstr "Vyberte alespoň jeden atribut"
 
-#: includes/class-yaydp-i18n.php:476
+#: includes/class-yaydp-i18n.php:526
 #, fuzzy
 msgid "Select at least one taxonomy"
 msgstr "Výběr alespoň jedné značky"
 
-#: includes/class-yaydp-i18n.php:477
+#: includes/class-yaydp-i18n.php:527
+#, fuzzy
+msgid "Select at least one collection"
+msgstr "Vyberte alespoň jeden kupón"
+
+#: includes/class-yaydp-i18n.php:528
 #, fuzzy
 msgid "Select at least one tag"
 msgstr "Výběr alespoň jedné značky"
 
-#: includes/class-yaydp-i18n.php:478
+#: includes/class-yaydp-i18n.php:529
 #, fuzzy
 msgid "Select at least one role"
 msgstr "Vyberte alespoň jednu roli"
 
-#: includes/class-yaydp-i18n.php:479
+#: includes/class-yaydp-i18n.php:530
 #, fuzzy
 msgid "Select at least one customer"
 msgstr "Vyberte alespoň jednoho zákazníka"
 
-#: includes/class-yaydp-i18n.php:480
+#: includes/class-yaydp-i18n.php:531
 #, fuzzy
 msgid "Select at least one region"
 msgstr "Vyberte alespoň jednu oblast"
 
-#: includes/class-yaydp-i18n.php:481
+#: includes/class-yaydp-i18n.php:532
 #, fuzzy
 msgid "Select at least one payment"
 msgstr "Vyberte alespoň jednu platbu"
 
-#: includes/class-yaydp-i18n.php:482
+#: includes/class-yaydp-i18n.php:533
 #, fuzzy
 msgid "Select at least one value"
 msgstr "Vyberte alespoň jednu hodnotu"
 
-#: includes/class-yaydp-i18n.php:483
+#: includes/class-yaydp-i18n.php:534
 msgid "Fee type"
 msgstr "Typ poplatku"
 
-#: includes/class-yaydp-i18n.php:484
+#: includes/class-yaydp-i18n.php:535
 #, fuzzy
 msgid "Fee value"
 msgstr "Hodnota poplatku"
 
-#: includes/class-yaydp-i18n.php:485
+#: includes/class-yaydp-i18n.php:536
 #, fuzzy
 msgid "Show tooltip on checkout fee"
 msgstr "Zobrazit tooltip k poplatku za pokladnu"
 
-#: includes/class-yaydp-i18n.php:486
+#: includes/class-yaydp-i18n.php:537
 #, fuzzy
 #| msgid "Free shipping"
 msgid "Apply to shipping"
 msgstr "Doprava zdarma"
 
-#: includes/class-yaydp-i18n.php:487
+#: includes/class-yaydp-i18n.php:538
 #, fuzzy
 msgid "Custom Fee"
 msgstr "Celní poplatek"
 
-#: includes/class-yaydp-i18n.php:488
-msgid "Features"
-msgstr "Vlastnosti"
+#: includes/class-yaydp-i18n.php:539
+msgid "Tax"
+msgstr "DPH"
 
-#: includes/class-yaydp-i18n.php:489
-#, fuzzy
-msgid "YayPricing Free"
-msgstr "YayCeny Zdarma"
-
-#: includes/class-yaydp-i18n.php:490
-#, fuzzy
-msgid "YayPricing Pro"
-msgstr "YayPricing Pro"
-
-#: includes/class-yaydp-i18n.php:491
-#, fuzzy
-msgid "Allow switching gift products on cart page"
-msgstr "Povolit přepínání dárkových produktů na stránce košíku"
-
-#: includes/class-yaydp-i18n.php:492
-#, fuzzy
-msgid "Coupon Exclusions"
-msgstr "Vyloučení kupónů"
-
-#: includes/class-yaydp-i18n.php:493
-#, fuzzy
-msgid "This setting allows you to apply YayPricing"
-msgstr "Toto nastavení vám umožňuje použít YayPricing"
-
-#: includes/class-yaydp-i18n.php:494
-#, fuzzy
-msgid "Analytics & reports"
-msgstr "Analytika a reporty"
-
-#: includes/class-yaydp-i18n.php:495
-#, fuzzy
-msgid ""
-"View charts and analytics for your pricing rules. You can see how a "
-"promotion campaign performs in a date range"
-msgstr ""
-"Zobrazte si grafy a analýzy pro vaše cenová pravidla. Můžete se podívat, jak "
-"si propagační kampaň vede v určitém časovém období"
-
-#: includes/class-yaydp-i18n.php:496
-#, fuzzy
-#| msgid "Product"
-msgid "Product fee"
-msgstr "Produkt"
-
-#: includes/class-yaydp-i18n.php:497
-#, fuzzy
-msgid "Add handling fees or charge extra fees for product"
-msgstr ""
-"Přidejte manipulační poplatky nebo účtujte dodatečné poplatky na základě "
-"oblasti dopravy, způsobu platby a dalších kritérií"
-
-#: includes/class-yaydp-i18n.php:498
-msgid "Custom fees"
-msgstr "Vlastní příplatky"
-
-#: includes/class-yaydp-i18n.php:499
-#, fuzzy
-msgid ""
-"Add handling fees or charge extra fees based on shipping region, payment "
-"method, and other criteria"
-msgstr ""
-"Přidejte manipulační poplatky nebo účtujte dodatečné poplatky na základě "
-"oblasti dopravy, způsobu platby a dalších kritérií"
-
-#: includes/class-yaydp-i18n.php:500
-#, fuzzy
-msgid "Custom Fee based on Shipping Fee"
-msgstr "Poplatek za dopravu zdarma"
-
-#: includes/class-yaydp-i18n.php:501
-#, fuzzy
-msgid "Add handling fees which is calculated based on Shipping fee"
-msgstr ""
-"Přidejte manipulační poplatky, které se vypočítávají na základě poplatku za "
-"dopravu"
-
-#: includes/class-yaydp-i18n.php:502
-#, fuzzy
-msgid "Product pricing conditions"
-msgstr "Cenové podmínky produktu"
-
-#: includes/class-yaydp-i18n.php:503
-#, fuzzy
-msgid ""
-"Set up additional conditions that need to be met before the promotion is "
-"applied"
-msgstr ""
-"Nastavte další podmínky, které je třeba splnit před uplatněním propagační "
-"akce"
-
-#: includes/class-yaydp-i18n.php:504
-#, fuzzy
-msgid "Combined conditions"
-msgstr "Kombinované podmínky"
-
-#: includes/class-yaydp-i18n.php:505
-#, fuzzy
-msgid ""
-"Create cart discount conditions that are restricted to those cart items. For "
-"example, minimum spend on specific product categories will get the discount"
-msgstr ""
-"Vytvořte podmínky slev pro košík, které jsou omezeny na tyto položky košíku. "
-"Slevu získáte například při minimální útratě za konkrétní kategorie produktů"
-
-#: includes/class-yaydp-i18n.php:506
-#, fuzzy
-msgid ""
-"Use shortcode to output all discounted products on any WordPress page/post"
-msgstr ""
-"Použijte krátký kód pro výstup všech zlevněných produktů na libovolnou "
-"stránku/příspěvek WordPress"
-
-#: includes/class-yaydp-i18n.php:507
-#, fuzzy
-msgid "Sales triggers"
-msgstr "Spouštěče prodeje"
-
-#: includes/class-yaydp-i18n.php:508
-#, fuzzy
-msgid "Upselling notices"
-msgstr "Oznámení o upsellingu"
-
-#: includes/class-yaydp-i18n.php:509
-#, fuzzy
-msgid "VIP live chat support"
-msgstr "Podpora na VIP živém chatu"
-
-#: includes/class-yaydp-i18n.php:510
-#, fuzzy
-msgid "Latest features & updates"
-msgstr "Nejnovější funkce a aktualizace"
-
-#: includes/class-yaydp-i18n.php:511
-#, fuzzy
-msgid "BOGO"
-msgstr "BOGO"
-
-#: includes/class-yaydp-i18n.php:512
-#, fuzzy
-msgid "Buy X Get Y"
-msgstr "Koupit X Získejte Y"
-
-#: includes/class-yaydp-i18n.php:513
-#, fuzzy
-msgid "Bulk discounts"
-msgstr "Množstevní slevy"
-
-#: includes/class-yaydp-i18n.php:514
-#, fuzzy
-msgid "Scheduled discounts"
-msgstr "Plánované slevy"
-
-#: includes/class-yaydp-i18n.php:515
-#, fuzzy
-msgid "User role discounts"
-msgstr "Slevy na uživatelské role"
-
-#: includes/class-yaydp-i18n.php:516
-msgid "Free shipping"
-msgstr "Doprava zdarma"
-
-#: includes/class-yaydp-i18n.php:517
-#, fuzzy
-msgid "Your current"
-msgstr "Váš aktuální"
-
-#: includes/class-yaydp-i18n.php:518
-#, fuzzy
-msgid "Get YayPricing Pro"
-msgstr "Získat YayPricing Pro"
-
-#: includes/class-yaydp-i18n.php:519
-#, fuzzy
-msgid "Consider upgrading to"
-msgstr "Zvažte upgrade na"
-
-#: includes/class-yaydp-i18n.php:520
-#, fuzzy
-msgid ""
-"It would be the best move you can make for your ecommerce store. Check it "
-"out!"
-msgstr ""
-"Byl by to nejlepší krok, který můžete pro svůj e-shop udělat. Podívejte se "
-"na to!"
-
-#: includes/class-yaydp-i18n.php:521
+#: includes/class-yaydp-i18n.php:540
 #, fuzzy
 msgid "Manage Exclude Rule"
 msgstr "Správa pravidla vyloučení"
 
-#: includes/class-yaydp-i18n.php:522
+#: includes/class-yaydp-i18n.php:541
 #, fuzzy
 msgid ""
 "Create rule to decide which products will not be affected by Product pricing "
@@ -2691,21 +2826,21 @@ msgstr ""
 "Vytvořte pravidlo, které rozhodne, které produkty nebudou ovlivněny pravidly "
 "pro stanovení cen produktů."
 
-#: includes/class-yaydp-i18n.php:523
+#: includes/class-yaydp-i18n.php:542
 #, fuzzy
 msgid "Add Your First Rule"
 msgstr "Přidejte své první pravidlo"
 
-#: includes/class-yaydp-i18n.php:524
+#: includes/class-yaydp-i18n.php:543
 msgid "Add Rule"
 msgstr "Přidat pravidlo"
 
-#: includes/class-yaydp-i18n.php:525
+#: includes/class-yaydp-i18n.php:544
 #, fuzzy
 msgid "Manage Cart Discounts Rule"
 msgstr "Pravidlo pro správu slev v košíku"
 
-#: includes/class-yaydp-i18n.php:526
+#: includes/class-yaydp-i18n.php:545
 #, fuzzy
 msgid ""
 "Cart discounts rules is used to create cart discount coupons that apply at "
@@ -2714,12 +2849,12 @@ msgstr ""
 "Pravidla slev pro košík se používají k vytváření slevových kupónů košíku, "
 "které platí při placení. Slevu můžete také kombinovat v sekci Nastavení."
 
-#: includes/class-yaydp-i18n.php:527
+#: includes/class-yaydp-i18n.php:546
 #, fuzzy
 msgid "Manage Product Pricing Rule"
 msgstr "Správa pravidla pro stanovení ceny produktů"
 
-#: includes/class-yaydp-i18n.php:528
+#: includes/class-yaydp-i18n.php:547
 #, fuzzy
 msgid ""
 "Create product pricing rules that affect price of products. You can also "
@@ -2728,40 +2863,48 @@ msgstr ""
 "Vytvořte pravidla pro stanovení cen produktů, která mají vliv na cenu "
 "produktů. Můžete také vytvořit poplatek za produkt nebo slevu."
 
-#: includes/class-yaydp-i18n.php:529
+#: includes/class-yaydp-i18n.php:548
 #, fuzzy
 msgid "Manage Checkout Fees Rule"
 msgstr "Pravidlo správy poplatků za platbu"
 
-#: includes/class-yaydp-i18n.php:530
+#: includes/class-yaydp-i18n.php:549
 #, fuzzy
 msgid "Fee rules is used to affect fees that apply at checkout."
 msgstr ""
 "Pravidla poplatků se používají k ovlivnění poplatků, které platí při placení."
 
-#: includes/class-yaydp-i18n.php:531
+#: includes/class-yaydp-i18n.php:550
 #, fuzzy
 msgid "Save failed"
 msgstr "Uložení se nezdařilo"
 
-#: includes/class-yaydp-i18n.php:532
+#: includes/class-yaydp-i18n.php:551
 msgid "Saved"
 msgstr "Uloženo"
 
-#: includes/class-yaydp-i18n.php:533
-msgid "Save"
-msgstr "Uložit"
-
-#: includes/class-yaydp-i18n.php:534
+#: includes/class-yaydp-i18n.php:552
 #, fuzzy
-msgid ""
-"With Product Collections, you can easily create and manage groups of product "
-"filters, allowing you to apply multiple filters with a single click."
-msgstr ""
-"Pomocí kolekcí produktů můžete snadno vytvářet a spravovat skupiny filtrů "
-"produktů, což vám umožní použít více filtrů jediným kliknutím."
+msgid "Manage Product Collections"
+msgstr "Správa pravidla pro stanovení ceny produktů"
 
-#: includes/class-yaydp-i18n.php:535
+#: includes/class-yaydp-i18n.php:553
+#, fuzzy
+msgid "Create Product Collections for quickly using in Product Filters"
+msgstr "Vytváření kolekcí produktů pro rychlé použití ve filtrech produktů"
+
+#: includes/class-yaydp-i18n.php:554
+#, fuzzy
+msgid "Add Your First Collection"
+msgstr "Přidejte své první pravidlo"
+
+#: includes/class-yaydp-i18n.php:555
+#, fuzzy
+#| msgid "Add condition"
+msgid "Add Collection"
+msgstr "Přidat podmínku"
+
+#: includes/class-yaydp-i18n.php:556
 #, fuzzy
 msgid "Imported rule"
 msgstr "Importované pravidlo"
@@ -2777,26 +2920,26 @@ msgid "log-"
 msgstr "kláda-"
 
 #. Translators: link href.
-#: includes/class-yaypricing.php:119
+#: includes/class-yaypricing.php:122
 #, fuzzy
 msgid "%1$s Settings %2$s"
 msgstr "Nastavení %1$s %2$s"
 
 #. Translators: link href.
-#: includes/class-yaypricing.php:140
+#: includes/class-yaypricing.php:138
 #, fuzzy
 msgid "%1$s Docs %2$s"
 msgstr "%1$s Docs %2$s"
 
 #. Translators: link href.
-#: includes/class-yaypricing.php:142
+#: includes/class-yaypricing.php:140
 #, fuzzy
 msgid "%1$s Support %2$s"
 msgstr "%1$s podpora %2$s"
 
 #: includes/constants/class-yaydp-admin-settings.php:176
 #, fuzzy
-msgid "WooCommerce on sale status"
+msgid "On sale (WooCommerce)"
 msgstr "WooCommerce o stavu prodeje"
 
 #: includes/constants/class-yaydp-admin-settings.php:180
@@ -2808,12 +2951,76 @@ msgstr "Ve slevě"
 msgid "Not on sale"
 msgstr "Není v seznamu"
 
-#: includes/core/manager/class-yaydp-cart-discount-manager.php:176
-#: includes/core/rule/cart-discount/class-yaydp-combined-discount.php:106
-msgid "%s"
-msgstr "%s"
+#: includes/constants/class-yaydp-admin-settings.php:200
+#, fuzzy
+msgid "Product collections"
+msgstr "Vyloučení produktů"
 
-#: includes/core/manager/class-yaydp-product-pricing-manager.php:381
+#: includes/constants/class-yaydp-admin-settings.php:214
+msgid "Shipping class"
+msgstr "Přepravní třída"
+
+#. Translators: buy more text.
+#: includes/core/encouragement/class-yaydp-cart-discount-encouragement.php:113
+#: includes/core/encouragement/class-yaydp-checkout-fee-encouragement.php:110
+#: includes/core/encouragement/class-yaydp-product-pricing-encouragement.php:164
+#, fuzzy
+msgid "add %s more"
+msgstr "přidat %s další"
+
+#. Translators: buy more text.
+#: includes/core/encouragement/class-yaydp-cart-discount-encouragement.php:118
+#: includes/core/encouragement/class-yaydp-checkout-fee-encouragement.php:115
+#: includes/core/encouragement/class-yaydp-product-pricing-encouragement.php:169
+#, fuzzy
+msgid "add %1$s more item%2$s"
+msgstr "přidat %1$s další položku%2$s"
+
+#: includes/core/encouragement/class-yaydp-cart-discount-encouragement.php:122
+#: includes/core/encouragement/class-yaydp-checkout-fee-encouragement.php:119
+#: includes/core/encouragement/class-yaydp-product-pricing-encouragement.php:173
+msgid "login"
+msgstr "přihlásit"
+
+#. translators: %s value.
+#: includes/core/encouragement/class-yaydp-cart-discount-encouragement.php:127
+#: includes/core/encouragement/class-yaydp-checkout-fee-encouragement.php:124
+#: includes/core/encouragement/class-yaydp-product-pricing-encouragement.php:178
+#, fuzzy
+msgid "make more %1$s order%2$s"
+msgstr "provést další %1$s objednávku%2$s"
+
+#. translators: %s value.
+#: includes/core/encouragement/class-yaydp-cart-discount-encouragement.php:132
+#: includes/core/encouragement/class-yaydp-checkout-fee-encouragement.php:129
+#: includes/core/encouragement/class-yaydp-product-pricing-encouragement.php:183
+#, fuzzy
+msgid "take more %1$s shipping fee"
+msgstr "Vezměte si více %1$s poštovného"
+
+#. translators: %s value.
+#: includes/core/encouragement/class-yaydp-cart-discount-encouragement.php:137
+#: includes/core/encouragement/class-yaydp-checkout-fee-encouragement.php:134
+#: includes/core/encouragement/class-yaydp-product-pricing-encouragement.php:188
+#, fuzzy
+msgid "add %1$skg more"
+msgstr "přidat dalších %1$skg"
+
+#: includes/core/encouragement/class-yaydp-cart-discount-encouragement.php:141
+#: includes/core/encouragement/class-yaydp-checkout-fee-encouragement.php:138
+#: includes/core/encouragement/class-yaydp-product-pricing-encouragement.php:144
+#: includes/core/encouragement/class-yaydp-product-pricing-encouragement.php:192
+#, fuzzy
+msgid "add more items"
+msgstr "přidat další položky"
+
+#. Translators: buy more text.
+#: includes/core/encouragement/class-yaydp-product-pricing-encouragement.php:141
+#, fuzzy
+msgid "add %1$s more item%2$s of %3$s"
+msgstr "přidat %1$s další položku%2$s z %3$s"
+
+#: includes/core/manager/class-yaydp-product-pricing-manager.php:431
 #, fuzzy
 msgid "Product discounts"
 msgstr "Slevy na produkty"
@@ -2823,13 +3030,14 @@ msgstr "Slevy na produkty"
 msgid "Coupon cannot be used in combination with other discounts."
 msgstr "Kupón nelze kombinovat s jinými slevami."
 
-#: includes/core/offer-description/class-yaydp-offer-description.php:199
-#: includes/core/offer-description/class-yaydp-offer-description.php:292
-#: includes/core/offer-description/class-yaydp-offer-description.php:374
+#: includes/core/offer-description/class-yaydp-offer-description.php:200
+#: includes/core/offer-description/class-yaydp-offer-description.php:296
+#: includes/core/offer-description/class-yaydp-offer-description.php:380
 msgid "unlimited"
 msgstr "neomezeno"
 
-#: includes/core/offer-description/class-yaydp-offer-description.php:208
+#. Translators: translate discount value text.
+#: includes/core/offer-description/class-yaydp-offer-description.php:210
 #, fuzzy
 msgid ""
 "from %1$s to %2$s: <span data-variable=\"discount_value\" data-"
@@ -2838,22 +3046,25 @@ msgstr ""
 "od %1$s do %2$s: <span data-variable=\"discount_value\" data-"
 "formula=\"%3$s\">%4$s</span>"
 
-#: includes/core/offer-description/class-yaydp-offer-description.php:235
+#. Translators: translate discount value text.
+#: includes/core/offer-description/class-yaydp-offer-description.php:238
 #, fuzzy
 msgid ""
 "<span data-variable=\"discount_value\" data-formula=\"%1$s\">%2$s</span>"
 msgstr ""
 "<span data-variable=\"discount_value\" data-formula=\"%1$s\">%2$s</span>"
 
-#: includes/core/offer-description/class-yaydp-offer-description.php:266
-#: includes/core/offer-description/class-yaydp-offer-description.php:325
+#. Translators: translate discount amount text.
+#: includes/core/offer-description/class-yaydp-offer-description.php:270
+#: includes/core/offer-description/class-yaydp-offer-description.php:331
 #, fuzzy
 msgid ""
 "<span data-variable=\"discount_amount\" data-formula=\"%1$s\">%2$s</span>"
 msgstr ""
 "<span data-variable=\"discount_amount\" data-formula=\"%1$s\">%2$s</span>"
 
-#: includes/core/offer-description/class-yaydp-offer-description.php:300
+#. Translators: translate discount amount text.
+#: includes/core/offer-description/class-yaydp-offer-description.php:305
 #, fuzzy
 msgid ""
 "from %1$s to %2$s: <span data-variable=\"discount_amount\" data-"
@@ -2862,7 +3073,8 @@ msgstr ""
 "od %1$s do %2$s: <span data-variable=\"discount_amount\" data-"
 "formula=\"%3$s\">%4$s</span>"
 
-#: includes/core/offer-description/class-yaydp-offer-description.php:382
+#. Translators: translate discounted price text.
+#: includes/core/offer-description/class-yaydp-offer-description.php:389
 #, fuzzy
 msgid ""
 "from %1$s to %2$s: <span data-variable=\"discounted_price\" data-"
@@ -2871,12 +3083,19 @@ msgstr ""
 "od %1$s do %2$s: <span data-variable=\"discounted_price\" data-"
 "formula=\"%3$s\">%4$s</span>"
 
-#: includes/core/offer-description/class-yaydp-offer-description.php:405
+#. Translators: translate formula.
+#: includes/core/offer-description/class-yaydp-offer-description.php:413
 #, fuzzy
 msgid ""
 "<span data-variable=\"discounted_price\" data-formula=\"%1$s\">%2$s</span>"
 msgstr ""
 "<span data-variable=\"discounted_price\" data-formula=\"%1$s\">%2$s</span>"
+
+#. Translators: translate fee amount text.
+#: includes/core/offer-description/class-yaydp-offer-description.php:453
+#, fuzzy
+msgid "<span data-variable=\"fee_amount\" data-formula=\"%1$s\">%2$s</span>"
+msgstr "<span data-variable=\"fee_amount\" data-formula=\"%1$s\">%2$s</span>"
 
 #. translators: %s Rule name.
 #: includes/core/use-time/class-yaydp-product-pricing-use-time.php:46
@@ -2889,22 +3108,50 @@ msgstr "%s vypršela. Chcete-li pokračovat v placení, načtěte stránku znovu
 msgid "Nonce is invalid"
 msgstr "Nonce je neplatná"
 
-#: includes/noname/class-yaydp-pricing-table.php:104
+#: includes/integrations/woocommerce/class-yaydp-woocommerce-subscriptions-integration.php:117
+#, fuzzy
+#| msgid "Description"
+msgid "Subscription status"
+msgstr "Popis"
+
+#: includes/integrations/woocommerce/class-yaydp-woocommerce-subscriptions-integration.php:121
+#, fuzzy
+#| msgid "Description"
+msgid "Has subscription"
+msgstr "Popis"
+
+#: includes/integrations/woocommerce/class-yaydp-woocommerce-subscriptions-integration.php:125
+#, fuzzy
+#| msgid "Description"
+msgid "No subscription"
+msgstr "Popis"
+
+#. translators: %s: search WooCommerce plugin link
+#: includes/license/class-license-handler.php:77
+#, fuzzy
+msgid ""
+"%1$s license key is required. %2$sPlease enter your license key to start "
+"using the plugin%3$s."
+msgstr ""
+"%1$s je vyžadován licenční klíč. %2$sChcete-li zásuvný modul začít používat, "
+"zadejte prosím svůj licenční klíč%3$s."
+
+#: includes/noname/class-yaydp-pricing-table.php:110
 msgid "Unlimited"
 msgstr "Neomezeno"
 
-#: includes/yaycommercemenu/class-register-menu.php:70
-msgid "Help"
-msgstr "Pomoc"
+#: includes/templates/change-free-items.php:4
+msgid "Choose Option"
+msgstr "Vyberte si možnost"
 
-#: includes/yaycommercemenu/class-register-menu.php:103
-msgid "Licenses"
-msgstr "Licence"
-
-#: includes/yaycommercemenu/class-register-menu.php:112
+#: includes/templates/change-free-items.php:20
 #, fuzzy
-msgid "Other plugins"
-msgstr "Další pluginy"
+msgid "You can choose maximum %s products"
+msgstr "Můžete si vybrat maximálně %s produktů"
+
+#: includes/templates/change-free-items.php:53
+msgid "any"
+msgstr "jakákoli"
 
 #: includes/yaydp-duplicate-fallback.php:24
 #, fuzzy
@@ -2923,8 +3170,140 @@ msgid "Read more details."
 msgstr "Přečtěte si další podrobnosti."
 
 #, fuzzy
-#~ msgid "./components sync recursive ^\\.\\/locale\\/.+_.+\\.tsx?$"
-#~ msgstr "./components sync rekurzivní ^\\.\\/locale\\/.+_.+\\.tsx?$"
+#~| msgid "Shortcodes"
+#~ msgid "Shortcode generators"
+#~ msgstr "Zkratky (Shortcodes)"
+
+#, fuzzy
+#~ msgid "Filter by product attribute"
+#~ msgstr "Filtrování podle atributu produktu"
+
+#, fuzzy
+#~ msgid "Filter by WooCommerce on sale status"
+#~ msgstr "Filtrovat podle WooCommerce na stav prodeje"
+
+#, fuzzy
+#~ msgid "Single rule countdown shortcode"
+#~ msgstr "Krátký kód odpočítávání jednoho pravidla"
+
+#, fuzzy
+#~| msgid "Enter your description"
+#~ msgid "Shortcode for offer description"
+#~ msgstr "Zadejte svůj popis"
+
+#, fuzzy
+#~ msgid "Custom sale tag shortcode (yaydp-custom-sale-tag)"
+#~ msgstr "Krátký kód značky prodeje na zakázku (yaydp-custom-sale-tag)"
+
+#, fuzzy
+#~ msgid ""
+#~ "Custom hook to display offer description (yaydp_product_offer_description)"
+#~ msgstr ""
+#~ "Vlastní háček pro zobrazení popisu nabídky "
+#~ "(yaydp_product_offer_description)"
+
+#, fuzzy
+#~ msgid "Integrate with Iconic Attribute Swatches plugin"
+#~ msgstr "Integrace s pluginem Iconic Attribute Swatches"
+
+#, fuzzy
+#~ msgid "Integrate with Cartflows Order Bumps"
+#~ msgstr "Integrace s Cartflows Zvýšení objednávek"
+
+#, fuzzy
+#~ msgid "Integrate with Google Tag Manager plugin"
+#~ msgstr "Integrace s pluginem Google Tag Manager"
+
+#, fuzzy
+#~ msgid "Sync with WC coupon individual use only"
+#~ msgstr "Synchronizace s poukazem WC pouze pro individuální použití"
+
+#, fuzzy
+#~ msgid "Bundle discount affected items"
+#~ msgstr "Dotčené položky se slevou na balíčky"
+
+#, fuzzy
+#~ msgid "Bundle discount split into multiple bundles"
+#~ msgstr "Přidejte [discount_value] do objednávky"
+
+#, fuzzy
+#~ msgid "Condition by billing region"
+#~ msgstr "Podmínka podle fakturační oblasti"
+
+#, fuzzy
+#~ msgid "Condition by account create time"
+#~ msgstr "Podmínka podle času vytvoření účtu"
+
+#, fuzzy
+#~ msgid "Add exluded by all coupons in Coupon exclusion"
+#~ msgstr "Přidat vyloučeno ze všech kupónů ve vyloučení kupónů"
+
+#, fuzzy
+#~ msgid "WC coupon exclude sale items per-cart"
+#~ msgstr "WC kupón vyloučit výprodejové položky na košík"
+
+#, fuzzy
+#~ msgid "WC coupon exclude sale items per-product"
+#~ msgstr "WC kupón vyloučit výprodejové položky na produkt"
+
+#, fuzzy
+#~ msgid "Handle litespeed cache when Rule schedule is over"
+#~ msgstr "Zpracování litespeed cache po skončení plánu pravidel"
+
+#, fuzzy
+#~ msgid ""
+#~ "Migrate shortcode: yaydp-matching-products => yaydp-on-sale-products-v2"
+#~ msgstr ""
+#~ "Migrace krátkého kódu: yaydp-matching-products => yaydp-on-sale-products-"
+#~ "v2"
+
+#, fuzzy
+#~ msgid ""
+#~ "Migrate shortcode: yaydp-on-sale-products => yaydp-on-sale-products-v2"
+#~ msgstr ""
+#~ "Migrujte zkrácený kód: yaydp-on-sale-products => yaydp-on-sale-products-v2"
+
+#, fuzzy
+#~ msgid ""
+#~ "Migrate shortcode: yaydp-all-on-sale-products => yaydp-on-sale-products-v2"
+#~ msgstr ""
+#~ "Migrace zkráceného kódu: yaydp-all-on-sale-products => yaydp-on-sale-"
+#~ "products-v2"
+
+#, fuzzy
+#~ msgid ""
+#~ "Free item price not display correctly with  Role Based Pricing plugin"
+#~ msgstr ""
+#~ "Cena volné položky se nezobrazuje správně s pluginem pro stanovení cen na "
+#~ "základě rolí"
+
+#, fuzzy
+#~ msgid "View more on our changelog"
+#~ msgstr "Více informací naleznete v našem seznamu změn"
+
+#~ msgid "Generated"
+#~ msgstr ""
+#~ "Přidání uživatelského systému helpdesk Zasílání hesla vygenerovaného "
+#~ "serverem e-mailem"
+
+#, fuzzy
+#~ msgid ""
+#~ "After generating, shortcode will be copied to your clipboard. You can "
+#~ "paste it anywhere you want"
+#~ msgstr ""
+#~ "Po vygenerování bude krátký kód zkopírován do vaší schránky. Můžete jej "
+#~ "vložit kamkoli chcete"
+
+#, fuzzy
+#~ msgid ""
+#~ "Display %s countdown timers (Cannot be affected by show countdown timer "
+#~ "settings)."
+#~ msgstr ""
+#~ "Zobrazit %s odpočítávací časovače (Nemůže být ovlivněno nastavením "
+#~ "zobrazit odpočítávací časovač)."
+
+#~ msgid "Loading..."
+#~ msgstr "Načítám..."
 
 #~ msgid "Sale"
 #~ msgstr "Sleva"
@@ -2933,24 +3312,8 @@ msgstr "Přečtěte si další podrobnosti."
 #~ msgid "Buy X get X event"
 #~ msgstr "Kupte X a získejte X událost"
 
-#, fuzzy
-#~ msgid "Product pricing"
-#~ msgstr "Ceny produktů"
-
 #~ msgid "Cart discount"
 #~ msgstr "Sleva do košíku"
-
-#, fuzzy
-#~ msgid ""
-#~ "All sale products (includes WooCommerce sale products and YayPricing "
-#~ "discountable products)"
-#~ msgstr ""
-#~ "Všechny produkty ve výprodeji (včetně produktů ve výprodeji WooCommerce a "
-#~ "zlevněných produktů YayPricing"
-
-#, fuzzy
-#~ msgid "Add 10"
-#~ msgstr "Přidat 10"
 
 #, fuzzy
 #~ msgid "Sale 50% OFF all products"
@@ -2976,34 +3339,30 @@ msgstr "Přečtěte si další podrobnosti."
 #~ msgstr "Výprodej 30% sleva na třetí položku"
 
 #, fuzzy
-#~ msgid "Discount 50% cart total"
-#~ msgstr "Sleva 50% campaign"
+#~ msgid "Buy X Get Y"
+#~ msgstr "Koupit X Získejte Y"
 
 #, fuzzy
-#~| msgid "Discount"
+#~ msgid "Discount 50% cart total"
+#~ msgstr "Sleva 50% ccelkem"
+
+#, fuzzy
 #~ msgid "Discount 10"
-#~ msgstr "Sleva"
+#~ msgstr "Sleva 10"
+
+#~ msgid "Free shipping"
+#~ msgstr "Doprava zdarma"
+
+#, fuzzy
+#~ msgid "Reduce 50% shipping fee for order below 100"
+#~ msgstr "Snížit poplatek za objednávku pod 100 % shipping 50"
+
+#, fuzzy
+#~ msgid "Add 10"
+#~ msgstr "Přidat 10"
 
 #~ msgid "After \"Add to cart\" button"
 #~ msgstr "Za tlačítkem \"Přidat do košíku\""
-
-#~ msgid "Before \"Add to cart\" button"
-#~ msgstr "Před tlačítkem \"Přidat do košíku\""
-
-#~ msgid "Custom"
-#~ msgstr "Vlastní"
-
-#, fuzzy
-#~ msgid "Discount value cap"
-#~ msgstr "Limit hodnoty slevy"
-
-#, fuzzy
-#~ msgid "Flexible shipping rules"
-#~ msgstr "Flexibilní pravidla přepravy"
-
-#, fuzzy
-#~ msgid "Max use limit"
-#~ msgstr "Maximální limit použití"
 
 #, fuzzy
 #~ msgid "No product excluded."
@@ -3012,31 +3371,48 @@ msgstr "Přečtěte si další podrobnosti."
 #~ msgid "Please"
 #~ msgstr "Prosím"
 
+#~ msgid "Pricing"
+#~ msgstr "Ceník"
+
+#~ msgid "Before \"Add to cart\" button"
+#~ msgstr "Před tlačítkem \"Přidat do košíku\""
+
 #, fuzzy
-#~ msgid ""
-#~ "Refer to this comparison table so that you will have an informeddecision"
-#~ msgstr ""
-#~ "Podívejte se na tuto srovnávací tabulku, abyste měli informované "
-#~ "rozhodnutí"
+#~ msgid "checkout page"
+#~ msgstr "Stránka pokladny"
+
+#, fuzzy
+#~ msgid "continue setting up this rule"
+#~ msgstr "Pokračovat v nastavování tohoto pravidla"
+
+#~ msgid "import"
+#~ msgstr "import"
+
+#, fuzzy
+#~ msgid "in cart"
+#~ msgstr "v košíku"
+
+#, fuzzy
+#~ msgid "items_product"
+#~ msgstr "items_product"
+
+#~ msgid "page"
+#~ msgstr "stránka"
 
 #~ msgid "Remove all"
 #~ msgstr "Odebrat vše"
 
 #, fuzzy
-#~ msgid ""
-#~ "This setting allows you to apply YayPricing's rules only if a WooCommerce "
-#~ "coupon is not applied to the order"
-#~ msgstr ""
-#~ "Toto nastavení umožňuje použít pravidla YayPricing pouze v případě, že se "
-#~ "na objednávku nepoužije poukaz WooCommerce"
+#~ msgid "rule."
+#~ msgstr "pravidlo."
 
 #, fuzzy
-#~ msgid "Unlimited cart discount rules"
-#~ msgstr "Pravidla slev na neomezený košík"
+#~ msgid "Show tooltip on the checkout fee"
+#~ msgstr "Zobrazit popisek k pokladnímu poplatku"
 
 #, fuzzy
-#~ msgid "Unlimited product discount rules"
-#~ msgstr "Pravidla neomezených slev na produkty"
+#~ msgid "the admin order details"
+#~ msgstr "Podrobnosti o příkazu správce"
 
 #, fuzzy
 #~ msgid ""
@@ -3048,16 +3424,14 @@ msgstr "Přečtěte si další podrobnosti."
 #~ "pravidla, vytvořte prosím ceník"
 
 #, fuzzy
-#~ msgid ""
-#~ "You don't have any rule to exclude. Please create one to continue setting "
-#~ "up this rule"
+#~ msgid "You don't have any rule to exclude. Please create one to"
 #~ msgstr ""
-#~ "Nemáte žádné pravidlo, které byste mohli vyloučit. Chcete-li pokračovat v "
-#~ "nastavování tohoto pravidla, vytvořte si jej"
+#~ "Nemáte žádné pravidlo, které byste mohli vyloučit. Vytvořte si jej prosím "
+#~ "pro"
 
 #, fuzzy
-#~ msgid "You will get 1 free item when buy 3 items of this product"
-#~ msgstr "Při nákupu 3 kusů tohoto produktu získáte 1 položku zdarma"
+#~ msgid "You will get 1 free item when you buy 3 items of this product"
+#~ msgstr "Při koupi 3 kusů tohoto produktu získáte 1 položku zdarma"
 
 #, fuzzy
 #~ msgid "You're getting this discount: [discount_value] off for all products"

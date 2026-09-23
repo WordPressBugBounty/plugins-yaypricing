@@ -41,9 +41,12 @@ class YAYDP_Request_Cache {
 	/**
 	 * Register the flush hook so stored values are dropped when the plugin
 	 * signals that cached data is no longer valid (e.g. after a rule save).
+	 *
+	 * Bound with zero accepted args: do_action() with no payload still hands
+	 * callbacks an empty string, which flush() would read as a bucket name.
 	 */
 	protected function __construct() {
-		add_action( 'yaydp_clear_cache', array( $this, 'flush' ) );
+		add_action( 'yaydp_clear_cache', array( $this, 'flush' ), 10, 0 );
 	}
 
 	/**

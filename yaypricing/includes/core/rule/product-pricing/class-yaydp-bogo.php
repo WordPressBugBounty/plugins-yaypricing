@@ -158,7 +158,9 @@ class YAYDP_Bogo extends \YAYDP\Abstracts\YAYDP_Product_Pricing_Rule {
 	 *
 	 * @param \YAYDP\Core\YAYDP_Cart_Item $item Item.
 	 */
-	public function discount_item( \YAYDP\Core\YAYDP_Cart_Item $item ) {}
+	public function discount_item( \YAYDP\Core\YAYDP_Cart_Item $item ) {
+
+	}
 
 	/**
 	 * Calculate the discount and apply modifier to the receive items.
@@ -245,18 +247,13 @@ class YAYDP_Bogo extends \YAYDP\Abstracts\YAYDP_Product_Pricing_Rule {
 	 * @param \WC_Product $product Product.
 	 */
 	public function get_min_discount( $product ) {
+		if ( ! empty( $this->get_conditions() ) ) {
+			return \YAYDP\Pricing_Type\YAYDP_Pricing_Type_Registry::zero_bounds();
+		}
 		if ( $this->is_get_free_item() ) {
-			return array(
-				'pricing_value' => 0,
-				'pricing_type'  => 'percentage_discount',
-				'maximum'       => $this->get_maximum_adjustment_amount(),
-			);
+			return \YAYDP\Pricing_Type\YAYDP_Pricing_Type_Registry::display_bounds( 'percentage_discount', 0, $this->get_maximum_adjustment_amount() );
 		} else {
-			return array(
-				'pricing_value' => $this->get_pricing_value(),
-				'pricing_type'  => $this->get_pricing_type(),
-				'maximum'       => $this->get_maximum_adjustment_amount(),
-			);
+			return \YAYDP\Pricing_Type\YAYDP_Pricing_Type_Registry::display_bounds( $this->get_pricing_type(), $this->get_pricing_value(), $this->get_maximum_adjustment_amount() );
 		}
 
 	}
@@ -270,17 +267,9 @@ class YAYDP_Bogo extends \YAYDP\Abstracts\YAYDP_Product_Pricing_Rule {
 	 */
 	public function get_max_discount( $product ) {
 		if ( $this->is_get_free_item() ) {
-			return array(
-				'pricing_value' => 100,
-				'pricing_type'  => 'percentage_discount',
-				'maximum'       => $this->get_maximum_adjustment_amount(),
-			);
+			return \YAYDP\Pricing_Type\YAYDP_Pricing_Type_Registry::display_bounds( 'percentage_discount', 100, $this->get_maximum_adjustment_amount() );
 		} else {
-			return array(
-				'pricing_value' => $this->get_pricing_value(),
-				'pricing_type'  => $this->get_pricing_type(),
-				'maximum'       => $this->get_maximum_adjustment_amount(),
-			);
+			return \YAYDP\Pricing_Type\YAYDP_Pricing_Type_Registry::display_bounds( $this->get_pricing_type(), $this->get_pricing_value(), $this->get_maximum_adjustment_amount() );
 		}
 	}
 

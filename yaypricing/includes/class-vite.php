@@ -25,7 +25,7 @@ class Vite {
 	 * @param string $script Name of script file.
 	 * @param string $port Current when run dev.
 	 */
-	public static function enqueue_vite( $script = 'main.tsx', $port = '3001' ) {
+	public static function enqueue_vite( $script = 'main.tsx', $port = '3050' ) {
 		self::enqueue_preload( $script, $port );
 		self::css_tag( $script );
 		self::register( $script, $port );
@@ -42,7 +42,6 @@ class Vite {
 			10,
 			3
 		);
-
 		add_filter(
 			'script_loader_src',
 			function( $src, $handle ) {
@@ -86,8 +85,8 @@ class Vite {
 			return '';
 		}
 
-		if ( constant( 'YAYDP_DEVELOPMENT' ) ) {
-			wp_enqueue_script( 'module/yaydp/vite', "http://localhost:$port/@vite/client", array(), YAYDP_VERSION, false );
+		if ( constant( ( 'YAYDP_DEVELOPMENT' ) ) ) {
+			wp_enqueue_script( 'module/yaydp/vite', "http://localhost:$port/@vite/client", array(), '1.0', false );
 		}
 		wp_register_script( "module/yaydp/$entry", $url, false, YAYDP_DEVELOPMENT ? true : time(), true );
 		wp_enqueue_script( "module/yaydp/$entry" );

@@ -90,31 +90,21 @@ class YAYDP_Variable_Product_Helper {
 	}
 
 	/**
-	 * Return formula for discount value
+	 * Return formula for discount value.
 	 *
-	 * Variable x is the variation price.
+	 * Variable x is the variation price. Percentage types return '' (the label is
+	 * static per variation); free returns '' too.
 	 *
 	 * @param string $pricing_type Given pricing type.
 	 * @param float  $pricing_value Given pricing value.
 	 * @param float  $maximum Given maximum discount amount.
 	 */
 	public static function get_discount_value_formula( $pricing_type, $pricing_value, $maximum ) {
-		if ( is_null( $maximum ) ) {
-			$maximum = PHP_INT_MAX;
-		}
-		$maximum = \YAYDP\Helper\YAYDP_Pricing_Helper::convert_price( $maximum );
-		if ( \yaydp_is_percentage_pricing_type( $pricing_type ) ) {
-			return '';
-		}
-		$pricing_value = \YAYDP\Helper\YAYDP_Pricing_Helper::convert_price( $pricing_value );
-		if ( \yaydp_is_flat_pricing_type( $pricing_type ) ) {
-			return "x - Math.min( $pricing_value, x )";
-		}
-		return "Math.min( $pricing_value, $maximum )";
+		return self::build_js_formula( 'value', $pricing_type, $pricing_value, $maximum, true );
 	}
 
 	/**
-	 * Return formula for discount amount
+	 * Return formula for discount amount.
 	 *
 	 * Variable x is the variation price.
 	 *
@@ -123,18 +113,7 @@ class YAYDP_Variable_Product_Helper {
 	 * @param float  $maximum Given maximum discount amount.
 	 */
 	public static function get_discount_amount_formula( $pricing_type, $pricing_value, $maximum ) {
-		if ( is_null( $maximum ) ) {
-			$maximum = PHP_INT_MAX;
-		}
-		$maximum = \YAYDP\Helper\YAYDP_Pricing_Helper::convert_price( $maximum );
-		if ( \yaydp_is_percentage_pricing_type( $pricing_type ) ) {
-			return ( "Math.min( x * $pricing_value / 100, $maximum  )" );
-		}
-		$pricing_value = \YAYDP\Helper\YAYDP_Pricing_Helper::convert_price( $pricing_value );
-		if ( \yaydp_is_flat_pricing_type( $pricing_type ) ) {
-			return "x - Math.min( $pricing_value, x )";
-		}
-		return "Math.min( $pricing_value, $maximum )";
+		return self::build_js_formula( 'amount', $pricing_type, $pricing_value, $maximum, true );
 	}
 
 	/**
@@ -147,16 +126,28 @@ class YAYDP_Variable_Product_Helper {
 	 * @param float  $maximum Given maximum discount amount.
 	 */
 	public static function get_discounted_price_formula( $pricing_type, $pricing_value, $maximum ) {
-		$maximum = \YAYDP\Helper\YAYDP_Pricing_Helper::convert_price( $maximum );
-		if ( \yaydp_is_percentage_pricing_type( $pricing_type ) ) {
-			return ( "x - Math.min( x * $pricing_value / 100, $maximum  )" );
-		}
-		$pricing_value = \YAYDP\Helper\YAYDP_Pricing_Helper::convert_price( $pricing_value );
-		if ( \yaydp_is_flat_pricing_type( $pricing_type ) ) {
-			return "Math.min( $pricing_value, x )";
-		}
+		// Historically this builder did not default a null maximum; kept for identical output.
+		return self::build_js_formula( 'discounted_price', $pricing_type, $pricing_value, $maximum, false );
+	}
 
-		return "x - Math.min( $pricing_value, $maximum )";
+	/**
+	 * Convert value/maximum for display and hand the string assembly to the
+	 * registry, which knows each type's shape.
+	 *
+	 * @param bool $default_null_maximum Treat a null maximum as unlimited before converting.
+	 */
+	private static function build_js_formula( $kind, $pricing_type, $pricing_value, $maximum, $default_null_maximum ) {
+		if ( $default_null_maximum && is_null( $maximum ) ) {
+			$maximum = PHP_INT_MAX;
+		}
+		if ( 'free' === $pricing_type ) {
+			return \YAYDP\Pricing_Type\YAYDP_Pricing_Type_Registry::js_formula( $kind, $pricing_type, $pricing_value, $maximum );
+		}
+		$maximum = \YAYDP\Helper\YAYDP_Pricing_Helper::convert_price( $maximum );
+		if ( ! \YAYDP\Pricing_Type\YAYDP_Pricing_Type_Registry::is_percentage_adjustment( $pricing_type ) ) {
+			$pricing_value = \YAYDP\Helper\YAYDP_Pricing_Helper::convert_price( $pricing_value );
+		}
+		return \YAYDP\Pricing_Type\YAYDP_Pricing_Type_Registry::js_formula( $kind, $pricing_type, $pricing_value, $maximum );
 	}
 
 	/**

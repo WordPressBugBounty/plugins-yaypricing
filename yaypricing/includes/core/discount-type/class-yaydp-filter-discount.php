@@ -37,9 +37,19 @@ class YAYDP_Filter_Discount {
 		return $result;
 	}
 
-	public static function get_free_receive_items( $cart, $matching_items, &$receive_quantity, &$all_extra_items, $free_chosen_products = array() ) {
+	/**
+	 * @param array|null $free_chosen_products Products the customer picked, or null when
+	 *                                         no choice was made and the rule picks itself.
+	 *                                         An empty array is a deliberate clear: no gift.
+	 */
+	public static function get_free_receive_items( $cart, $matching_items, &$receive_quantity, &$all_extra_items, $free_chosen_products = null ) {
 		$result            = array();
 		$clone_extra_items = array();
+
+		$has_chosen = is_array( $free_chosen_products );
+		if ( $has_chosen && empty( $free_chosen_products ) ) {
+			return $result;
+		}
 
 		$matching_items = array_filter( $matching_items, function( $item_id ) {
 			$item_product = \wc_get_product( $item_id ); 
@@ -49,10 +59,10 @@ class YAYDP_Filter_Discount {
 			return $item_product->is_in_stock();
 		} );
 
-		if ( ! is_array( $free_chosen_products ) ) {
+		if ( ! $has_chosen ) {
 			$free_chosen_products = array();
 		}
-		if ( count( $matching_items ) > 1 && apply_filters( 'yaydp_randomize_free_items', true ) ) {
+		if ( empty( $free_chosen_products ) && count( $matching_items ) > 1 && apply_filters( 'yaydp_randomize_free_items', true ) ) {
 			$current_hour   = gmdate( 'H' );
 			$current_date   = gmdate( 'd' );
 			$lucky_number   = intval( $current_hour ) + intval( $current_date );
@@ -66,20 +76,21 @@ class YAYDP_Filter_Discount {
 				break;
 			}
 			$product = \wc_get_product( $product_id );
-			if ( false === $product ) {
-				continue;
-			}
-			if ( count( $free_chosen_products ) > 0 && ! isset( $free_chosen_products[ $product_id ] ) ) {
-				if ( ! \yaydp_is_variable_product( $product ) && ! \yaydp_is_grouped_product( $product ) ) {
-					continue;
-				}
-			}
 			if ( \yaydp_is_variable_product( $product ) || \yaydp_is_grouped_product( $product ) ) {
 				$children_ids = $product->get_children();
-				$child_result = self::get_free_receive_items( $cart, $children_ids, $receive_quantity, $all_extra_items, $free_chosen_products );
+				$child_result = self::get_free_receive_items( $cart, $children_ids, $receive_quantity, $all_extra_items, $has_chosen ? $free_chosen_products : null );
 				if ( ! empty( $child_result ) ) {
 					$result = array_merge( $result, $child_result );
 				}
+				continue;
+			}
+			if ( count( $free_chosen_products ) > 0 ) {
+				if ( ! isset( $free_chosen_products[ $product_id ] ) ) {
+					continue;
+				}
+				$product = \wc_get_product( $product_id );
+			}
+			if ( false === $product ) {
 				continue;
 			}
 			$product_remaining_stock  = \YAYDP\Helper\YAYDP_Helper::get_remaining_product_stock( $cart, $product );
@@ -112,6 +123,7 @@ class YAYDP_Filter_Discount {
 		$result                  = array();
 		$total_discount_quantity = 0;
 		$matching_pairs          = \YAYDP\Helper\YAYDP_Helper::get_matching_pairs( $bought_cases );
+
 
 		foreach ( $matching_pairs as $pair ) {
 			foreach ( $matching_items as $item ) {

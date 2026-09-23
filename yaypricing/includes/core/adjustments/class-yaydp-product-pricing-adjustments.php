@@ -68,7 +68,16 @@ class YAYDP_Product_Pricing_Adjustments extends \YAYDP\Abstracts\YAYDP_Adjustmen
 	 * @override
 	 */
 	public function apply() {
-		$applied_items = [];
+		if ( \yaydp_product_pricing_is_applied_to_maximum_amount_per_item() ) {
+			$this->apply_per_item_mode( 'max' );
+			return;
+		}
+
+		if ( \yaydp_product_pricing_is_applied_to_minimum_amount_per_item() ) {
+			$this->apply_per_item_mode( 'min' );
+			return;
+		}
+
 		foreach ( $this->adjustments as $adjustment ) {
 			if ( ! $adjustment->check_conditions() ) {
 				continue;
@@ -87,6 +96,69 @@ class YAYDP_Product_Pricing_Adjustments extends \YAYDP\Abstracts\YAYDP_Adjustmen
 			if ( \yaydp_product_pricing_is_applied_to_minimum_amount_per_order() ) {
 				break;
 			}
+		}
+	}
+
+	/**
+	 * Apply adjustments in per-item mode (max or min discount per item)
+	 * For each cart item, apply the rule that gives the best discount for that specific item.
+	 *
+	 * @param string $mode Either 'max' or 'min'.
+	 * @since 3.5.4
+	 */
+	protected function apply_per_item_mode( $mode ) {
+		$item_to_adjustment_map = array();
+
+		foreach ( $this->adjustments as $adjustment ) {
+			if ( ! $adjustment->check_conditions() ) {
+				continue;
+			}
+
+			$discountable_items = $adjustment->get_discountable_items();
+			foreach ( $discountable_items as $item ) {
+				$item_key            = $item->get_key();
+				$discount_per_item   = $adjustment->get_rule()->get_discount_amount_per_item( $item );
+
+				if ( ! isset( $item_to_adjustment_map[ $item_key ] ) ) {
+					$item_to_adjustment_map[ $item_key ] = array(
+						'adjustment'        => $adjustment,
+						'discount_per_item' => $discount_per_item,
+						'item'              => $item,
+					);
+				} else {
+					$current_discount = $item_to_adjustment_map[ $item_key ]['discount_per_item'];
+					$is_better        = ( 'max' === $mode && $discount_per_item > $current_discount )
+										|| ( 'min' === $mode && $discount_per_item < $current_discount && $discount_per_item > 0 );
+
+					if ( $is_better ) {
+						$item_to_adjustment_map[ $item_key ] = array(
+							'adjustment'        => $adjustment,
+							'discount_per_item' => $discount_per_item,
+							'item'              => $item,
+						);
+					}
+				}
+			}
+		}
+
+		$adjustment_to_items_map = array();
+		foreach ( $item_to_adjustment_map as $item_key => $data ) {
+			$adjustment_id = spl_object_hash( $data['adjustment'] );
+			if ( ! isset( $adjustment_to_items_map[ $adjustment_id ] ) ) {
+				$adjustment_to_items_map[ $adjustment_id ] = array(
+					'adjustment' => $data['adjustment'],
+					'items'      => array(),
+				);
+			}
+			$adjustment_to_items_map[ $adjustment_id ]['items'][] = $data['item'];
+		}
+
+		foreach ( $adjustment_to_items_map as $data ) {
+			$adjustment = $data['adjustment'];
+			$items      = $data['items'];
+
+			$adjustment->set_discountable_items_for_per_item_mode( $items );
+			$adjustment->apply_to_cart();
 		}
 	}
 

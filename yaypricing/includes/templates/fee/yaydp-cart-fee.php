@@ -1,22 +1,15 @@
 <?php
 /**
- * The Template for displaying cart fee tooltips
- *
- * Only cart fee is created by YayPricing will display.
- * Render tooltips shown on cart fee description.
+ * Deprecated pass-through kept so existing wc_get_template() callers and theme
+ * overrides keep resolving. The markup lives in templates/tooltip.php.
  *
  * @package YayPricing\Templates
+ *
+ * @deprecated 3.5.8 Use yaydp_render_tooltips(). Removed in 3.6.0.
  *
  * @param $tooltips
  */
 
 defined( 'ABSPATH' ) || exit;
 
-?>
-<span class="yaydp-tooltip-icon">
-	<div class="yaydp-tooltip-content">
-		<?php foreach ( $tooltips as $tooltip ) : ?>
-			<div><?php echo wp_kses_post( $tooltip->get_content() ); ?></div>
-		<?php endforeach; ?>
-	</div>
-</span>
+\wc_get_template( 'tooltip.php', array( 'tooltips' => $tooltips ), '', YAYDP_PLUGIN_PATH . 'includes/templates/' );

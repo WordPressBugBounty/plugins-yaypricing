@@ -67,14 +67,6 @@ class YAYDP_Product_Pricing_Settings {
 		return isset( $this->settings['show_sale_tag'] ) ? $this->settings['show_sale_tag'] : true;
 	}
 
-	public function show_order_saving_amount() {
-		return isset( $this->settings['show_order_saving_amount'] ) ? $this->settings['show_order_saving_amount'] : false;
-	}
-
-	public function order_saving_amount_position() {
-		return isset( $this->settings['order_saving_amount_position'] ) ? $this->settings['order_saving_amount_position'] : 'after_order_total';
-	}
-
 	/**
 	 * Retrieves the "show_sale_off_amount" information of the settings
 	 *
@@ -132,7 +124,7 @@ class YAYDP_Product_Pricing_Settings {
 	/**
 	 * Retrieves the "pricing_table.columns" information of the settings
 	 *
-	 * @return array
+	 * * @return array
 	 * @since 3.5.1
 	 */
 	public function get_pricing_table_columns_order() {
@@ -191,6 +183,14 @@ class YAYDP_Product_Pricing_Settings {
 	 */
 	public function show_discounted_price() {
 		return isset( $this->settings['show_discounted_price'] ) ? $this->settings['show_discounted_price'] : false;
+	}
+
+	public function show_order_saving_amount() {
+		return isset( $this->settings['show_order_saving_amount'] ) ? $this->settings['show_order_saving_amount'] : false;
+	}
+
+	public function order_saving_amount_position() {
+		return isset( $this->settings['order_saving_amount_position'] ) ? $this->settings['order_saving_amount_position'] : 'after_order_total';
 	}
 
 	/**
@@ -293,7 +293,6 @@ class YAYDP_Product_Pricing_Settings {
 	public function show_original_subtotal_price() {
 		return isset( $this->settings['show_original_subtotal_price'] ) ? $this->settings['show_original_subtotal_price'] : true;
 	}
-
 
 	/**
 	 * Returns sale tag background color

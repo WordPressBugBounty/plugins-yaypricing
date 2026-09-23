@@ -16,11 +16,15 @@ if ( ! function_exists( 'yaydp_get_exclude_rules' ) ) {
 	 */
 	function yaydp_get_exclude_rules() {
 		$database_data = get_option( 'yaydp_exclude_rules' );
-		return array_map(
-			function( $data ) {
-				return \YAYDP\Factory\YAYDP_Exclude_Rule_Factory::get_rule( $data );
-			},
-			empty( $database_data ) ? array() : $database_data
+		// Pro-only stored rules resolve to null at the factory; drop them here so no
+		// consumer ever sees a null rule. The option itself is never rewritten.
+		return array_filter(
+			array_map(
+				function( $data ) {
+					return \YAYDP\Factory\YAYDP_Exclude_Rule_Factory::get_rule( $data );
+				},
+				empty( $database_data ) ? array() : $database_data
+			)
 		);
 	}
 }

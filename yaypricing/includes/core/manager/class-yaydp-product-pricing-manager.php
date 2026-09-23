@@ -7,6 +7,9 @@
 
 namespace YAYDP\Core\Manager;
 
+use YAYDP\Condition\YAYDP_Condition_Context;
+use YAYDP\Condition\YAYDP_Condition_Registry;
+
 defined( 'ABSPATH' ) || exit;
 
 /**
@@ -26,12 +29,12 @@ class YAYDP_Product_Pricing_Manager {
 		add_action( 'woocommerce_before_mini_cart', array( $this, 'recalculate_mini_cart' ), 10 );
 
 		// Change cart item HTML.
-		add_filter( 'woocommerce_cart_item_price', array( $this, 'change_cart_item_price_html' ), 100000, 3 );
-		add_filter( 'woocommerce_cart_item_subtotal', array( $this, 'change_cart_item_subtotal_html' ), 100000, 3 );
+		add_filter( 'woocommerce_cart_item_price', array( $this, 'change_cart_item_price_html' ), 10, 3 );
+		add_filter( 'woocommerce_cart_item_subtotal', array( $this, 'change_cart_item_subtotal_html' ), 10, 3 );
 		add_filter( 'woocommerce_widget_cart_item_quantity', array( $this, 'change_cart_item_price_html' ), 10, 3 );
 		add_filter( 'woocommerce_cart_item_remove_link', array( $this, 'hide_extra_cart_item_remove_link' ), 10, 2 );
 		add_filter( 'woocommerce_quantity_input_args', array( $this, 'disable_extra_cart_item_quantity_input' ), 10, 1 );
-		add_filter( 'woocommerce_cart_item_subtotal', array( $this, 'remove_extra_cart_item_subtotal' ), 100000, 2 );
+		add_filter( 'woocommerce_cart_item_subtotal', array( $this, 'remove_extra_cart_item_subtotal' ), 10, 2 );
 
 		// add_filter(
 		// 	'woocommerce_update_cart_validation',
@@ -85,12 +88,13 @@ class YAYDP_Product_Pricing_Manager {
 
 		$this->handle_discounted_price();
 
+		// Handle use time.
 		$this->handle_use_time();
 
 	}
 
 	/**
-	 * Recalculates the mini cart by updating the cart items and total price.
+	 * Recalculates the mini cart by updating the cart items and total price
 	 */
 	public function recalculate_mini_cart() {
 		if ( \is_checkout() || ! function_exists( 'WC' ) || empty( \WC()->cart ) ) {
@@ -100,12 +104,13 @@ class YAYDP_Product_Pricing_Manager {
 	}
 
 	/**
-	 * Remove extra data.
+	 * Remove extra data
 	 */
 	private function remove_extra_data() {
 		if ( ! function_exists( 'WC' ) || empty( \WC()->cart ) ) {
 			return;
 		}
+		\YAYDP\Core\YAYDP_Cart::restore_original_prices();
 		add_filter( 'yaydp_prevent_recalculate_cart', '__return_true' );
 		foreach ( \WC()->cart->get_cart() as $cart_item_key => $cart_item ) {
 			if ( \yaydp_is_extra_wc_cart_item( $cart_item ) ) {
@@ -122,25 +127,30 @@ class YAYDP_Product_Pricing_Manager {
 			if ( isset( $cart_item['modifiers'] ) ) {
 				\WC()->cart->cart_contents[ $cart_item_key ]['modifiers'] = '';
 			}
+			if ( isset( $cart_item['yaydp_custom_data'] ) ) {
+				\WC()->cart->cart_contents[ $cart_item_key ]['yaydp_custom_data'] = array();
+			}
+			if ( isset( $cart_item['yaydp_adjustment_values'] ) ) {
+				\WC()->cart->cart_contents[ $cart_item_key ]['yaydp_adjustment_values'] = array();
+			}
 		}
 		remove_filter( 'yaydp_prevent_recalculate_cart', '__return_true' );
 	}
 
 	/**
-	 * This function is called before calculating the pricings for a cart.
+	 * This function is called before calculating the pricings for a cart
 	 */
 	public function before_calculate_pricings() {
 		$this->remove_extra_data();
 	}
 
 	/**
-	 * This function is called after calculating the pricings for a cart.
+	 * This function is called after calculating the pricings for a cart
 	 */
-	public function after_calculate_pricings() {
-	}
+	public function after_calculate_pricings() {}
 
 	/**
-	 * This function calculates the pricing for a cart.
+	 * This function calculates the pricing for a cart
 	 */
 	public function calculate_pricings() {
 
@@ -183,10 +193,10 @@ class YAYDP_Product_Pricing_Manager {
 	}
 
 	/**
-	 * Change cart item price.
+	 * Change cart item price
 	 *
 	 * @param string $html Current item price html.
-	 * @param array $cart_item Cart item.
+	 * @param array  $cart_item Cart item.
 	 */
 	public function change_cart_item_price_html( $html, $cart_item ) {
 		$yaydp_cart_item = new \YAYDP\Core\YAYDP_Cart_Item( $cart_item );
@@ -197,7 +207,7 @@ class YAYDP_Product_Pricing_Manager {
 	}
 
 	/**
-	 * Hide item price for extra item.
+	 * Hide item price for extra item
 	 *
 	 * @param string $html Current item price html.
 	 * @param string $cart_item_key Cart item key.
@@ -214,7 +224,7 @@ class YAYDP_Product_Pricing_Manager {
 	}
 
 	/**
-	 * Disable quantity input for extra item.
+	 * Disable quantity input for extra item
 	 *
 	 * @param array $args Input args.
 	 */
@@ -245,22 +255,27 @@ class YAYDP_Product_Pricing_Manager {
 	}
 
 	/**
-	 * Remove subtotal for extra item.
+	 * Remove subtotal for extra item
 	 *
 	 * @param string $html Current item price html.
 	 * @param array  $cart_item Cart item.
 	 */
 	public function remove_extra_cart_item_subtotal( $html, $cart_item ) {
 		if ( \yaydp_is_extra_wc_cart_item( $cart_item ) ) {
-			return \apply_filters( 'yaydp_extra_cart_item_subtotal', \wc_price( 0 ), $html, $cart_item );
+			$subtotal = '<span class="yaydp-gift-subtotal">' . \wc_price( 0 ) . '</span>';
+			return \apply_filters( 'yaydp_extra_cart_item_subtotal', $subtotal, $html, $cart_item );
 		}
 		return $html;
 	}
 
 	/**
-	 * Add offer description.
+	 * Add offer description
 	 */
 	public function add_offer_description() {
+		$can_current_user_see_sale_flash = apply_filters( 'yaydp_can_current_user_see_discount_rule', true );
+		if( ! $can_current_user_see_sale_flash ) {
+			return;
+		}
 		global $product;
 		if ( empty( $product ) ) {
 			return;
@@ -307,7 +322,7 @@ class YAYDP_Product_Pricing_Manager {
 	}
 
 	/**
-	 * Handle add pricing table on specific hooks.
+	 * Handle add pricing table on specific hooks
 	 */
 	private function handle_pricing_table() {
 		$table_position = \YAYDP\Settings\YAYDP_Product_Pricing_Settings::get_instance()->get_pricing_table_position();
@@ -344,9 +359,13 @@ class YAYDP_Product_Pricing_Manager {
 	}
 
 	/**
-	 * Add pricing table.
+	 * Add pricing table
 	 */
 	public function add_pricing_table() {
+		$can_current_user_see_sale_flash = apply_filters( 'yaydp_can_current_user_see_discount_rule', true );
+		if( ! $can_current_user_see_sale_flash ) {
+			return;
+		}
 		global $product;
 
 		if ( empty( $product ) ) {
@@ -359,6 +378,21 @@ class YAYDP_Product_Pricing_Manager {
 				continue;
 			}
 			if ( ! $rule->can_apply_adjustment( $product ) ) {
+				continue;
+			}
+
+			$conditions = $rule->get_conditions();
+			$conditions = array_values(
+				array_filter(
+					$conditions,
+					function( $con ) {
+						return in_array( $con['type'], array( 'logged_customer', 'customer_role', 'specific_customer' ) );
+					}
+				)
+			);
+			$match_type = $rule->get_condition_match_type();
+
+			if ( ! YAYDP_Condition_Registry::instance()->evaluate_list( $conditions, $match_type, YAYDP_Condition_Context::from_items( array() ) ) ) {
 				continue;
 			}
 
@@ -375,21 +409,21 @@ class YAYDP_Product_Pricing_Manager {
 	}
 
 	/**
-	 * Handle use time.
+	 * Handle use time
 	 */
 	private function handle_use_time() {
 		\YAYDP\Core\Use_Time\YAYDP_Product_Pricing_Use_Time::get_instance();
 	}
 
 	/**
-	 * Handle sale flash.
+	 * Handle sale flash
 	 */
 	private function handle_sale_flash() {
 		\YAYDP\Core\Sale_Display\YAYDP_Sale_Flash::get_instance();
 	}
 
 	/**
-	 * Handle the discounted price.
+	 * Handle discounted price
 	 */
 	private function handle_discounted_price() {
 		\YAYDP\Core\Sale_Display\YAYDP_Discounted_Price::get_instance();
@@ -412,11 +446,15 @@ class YAYDP_Product_Pricing_Manager {
 		global $yaydp_cart;
 		if ( ! is_null( $yaydp_cart ) ) {
 			$saved_amount = $yaydp_cart->get_cart_origin_total( false ) - $yaydp_cart->get_cart_subtotal( false );
-			if ( empty( $saved_amount ) ) {
+			// Suppress the row when there is no positive saving. A net negative happens when a
+			// markup-direction rule (e.g. highest_item_price with value >= 100 raising cheaper
+			// items) outweighs discounts; rendering "Product discounts: -$X" makes no sense.
+			// Mirrors the saved-amount shortcode guard.
+			if ( $saved_amount <= 0 ) {
 				return;
 			}
 			?>
-		<tr class="yaydp-saving-amount">
+		<tr>
 			<th><?php esc_html_e( 'Product discounts', 'yaypricing' ); ?></th>
 			<td><?php echo \wc_price( $saved_amount ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></td>
 		</tr>
@@ -436,21 +474,19 @@ class YAYDP_Product_Pricing_Manager {
 		if ( ! \YAYDP\Settings\YAYDP_Product_Pricing_Settings::get_instance()->show_original_subtotal_price() ) {
 			return $html;
 		}
-		$yaydp_cart_item = new \YAYDP\Core\YAYDP_Cart_Item( $cart_item );
+		$yaydp_cart_item    = new \YAYDP\Core\YAYDP_Cart_Item( $cart_item );
+		$product            = $yaydp_cart_item->get_product();
+		$item_initial_price = $yaydp_cart_item->get_initial_price();
+		$item_quantity      = $yaydp_cart_item->get_quantity();
+		$subtotal           = \wc_get_price_to_display(
+			$product,
+			array(
+				'price'           => $item_initial_price,
+				'qty'             => $item_quantity,
+				'display_context' => 'cart',
+			)
+		);
 		if ( $yaydp_cart_item->can_modify() ) {
-
-			$product            = $yaydp_cart_item->get_product();
-			$item_initial_price = $yaydp_cart_item->get_initial_price();
-			$item_quantity      = $yaydp_cart_item->get_quantity();
-			$subtotal           = \wc_get_price_to_display(
-				$product,
-				array(
-					'price'           => $item_initial_price,
-					'qty'             => $item_quantity,
-					'display_context' => 'cart',
-				)
-			);
-
 			ob_start();
 			?>
 			<del><?php echo \wc_price( \YAYDP\Helper\YAYDP_Pricing_Helper::convert_price( $subtotal ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></del>

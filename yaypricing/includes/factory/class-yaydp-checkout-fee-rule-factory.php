@@ -26,12 +26,7 @@ class YAYDP_Checkout_Fee_Rule_Factory extends \YAYDP\Abstracts\YAYDP_Rule_Factor
 		if ( 'shipping_fee' === $type ) {
 			$rule_class = "{$path}\YAYDP_Shipping_Fee";
 		}
-		if ( 'custom_fee' === $type ) {
-			$rule_class = "{$path}\YAYDP_Custom_Fee";
-		}
-		// if ( 'custom_shipping_fee' === $type ) {
-		// 	$rule_class = "{$path}\YAYDP_Custom_Shipping_Fee";
-		// }
+		// custom_fee / custom_shipping_fee are pro-only: stored rules resolve to null.
 		if ( is_null( $rule_class ) ) {
 			return null;
 		}

@@ -16,7 +16,7 @@ class YAYDP_Rank_Math_Seo_Integration {
 	use \YAYDP\Traits\YAYDP_Singleton;
 
 	protected function __construct() {
-		add_filter( 'rank_math/json_ld', array( $this, 'modify_structured_data_product' ), PHP_INT_MAX, 2 );
+		add_filter(  'rank_math/json_ld', array( $this, 'modify_structured_data_product' ), PHP_INT_MAX, 2);
 	} 
 
 	/**
@@ -29,6 +29,23 @@ class YAYDP_Rank_Math_Seo_Integration {
 	public function modify_structured_data_product( $data, $jsonld ) {
 		$product = \wc_get_product($jsonld->post_id);
 		if ( ! is_a( $product, 'WC_Product' ) ) {
+			return $data;
+		}
+
+		/**
+		 * Filters whether YayPricing replaces the price exposed to a third-party integration.
+		 *
+		 * The replacement value is the deepest available discount, which is not the price the
+		 * customer currently qualifies for. Return false to leave the third-party data untouched
+		 * so it keeps the standard WooCommerce product price.
+		 *
+		 * @since 3.5.7
+		 *
+		 * @param bool        $modify  Whether to replace the price. Default true.
+		 * @param string      $context Integration being filtered. One of 'rank-math-seo', 'gtm4wp'.
+		 * @param \WC_Product $product Product being rendered.
+		 */
+		if ( ! apply_filters( 'yaydp_modify_third_party_price_data', true, 'rank-math-seo', $product ) ) {
 			return $data;
 		}
 

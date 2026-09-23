@@ -66,15 +66,6 @@ class YAYDP_Helper {
 	}
 
 	/**
-	 * Check if the current user can manage YayPricing data.
-	 *
-	 * @since 3.4.6
-	 */
-	public static function can_manage_pricing() {
-		return current_user_can( 'manage_woocommerce' );
-	}
-
-	/**
 	 * Get list value from filter.
 	 *
 	 * @param array $filter Given filter.
@@ -83,7 +74,7 @@ class YAYDP_Helper {
 	 */
 	public static function map_filter_value( $filter ) {
 		return array_map(
-			function ( $f ) {
+			function( $f ) {
 				return $f['value'];
 			},
 			$filter['value']
@@ -99,7 +90,7 @@ class YAYDP_Helper {
 	 */
 	public static function map_filter_title( $filter ) {
 		return array_map(
-			function ( $f ) {
+			function( $f ) {
 				return $f['title'] ?? '';
 			},
 			$filter['title']
@@ -107,15 +98,19 @@ class YAYDP_Helper {
 	}
 
 	/**
-	 * Check whether product match filter.
+	 * Whether a rule's product filters apply to a product: rule-level gates
+	 * (third-party veto, exclusions, publish status, discount settings) first,
+	 * then the filter list through the product filter registry.
 	 *
-	 * @param array       $filters Given filters.
-	 * @param \WC_Product $product Given product.
+	 * @param array       $filters    Given filters.
+	 * @param \WC_Product $product    Given product.
 	 * @param string      $match_type Match type.
+	 * @param string|null $item_key   Cart item key when evaluating a cart line.
+	 * @param object|null $rule       Rule, for exclusion checks.
 	 *
 	 * @since 2.4
 	 *
-	 * @return array
+	 * @return bool
 	 */
 	public static function check_applicability( $filters, $product, $match_type = 'any', $item_key = null, $rule = null ) {
 
@@ -132,95 +127,23 @@ class YAYDP_Helper {
 		if ( 'publish' !== $product->get_status() ) { // Only show published products
 			return false;
 		}
-		
+
 		if ( \yaydp_product_pricing_is_applied_to_non_discount_product() && \YAYDP\Core\Discounted_Products\YAYDP_Discounted_Products::get_instance()->is_discounted( $product ) ) {
 			return false;
 		}
 
 		$disable_applying_when_on_sale = \YAYDP\Settings\YAYDP_Product_Pricing_Settings::get_instance()->disable_when_on_sale();
 
-		if ( $disable_applying_when_on_sale && $product->is_on_sale() ) {
+ 		if ( $disable_applying_when_on_sale && $product->is_on_sale() ) {
 			return false;
 		}
 
-		$check = false;
-		$sub_filter = null;
-		foreach ( $filters as $filter ) {
-			if ( 'sub_filter_product_price_criterion' === $filter['type'] ) {
-				$sub_filter = $filter;
-			}
-		}
-
-		foreach ( $filters as $filter ) {
-			switch ( $filter['type'] ) {
-				case 'product':
-					$check = \YAYDP\Helper\YAYDP_Product_Helper::check_product( $product, $filter, $sub_filter );
-					break;
-				case 'product_variation':
-					$check = \YAYDP\Helper\YAYDP_Product_Helper::check_product_variation( $product, $filter, $sub_filter );
-					break;
-				case 'product_category':
-					$check = \YAYDP\Helper\YAYDP_Product_Helper::check_category( $product, $filter, $sub_filter );
-					break;
-				case 'product_attribute':
-					$check = \YAYDP\Helper\YAYDP_Product_Helper::check_attribute( $product, $filter, $item_key, $sub_filter );
-					break;
-				case 'product_specific_attributes':
-					$check = \YAYDP\Helper\YAYDP_Product_Helper::check_specific_attributes( $product, $filter, $item_key );
-					break;
-				case 'product_tag':
-					$check = \YAYDP\Helper\YAYDP_Product_Helper::check_tag( $product, $filter, $sub_filter );
-					break;
-				case 'product_price':
-					$check = \YAYDP\Helper\YAYDP_Product_Helper::check_price( $product, $filter, $sub_filter );
-					break;
-				case 'product_in_stock':
-					$check = \YAYDP\Helper\YAYDP_Product_Helper::check_stock( $product, $filter, $sub_filter );
-					break;
-				/**
-				 * Check product is on sale by WooCommerce
-				 *
-				 * @since 3.4.2
-				 */
-				case 'products_on_sale_wc':
-					$check = \YAYDP\Helper\YAYDP_Product_Helper::check_on_sale_wc( $product, $filter, $sub_filter );
-					break;
-				case 'all_product':
-					$check = true;
-					break;
-				/**
-				 * @since 3.4.1
-				 */
-				case 'product_attribute_taxonomies':
-					$check = \YAYDP\Helper\YAYDP_Product_Helper::check_attribute_taxonomies( $product, $filter, $item_key, $sub_filter );
-					break;
-				/**
-				 * @since 3.5.2
-				 */
-				case 'shipping_class':
-					$check = \YAYDP\Helper\YAYDP_Product_Helper::check_shipping_class( $product, $filter, $item_key, $sub_filter );
-					break;
-				/**
-				 * @since 3.5.3
-				 */
-				case 'cart_item_price_criterion':
-					$check = \YAYDP\Helper\YAYDP_Product_Helper::check_cart_item_price_criterion( $product, $filter, $item_key );
-					break;
-				default:
-					$check = apply_filters( "yaydp_check_condition_by_{$filter['type']}", false, $product, $filter );
-					break;
-			}
-			if ( 'any' === $match_type ) {
-				if ( $check ) {
-					break;
-				}
-			} else {
-				if ( ! $check ) {
-					break;
-				}
-			}
-		}
-		return $check;
+		return \YAYDP\Product_Filter\YAYDP_Product_Filter_Registry::instance()->evaluate_list(
+			$filters,
+			$product,
+			$match_type,
+			new \YAYDP\Product_Filter\YAYDP_Product_Filter_Context( $item_key )
+		);
 	}
 
 	/**
@@ -295,7 +218,7 @@ class YAYDP_Helper {
 	 */
 	public static function map_cases( $cases ) {
 		return array_map(
-			function ( $case ) {
+			function( $case ) {
 				return array(
 					$case,
 				);
@@ -366,7 +289,7 @@ class YAYDP_Helper {
 	public static function replace_rgb_to_hex( $string ) {
 		$result = preg_replace_callback(
 			'/rgb\([^\)]+\)/',
-			function ( $matches ) {
+			function( $matches ) {
 				$match_result = preg_match( '/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/', $matches[0], $rgb );
 				if ( 1 !== $match_result ) {
 					return '';
@@ -375,9 +298,9 @@ class YAYDP_Helper {
 				$g_hex_code = substr( self::str_to_hex( $rgb[2] ), -2 );
 				$b_hex_code = substr( self::str_to_hex( $rgb[3] ), -2 );
 				return '#' .
-					( strlen( $r_hex_code ) > 1 ? $r_hex_code : "0$r_hex_code" ) .
-					( strlen( $g_hex_code ) > 1 ? $g_hex_code : "0$g_hex_code" ) .
-					( strlen( $b_hex_code ) > 1 ? $b_hex_code : "0$b_hex_code" );
+				( strlen( $r_hex_code ) > 1 ? $r_hex_code : "0$r_hex_code" ) .
+				( strlen( $g_hex_code ) > 1 ? $g_hex_code : "0$g_hex_code" ) .
+				( strlen( $b_hex_code ) > 1 ? $b_hex_code : "0$b_hex_code" );
 			},
 			$string
 		);
@@ -402,7 +325,7 @@ class YAYDP_Helper {
 	 */
 	public static function sort_products_by_price( &$products, $order = 'asc' ) {
 		$product_ids = array_map(
-			function ( $product ) {
+			function( $product ) {
 				return $product->get_id();
 			},
 			$products
@@ -412,7 +335,7 @@ class YAYDP_Helper {
 				$children_id             = $product->get_children();
 				$not_in_list_children_id = array_diff( $children_id, $product_ids );
 				$children                = array_map(
-					function ( $id ) {
+					function( $id ) {
 						return \wc_get_product( $id );
 					},
 					$not_in_list_children_id
@@ -423,12 +346,12 @@ class YAYDP_Helper {
 		}
 		usort(
 			$products,
-			function ( $a, $b ) use ( $order ) {
+			function( $a, $b ) use ( $order ) {
 				$a_price = \YAYDP\Helper\YAYDP_Pricing_Helper::get_product_price( $a );
 				$a_price = \YAYDP\Helper\YAYDP_Pricing_Helper::get_product_fixed_price( $a_price, $a );
-				$b_price = \YAYDP\Helper\YAYDP_Pricing_Helper::get_product_price( $a );
+				$b_price = \YAYDP\Helper\YAYDP_Pricing_Helper::get_product_price( $b );
 				$b_price = \YAYDP\Helper\YAYDP_Pricing_Helper::get_product_fixed_price( $b_price, $b );
-				return 'asc' === $order ? $a_price <=> $b_price : $b <=> $a;
+				return 'asc' === $order ? $a_price <=> $b_price : $b_price <=> $a_price;
 			}
 		);
 	}
@@ -444,26 +367,21 @@ class YAYDP_Helper {
 	public static function sort_items_by_price( &$items, $order = 'asc' ) {
 		usort(
 			$items,
-			function ( $item_a, $item_b ) use ( $order ) {
-				/**
-				 * Get product from item a
-				 */
-				$a_product = $item_a->get_product();
-				$a_price   = \YAYDP\Helper\YAYDP_Pricing_Helper::get_product_price( $a_product );
-				$a_price   = \YAYDP\Helper\YAYDP_Pricing_Helper::get_product_fixed_price( $a_price, $a_product );
-
-				/**
-				 * Get product from item b
-				 */
-				$b_product = $item_b->get_product();
-				$b_price   = \YAYDP\Helper\YAYDP_Pricing_Helper::get_product_price( $b_product );
-				$b_price   = \YAYDP\Helper\YAYDP_Pricing_Helper::get_product_fixed_price( $b_price, $b_product );
+			function( $item_a, $item_b ) use ( $order ) {
+				// Live cart-item price, not the static product price, so items already
+				// discounted by another rule are compared fairly.
+				$a_price = $item_a->get_price();
+				$b_price = $item_b->get_price();
 				return 'asc' === $order ? $a_price <=> $b_price : $b_price <=> $a_price;
 			}
 		);
 	}
 
 	/**
+	 * Get matching bought cases pair
+	 *
+	 * @param array $bought_cases Bought cases.
+	 *
 	 * @since 2.4.1
 	 */
 	public static function get_matching_pairs( $bought_cases ) {
@@ -474,7 +392,7 @@ class YAYDP_Helper {
 				$tmp           = array();
 				$quantity      = $case['quantity'];
 				$splited_items = array_map(
-					function ( $item ) use ( $quantity ) {
+					function( $item ) use ( $quantity ) {
 						return array(
 							'quantity'        => $quantity,
 							'bought_quantity' => $item->get_quantity(),
@@ -485,7 +403,7 @@ class YAYDP_Helper {
 				);
 				if ( empty( $sub_matching_pairs ) ) {
 					$tmp = array_map(
-						function ( $item ) {
+						function( $item ) {
 							return array( $item );
 						},
 						$splited_items
@@ -519,7 +437,7 @@ class YAYDP_Helper {
 			if ( count( $parts ) !== 2 ) {
 				continue;
 			}
-
+			
 			$result[] = array(
 				'attribute' => $parts[0],
 				'option'    => trim($parts[1]),
@@ -527,5 +445,38 @@ class YAYDP_Helper {
 		}
 
 		return $result;
+	}
+
+	/**
+	 * Translates an admin-entered string using WPML or Polylang when available,
+	 * otherwise looks it up in the plugin text domain so translations added
+	 * with Loco Translate (or any .po/.mo file) are applied.
+	 * Falls back to the original text when no translation exists.
+	 *
+	 * @param string $text    The original admin-entered text.
+	 * @param string $context WPML string context.
+	 * @param string $name    WPML string name.
+	 */
+	public static function translate_user_string( $text, $context, $name ) {
+		if ( empty( $text ) ) {
+			return $text;
+		}
+
+		// WPML String Translation.
+		if ( ! empty( $name ) && has_filter( 'wpml_translate_single_string' ) ) {
+			return apply_filters( 'wpml_translate_single_string', $text, $context, $name );
+		}
+
+		// Polylang String Translation.
+		if ( function_exists( 'pll__' ) ) {
+			return pll__( $text );
+		}
+
+		// Loco Translate: the source string can be added manually to the yaypricing text domain.
+		if ( function_exists( 'translate' ) ) {
+			return \translate( $text, 'yaypricing' );
+		}
+
+		return $text;
 	}
 }

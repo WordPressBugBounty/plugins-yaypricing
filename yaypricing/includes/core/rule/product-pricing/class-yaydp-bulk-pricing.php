@@ -170,6 +170,12 @@ class YAYDP_Bulk_Pricing extends \YAYDP\Abstracts\YAYDP_Product_Pricing_Rule {
 			}
 		}
 
+		/**
+		 * Allow third-party to re-group the counted quantities, e.g. group by parent product + an attribute value.
+		 * Each group must keep the shape: array( 'quantity' => float, 'items' => array of cart items ).
+		 */
+		$products_quantities = \apply_filters( 'yaydp_bulk_pricing_quantity_groups', $products_quantities, $this, $cart );
+
 		if ( ! parent::is_all_together_discount() ) {
 			foreach ( $products_quantities as $data ) {
 				if ( ! is_null( $this->get_matching_range( $data['quantity'] ) ) ) {
@@ -205,58 +211,17 @@ class YAYDP_Bulk_Pricing extends \YAYDP\Abstracts\YAYDP_Product_Pricing_Rule {
 	}
 
 	/**
-	 * Calculate the adjustment amount for item.
+	 * Pricing comes from the range matching the item's counted quantity.
 	 *
 	 * @override
-	 *
-	 * @param \YAYDP\Core\YAYDP_Cart_Item $item Item to calculate adjustment amount.
 	 */
-	public function get_adjustment_amount( $item ) {
-		$item_price                = $item->get_price();
-		$item_quantity             = $item->get_bulk_quantity();
-		$pricing_type              = $this->get_pricing_type( $item_quantity );
-		$pricing_value             = $this->get_pricing_value( $item_quantity );
-		$maximum_adjustment_amount = $this->get_maximum_adjustment_amount( $item_quantity );
-		$adjustment_amount         = \YAYDP\Helper\YAYDP_Pricing_Helper::calculate_adjustment_amount( $item_price, $pricing_type, $pricing_value, $maximum_adjustment_amount );
-		return $adjustment_amount;
-	}
-
-	/**
-	 * Calculate discount amount per item unit
-	 *
-	 * @override
-	 *
-	 * @param \YAYDP\Core\YAYDP_Cart_Item $item Item to calculate adjustment amount.
-	 */
-	public function get_discount_amount_per_item( $item ) {
-		$item_price        = $item->get_price();
-		$adjustment_amount = $this->get_adjustment_amount( $item );
-		$item_quantity     = $item->get_bulk_quantity();
-		if ( \yaydp_is_flat_pricing_type( $this->get_pricing_type( $item_quantity ) ) ) {
-			return max( 0, $item_price - $adjustment_amount );
-		}
-		return min( $item_price, $adjustment_amount );
-	}
-
-	/**
-	 * Calculate discount value per item unit
-	 *
-	 * @override
-	 *
-	 * @param \YAYDP\Core\YAYDP_Cart_Item $item Item to calculate adjustment amount.
-	 */
-	public function get_discount_value_per_item( $item ) {
-		$item_price    = $item->get_price();
+	public function get_item_pricing( $item ) {
 		$item_quantity = $item->get_bulk_quantity();
-		$pricing_type  = $this->get_pricing_type( $item_quantity );
-		if ( \yaydp_is_percentage_pricing_type( $pricing_type ) ) {
-			return $this->get_pricing_value( $item_quantity );
-		}
-		$adjustment_amount = $this->get_adjustment_amount( $item );
-		if ( \yaydp_is_flat_pricing_type( $pricing_type ) ) {
-			return max( 0, $item_price - $adjustment_amount );
-		}
-		return min( $item_price, $adjustment_amount );
+		return array(
+			'type'    => $this->get_pricing_type( $item_quantity ),
+			'value'   => $this->get_pricing_value( $item_quantity ),
+			'maximum' => $this->get_maximum_adjustment_amount( $item_quantity ),
+		);
 	}
 
 	/**
@@ -289,6 +254,10 @@ class YAYDP_Bulk_Pricing extends \YAYDP\Abstracts\YAYDP_Product_Pricing_Rule {
 	 * @param \WC_Product $product Product.
 	 */
 	public function get_min_discount( $product ) {
+		$result = \YAYDP\Pricing_Type\YAYDP_Pricing_Type_Registry::zero_bounds();
+		if ( ! empty( $this->get_conditions() ) ) {
+			return $result;
+		}
 		$min                    = PHP_INT_MAX;
 		$has_range_start_with_1 = false;
 		foreach ( $this->get_ranges() as $range ) {
@@ -300,19 +269,12 @@ class YAYDP_Bulk_Pricing extends \YAYDP\Abstracts\YAYDP_Product_Pricing_Rule {
 			$discount_amount = $this->get_discount_amount_per_item( $fake_item );
 			if ( $min > $discount_amount ) {
 				$min    = $discount_amount;
-				$result = array(
-					'pricing_value' => $range_instance->get_pricing_value(),
-					'pricing_type'  => $range_instance->get_pricing_type(),
-					'maximum'       => $range_instance->get_maximum_adjustment_amount(),
-				);
+				$result = \YAYDP\Pricing_Type\YAYDP_Pricing_Type_Registry::display_bounds( $range_instance->get_pricing_type(), $range_instance->get_pricing_value(), $range_instance->get_maximum_adjustment_amount() );
 			}
 		}
 		if ( ! $has_range_start_with_1 && ! empty( $range_instance ) ) {
-			$result = array(
-				'pricing_value' => 0,
-				'pricing_type'  => 'fixed_discount',
-				'maximum'       => $range_instance->get_maximum_adjustment_amount(),
-			);
+			// No range starts at quantity 1, so nothing is guaranteed for a single unit.
+			$result = \YAYDP\Pricing_Type\YAYDP_Pricing_Type_Registry::display_bounds( 'fixed_discount', 0, $range_instance->get_maximum_adjustment_amount() );
 		}
 		return $result;
 	}
@@ -325,11 +287,7 @@ class YAYDP_Bulk_Pricing extends \YAYDP\Abstracts\YAYDP_Product_Pricing_Rule {
 	 * @param \WC_Product $product Product.
 	 */
 	public function get_max_discount( $product ) {
-		$result = array(
-			'pricing_value' => 0,
-			'pricing_type'  => 'fixed_discount',
-			'maximum'       => 0,
-		);
+		$result = \YAYDP\Pricing_Type\YAYDP_Pricing_Type_Registry::zero_bounds();
 		$max    = 0;
 		foreach ( $this->get_ranges() as $range ) {
 			$range_instance  = new \YAYDP\Core\Rule\Product_Pricing\YAYDP_Bulk_Range( $range );
@@ -337,11 +295,7 @@ class YAYDP_Bulk_Pricing extends \YAYDP\Abstracts\YAYDP_Product_Pricing_Rule {
 			$discount_amount = $this->get_discount_amount_per_item( $fake_item );
 			if ( $max < $discount_amount ) {
 				$max    = $discount_amount;
-				$result = array(
-					'pricing_value' => $range_instance->get_pricing_value(),
-					'pricing_type'  => $range_instance->get_pricing_type(),
-					'maximum'       => $range_instance->get_maximum_adjustment_amount(),
-				);
+				$result = \YAYDP\Pricing_Type\YAYDP_Pricing_Type_Registry::display_bounds( $range_instance->get_pricing_type(), $range_instance->get_pricing_value(), $range_instance->get_maximum_adjustment_amount() );
 			}
 		}
 		return $result;

@@ -25,17 +25,14 @@ class YAYDP_Admin_Menus {
 	 * Constructor
 	 */
 	public function __construct() {
-		add_action( 'admin_menu', array( $this, 'settings_menu' ), YAYDP_MENU_PRIORITY );
+		add_action( 'admin_menu', array( $this, 'settings_menu' ), 20 );
+	}
 
+	/**
+	 * Add YayPricing menus
+	 */
+	public function settings_menu() {
 		$this->submenus = array(
-			'yaypricing'        => array(
-				'parent'             => 'yaycommerce',
-				'name'               => __( 'YayPricing', 'yaypricing' ),
-				'capability'         => 'manage_woocommerce',
-				'render_callback'    => array( $this, 'settings_page' ),
-				'load_data_callback' => array( $this, 'load_settings_page' ),
-				'position'           => 0,
-			),
 			'yaypricing-report' => array(
 				'parent'             => 'wc-admin&path=/analytics/overview',
 				'name'               => __( 'YayPricing Report', 'yaypricing' ),
@@ -44,12 +41,8 @@ class YAYDP_Admin_Menus {
 				'load_data_callback' => array( $this, 'load_report_page' ),
 			),
 		);
-	}
 
-	/**
-	 * Add YayPricing menus
-	 */
-	public function settings_menu() {
+		add_action( 'load-yaycommerce_page_yaypricing', array( $this, 'load_settings_page' ) );
 		foreach ( $this->submenus as $id => $submenu ) {
 			$page_id = add_submenu_page(
 				$submenu['parent'],

@@ -1,0 +1,89 @@
+#!/usr/bin/env bash
+# Update admin-shell package and rebuild vendor-prefixed (dev mode)
+# Run from the plugin root: ./vendor/bin/yaycommerce-update
+set -euo pipefail
+
+# Resolve to the plugin root (where composer.json lives), not the package dir
+PLUGIN_ROOT="$(pwd)"
+if [ ! -f "$PLUGIN_ROOT/composer.json" ]; then
+    echo "[yaycommerce] ERROR: Run this from your plugin root (where composer.json is)"
+    exit 1
+fi
+cd "$PLUGIN_ROOT"
+
+echo "[yaycommerce] Updating admin-shell..."
+rm -rf vendor-prefixed
+mkdir -p vendor-prefixed/src
+if [ -f composer.lock ]; then
+    composer update yaycommerce/admin-shell
+else
+    composer update
+fi
+
+echo "[yaycommerce] Ensuring latest build tools (humbug/php-scoper + thecodingmachine/safe)..."
+# No version constraint = resolve to latest; -W lets composer move their transitive deps too
+composer require --dev humbug/php-scoper thecodingmachine/safe --with-all-dependencies --no-interaction
+
+echo "[yaycommerce] Updating scoper.inc.php..."
+php << 'PHPEOF'
+<?php
+$root        = getcwd();
+$scoper_path = $root . '/scoper.inc.php';
+if ( ! file_exists( $scoper_path ) ) {
+    echo "  [skip] scoper.inc.php not found — run yaycommerce-init first\n";
+    exit( 0 );
+}
+$content = file_get_contents( $scoper_path );
+preg_match( "/'prefix'\s*=>\s*'([^']+)'/", $content, $m );
+$prefix = $m[1] ?? '';
+preg_match( "/EDD_SL_Plugin_Updater',\s*'([^']+)'/", $content, $m2 );
+$adapter_class = $m2[1] ?? '';
+if ( empty( $prefix ) || empty( $adapter_class ) ) {
+    echo "  [skip] Could not detect prefix or adapter class from scoper.inc.php\n";
+    exit( 0 );
+}
+$new_content = <<<SCOPER
+<?php
+declare(strict_types=1);
+use Isolated\Symfony\Component\Finder\Finder;
+
+return [
+    'prefix'  => '{$prefix}',
+    'finders' => [
+        Finder::create()->files()->ignoreVCS(true)->ignoreDotFiles(true)->name('*.php')
+            ->in('vendor/yaycommerce/admin-shell/src'),
+        Finder::create()->files()->ignoreVCS(true)->ignoreDotFiles(true)->name('*.php')
+            ->in('vendor/yaycommerce/admin-shell/views'),
+    ],
+    'exclude-namespaces' => [],
+    'exclude-classes'    => [
+        'WP_Error', 'WP_REST_Request', 'WP_REST_Response', 'WP_REST_Server', 'WP_Ajax_Upgrader_Skin', 'Plugin_Upgrader',
+        'EDD_SL_Plugin_Updater', '{$adapter_class}',
+    ],
+    'exclude-functions'  => [
+        'wp_.*', 'get_.*', 'add_.*', 'remove_.*', 'apply_filters', 'do_action',
+        'plugin_basename', 'plugin_dir_path', 'plugin_dir_url', 'admin_url', 'home_url',
+        'is_admin', 'current_user_can', 'sanitize_text_field', 'sanitize_key',
+        'wp_json_encode', 'wp_unslash', 'esc_html', 'esc_attr', 'esc_url',
+        'esc_url_raw', 'esc_html__', 'esc_attr__', 'esc_attr_e', 'esc_html_e',
+        '__', '_e', '_n', '_x', 'add_query_arg', 'remove_query_arg', 'self_admin_url', 'admin_url','remove_all_actions', 'method_exists',
+    ],
+    'exclude-constants'  => [
+        'ABSPATH', 'WPINC', 'WP_CONTENT_DIR', 'WP_DEBUG',
+        'DOING_AJAX', 'DOING_CRON',
+        '/^WP_.*/', '/^YAYCOMMERCE_.*/',
+    ],
+];
+SCOPER;
+file_put_contents( $scoper_path, $new_content );
+echo "  [updated] scoper.inc.php (prefix: {$prefix}, adapter: {$adapter_class})\n";
+PHPEOF
+
+echo "[yaycommerce] Rebuilding vendor-prefixed..."
+rm -rf vendor-prefixed
+mkdir -p vendor-prefixed/src
+./vendor/bin/php-scoper add-prefix --output-dir=vendor-prefixed --force
+cp -r vendor/yaycommerce/admin-shell/assets vendor-prefixed/assets
+composer dump-autoload --classmap-authoritative
+
+echo "[yaycommerce] Done!"

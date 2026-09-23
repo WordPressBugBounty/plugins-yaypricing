@@ -39,7 +39,6 @@ class YayPricing {
 	 */
 	private function includes() {
 
-		// load i18n
 		YAYDP_I18n::load_plugin_text_domain();
 
 		/**
@@ -53,15 +52,17 @@ class YayPricing {
 		include_once YAYDP_ABSPATH . 'includes/functions/yaydp-cart-discount-functions.php';
 		include_once YAYDP_ABSPATH . 'includes/functions/yaydp-checkout-fee-functions.php';
 		include_once YAYDP_ABSPATH . 'includes/functions/yaydp-exclude-functions.php';
+		include_once YAYDP_ABSPATH . 'includes/functions/yaydp-tooltip-functions.php';
+		include_once YAYDP_ABSPATH . 'includes/admin/class-yaydp-admin-menus.php';
 
 		include_once YAYDP_ABSPATH . 'includes/yaydp-caching.php';
+
+		$this->load_legacy_compat();
 
 		/**
 		 * Integrations
 		 */
 		include_once YAYDP_ABSPATH . 'includes/class-yaydp-integrations.php';
-
-		// include_once YAYDP_ABSPATH . 'blocks/blocks.php';
 
 		/**
 		 * Register order-status-completed listeners in every request context
@@ -86,16 +87,37 @@ class YayPricing {
 		if ( yaydp_is_request( 'frontend' ) ) {
 			include_once YAYDP_ABSPATH . 'includes/class-yaydp-enqueue-frontend.php';
 			include_once YAYDP_ABSPATH . 'includes/core/manager/class-yaydp-pricing-manager.php';
+			include_once YAYDP_ABSPATH . 'includes/frontend/class-yaydp-gift-product-display.php';
 			include_once YAYDP_ABSPATH . 'includes/class-yaydp-checkout-billing-email-sync.php';
 		}
+	}
+
+	/**
+	 * Pre-3.5.8 condition / product-filter hooks and helper class names.
+	 * Loaded eagerly because each file aliases class names third-party code
+	 * may call before the registries boot. Removed in 3.6.0.
+	 */
+	private function load_legacy_compat() {
+		include_once YAYDP_ABSPATH . 'includes/condition/class-yaydp-legacy-condition-hooks.php';
+		include_once YAYDP_ABSPATH . 'includes/product-filter/class-yaydp-legacy-product-filter-hooks.php';
 	}
 
 	/**
 	 * Registers all the necessary hooks and filters for the plugin to function properly
 	 */
 	private function init_hooks() {
+		\YAYDP\Schedule\YAYDP_Schedule_Migration::maybe_migrate();
 		$this->register_rest_api();
 		$this->register_assistant_hooks();
+		$this->clean_cache_hooks();
+		$this->register_report_hooks();
+	}
+
+	/**
+	 * Keep the report statistics table in step with order changes.
+	 */
+	public function register_report_hooks() {
+		\YAYDP\Report\YAYDP_Report_Stats_Hooks::init_hooks();
 	}
 
 	/**
@@ -104,9 +126,6 @@ class YayPricing {
 	 */
 	public function register_assistant_hooks() {
 		\YAYDP\Helper\YAYDP_Matching_Products_Helper::init_hooks();
-		add_filter( 'plugin_action_links_' . YAYDP_PLUGIN_BASENAME, array( $this, 'add_action_links' ) );
-		add_filter( 'plugin_action_links_' . YAYDP_PLUGIN_BASENAME, array( $this, 'add_more_links' ) );
-		add_filter( 'plugin_row_meta', array( $this, 'add_plugin_extra_links' ), 10, 2 );
 	}
 
 	/**
@@ -116,42 +135,13 @@ class YayPricing {
 		\YAYDP\API\YAYDP_Rest::get_instance();
 	}
 
-	/**
-	 * Adds action links to the plugin by hooking into the 'plugin_action_links' filter and appending the links to the existing links
-	 *
-	 * @param array $links Existing links.
-	 *
-	 * @return array Links after extending.
-	 */
-	public function add_action_links( $links ) {
-		$yaydp_setting_links = array(
-			// Translators: link href.
-			sprintf( __( '%1$s Settings %2$s', 'yaypricing' ), '<a href="' . esc_url( admin_url() . 'admin.php?page=yaypricing' ) . '">', '</a>' ),
-		);
-		return array_merge( $yaydp_setting_links, $links );
-	}
+	private function clean_cache_hooks() {
+		add_action( 'woocommerce_new_product', 'yaydp_clear_shortcode_cache', 10, 1 );
+		add_action( 'woocommerce_update_product', 'yaydp_clear_shortcode_cache', 10, 1 );
 
-	public function add_more_links( $links ) {
-		$links[] = '<a target="_blank" href="https://yaycommerce.com/yaypricing-woocommerce-dynamic-pricing-and-discounts/?utm_source=yaypricing-lite&utm_medium=gopro" style="color: #43B854; font-weight: bold">' . __( 'Go Pro', 'yaypricing' ) . '</a>';
-		return $links;
-	}
-
-	/**
-	 * Adds extra links to the plugin settings page
-	 *
-	 * @param array  $plugin_meta Plugin meta data.
-	 * @param string $plugin_file Plugin basename.
-	 *
-	 * @return array
-	 */
-	public function add_plugin_extra_links( $plugin_meta, $plugin_file ) {
-		if ( YAYDP_PLUGIN_BASENAME === $plugin_file ) {
-			// Translators: link href.
-			$plugin_meta[] = sprintf( __( '%1$s Docs %2$s', 'yaypricing' ), '<a href="https://docs.yaycommerce.com/yaypricing/features">', '</a>' );
-			// Translators: link href.
-			$plugin_meta[] = sprintf( __( '%1$s Support %2$s', 'yaypricing' ), '<a href="https://yaycommerce.com/support/">', '</a>' );
+		$options = array( 'yaydp_product_pricing_rules', 'yaydp_cart_discount_rules', 'yaydp_checkout_fee_rules', 'yaydp_exclude_rules', 'yaydp_core_settings' );
+		foreach ( $options as $option ) {
+			add_action( 'update_option_' . $option, 'yaydp_clear_shortcode_cache' );
 		}
-		return $plugin_meta;
 	}
-
 }

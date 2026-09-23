@@ -202,6 +202,10 @@ abstract class YAYDP_Product_Pricing_Rule extends YAYDP_Rule {
 	 */
 	private function run_can_apply_adjustment( $product, $filters = null, $match_type = 'any', $item_key = null ) {
 
+		if ( apply_filters( 'yaydp_skip_product_pricing_rule', false, $this, $product ) ) {
+			return false;
+		}
+
 		if ( \YAYDP\Core\Manager\YAYDP_Exclude_Manager::check_product_exclusions( $this, $product ) ) {
 			return false;
 		}
@@ -220,49 +224,66 @@ abstract class YAYDP_Product_Pricing_Rule extends YAYDP_Rule {
 	}
 
 	/**
-	 * Calculate the adjustment amount for item.
+	 * Pricing (type, value, maximum) that applies to this cart item.
+	 *
+	 * The extension point for rules whose pricing is not the rule-level
+	 * default: Bulk/Tiered pick a range by quantity, Simple/Bundle may derive
+	 * the value from a formula. Everything below reads pricing through here.
+	 *
+	 * @param \YAYDP\Core\YAYDP_Cart_Item $item Item.
+	 * @return array{type: string, value: mixed, maximum: mixed}
+	 */
+	public function get_item_pricing( $item ) {
+		return array(
+			'type'    => $this->get_pricing_type(),
+			'value'   => $this->get_pricing_value(),
+			'maximum' => $this->get_maximum_adjustment_amount(),
+		);
+	}
+
+	/**
+	 * Legacy per-item "adjustment amount" (see YAYDP_Pricing_Helper). Kept for
+	 * external callers; the rule engine no longer reads it.
 	 *
 	 * @param \YAYDP\Core\YAYDP_Cart_Item $item Item to calculate adjustment amount.
 	 */
 	public function get_adjustment_amount( $item ) {
-		$item_price                = $item->get_price();
-		$pricing_type              = $this->get_pricing_type();
-		$pricing_value             = $this->get_pricing_value();
-		$maximum_adjustment_amount = $this->get_maximum_adjustment_amount();
-		$adjustment_amount         = \YAYDP\Helper\YAYDP_Pricing_Helper::calculate_adjustment_amount( $item_price, $pricing_type, $pricing_value, $maximum_adjustment_amount );
-		return $adjustment_amount;
+		$pricing = $this->get_item_pricing( $item );
+		return \YAYDP\Helper\YAYDP_Pricing_Helper::calculate_adjustment_amount( $item->get_price(), $pricing['type'], $pricing['value'], $pricing['maximum'] );
 	}
 
 	/**
-	 * Calculate the discount amount per item unit
+	 * Discount taken from one unit of the item (negative for fees); see
+	 * YAYDP_Pricing_Type_Registry::discount_per_item() for the caps.
 	 *
 	 * @param \YAYDP\Core\YAYDP_Cart_Item $item Item to calculate adjustment amount.
 	 */
 	public function get_discount_amount_per_item( $item ) {
-		$item_price        = $item->get_price();
-		$adjustment_amount = $this->get_adjustment_amount( $item );
-		if ( \yaydp_is_flat_pricing_type( $this->get_pricing_type() ) ) {
-			return max( 0, $item_price - $adjustment_amount );
-		}
-		return min( $item_price, $adjustment_amount );
+		$pricing = $this->get_item_pricing( $item );
+		return \YAYDP\Pricing_Type\YAYDP_Pricing_Type_Registry::discount_per_item( $pricing['type'], $item->get_price(), $pricing['value'], $pricing['maximum'] );
 	}
 
 	/**
-	 * Calculate discount value per item unit
+	 * Value shown for the discount: the raw percentage for percentage types,
+	 * otherwise the per-unit amount.
 	 *
 	 * @param \YAYDP\Core\YAYDP_Cart_Item $item Item to calculate adjustment amount.
 	 */
 	public function get_discount_value_per_item( $item ) {
-		$item_price   = $item->get_price();
-		$pricing_type = $this->get_pricing_type();
-		if ( \yaydp_is_percentage_pricing_type( $pricing_type ) ) {
-			return $this->get_pricing_value();
+		$pricing = $this->get_item_pricing( $item );
+		if ( \YAYDP\Pricing_Type\YAYDP_Pricing_Type_Registry::is_percentage_adjustment( $pricing['type'] ) ) {
+			return $pricing['value'];
 		}
-		$adjustment_amount = $this->get_adjustment_amount( $item );
-		if ( \yaydp_is_flat_pricing_type( $pricing_type ) ) {
-			return max( 0, $item_price - $adjustment_amount );
+		return $this->get_discount_amount_per_item( $item );
+	}
+
+	public function exec_formula( $formula, $replacement, $fallback_value ) {
+		try {
+			return eval( 'return ' . str_replace( '{n}', $replacement, $formula ) . ';' );
+		} catch ( \Throwable $error ) {
+			$by_pass = true;
 		}
-		return min( $item_price, $adjustment_amount );
+		return $fallback_value;
 	}
 
 	/**
@@ -305,16 +326,6 @@ abstract class YAYDP_Product_Pricing_Rule extends YAYDP_Rule {
 				'product'      => $product,
 			)
 		);
-	}
-
-	/**
-	 * Check whether given cart match rule conditions
-	 *
-	 * @param \YAYDP\Core\YAYDP_Cart $cart Cart.
-	 */
-	public function check_conditions( $cart ) {
-		// Note: Lock in LITE version.
-		return true;
 	}
 
 }

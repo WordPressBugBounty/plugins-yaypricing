@@ -1,0 +1,153 @@
+/**
+ * Gift Product Display Styles
+ * Cart row for Buy X Get Y free product gifts.
+ *
+ * Shadcn-style neutral palette. Every colour, size and reset is pinned on the
+ * plugin's own classes so the look survives whatever the active theme does to
+ * bare `ul`, `li` and `a` elements. Tokens are scoped to the
+ * plugin roots and can be overridden by a theme from a higher-level selector.
+ */
+
+.yaydp-gift-item,
+.yaydp-gift-badge-small {
+  --yaydp-bg: #ffffff;
+  --yaydp-fg: #09090b;
+  --yaydp-muted: #f4f4f5;
+  --yaydp-muted-fg: #71717a;
+  --yaydp-border: #e4e4e7;
+  --yaydp-primary: #18181b;
+  --yaydp-primary-fg: #fafafa;
+  --yaydp-ring: #a1a1aa;
+  --yaydp-destructive: #ef4444;
+  --yaydp-radius: 8px;
+  --yaydp-gift-accent: #16a34a;
+}
+
+/* ------------------------------------------------------------------ */
+/* Cart row                                                           */
+/* ------------------------------------------------------------------ */
+
+.yaydp-gift-item {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  color: var(--yaydp-fg);
+}
+
+/* Badge */
+.yaydp-gift-badge,
+.yaydp-gift-badge-small {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 10px;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  background: var(--yaydp-gift-accent);
+  color: #ffffff;
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 16px;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  vertical-align: middle;
+}
+
+.yaydp-gift-badge-small {
+  padding: 0 8px;
+  font-size: 10px;
+  margin-right: 6px;
+}
+
+.yaydp-gift-title {
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+/* Selected items summary */
+.yaydp-gift-selections {
+  /* Themes reset lists from an id selector (Divi's #main-content ul), which
+     no class chain can beat. */
+  list-style: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  width: 100%;
+  max-width: 320px;
+}
+
+.yaydp-gift-selection-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+  padding: 6px 10px;
+  border: 1px solid var(--yaydp-border);
+  border-radius: 6px;
+  background: var(--yaydp-muted);
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+.yaydp-gift-selection-qty {
+  min-width: 28px;
+  color: var(--yaydp-muted-fg);
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+}
+
+.yaydp-gift-selection-name {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.yaydp-gift-none-text {
+  color: var(--yaydp-muted-fg);
+  font-size: 13px;
+}
+
+a:has(.yaydp-gift-icon) {
+  text-decoration: none !important;
+}
+
+/* Gift icon in place of the product thumbnail */
+.yaydp-gift-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 64px;
+  border: 1px solid var(--yaydp-border, #e4e4e7);
+  border-radius: 8px;
+  background: var(--yaydp-muted, #f4f4f5);
+  font-size: 32px;
+  line-height: 1;
+}
+
+.yaydp-gift-price,
+.yaydp-gift-subtotal {
+  color: var(--yaydp-gift-accent, #16a34a);
+  font-weight: 500;
+}
+
+.yaydp-gift-qty,
+.yaydp-gift-qty-readonly {
+  display: block;
+  font-weight: 500;
+  text-align: center;
+}
+
+/* ------------------------------------------------------------------ */
+/* Responsive                                                         */
+/* ------------------------------------------------------------------ */
+
+@media (max-width: 768px) {
+  .yaydp-gift-selections {
+    max-width: none;
+  }
+}

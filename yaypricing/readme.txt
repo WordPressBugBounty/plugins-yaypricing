@@ -4,7 +4,7 @@ Donate link: https://yaycommerce.com/yaypricing-woocommerce-dynamic-pricing-and-
 Tags: dynamic pricing, discounts, cart fee, bogo, coupon
 Requires at least: 3.0
 Tested up to: 7.1
-Stable tag: 3.5.7.2
+Stable tag: 3.6.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -133,6 +133,15 @@ A big yes! YayPricing is compliant with GDPR. It doesn't collect your WooCommerc
 6. Gift item of "Buy one get one free" promotion automatically added to cart page
 
 == Changelog ==
+
+= Sep 23, 2026 – Version 3.6.0 =
+- Added: Translation support for countdown timer labels, rule names, tooltips and offer descriptions (WPML, Polylang and Loco Translate)
+- Added: Option to limit a discount to a set number of matching units
+- Improved: Improve YayPricing UI/UX
+- Improved: Buy X Get Y and BOGO free gift display in cart page
+- Improved: Product price formatting and tax location fallback
+- Improved: Lower memory use when reading product variations and specific attributes
+- Fixed: Product variations were missed in category and tag taxonomy queries
 
 = Jul 28, 2026 – Version 3.5.7.2 =
 - Improved: Two-line discounted price layout is now controlled by the `yaydp_use_two_lines_discounted_price` filter

@@ -39,6 +39,10 @@ class YAYDP_Product_Pricing_Rule_Factory extends \YAYDP\Abstracts\YAYDP_Rule_Fac
 		if ( 'buy_x_get_y' === $type ) {
 			$rule_class = "{$path}\YAYDP_Buy_X_Get_Y";
 		}
+		// Pro-only type: stored rules resolve to null and are dropped by the loaders.
+		if ( 'product_fee' === $type ) {
+			return null;
+		}
 
 		return new $rule_class( $rule_data );
 

@@ -59,6 +59,15 @@ class YAYDP_Checkout_Fee_Settings {
 	}
 
 	/**
+	 * Is tax included in checkout fees
+	 *
+	 * @return bool
+	 */
+	public function checkout_fees_include_tax() {
+		return isset( $this->settings['include_tax'] ) ? $this->settings['include_tax'] : false;
+	}
+
+	/**
 	 * Returns whether enable show encouraged notice
 	 *
 	 * @since 2.4

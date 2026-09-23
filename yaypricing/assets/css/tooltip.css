@@ -1,3 +1,4 @@
+/* Tooltip */
 .yaydp-tooltip-icon::before {
   content: "\f223";
 }
@@ -21,27 +22,42 @@
   vertical-align: sub;
   text-align: center;
   transition: color 0.1s ease-in;
-  color: #666;
+  color: #363636;
+}
+.yaydp-tooltip-icon:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 2px;
+  border-radius: 50%;
 }
 
-.yaydp-tooltip-icon:hover .yaydp-tooltip-content {
+/* Open states: hover (mouse), focus (keyboard), .is-open (tap / Enter, toggled in index.js) */
+.yaydp-tooltip-icon:hover .yaydp-tooltip-content,
+.yaydp-tooltip-icon:focus-visible .yaydp-tooltip-content,
+.yaydp-tooltip-icon.is-open .yaydp-tooltip-content {
   visibility: visible;
   opacity: 1;
-  transform: translate(-50%, -0.6em);
+  transform: translate(calc(-50% + var(--yaydp-tooltip-shift, 0px)), -0.6em);
+}
+.yaydp-tooltip-icon:hover::after,
+.yaydp-tooltip-icon:focus-visible::after,
+.yaydp-tooltip-icon.is-open::after {
+  visibility: visible;
+  opacity: 1;
+  transform: translate(-50%, -9px);
 }
 
 .yaydp-tooltip-content {
   visibility: hidden;
   opacity: 0;
-  max-width: 270px;
+  max-width: min(250px, calc(100vw - 16px));
   width: max-content;
   font-weight: normal;
-  background-color: #666;
-  box-shadow: 0 2px 8px rgb(0 0 0 / 15%);
+  background-color: #363636;
   color: #fff;
   text-align: center;
   border-radius: 4px;
   padding: 0.5rem 0.5rem;
+  font-weight: 400;
   position: absolute;
   z-index: 1;
   bottom: 100%;
@@ -49,21 +65,48 @@
   font-size: 0.8rem;
   font-family: "Source Sans Pro", "HelveticaNeue-Light", "Helvetica Neue Light",
     "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
-  transform: translateX(-50%);
-  transition: all 0.3s ease-in-out;
+  /* --yaydp-tooltip-shift keeps the bubble inside the viewport; set by index.js */
+  transform: translateX(calc(-50% + var(--yaydp-tooltip-shift, 0px)));
+  transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out,
+    visibility 0.3s ease-in-out;
 }
-.yaydp-tooltip-content::after {
+.yaydp-tooltip-icon::after {
   content: "";
   position: absolute;
-  width: 8px;
-  height: 8px;
-  background-color: #666;
+  width: 0;
+  height: 0;
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-top: 6px solid #363636;
   border-radius: 2px;
   transform-origin: center;
   z-index: 1;
   left: 50%;
-  transform: translateX(-50%) rotate(45deg);
-  bottom: -4px;
+  transform: translateX(-50%);
+  visibility: hidden;
+  opacity: 0;
+  transition: all 0.3s ease-in-out;
+}
+
+/* Flipped below the icon when there is no room above (index.js toggles .is-below) */
+.yaydp-tooltip-icon.is-below .yaydp-tooltip-content {
+  bottom: auto;
+  top: 100%;
+}
+.yaydp-tooltip-icon.is-below:hover .yaydp-tooltip-content,
+.yaydp-tooltip-icon.is-below:focus-visible .yaydp-tooltip-content,
+.yaydp-tooltip-icon.is-below.is-open .yaydp-tooltip-content {
+  transform: translate(calc(-50% + var(--yaydp-tooltip-shift, 0px)), 0.6em);
+}
+.yaydp-tooltip-icon.is-below::after {
+  top: 100%;
+  border-top: none;
+  border-bottom: 6px solid #363636;
+}
+.yaydp-tooltip-icon.is-below:hover::after,
+.yaydp-tooltip-icon.is-below:focus-visible::after,
+.yaydp-tooltip-icon.is-below.is-open::after {
+  transform: translate(-50%, 9px);
 }
 
 .yaydp-tooltip-content > div {
@@ -77,4 +120,13 @@
 }
 .yaydp-tooltip-content > div:first-child {
   padding-top: 0;
+}
+
+/* Inside WooCommerce Cart / Checkout / Mini-Cart blocks (mounted by block-cart-tooltip.js) */
+.wc-block-cart-item__prices .yaydp-tooltip-icon {
+  margin-left: 4px;
+  vertical-align: middle;
+  font-size: 16px;
+  width: 16px;
+  height: 16px;
 }

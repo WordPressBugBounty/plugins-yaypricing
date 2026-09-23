@@ -25,8 +25,9 @@ class YAYDP_Exclude_Rule_Factory extends \YAYDP\Abstracts\YAYDP_Rule_Factory {
 		$type       = isset( $rule_data['type'] ) ? $rule_data['type'] : null;
 		$rule_class = "{$path}\YAYDP_Simple_Exclude";
 
+		// Pro-only type: stored rules resolve to null and are dropped by the loaders.
 		if ( 'coupon_exclusions' === $type ) {
-			$rule_class = "{$path}\YAYDP_Coupon_Exclude";
+			return null;
 		}
 
 		return new $rule_class( $rule_data );

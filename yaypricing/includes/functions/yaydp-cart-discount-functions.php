@@ -14,11 +14,15 @@ if ( ! function_exists( 'yaydp_get_cart_discount_rules' ) ) {
 	 */
 	function yaydp_get_cart_discount_rules() {
 		$database_data = get_option( 'yaydp_cart_discount_rules' );
-		return array_map(
-			function( $data ) {
-				return \YAYDP\Factory\YAYDP_Cart_Discount_Rule_Factory::get_rule( $data );
-			},
-			empty( $database_data ) ? array() : $database_data
+		// Pro-only stored rules resolve to null at the factory; drop them here so no
+		// consumer ever sees a null rule. The option itself is never rewritten.
+		return array_filter(
+			array_map(
+				function( $data ) {
+					return \YAYDP\Factory\YAYDP_Cart_Discount_Rule_Factory::get_rule( $data );
+				},
+				empty( $database_data ) ? array() : $database_data
+			)
 		);
 	}
 }
@@ -81,7 +85,7 @@ if ( ! function_exists( 'yaydp_cart_discount_is_applied_to_maximum_amount_per_or
 if ( ! function_exists( 'yaydp_is_coupon' ) ) {
 	/**
 	 * Check whether coupon code is cart discount coupon
-	 *
+	 * 
 	 * @since 3.4.2
 	 */
 	function yaydp_is_coupon( $code ) {

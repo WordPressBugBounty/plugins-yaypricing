@@ -1,0 +1,481 @@
+#!/usr/bin/env php
+<?php
+/**
+ * YayCommerce Admin Shell — interactive project initializer.
+ *
+ * Run from the consuming plugin root:
+ *   php vendor/bin/yaycommerce-init
+ *
+ * Interactive wizard collects all config and generates:
+ *   - {Slug}PluginAdapter.php (plugin root, unique per plugin)
+ *   - scoper.inc.php
+ *   - Updates composer.json classmap
+ *   - Updates .gitignore
+ *   - Configures GitHub token
+ *
+ * All flags are optional — wizard prompts for missing values with smart defaults.
+ * Pass --force to overwrite existing generated files.
+ */
+
+// --- Parse flags (all optional — wizard fills gaps) ---
+$flags = getopt( '', [
+    'prefix:', 'slug:', 'name:', 'menu-title:', 'version-const:', 'path-const:',
+    'basename-const:', 'main-file:', 'item-id:', 'store-link:', 'menu-slug:',
+    'settings-label:', 'docs-url:', 'pro-url:', 'github-token:', 'force', 'help',
+    'parent-menu:'
+] );
+
+if ( isset( $flags['help'] ) ) {
+    echo <<<USAGE
+Usage: php vendor/bin/yaycommerce-init [options]
+
+Interactive wizard — prompts for any missing values with smart defaults.
+All flags are optional; pass them to skip prompts (useful for CI).
+
+Options:
+  --prefix          Scoper prefix (e.g. YayMailScoped)
+  --slug            Plugin slug / wp_options prefix (e.g. yaymail)
+  --name            Full plugin name for license card
+  --menu-title      Short name for sidebar submenu
+  --version-const   PHP constant for version (e.g. YAYMAIL_VERSION)
+  --path-const      PHP constant for plugin path (e.g. YAYMAIL_PLUGIN_PATH)
+  --basename-const  PHP constant for basename (e.g. YAYMAIL_PLUGIN_BASENAME)
+  --main-file       Main plugin filename (e.g. yaymail.php)
+  --item-id         EDD download ID
+  --store-link      Product page URL (e.g. https://yaycommerce.com/yaymail-woocommerce-email-customizer/)
+  --menu-slug   Settings page slug (blank = no settings link)
+  --settings-label  Settings link label (default: Settings)
+  --docs-url        Documentation URL (blank = no docs link)
+  --pro-url         Go Pro URL (blank = no Go Pro link)
+  --github-token    GitHub PAT for private repo access
+  --force           Overwrite existing generated files
+  --help            Show this message
+
+USAGE;
+    exit( 0 );
+}
+
+$force = isset( $flags['force'] );
+$root  = getcwd();
+$is_tty = defined( 'STDIN' ) && function_exists( 'posix_isatty' ) && posix_isatty( STDIN );
+
+/**
+ * Prompt for a value. Uses flag if provided, otherwise asks interactively.
+ */
+function ask( string $label, string $flag_key, array $flags, string $default = '', bool $is_tty = true ): string {
+    if ( isset( $flags[ $flag_key ] ) && '' !== $flags[ $flag_key ] ) {
+        return $flags[ $flag_key ];
+    }
+    if ( ! $is_tty ) {
+        return $default;
+    }
+    $prompt = "  {$label}";
+    if ( '' !== $default ) {
+        $prompt .= " [{$default}]";
+    }
+    $prompt .= ': ';
+    echo $prompt;
+    $input = trim( fgets( STDIN ) );
+    return '' !== $input ? $input : $default;
+}
+
+/**
+ * Derive smart defaults from slug.
+ * e.g. slug "yaymail" → prefix "YayMailScoped", constant prefix "YAYMAIL_"
+ */
+function slug_to_pascal( string $slug ): string {
+    return str_replace( [ ' ', '-', '_' ], '', ucwords( str_replace( [ '-', '_' ], ' ', $slug ) ) );
+}
+
+echo "\n";
+echo "  YayCommerce Admin Shell Setup\n";
+echo "  ==============================\n\n";
+
+// --- GitHub token (first, before anything else) ---
+$composer_home = getenv( 'COMPOSER_HOME' ) ?: ( getenv( 'HOME' ) . '/.composer' );
+$auth_path     = $composer_home . '/auth.json';
+$has_token     = false;
+
+if ( file_exists( $auth_path ) ) {
+    $auth = json_decode( file_get_contents( $auth_path ), true ) ?: [];
+    if ( ! empty( $auth['github-oauth']['github.com'] ) ) {
+        $has_token = true;
+    }
+}
+
+if ( $has_token ) {
+    echo "  [ok] GitHub token already configured\n\n";
+} else {
+    $token = $flags['github-token'] ?? '';
+    if ( empty( $token ) && $is_tty ) {
+        echo "  GitHub token required for private repo access.\n";
+        echo "  Get one at: https://github.com/settings/tokens (Contents: read-only)\n";
+        echo "  GitHub PAT (blank to skip): ";
+        $token = trim( fgets( STDIN ) );
+        echo "\n";
+    }
+    if ( ! empty( $token ) ) {
+        $auth = file_exists( $auth_path ) ? ( json_decode( file_get_contents( $auth_path ), true ) ?: [] ) : [];
+        $auth['github-oauth']['github.com'] = $token;
+        if ( ! is_dir( $composer_home ) ) {
+            mkdir( $composer_home, 0755, true );
+        }
+        file_put_contents( $auth_path, json_encode( $auth, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES ) . "\n" );
+        echo "  [saved] GitHub token\n\n";
+    }
+}
+
+// --- Load plugin presets ---
+$presets_path = dirname( __DIR__ ) . '/data/plugins.json';
+$presets      = file_exists( $presets_path ) ? json_decode( file_get_contents( $presets_path ), true ) : [];
+$preset       = null;
+
+// Auto-match preset if --slug flag provided
+if ( isset( $flags['slug'] ) && '' !== $flags['slug'] ) {
+    $type_hint = isset( $flags['pro-url'] ) && '' !== $flags['pro-url'] ? 'lite' : 'pro';
+    foreach ( $presets as $p ) {
+        if ( $p['slug'] === $flags['slug'] && $p['type'] === $type_hint ) {
+            $preset = $p;
+            break;
+        }
+    }
+    // Fallback: match by slug regardless of type
+    if ( ! $preset ) {
+        foreach ( $presets as $p ) {
+            if ( $p['slug'] === $flags['slug'] ) {
+                $preset = $p;
+                break;
+            }
+        }
+    }
+}
+
+// Interactive preset selection
+if ( ! $preset && $is_tty && ! isset( $flags['slug'] ) && ! empty( $presets ) ) {
+    echo "  Select plugin:\n\n";
+
+    // Group by slug to show Pro + Lite together
+    $grouped = [];
+    foreach ( $presets as $p ) {
+        $grouped[ $p['slug'] ][] = $p;
+    }
+
+    $menu_items = [];
+    $index      = 1;
+    foreach ( $grouped as $slug_key => $variants ) {
+        foreach ( $variants as $v ) {
+            $label        = $v['type'] === 'lite' ? $v['menu_title'] . ' (Lite)' : $v['menu_title'] . ' Pro';
+            $menu_items[] = [ 'index' => $index, 'preset' => $v, 'label' => $label ];
+            printf( "    [%2d] %s\n", $index, $label );
+            $index++;
+        }
+    }
+    echo "    [ 0] Custom (enter values manually)\n\n";
+    echo "  Choice: ";
+    $choice = (int) trim( fgets( STDIN ) );
+    echo "\n";
+
+    if ( $choice > 0 && $choice <= count( $menu_items ) ) {
+        $preset = $menu_items[ $choice - 1 ]['preset'];
+        echo "  Using preset: {$preset['name']} ({$preset['type']})\n\n";
+    } else {
+        echo "  Custom mode — entering values manually.\n\n";
+    }
+}
+// Detect special plugins: external menu only, no standard plugin shell needed
+$is_special = $preset && isset( $preset['parent_menu'] );
+
+// --- Core config (preset fills defaults, manual entry fills gaps) ---
+if ( $preset ) {
+    $slug           = $preset['slug'];
+    $prefix         = $flags['prefix'] ?? $preset['prefix'];
+    $name           = $flags['name'] ?? $preset['name'];
+    $menu           = $flags['menu-title'] ?? $preset['menu_title'];
+    $version_const  = $flags['version-const'] ?? $preset['version_const'];
+    $path_const     = $flags['path-const'] ?? $preset['path_const'];
+    $basename_const = $flags['basename-const'] ?? $preset['basename_const'];
+    $main_file      = $flags['main-file'] ?? $preset['main_file'];
+    $item_id        = $flags['item-id'] ?? (string) $preset['item_id'];
+    $store_link_val = $flags['store-link'] ?? $preset['store_link'];
+    $menu_slug      = $flags['menu-slug'] ?? $preset['menu_slug'];
+    $menu_cap       = $preset['menu_capability'] ?? 'manage_options';
+    $settings_label = $flags['settings-label'] ?? $preset['settings_label'];
+    $docs_url       = $flags['docs-url'] ?? $preset['docs_url'];
+    $pro_url        = $flags['pro-url'] ?? $preset['pro_url'];
+    $addon_filter   = $preset['addon_filter'] ?? '';
+} else {
+    $slug = ask( 'Plugin slug (wp_options prefix, e.g. yaymail)', 'slug', $flags, '', $is_tty );
+    if ( empty( $slug ) ) {
+        echo "  [error] Plugin slug is required.\n";
+        exit( 1 );
+    }
+
+    $pascal         = slug_to_pascal( $slug );
+    $const_prefix   = strtoupper( str_replace( [ '-', ' ' ], '_', $slug ) );
+    $default_prefix = $pascal . 'Scoped';
+
+    $prefix         = ask( 'Scoper prefix', 'prefix', $flags, $default_prefix, $is_tty );
+    $name           = ask( 'Plugin name (license card title)', 'name', $flags, $pascal . ' Pro', $is_tty );
+    $menu           = ask( 'Menu title (sidebar)', 'menu-title', $flags, $pascal, $is_tty );
+    $version_const  = ask( 'Version constant', 'version-const', $flags, $const_prefix . '_VERSION', $is_tty );
+    $path_const     = ask( 'Path constant', 'path-const', $flags, $const_prefix . '_PLUGIN_PATH', $is_tty );
+    $basename_const = ask( 'Basename constant', 'basename-const', $flags, $const_prefix . '_PLUGIN_BASENAME', $is_tty );
+    $main_file      = ask( 'Main plugin filename', 'main-file', $flags, $slug . '.php', $is_tty );
+    $item_id        = ask( 'EDD item ID', 'item-id', $flags, '', $is_tty );
+    $store_link_val = ask( 'Store link URL (blank=https://yaycommerce.com/)', 'store-link', $flags, 'https://yaycommerce.com/', $is_tty );
+    $menu_slug  = ask( 'Settings page slug (blank=no settings link)', 'menu-slug', $flags, $slug . '-settings', $is_tty );
+    $settings_label = ask( 'Settings link label', 'settings-label', $flags, 'Settings', $is_tty );
+    $docs_url       = ask( 'Docs URL (blank=none)', 'docs-url', $flags, '', $is_tty );
+    $pro_url        = ask( 'Go Pro URL (blank=none, for lite plugins)', 'pro-url', $flags, '', $is_tty );
+    $addon_filter   = '';
+    $menu_cap       = 'manage_options';
+}
+
+// --- Derived values ---
+$pascal         = slug_to_pascal( $slug );
+$store_url      = 'https://yaycommerce.com/';
+$store_link     = ! empty( $store_link_val ) ? $store_link_val : $store_url;
+$item_id_int    = (int) $item_id;
+
+echo "\n  Generating files...\n\n";
+
+// ==================== PluginAdapter ====================
+$is_pro         = $item_id_int > 0;
+$adapter_class  = $pascal . 'PluginAdapter';
+$adapter_fname  = $adapter_class . '.php';
+$adapter_file   = $root . '/' . $adapter_fname;
+if ( ! file_exists( $adapter_file ) || $force ) {
+    if ( $is_special ) {
+        $parent_menu_val = $preset['parent_menu'];
+        $menu_title_val  = $preset['menu_title'];
+        $menu_cap_val    = $menu_cap;
+        $menu_slug_val   = $menu_slug;
+
+        $adapter_content = <<<ADAPTER
+<?php
+/**
+ * Plugin adapter for {$slug}.
+ * Generated by yaycommerce-init. Edit values as needed.
+ */
+
+defined( 'ABSPATH' ) || exit;
+
+class {$adapter_class} {
+    public function init(): void {
+        ( new \\{$prefix}\\YayCommerce\\AdminShell\\Menu\\ExternalPluginMenuAdapter( [
+            'parent_menu'     => '{$parent_menu_val}',
+            'menu_title'      => '{$menu_title_val}',
+            'menu_capability' => '{$menu_cap_val}',
+            'menu_slug'       => '{$menu_slug_val}',
+        ] ) )->init();
+    }
+}
+
+ADAPTER;
+        file_put_contents( $adapter_file, $adapter_content );
+        echo "  [created] {$adapter_fname} (external menu adapter)\n";
+    } else {
+        $docs_line = ! empty( $docs_url ) ? "return '{$docs_url}';" : "return '';";
+        $pro_line  = ! empty( $pro_url ) ? "return '{$pro_url}';" : "return '';";
+
+        // Menu methods (shared by both pro and lite)
+        $menu_methods = <<<METHODS
+    public function get_menu_title(): string         { return '{$menu}'; }
+    public function get_page_title(): string         { return '{$name}'; }
+    public function get_menu_slug(): string          { return '{$menu_slug}'; }
+    public function get_settings_page_callback(): ?callable { return null; } // Set your render callback here
+    public function get_settings_page_position(): ?int { return null; }
+    public function get_capability(): string         { return 'manage_options'; }
+    public function get_plugin_basename(): string    { return {$basename_const}; }
+    public function get_settings_label(): string     { return '{$settings_label}'; }
+    public function get_docs_url(): string           { {$docs_line} }
+    public function get_pro_url(): string            { {$pro_line} }
+METHODS;
+
+        // Addon host interface + method (only for presets with addon_filter)
+        $addon_implements = '';
+        $addon_method     = '';
+        if ( ! empty( $addon_filter ) ) {
+            $addon_implements = ", \\{$prefix}\\YayCommerce\\AdminShell\\Contracts\\AddonHostAdapter";
+            $addon_method     = <<<ADDON
+
+    // --- Addon host ---
+    public function get_addon_licensing_filter(): string { return '{$addon_filter}'; }
+ADDON;
+        }
+
+        if ( $is_pro ) {
+            // Pro adapter — implements LicenseConfigAdapter (extends PluginMenuAdapter)
+            $adapter_content = <<<ADAPTER
+<?php
+/**
+ * Plugin adapter for {$name}.
+ * Generated by yaycommerce-init. Edit values as needed.
+ */
+
+defined( 'ABSPATH' ) || exit;
+
+class {$adapter_class} implements \\{$prefix}\\YayCommerce\\AdminShell\\License\\Contracts\\LicenseConfigAdapter{$addon_implements} {
+    // --- Menu methods ---
+{$menu_methods}
+
+    // --- License methods ---
+    public function get_plugin_slug(): string        { return '{$slug}'; }
+    public function get_plugin_name(): string        { return '{$name}'; }
+    public function get_plugin_version(): string     { return defined( '{$version_const}' ) ? {$version_const} : '0.0.0'; }
+    public function get_plugin_file(): string        { return {$path_const} . '{$main_file}'; }
+    public function get_item_id(): int               { return {$item_id_int}; }
+    public function get_store_url(): string          { return '{$store_url}'; }
+    public function get_store_link(): string         { return '{$store_link}'; }
+{$addon_method}
+    /**
+     * Check if this plugin has an active, non-expired license.
+     */
+    public static function is_licensed(): bool {
+        \$info = get_option( '{$slug}_license_info', [] );
+        \$key  = get_option( '{$slug}_license_key', '' );
+        return ! empty( \$key ) && ! empty( \$info ) && 'expired' !== ( \$info['license'] ?? '' );
+    }
+}
+
+ADAPTER;
+        } else {
+            // Lite adapter — implements PluginMenuAdapter only (no license)
+            $adapter_content = <<<ADAPTER
+<?php
+/**
+ * Plugin adapter for {$name}.
+ * Generated by yaycommerce-init. Edit values as needed.
+ */
+
+defined( 'ABSPATH' ) || exit;
+
+class {$adapter_class} implements \\{$prefix}\\YayCommerce\\AdminShell\\Contracts\\PluginMenuAdapter{$addon_implements} {
+{$menu_methods}
+{$addon_method}
+}
+
+ADAPTER;
+        }
+        file_put_contents( $adapter_file, $adapter_content );
+        echo "  [created] {$adapter_fname} (" . ( $is_pro ? 'pro — LicenseConfigAdapter' : 'lite — PluginMenuAdapter' ) . ")\n";
+    }
+} else {
+    echo "  [skip] {$adapter_fname} (exists, use --force to overwrite)\n";
+}
+
+// ==================== scoper.inc.php ====================
+$scoper_path = $root . '/scoper.inc.php';
+if ( ! file_exists( $scoper_path ) || $force ) {
+    $scoper_content = <<<'SCOPER'
+<?php
+declare(strict_types=1);
+use Isolated\Symfony\Component\Finder\Finder;
+
+return [
+    'prefix'  => '{{PREFIX}}',
+    'finders' => [
+        Finder::create()->files()->ignoreVCS(true)->ignoreDotFiles(true)->name('*.php')
+            ->in('vendor/yaycommerce/admin-shell/src'),
+        Finder::create()->files()->ignoreVCS(true)->ignoreDotFiles(true)->name('*.php')
+            ->in('vendor/yaycommerce/admin-shell/views'),
+    ],
+    'exclude-namespaces' => [],
+    'exclude-classes'    => [
+        'WP_Error', 'WP_REST_Request', 'WP_REST_Response', 'WP_REST_Server', 'WP_Ajax_Upgrader_Skin', 'Plugin_Upgrader',
+        'EDD_SL_Plugin_Updater', '{{ADAPTER_CLASS}}',
+    ],
+    'exclude-functions'  => [
+        'wp_.*', 'get_.*', 'add_.*', 'remove_.*', 'apply_filters', 'do_action',
+        'plugin_basename', 'plugin_dir_path', 'plugin_dir_url', 'admin_url', 'home_url',
+        'is_admin', 'current_user_can', 'sanitize_text_field', 'sanitize_key',
+        'wp_json_encode', 'wp_unslash', 'esc_html', 'esc_attr', 'esc_url',
+        'esc_url_raw', 'esc_html__', 'esc_attr__', 'esc_attr_e', 'esc_html_e',
+        '__', '_e', '_n', '_x', 'add_query_arg', 'remove_query_arg', 'self_admin_url', 'admin_url', 'remove_all_actions', 'method_exists',
+    ],
+    'exclude-constants'  => [
+        'ABSPATH', 'WPINC', 'WP_CONTENT_DIR', 'WP_DEBUG',
+        'DOING_AJAX', 'DOING_CRON',
+        '/^WP_.*/', '/^YAYCOMMERCE_.*/',
+    ],
+];
+SCOPER;
+    $scoper_content = str_replace( '{{PREFIX}}', $prefix, $scoper_content );
+    $scoper_content = str_replace( '{{ADAPTER_CLASS}}', $adapter_class, $scoper_content );
+    file_put_contents( $scoper_path, $scoper_content );
+    echo "  [created] scoper.inc.php\n";
+} else {
+    echo "  [skip] scoper.inc.php (exists, use --force to overwrite)\n";
+}
+
+// ==================== composer.json classmap ====================
+$composer_path = $root . '/composer.json';
+if ( file_exists( $composer_path ) ) {
+    $composer = json_decode( file_get_contents( $composer_path ), true );
+    $classmap = $composer['autoload']['classmap'] ?? [];
+    $changed  = false;
+    if ( ! in_array( 'vendor-prefixed/src', $classmap, true ) ) {
+        $classmap[] = 'vendor-prefixed/src';
+        $changed    = true;
+    }
+    if ( ! in_array( $adapter_fname, $classmap, true ) ) {
+        $classmap[] = $adapter_fname;
+        $changed    = true;
+    }
+    if ( $changed ) {
+        $composer['autoload']['classmap'] = $classmap;
+        file_put_contents(
+            $composer_path,
+            json_encode( $composer, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES ) . "\n"
+        );
+        // Create stub directory so composer dump-autoload doesn't error before scoper runs
+        if ( ! is_dir( $root . '/vendor-prefixed/src' ) ) {
+            mkdir( $root . '/vendor-prefixed/src', 0755, true );
+        }
+        echo "  [updated] composer.json classmap\n";
+    } else {
+        echo "  [skip] composer.json classmap (already configured)\n";
+    }
+} else {
+    echo "  [skip] composer.json not found — create it first with composer init\n";
+}
+
+// ==================== .gitignore ====================
+$gitignore_path  = $root . '/.gitignore';
+$gitignore_lines = [ 'vendor/', 'vendor-prefixed/', '*.zip' ];
+$existing        = file_exists( $gitignore_path ) ? file_get_contents( $gitignore_path ) : '';
+$added           = [];
+foreach ( $gitignore_lines as $line ) {
+    if ( strpos( $existing, $line ) === false ) {
+        $added[] = $line;
+    }
+}
+if ( ! empty( $added ) ) {
+    $append = ( ! empty( $existing ) && substr( $existing, -1 ) !== "\n" ) ? "\n" : '';
+    $append .= implode( "\n", $added ) . "\n";
+    file_put_contents( $gitignore_path, $existing . $append );
+    echo "  [updated] .gitignore\n";
+} else {
+    echo "  [skip] .gitignore (already configured)\n";
+}
+
+// ==================== Summary ====================
+echo "\n  ==============================\n";
+echo "  Done! Add these lines to {$main_file}:\n";
+echo "  ==============================\n\n";
+echo "  require_once __DIR__ . '/vendor/autoload.php';\n";
+echo "  require_once __DIR__ . '/{$adapter_fname}';\n\n";
+if ( $is_special ) {
+    echo "  add_action( 'plugins_loaded', function() {\n";
+    echo "      ( new \\{$adapter_class}() )->init();\n";
+    echo "  }, 5 );\n\n";
+} else {
+    echo "  add_action( 'plugins_loaded', function() {\n";
+    echo "      \\{$prefix}\\YayCommerce\\AdminShell\\AdminShell::boot();\n";
+    echo "      \\{$prefix}\\YayCommerce\\AdminShell\\AdminShell::register_plugin(\n";
+    echo "          new \\{$adapter_class}()\n";
+    echo "      );\n";
+    echo "  }, 5 );\n\n";
+}
+echo "  Then run:\n";
+echo "  ./vendor/bin/yaycommerce-update\n\n";

@@ -179,8 +179,8 @@ class YAYDP_Product_Sale {
 			$min_percent_discount = 0;
 		}
 		return array(
-			'min' => min( 100, max( 0, $min_percent_discount ) ),
-			'max' => min( 100, max( 0, $max_percent_discount ) ),
+			'min' => $min_percent_discount,
+			'max' => $max_percent_discount,
 		);
 	}
 
@@ -246,13 +246,13 @@ class YAYDP_Product_Sale {
 				$item_price_ranges = $item->get_prices_based_on_quantity();
 				krsort($item_price_ranges);
 				$item_price        = array_key_last( $item_price_ranges );
-				if ( empty( $product_price ) || empty( $item_price ) ) {
+				if ( empty( $product_price ) ) {
 					continue;
 				}
 				$discount_percent = 100 - ( round( $item_price, 3 ) / round( $product_price, 3 ) * 100 );
 				return array(
-					'min' => min( 100, max( 0, $discount_percent ) ),
-					'max' => min( 100, max( 0, $discount_percent ) ),
+					'min' => $discount_percent,
+					'max' => $discount_percent,
 				);
 			}
 		}
@@ -275,15 +275,15 @@ class YAYDP_Product_Sale {
 			$pricing_value = $discount['pricing_value'];
 			$pricing_type  = $discount['pricing_type'];
 			$maximum       = $discount['maximum'];
-			if ( \yaydp_is_percentage_pricing_type( $pricing_type ) ) {
+			if ( \YAYDP\Pricing_Type\YAYDP_Pricing_Type_Registry::is_percentage_adjustment( $pricing_type ) ) {
 				$discount_amount                = min( $maximum, $after_discounted_product_price * $pricing_value / 100 );
 				$after_discounted_product_price = max( 0, $after_discounted_product_price - $discount_amount );
 			}
-			if ( \yaydp_is_fixed_pricing_type( $pricing_type ) ) {
+			if ( \YAYDP\Pricing_Type\YAYDP_Pricing_Type_Registry::is_money_amount( $pricing_type ) ) {
 				$discount_amount                = min( $maximum, $pricing_value );
 				$after_discounted_product_price = max( 0, $after_discounted_product_price - $discount_amount );
 			}
-			if ( \yaydp_is_flat_pricing_type( $pricing_type ) ) {
+			if ( 'flat_price' === $pricing_type ) {
 				$after_discounted_product_price = min( $after_discounted_product_price, $pricing_value );
 			}
 		}
@@ -411,9 +411,18 @@ class YAYDP_Product_Sale {
 		if ( is_null( $min_max_percent ) || ( empty( $min_max_percent['min'] ) && empty( $min_max_percent['max'] ) ) ) {
 			return null;
 		} else {
+			$min_price = $product_price - ( $product_price * $min_max_percent['max'] / 100 );
+			$max_price = $product_price - ( $product_price * $min_max_percent['min'] / 100 );
+			if ( ! \yaydp_is_variable_product( $product ) ) {
+				$discounted_price = $product_price - ( $product_price * $min_max_percent['max'] / 100 );
+				return array(
+					'min' => $discounted_price,
+					'max' => $discounted_price,
+				);
+			}
 			return array(
-				'min' => $product_price - ( $product_price * $min_max_percent['max'] / 100 ),
-				'max' => $product_price - ( $product_price * $min_max_percent['min'] / 100 ),
+				'min' => $min_price,
+				'max' => $max_price,
 			);
 		}
 	}
@@ -480,9 +489,18 @@ class YAYDP_Product_Sale {
 		if ( is_null( $min_max_percent ) || ( empty( $min_max_percent['min'] ) && empty( $min_max_percent['max'] ) ) ) {
 			return null;
 		} else {
+			$min_price = $product_price - ( $product_price * $min_max_percent['max'] / 100 );
+			$max_price = $product_price - ( $product_price * $min_max_percent['min'] / 100 );
+			if ( ! \yaydp_is_variable_product( $product ) ) {
+				$discounted_price = $product_price - ( $product_price * $min_max_percent['max'] / 100 );
+				return array(
+					'min' => $discounted_price,
+					'max' => $discounted_price,
+				);
+			}
 			return array(
-				'min' => $product_price - ( $product_price * $min_max_percent['max'] / 100 ),
-				'max' => $product_price - ( $product_price * $min_max_percent['min'] / 100 ),
+				'min' => $min_price,
+				'max' => $max_price,
 			);
 		}
 	}

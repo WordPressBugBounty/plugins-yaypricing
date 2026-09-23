@@ -52,7 +52,7 @@ class YAYDP_Pricing_Table {
 	 * Returns table title
 	 */
 	public function get_table_title() {
-		return \YAYDP\Integrations\Translations\YAYDP_WPML_Integration::translate_pricing_table_title( $this->settings->get_pricing_table_title(), 'table_title' );
+		return $this->settings->get_pricing_table_title();
 	}
 
 	/**
@@ -61,28 +61,26 @@ class YAYDP_Pricing_Table {
 	public function get_pricing_table_columns_order() {
 		return $this->settings->get_pricing_table_columns_order();
 	}
-
 	/**
 	 * Returns quantity title
 	 */
 	public function get_quantity_title() {
-		return \YAYDP\Integrations\Translations\YAYDP_WPML_Integration::translate_pricing_table_title( $this->settings->get_pricing_table_quantity_title(), 'quantity_title' );
+		return $this->settings->get_pricing_table_quantity_title();
 	}
 
 	/**
 	 * Returns discount title
 	 */
 	public function get_discount_title() {
-		return \YAYDP\Integrations\Translations\YAYDP_WPML_Integration::translate_pricing_table_title( $this->settings->get_pricing_table_discount_title(), 'discount_title' );
+		return $this->settings->get_pricing_table_discount_title();
 	}
 
 	/**
 	 * Returns price title
 	 */
 	public function get_price_title() {
-		return \YAYDP\Integrations\Translations\YAYDP_WPML_Integration::translate_pricing_table_title( $this->settings->get_pricing_table_price_title(), 'price_title' );
+		return $this->settings->get_pricing_table_price_title();
 	}
-
 	/**
 	 * Returns border color
 	 */
@@ -131,7 +129,7 @@ class YAYDP_Pricing_Table {
 		$pricing_type   = $range->get_pricing_type();
 		$origin_item    = \YAYDP\Helper\YAYDP_Helper::initialize_custom_cart_item( $this->product, $range->get_min_quantity(), $this->get_table_base_price() );
 		$discount_value = $this->rule->get_discount_value_per_item( $origin_item );
-		if ( ! \yaydp_is_percentage_pricing_type( $pricing_type ) ) {
+		if ( ! \YAYDP\Pricing_Type\YAYDP_Pricing_Type_Registry::is_percentage_adjustment( $pricing_type ) ) {
 			$discount_value = \YAYDP\Helper\YAYDP_Pricing_Helper::convert_price( $discount_value );
 		}
 		return apply_filters( 'yaydp_pricing_table_discount_text', \yaydp_get_formatted_pricing_value( $discount_value, $pricing_type ), $this->product, $discount_value );

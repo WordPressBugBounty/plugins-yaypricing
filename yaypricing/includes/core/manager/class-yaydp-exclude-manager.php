@@ -30,7 +30,11 @@ class YAYDP_Exclude_Manager {
 	 * Check exclusions for coupon
 	 */
 	public static function check_coupon_exclusions( $checking_rule ) {
-		// Note: Lock in LITE version.
+		foreach ( \yaydp_get_running_exclude_rules() as $rule ) {
+			if ( $rule->check_exclude( $checking_rule ) ) {
+				return true;
+			}
+		}
 		return false;
 	}
 

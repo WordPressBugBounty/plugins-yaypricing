@@ -7,6 +7,8 @@
 
 namespace YAYDP\Core\Rule\Product_Pricing;
 
+use YAYDP\Core\YAYDP_Cart_Item;
+
 defined( 'ABSPATH' ) || exit;
 
 /**
@@ -112,10 +114,12 @@ class YAYDP_Buy_X_Get_Y extends \YAYDP\Abstracts\YAYDP_Product_Pricing_Rule {
 		if ( ! $is_repeat ) {
 			$total_discount_time = 1;
 		}
-		foreach ( $receive_cases['case'] as $a_case ) {
+
+		foreach ( $receive_cases['case'] as $a_case_index => $a_case ) {
 			$receive_quantity_per_unit = $a_case['quantity'];
 			$receive_quantity          = $total_discount_time * $receive_quantity_per_unit;
-			$receive_items             = \YAYDP\Core\Discount_Type\YAYDP_Filter_Discount::get_free_receive_items( $cart, $a_case['items'], $receive_quantity, $all_extra_items, $free_chosen_products );
+			$receive_items             = array();
+			$receive_items             = \YAYDP\Core\Discount_Type\YAYDP_Filter_Discount::get_free_receive_items( $cart, $a_case['items'], $receive_quantity, $all_extra_items, $free_chosen_products[$a_case_index] ?? null );
 			if ( ! empty( $receive_items ) ) {
 				$all_receive_items[] = $receive_items;
 			}
@@ -125,6 +129,12 @@ class YAYDP_Buy_X_Get_Y extends \YAYDP\Abstracts\YAYDP_Product_Pricing_Rule {
 		}
 		if ( ! $is_any_receive_match_type && count( $all_receive_items ) !== count( $receive_filters ) ) {
 			$all_receive_items = array();
+		}
+		// Selections that no longer produce a gift are stale and get forgotten, so
+		// the rule can hand out its defaults again. A cleared choice produces no
+		// gift by design and must survive.
+		if ( empty( $all_receive_items ) && ! \yaydp_is_free_choice_cleared( $rule_id ) ) {
+			\yaydp_set_free_chosen_products( $this->get_rule_id(), [] );
 		}
 		return $all_receive_items;
 	}
@@ -172,7 +182,9 @@ class YAYDP_Buy_X_Get_Y extends \YAYDP\Abstracts\YAYDP_Product_Pricing_Rule {
 		foreach ( $receive_cases['case'] as $a_case ) {
 			$receive_quantity_per_unit = $a_case['quantity'];
 			$receive_quantity          = $total_discount_time * $receive_quantity_per_unit;
+			$receive_items             = array();
 			$receive_items             = \YAYDP\Core\Discount_Type\YAYDP_Filter_Discount::get_discount_receive_items( $cart, $a_case['items'], $receive_quantity, $receive_quantity_per_unit, $bought_cases );
+
 			if ( ! empty( $receive_items ) ) {
 				$all_receive_items[] = $receive_items;
 			}
@@ -220,6 +232,12 @@ class YAYDP_Buy_X_Get_Y extends \YAYDP\Abstracts\YAYDP_Product_Pricing_Rule {
 	 * @param \YAYDP\Core\YAYDP_Cart $cart Cart.
 	 */
 	public function create_possible_adjustment_from_cart( \YAYDP\Core\YAYDP_Cart $cart ) {
+		// Coupon exclusions are a rule-level gate. The bought cases and the free
+		// receive cases below only run product exclusions, so check it here the
+		// way cart discount and checkout fee rules do.
+		if ( \YAYDP\Core\Manager\YAYDP_Exclude_Manager::check_coupon_exclusions( $this ) ) {
+			return null;
+		}
 		$bought_cases = $this->get_bought_cases( $cart );
 		if ( empty( $bought_cases ) ) {
 			return null;
@@ -265,9 +283,11 @@ class YAYDP_Buy_X_Get_Y extends \YAYDP\Abstracts\YAYDP_Product_Pricing_Rule {
 				if ( $is_get_free_item ) {
 					$product  = $receive_data['item'];
 					$new_item = $cart->add_free_item( $product, $receive_quantity );
+
 					if ( null == $new_item ) {
 						continue;
 					}
+
 					$modifier = array(
 						'rule'              => $this,
 						'modify_quantity'   => $receive_quantity,
@@ -379,18 +399,18 @@ class YAYDP_Buy_X_Get_Y extends \YAYDP\Abstracts\YAYDP_Product_Pricing_Rule {
 		$matching_products_with_filters = array();
 		foreach ( $filters as $filter_index => $filter ) {
 			$matching_products = \YAYDP\Helper\YAYDP_Matching_Products_Helper::get_matching_products( $filter, 'none' );
-			$matching_products = array_filter(
-				$matching_products,
-				function( $product ) {
-					return ! \YAYDP\Core\Manager\YAYDP_Exclude_Manager::check_product_exclusions( $this, $product );
-				}
-			);
 			if ( $this->is_receive_cheapest() ) {
 				\YAYDP\Helper\YAYDP_Helper::sort_products_by_price( $matching_products );
 			}
 			if ( $this->is_receive_most_expensive() ) {
 				\YAYDP\Helper\YAYDP_Helper::sort_products_by_price( $matching_products, 'desc' );
 			}
+			$matching_products                = array_filter(
+				$matching_products,
+				function( $product ) {
+					return ! \YAYDP\Core\Manager\YAYDP_Exclude_Manager::check_product_exclusions( $this, $product );
+				}
+			);
 			$matching_products_with_filters[] = array(
 				'quantity' => $filters[ $filter_index ]['quantity'],
 				'items'    => array_map(
@@ -418,17 +438,11 @@ class YAYDP_Buy_X_Get_Y extends \YAYDP\Abstracts\YAYDP_Product_Pricing_Rule {
 		$match_type = $this->get_match_type_of_receive_filters();
 		$case       = array();
 		foreach ( $filters as $filter_index => $filter ) {
-			$matching_items       = array();
-			$total_quantity       = 0;
-			// Cart item price criterion filters select items by price rank — collect all items
-			// and sort below so that receive_quantity controls how many get discounted on repeat.
-			$is_price_criterion   = ! empty( $filter['type'] ) && 'cart_item_price_criterion' === $filter['type'];
-			$comparation          = ! empty( $filter['comparation'] ) ? $filter['comparation'] : '';
-			$asc_criterions       = array( 'lowest_price', 'second_lowest_price', 'third_lowest_price' );
-			$desc_criterions      = array( 'highest_price', 'second_highest_price', 'third_highest_price' );
+			$matching_items = array();
+			$total_quantity = 0;
 			foreach ( $cart->get_items() as $item ) {
 				$item_product = $item->get_product();
-				if ( $is_price_criterion || $this->can_apply_adjustment( $item_product, array( $filter ), $match_type, $item->get_key() ) ) {
+				if ( $this->can_apply_adjustment( $item_product, array( $filter ), $match_type, $item->get_key() ) ) {
 					$total_quantity  += $item->get_quantity();
 					$matching_items[] = $item;
 				}
@@ -436,15 +450,10 @@ class YAYDP_Buy_X_Get_Y extends \YAYDP\Abstracts\YAYDP_Product_Pricing_Rule {
 			if ( $total_quantity < $filter['quantity'] ) {
 				continue;
 			}
-			if ( $is_price_criterion ) {
-				if ( in_array( $comparation, $asc_criterions, true ) ) {
-					\YAYDP\Helper\YAYDP_Helper::sort_items_by_price( $matching_items );
-				} elseif ( in_array( $comparation, $desc_criterions, true ) ) {
-					\YAYDP\Helper\YAYDP_Helper::sort_items_by_price( $matching_items, 'desc' );
-				}
-			} elseif ( $this->is_receive_cheapest() ) {
+			if ( $this->is_receive_cheapest() ) {
 				\YAYDP\Helper\YAYDP_Helper::sort_items_by_price( $matching_items );
-			} elseif ( $this->is_receive_most_expensive() ) {
+			}
+			if ( $this->is_receive_most_expensive() ) {
 				\YAYDP\Helper\YAYDP_Helper::sort_items_by_price( $matching_items, 'desc' );
 			}
 			if ( ! empty( $matching_items ) ) {
@@ -472,18 +481,13 @@ class YAYDP_Buy_X_Get_Y extends \YAYDP\Abstracts\YAYDP_Product_Pricing_Rule {
 	 * @param \WC_Product $product Product.
 	 */
 	public function get_min_discount( $product ) {
+		if ( ! empty( $this->get_conditions() ) ) {
+			return \YAYDP\Pricing_Type\YAYDP_Pricing_Type_Registry::zero_bounds();
+		}
 		if ( $this->is_get_free_item() ) {
-			return array(
-				'pricing_value' => 0,
-				'pricing_type'  => 'percentage_discount',
-				'maximum'       => $this->get_maximum_adjustment_amount(),
-			);
+			return \YAYDP\Pricing_Type\YAYDP_Pricing_Type_Registry::display_bounds( 'percentage_discount', 0, $this->get_maximum_adjustment_amount() );
 		} else {
-			return array(
-				'pricing_value' => $this->get_pricing_value(),
-				'pricing_type'  => $this->get_pricing_type(),
-				'maximum'       => $this->get_maximum_adjustment_amount(),
-			);
+			return \YAYDP\Pricing_Type\YAYDP_Pricing_Type_Registry::display_bounds( $this->get_pricing_type(), $this->get_pricing_value(), $this->get_maximum_adjustment_amount() );
 		}
 
 	}
@@ -497,17 +501,9 @@ class YAYDP_Buy_X_Get_Y extends \YAYDP\Abstracts\YAYDP_Product_Pricing_Rule {
 	 */
 	public function get_max_discount( $product ) {
 		if ( $this->is_get_free_item() ) {
-			return array(
-				'pricing_value' => 100,
-				'pricing_type'  => 'percentage_discount',
-				'maximum'       => $this->get_maximum_adjustment_amount(),
-			);
+			return \YAYDP\Pricing_Type\YAYDP_Pricing_Type_Registry::display_bounds( 'percentage_discount', 100, $this->get_maximum_adjustment_amount() );
 		} else {
-			return array(
-				'pricing_value' => $this->get_pricing_value(),
-				'pricing_type'  => $this->get_pricing_type(),
-				'maximum'       => $this->get_maximum_adjustment_amount(),
-			);
+			return \YAYDP\Pricing_Type\YAYDP_Pricing_Type_Registry::display_bounds( $this->get_pricing_type(), $this->get_pricing_value(), $this->get_maximum_adjustment_amount() );
 		}
 	}
 
@@ -522,11 +518,17 @@ class YAYDP_Buy_X_Get_Y extends \YAYDP\Abstracts\YAYDP_Product_Pricing_Rule {
 	public function get_encouragements( \YAYDP\Core\YAYDP_Cart $cart, $product = null ) {
 		$conditions_encouragements = parent::get_conditions_encouragements( $cart );
 		$matching_items            = array();
-		foreach ( $cart->get_items() as $item ) {
+		$has_discount              = false;
+		$receive_filters           = $this->get_receive_filters();
+		foreach ( $cart->get_items_include_extra() as $item ) {
+			$item_product = $item->get_product();
 			if ( $item->is_extra() ) {
+				if ( $this->can_apply_adjustment( $item_product, $receive_filters, 'any', $item->get_key() ) ) {
+					$has_discount = true;
+				}
 				continue;
 			}
-			$item_product = $item->get_product();
+
 			if ( ! empty( $product ) ) {
 				if ( \yaydp_is_variable_product( $product ) ) {
 					if ( ! in_array( $item_product->get_id(), $product->get_children(), true ) ) {
@@ -538,12 +540,32 @@ class YAYDP_Buy_X_Get_Y extends \YAYDP\Abstracts\YAYDP_Product_Pricing_Rule {
 					}
 				}
 			}
-			$receive_filters = $this->get_receive_filters();
+
 			if ( $this->can_apply_adjustment( $item_product, $receive_filters, 'any', $item->get_key() ) ) {
 				$matching_items[] = array(
 					'item'             => $item,
 					'missing_quantity' => 1,
 				);
+			}
+		}
+
+		if ( empty( $matching_items ) && ! ( $has_discount && ! $this->is_repeat() ) ) {
+			if ( ! empty( $product ) ) {
+				if ( $this->can_apply_adjustment( $product, $this->get_receive_filters(), $this->get_match_type_of_buy_filters() ) ) {
+					$matching_items[] = array(
+						'item'             => new YAYDP_Cart_Item( array( 'data' => $product ) ),
+						'missing_quantity' => 1,
+					);
+				}
+			} else {
+				$receive_filters   = $this->get_receive_filters();
+				$matching_products = \YAYDP\Core\Shortcode\YAYDP_On_Sale_Products_Shortcode::get_on_sale_products( array( $this->get_id() ) );
+				if ( ! empty( $matching_products ) ) {
+					$matching_items[] = array(
+						'item'             => new YAYDP_Cart_Item( array( 'data' => $matching_products[0] ) ),
+						'missing_quantity' => 1,
+					);
+				}
 			}
 		}
 

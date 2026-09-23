@@ -58,6 +58,13 @@ class YAYDP_WC_Product_Addons_Ultimate_Integration {
 	}
 
 	public function modify_cart_item_subtotal( $subtotal, $cart_item, $cart_item_key ) {
+		if ( empty( $cart_item['product_extras'] ) ) {
+			return $subtotal;
+		}
+
+		if ( ! isset( $cart_item['yaydp_custom_data']['price'] ) ) {
+			return $subtotal;
+		}
  		$yaydp_cart_item    = new \YAYDP\Core\YAYDP_Cart_Item( $cart_item );
 		$item_price         = $cart_item['yaydp_custom_data']['price'];
 		$item_initial_price = $yaydp_cart_item->get_store_price();

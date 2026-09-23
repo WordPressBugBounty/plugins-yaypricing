@@ -37,10 +37,14 @@ class YAYDP_Checkout_Fee_Use_Time extends \YAYDP\Abstracts\YAYDP_Use_Time {
 		$list_rule_id  = array();
 		$running_rules = \yaydp_get_running_checkout_fee_rules();
 		$cart_fees     = ( function_exists( 'WC' ) && ! empty( \WC()->cart ) ) ? \WC()->cart->get_fees() : array();
+		$amounts       = array();
 		foreach ( $cart_fees as $fee ) {
 			foreach ( $running_rules as $rule ) {
 				if ( $rule->get_id() === $fee->id ) {
 					$list_rule_id[] = $rule->get_id();
+					// Fees are money gained rather than given up, so they are stored
+					// negated to keep the reported discount cost netting correctly.
+					$amounts[ $rule->get_id() ] = - $fee->amount;
 				}
 			}
 		}
@@ -51,6 +55,13 @@ class YAYDP_Checkout_Fee_Use_Time extends \YAYDP\Abstracts\YAYDP_Use_Time {
 			if ( ! in_array( $rule_id, $list_rule_id, true ) ) {
 				$list_rule_id[] = $rule_id;
 			}
+			// These rules adjust the shipping cost instead of adding a cart fee,
+			// so their amount comes from what they changed the chosen shipping
+			// rate by. It stays null when nothing was observed, because an
+			// unknown amount must not be reported as zero.
+			if ( ! isset( $amounts[ $rule_id ] ) ) {
+				$amounts[ $rule_id ] = \YAYDP\Helper\YAYDP_Shipping_Adjustment_Tracker::get_chosen_amount( $rule_id );
+			}
 		}
 		if ( \yaydp_check_wc_hpos() ) {
 			$order = \wc_get_order( $order_id );
@@ -59,6 +70,8 @@ class YAYDP_Checkout_Fee_Use_Time extends \YAYDP\Abstracts\YAYDP_Use_Time {
 		} else {
 			update_post_meta( $order_id, 'yaydp_checkout_fee_rules', $list_rule_id );
 		}
+
+		\YAYDP\Helper\YAYDP_Rule_Discount_Helper::merge( $order_id, $amounts );
 	}
 
 	/**
@@ -77,18 +90,16 @@ class YAYDP_Checkout_Fee_Use_Time extends \YAYDP\Abstracts\YAYDP_Use_Time {
 		if ( empty( $list_rule_id ) || ! is_array( $list_rule_id ) ) {
 			return;
 		}
-		$all_rules = \yaydp_get_checkout_fee_rules();
-		foreach ( $all_rules as $rule ) {
-			if ( in_array( $rule->get_id(), $list_rule_id, true ) ) {
-				$rule->increase_use_time();
+		$this->with_rules_lock(
+			'yaydp_checkout_fee_rules',
+			function() use ( $order, $list_rule_id ) {
+				// Claimed inside the lock so two completions of the same order
+				// ( gateway webhook and admin at the same instant ) cannot both count.
+				if ( ! $this->claim_order_completion( $order, '_yaydp_checkout_fee_use_time_counted' ) ) {
+					return;
+				}
+				$this->increment_stored_use_time( 'yaydp_checkout_fee_rules', $list_rule_id );
 			}
-		}
-		$rules = array_map(
-			function( $rule ) {
-				return $rule->get_data();
-			},
-			$all_rules
 		);
-		update_option( 'yaydp_checkout_fee_rules', $rules );
 	}
 }

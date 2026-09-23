@@ -22,6 +22,13 @@ abstract class YAYDP_Rule {
 	protected $data = null;
 
 	/**
+	 * Schedule manager, created on first use
+	 *
+	 * @var \YAYDP\Schedule\YAYDP_Schedule_Manager|null
+	 */
+	protected $schedule_manager = null;
+
+	/**
 	 * Constructor
 	 *
 	 * @param array $data Given rule data.
@@ -63,6 +70,19 @@ abstract class YAYDP_Rule {
 	 */
 	public function get_name() {
 		return ! empty( $this->data['name'] ) ? $this->data['name'] : '';
+	}
+
+	/**
+	 * Retrieves rule name translated with WPML, Polylang or the plugin text domain
+	 * (Loco Translate). Use this for customer-facing output only; get_name() stays
+	 * untranslated so coupon codes and stored rule matching remain language-agnostic.
+	 *
+	 * @return string
+	 */
+	public function get_translated_name() {
+		$rule_id = $this->get_id();
+		$name    = empty( $rule_id ) ? '' : "rule_{$rule_id}_name";
+		return \YAYDP\Helper\YAYDP_Helper::translate_user_string( $this->get_name(), 'yaypricing', $name );
 	}
 
 	/**
@@ -112,55 +132,38 @@ abstract class YAYDP_Rule {
 	}
 
 	/**
+	 * Retrieves the rule schedule, with every missing key filled with its default.
+	 *
+	 * Rules still carrying the pre 3.6 shape are converted on read, so a rule that
+	 * the stored data upgrade has not reached yet keeps its schedule instead of
+	 * being treated as unscheduled and running unconditionally.
+	 *
+	 * @return array
+	 */
+	public function get_schedule() {
+		$data = \YAYDP\Schedule\YAYDP_Schedule_Migration::migrate_rule( $this->data );
+		return \YAYDP\Schedule\YAYDP_Schedule_Definition::normalize( isset( $data['schedule'] ) ? $data['schedule'] : array() );
+	}
+
+	/**
+	 * Retrieves the schedule manager
+	 *
+	 * @return \YAYDP\Schedule\YAYDP_Schedule_Manager
+	 */
+	protected function get_schedule_manager() {
+		if ( is_null( $this->schedule_manager ) ) {
+			$this->schedule_manager = new \YAYDP\Schedule\YAYDP_Schedule_Manager();
+		}
+		return $this->schedule_manager;
+	}
+
+	/**
 	 * Checks if a rule is within the schedule
 	 *
 	 * @return bool
 	 */
 	public function is_in_schedule() {
-		if ( ! $this->is_enabled_schedule() ) {
-			return true;
-		}
-		$is_enabled_schedule_recurring = $this->is_enabled_schedule_recurring();
-
-		$start        = is_null( $this->data['schedule']['start'] ) ? '1999-01-30T14:59:23+07:00Z' : $this->data['schedule']['start'];
-		$end          = is_null( $this->data['schedule']['end'] ) ? '3000-01-30T14:59:23+07:00Z' : $this->data['schedule']['end'];
-		$current_date = new \DateTime('now', new \DateTimeZone( wp_timezone_string() ) );
-		$start_date   = new \DateTime( $start, new \DateTimeZone( wp_timezone_string() ) );
-		$end_date     = new \DateTime( $end, new \DateTimeZone( wp_timezone_string() ) );
-
-		if ( $is_enabled_schedule_recurring ) {
-			$schedule_recurring_type = $this->get_schedule_recurring_type();
-			if ( 'weekly' == $schedule_recurring_type ) {
-				$current_day_of_week = $current_date->format( 'N' );
-				$start_day_of_week   = $start_date->format( 'N' );
-				$end_day_of_week     = $end_date->format( 'N' );
-
-				return $current_day_of_week >= $start_day_of_week && $current_day_of_week <= $end_day_of_week;
-			} elseif ( 'monthly' == $schedule_recurring_type ) {
-				$current_day = $current_date->format( 'j' );
-				$start_day   = $start_date->format( 'j' );
-				$end_day     = $end_date->format( 'j' );
-
-				return $current_day >= $start_day && $current_day <= $end_day;
-			} elseif ( 'yearly' == $schedule_recurring_type ) {
-				$current_month = $current_date->format( 'n' );
-				$start_month   = $start_date->format( 'n' );
-				$end_month     = $end_date->format( 'n' );
-				if ( $current_month >= $start_month && $current_month <= $end_month ) {
-					$current_day_of_year = $current_date->format( 'z' );
-					$start_day_of_year   = $start_date->format( 'z' );
-					$end_day_of_year     = $end_date->format( 'z' );
-
-					return $current_day_of_year >= $start_day_of_year && $current_day_of_year <= $end_day_of_year;
-				} else {
-					return false;
-				}
-			} else {
-				return false;
-			}
-		} else {
-			return $current_date >= $start_date && $current_date <= $end_date;
-		}
+		return $this->get_schedule_manager()->is_active( $this->get_schedule() );
 	}
 
 	/**
@@ -172,11 +175,9 @@ abstract class YAYDP_Rule {
 		if ( empty( $this->data['maximum_uses']['enable'] ) ) {
 			return false;
 		}
-		if ( $this->data['use_time'] >= $this->data['maximum_uses']['value'] ) {
-			return true;
-		}
-		return false;
-
+		$use_time = (int) ( $this->data['use_time'] ?? 0 );
+		$limit    = (int) ( $this->data['maximum_uses']['value'] ?? 0 );
+		return $use_time >= $limit;
 	}
 
 	/**
@@ -207,7 +208,11 @@ abstract class YAYDP_Rule {
 	 * @param \YAYDP\Core\YAYDP_Cart $cart Cart.
 	 */
 	public function check_conditions( $cart ) {
-		return \YAYDP\Helper\YAYDP_Condition_Helper::check_conditions( $cart, $this );
+		return \YAYDP\Condition\YAYDP_Condition_Registry::instance()->evaluate_list(
+			$this->get_conditions(),
+			$this->get_condition_match_type(),
+			\YAYDP\Condition\YAYDP_Condition_Context::from_rule( $cart, $this )
+		);
 	}
 
 	/**
@@ -216,13 +221,10 @@ abstract class YAYDP_Rule {
 	public function get_tooltip( $modifier = null ) {
 		$tooltip_data = empty( $this->data['tooltip'] ) ? array() : $this->data['tooltip'];
 		if ( $this instanceof YAYDP_Product_Pricing_Rule ) {
-			return new \YAYDP\Core\Tooltip\YAYDP_Product_Pricing_Tooltip( $tooltip_data, $modifier );
+			return new \YAYDP\Core\Tooltip\YAYDP_Product_Pricing_Tooltip( $tooltip_data, $this, $modifier );
 		}
-		if ( $this instanceof YAYDP_Cart_Discount_Rule ) {
-			return new \YAYDP\Core\Tooltip\YAYDP_Cart_Discount_Tooltip( $tooltip_data, $this );
-		}
-		if ( $this instanceof YAYDP_Checkout_Fee_Rule ) {
-			return new \YAYDP\Core\Tooltip\YAYDP_Checkout_Fee_Tooltip( $tooltip_data, $this );
+		if ( $this instanceof YAYDP_Cart_Discount_Rule || $this instanceof YAYDP_Checkout_Fee_Rule ) {
+			return new \YAYDP\Core\Tooltip\YAYDP_Rule_Tooltip( $tooltip_data, $this );
 		}
 		return null;
 	}
@@ -231,7 +233,7 @@ abstract class YAYDP_Rule {
 	 * Increase use time of rule
 	 */
 	public function increase_use_time() {
-		$this->data['use_time']++;
+		$this->data['use_time'] = (int) ( $this->data['use_time'] ?? 0 ) + 1;
 	}
 
 	/**
@@ -240,127 +242,67 @@ abstract class YAYDP_Rule {
 	 * @param \YAYDP\Core\YAYDP_Cart $cart Cart.
 	 */
 	public function get_conditions_encouragements( \YAYDP\Core\YAYDP_Cart $cart ) {
-		return \YAYDP\Helper\YAYDP_Incomplete_Condition_Helper::get_incomplete_conditions( $cart, $this );
+		return \YAYDP\Condition\YAYDP_Condition_Registry::instance()->incomplete_for(
+			$this->get_conditions(),
+			$this->get_condition_match_type(),
+			\YAYDP\Condition\YAYDP_Condition_Context::from_rule( $cart, $this )
+		);
 	}
 
 	/**
 	 * Check whether the rule not start yet
+	 *
+	 * @return bool
 	 */
 	public function is_upcoming() {
-		$current_date = new \DateTime();
-		$start        = empty( $this->data['schedule']['start'] ) ? '' : $this->data['schedule']['start'];
-		$start_date   = new \DateTime( empty( $start ) ? '1999-01-30T14:59:23+07:00Z' : $start, new \DateTimeZone( wp_timezone_string() ) );
-
-		if ( $this->is_enabled_schedule_recurring() ) {
-			$schedule_recurring_type = $this->get_schedule_recurring_type();
-			if ( 'weekly' == $schedule_recurring_type ) {
-				$current_day_of_week = $current_date->format( 'N' );
-				$start_day_of_week   = $start_date->format( 'N' );
-				return $current_day_of_week < $start_day_of_week;
-			} elseif ( 'monthly' == $schedule_recurring_type ) {
-				$current_day = $current_date->format( 'j' );
-				$start_day   = $start_date->format( 'j' );
-
-				return $current_day < $start_day;
-			} elseif ( 'yearly' == $schedule_recurring_type ) {
-				$current_month = $current_date->format( 'n' );
-				$start_month   = $start_date->format( 'n' );
-
-				if ( $current_month < $start_month ) {
-					return true;
-				}
-
-				$current_day_of_year = $current_date->format( 'z' );
-				$start_day_of_year   = $start_date->format( 'z' );
-
-				return $current_day_of_year < $start_day_of_year;
-
-			} else {
-				return false;
-			}
+		if ( ! $this->is_enabled_schedule() ) {
+			return false;
 		}
-
-		if ( $current_date < $start_date && ! empty( $start ) ) {
-			return true;
-		}
-		return false;
+		$next = $this->get_schedule_manager()->get_next_active_time( $this->get_schedule() );
+		return 'found_next_active' === $next['reason'];
 	}
 
 	/**
 	 * Check whether the rule enables schedule
+	 *
+	 * @return bool
 	 */
 	public function is_enabled_schedule() {
-		if ( ! empty( $this->data['schedule']['enable'] ) ) {
-			return true;
-		}
-		return false;
+		$schedule = $this->get_schedule();
+		return ! empty( $schedule['enabled'] );
 	}
 
 	/**
 	 * Check whether the rule enables schedule recurring
+	 *
+	 * @return bool
 	 */
 	public function is_enabled_schedule_recurring() {
-		if ( empty( $this->data['schedule_recurring']['type'] ) ) {
-			return false;
-		}
-		return in_array( $this->data['schedule_recurring']['type'], array( 'weekly', 'monthly', 'yearly' ) );
+		$schedule = $this->get_schedule();
+		return ! empty( $schedule['recurring']['enabled'] );
 	}
 
 	/**
 	 * Gets recurring type of schedule
 	 *
-	 * @return string weekly | monthly | yearly
+	 * @return string daily | weekly | monthly | yearly
 	 */
 	public function get_schedule_recurring_type() {
-		return $this->data['schedule_recurring']['type'];
+		$schedule = $this->get_schedule();
+		return $schedule['recurring']['type'];
 	}
 
 	/**
-	 * Check whether the rule has end time
+	 * Check whether the rule is running and has an end time in the future
+	 *
+	 * @return bool
 	 */
 	public function is_end_in_future() {
-		$current_date = new \DateTime();
-		$start        = empty( $this->data['schedule']['start'] ) ? '' : $this->data['schedule']['start'];
-		$start_date   = new \DateTime( empty( $start ) ? '1999-01-30T14:59:23+07:00Z' : $start, new \DateTimeZone( wp_timezone_string() ) );
-		$end          = empty( $this->data['schedule']['end'] ) ? '' : $this->data['schedule']['end'];
-		$end_date     = new \DateTime( empty( $end ) ? '3000-01-30T14:59:23+07:00Z' : $end, new \DateTimeZone( wp_timezone_string() ) );
-
-		if ( $this->is_enabled_schedule_recurring() ) {
-			$schedule_recurring_type = $this->get_schedule_recurring_type();
-			if ( 'weekly' == $schedule_recurring_type ) {
-				$current_day_of_week = $current_date->format( 'N' );
-				$start_day_of_week   = $start_date->format( 'N' );
-				$end_day_of_week     = $end_date->format( 'N' );
-
-				return $current_day_of_week >= $start_day_of_week && $current_day_of_week <= $end_day_of_week;
-			} elseif ( 'monthly' == $schedule_recurring_type ) {
-				$current_day = $current_date->format( 'j' );
-				$start_day   = $start_date->format( 'j' );
-				$end_day     = $end_date->format( 'j' );
-
-				return $current_day >= $start_day && $current_day <= $end_day;
-			} elseif ( 'yearly' == $schedule_recurring_type ) {
-				$current_month = $current_date->format( 'n' );
-				$start_month   = $start_date->format( 'n' );
-				$end_month     = $end_date->format( 'n' );
-				if ( $current_month >= $start_month && $current_month <= $end_month ) {
-					$current_day_of_year = $current_date->format( 'z' );
-					$start_day_of_year   = $start_date->format( 'z' );
-					$end_day_of_year     = $end_date->format( 'z' );
-
-					return $current_day_of_year >= $start_day_of_year && $current_day_of_year <= $end_day_of_year;
-				} else {
-					return false;
-				}
-			} else {
-				return false;
-			}
+		$window_end = $this->get_schedule_manager()->get_current_window_end( $this->get_schedule() );
+		if ( is_null( $window_end ) ) {
+			return false;
 		}
-
-		if ( $current_date >= $start_date && $current_date <= $end_date && ! empty( $end ) ) {
-			return true;
-		}
-		return false;
+		return $window_end > new \DateTime( 'now', new \DateTimeZone( wp_timezone_string() ) );
 	}
 
 }

@@ -20,7 +20,38 @@ class YAYDP_Discounted_Price {
 	 * Constructor
 	 */
 	protected function __construct() {
-		add_filter( 'woocommerce_get_price_html', array( $this, 'change_product_price_html' ), 100000, 2 );
+		// Registered on `init` rather than here so integrations can resolve the priority after
+		// every plugin has loaded. YayPricing is included before yay-wholesale-b2b-pro, so a
+		// class_exists() check made at this point would still miss it.
+		if ( did_action( 'init' ) ) {
+			$this->register_price_html_filter();
+		} else {
+			add_action( 'init', array( $this, 'register_price_html_filter' ), 0 );
+		}
+	}
+
+	/**
+	 * Register the price html filter using the (filterable) priority.
+	 *
+	 * @since 3.5.9
+	 */
+	public function register_price_html_filter() {
+		/**
+		 * Filters the priority of YayPricing's price HTML filter.
+		 *
+		 * Integrations lower this when another plugin needs to wrap YayPricing's output instead of
+		 * being overwritten by it — yay-wholesale-b2b-pro renders its Retail/Wholesale layout at
+		 * priority 100 and wraps whatever html it receives.
+		 *
+		 * Note the callback discards the incoming html, so anything hooked below the resolved
+		 * priority is replaced rather than composed.
+		 *
+		 * @since 3.5.9
+		 *
+		 * @param int $priority Filter priority. Default 100000.
+		 */
+		$priority = (int) apply_filters( 'yaydp_price_html_priority', 100000 );
+		add_filter( 'woocommerce_get_price_html', array( $this, 'change_product_price_html' ), $priority, 2 );
 	}
 
 	/**

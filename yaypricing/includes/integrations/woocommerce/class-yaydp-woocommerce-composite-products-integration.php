@@ -149,16 +149,8 @@ class YAYDP_WooCommerce_Composite_Products_Integration {
 		}
 
 		if ( ! empty( $cart_item['yaydp_custom_data']['item_extra_data']['wc_composite']['is_composite_container_item'] ) ) {
-			$yaydp_cart_item = new \YAYDP\Core\YAYDP_Cart_Item( $cart_item );
-			$tooltips        = array();
-			foreach ( $yaydp_cart_item->get_modifiers() as $modifier ) {
-				$rule    = $modifier->get_rule();
-				$tooltip = $rule->get_tooltip( $modifier );
-				if ( ! $tooltip->is_enabled() ) {
-					continue;
-				}
-				$tooltips[] = $tooltip;
-			}
+			$yaydp_cart_item    = new \YAYDP\Core\YAYDP_Cart_Item( $cart_item );
+			$tooltips           = $yaydp_cart_item->get_available_tooltips();
 			$show_regular_price = \YAYDP\Settings\YAYDP_Product_Pricing_Settings::get_instance()->show_regular_price();
 			$origin_price       = $cart_item['yaydp_custom_data']['item_extra_data']['wc_composite']['bundle_initial_price'];
 			$discounted_price   = $cart_item['yaydp_custom_data']['item_extra_data']['wc_composite']['bundle_discounted_price'];
@@ -171,6 +163,7 @@ class YAYDP_WooCommerce_Composite_Products_Integration {
 					'prices_base_on_quantity' => array( strval( $discounted_price ) => $yaydp_cart_item->get_quantity() ),
 					'show_regular_price'      => $show_regular_price,
 					'product'                 => $cart_item['data'],
+					'item'                    => $yaydp_cart_item,
 				),
 				'',
 				YAYDP_PLUGIN_PATH . 'includes/templates/'

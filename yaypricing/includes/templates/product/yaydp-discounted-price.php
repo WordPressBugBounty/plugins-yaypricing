@@ -74,8 +74,7 @@ $is_variable_or_grouped_product = \yaydp_is_variable_product( $product ) || \yay
 		</span>
 	<?php endif; ?>
 	<span class="yaydp-calculated-prices">
-	<?php
-	if ( $show_discounted_with_regular_price ) {
+	<?php if ( $show_discounted_with_regular_price ) {
 		echo '<ins aria-hidden="true">';
 	}
 	?>
@@ -83,8 +82,7 @@ $is_variable_or_grouped_product = \yaydp_is_variable_product( $product ) || \yay
 	<?php
 	if ( $show_discounted_with_regular_price ) {
 		echo '</ins>';
-	}
-	?>
+	} ?>
 	</span>
 	<span class="yaydp-calculated-prices-suffix">
 		<?php echo wp_kses_post( $product->get_price_suffix() ); ?>

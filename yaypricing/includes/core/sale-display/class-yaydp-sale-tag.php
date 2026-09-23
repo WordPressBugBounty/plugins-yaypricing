@@ -98,7 +98,7 @@ class YAYDP_Sale_Tag {
 						$match_type = $rule->get_match_type_of_buy_filters();
 					}
 					if ( $rule->can_apply_adjustment( $variation, $filters, $match_type ) ) {
-						$rule_name = $rule->get_name();
+						$rule_name = $rule->get_translated_name();
 						$variation_rule_names[] = $rule_name;
 						if ( ! in_array( $rule_name, $all_rule_names, true ) ) {
 							$all_rule_names[] = $rule_name;
@@ -112,7 +112,7 @@ class YAYDP_Sale_Tag {
 			}
 			
 			foreach ( $running_rules as $rule ) {
-				$rule_name = $rule->get_name();
+				$rule_name = $rule->get_translated_name();
 				if ( in_array( $rule_name, $all_rule_names, true ) ) {
 					$matching_rules[] = $rule;
 				}

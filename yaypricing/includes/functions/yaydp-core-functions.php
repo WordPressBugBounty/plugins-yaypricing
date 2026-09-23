@@ -36,7 +36,7 @@ if ( ! function_exists( 'yaydp_is_request' ) ) {
 	 * @return bool Returns true if the current request type matches the given types, false otherwise
 	 */
 	function yaydp_is_request( $request_type ) {
-		if ( 'frontend' == $request_type ) {
+		if ( $request_type == 'frontend' ) {
 			if ( defined( 'DOING_CRON' ) ) {
 				return false;
 			}
@@ -248,6 +248,39 @@ if ( ! function_exists( 'yaydp_get_cart_state_signature' ) ) {
 	}
 }
 
+if ( ! function_exists( 'yaydp_get_or_build_cart' ) ) {
+
+	/**
+	 * Retrieves the request-scoped YayPricing cart, rebuilding it when it no
+	 * longer reflects the current WC cart.
+	 *
+	 * The `$yaydp_cart` global is lazily built by whichever code path needs it
+	 * first. That path can run before WooCommerce has loaded the cart from the
+	 * session -- a third party constructing a `WC_Coupon` on `init` triggers
+	 * `woocommerce_get_shop_coupon_data`, for example -- and the empty cart it
+	 * builds would then be reused for the rest of the request. Comparing the
+	 * stored signature against the current one discards such a stale cart.
+	 *
+	 * @param bool $apply_product_pricing Whether to run product pricing adjustments on a freshly built cart.
+	 * @return \YAYDP\Core\YAYDP_Cart
+	 */
+	function yaydp_get_or_build_cart( $apply_product_pricing = true ) {
+		global $yaydp_cart, $yaydp_cart_signature;
+
+		$signature = yaydp_get_cart_state_signature();
+		if ( is_null( $yaydp_cart ) || $yaydp_cart_signature !== $signature ) {
+			$yaydp_cart           = new \YAYDP\Core\YAYDP_Cart();
+			$yaydp_cart_signature = $signature;
+			if ( $apply_product_pricing ) {
+				$product_pricing_adjustments = new \YAYDP\Core\Adjustments\YAYDP_Product_Pricing_Adjustments( $yaydp_cart );
+				$product_pricing_adjustments->do_stuff();
+			}
+		}
+
+		return $yaydp_cart;
+	}
+}
+
 if ( ! function_exists( 'yaydp_serialize_cart_data' ) ) {
 
 	/**
@@ -287,10 +320,7 @@ if ( ! function_exists( 'yaydp_format_discount_value' ) ) {
 	 * @param string $type Pricing type.
 	 */
 	function yaydp_format_discount_value( $value, $type = 'fixed_discount' ) {
-		if ( \yaydp_is_percentage_pricing_type( $type ) ) {
-			return "$value%";
-		}
-		return \wc_price( $value );
+		return \YAYDP\Pricing_Type\YAYDP_Pricing_Type_Registry::format_value( $value, $type );
 	}
 }
 
@@ -370,6 +400,21 @@ if ( ! function_exists( 'yaydp_get_free_chosen_products' ) ) {
 		return $free_chosen_products;
 	}
 }
+if ( ! function_exists( 'yaydp_is_free_choice_cleared' ) ) {
+	/**
+	 * Check whether the customer deliberately emptied the gift selection.
+	 *
+	 * A saved choice that holds no product for any option is a clear; no saved
+	 * choice at all means the rule still picks the gifts itself.
+	 *
+	 * @param string $rule_id Rule id.
+	 * @return bool
+	 */
+	function yaydp_is_free_choice_cleared( $rule_id ) {
+		$chosen = yaydp_get_free_chosen_products( $rule_id );
+		return ! empty( $chosen ) && 0 === count( array_filter( $chosen ) );
+	}
+}
 if ( ! function_exists( 'yaydp_set_free_chosen_products' ) ) {
 	function yaydp_set_free_chosen_products( $rule_id, $products ) {
 		$session = isset( \WC()->session ) ? \WC()->session : false;
@@ -391,6 +436,17 @@ if ( ! function_exists( 'yaydp_get_product' ) ) {
 		);
 	}
 }
+if ( ! function_exists( 'yaydp_clear_shortcode_cache' ) ) {
+	function yaydp_clear_shortcode_cache() {
+		delete_transient( 'yaydp_on_sale_products_shortcode' );
+		$shortcode_hashes = get_transient( 'yaydp_on_sale_products_shortcode_hashes' );
+		if ( ! empty( $shortcode_hashes ) ) {
+			foreach ( $shortcode_hashes as $hash ) {
+				delete_transient( 'yaydp_on_sale_products_shortcode_v2_' . $hash );
+			}
+		}
+	}
+}
 
 if ( ! function_exists( 'yaydp_get_timezone_offset' ) ) {
 	function yaydp_get_timezone_offset() {
@@ -407,14 +463,15 @@ if ( ! function_exists( 'yaydp_get_saved_amount' ) ) {
 		$product_pricing_adjustments->do_stuff();
 		$saved_amount = $yaydp_cart->get_cart_origin_total( false ) - $yaydp_cart->get_cart_subtotal( false );
 
-		if ( empty( $saved_amount ) ) {
+		// A markup-direction rule can push the subtotal above the origin total, making this
+		// negative. Never report a negative saving; consumers expect 0 when nothing was saved.
+		if ( $saved_amount <= 0 ) {
 			return 0;
 		}
 
 		return $saved_amount;
 	}
 }
-
 
 /**
  * Clear cache function
@@ -441,20 +498,30 @@ if ( ! function_exists( 'yaydp_clear_cache' ) ) {
  */
 if ( ! function_exists( 'yaydp_pricing_context_key' ) ) {
 	function yaydp_pricing_context_key() {
-		$roles = array();
-		if ( function_exists( 'wp_get_current_user' ) ) {
-			$user = \wp_get_current_user();
-			if ( $user && ! empty( $user->roles ) ) {
-				$roles = (array) $user->roles;
+		// This runs on every request-cache lookup (several times per product), so the
+		// parts that cannot change within a request are resolved once. The currency is
+		// still read live below because multicurrency plugins may switch it mid-request.
+		static $role        = null;
+		static $tax_display = null;
+
+		if ( is_null( $role ) ) {
+			$roles = array();
+			if ( function_exists( 'wp_get_current_user' ) ) {
+				$user = \wp_get_current_user();
+				if ( $user && ! empty( $user->roles ) ) {
+					$roles = (array) $user->roles;
+				}
 			}
+			$role = empty( $roles ) ? 'guest' : \implode( '.', $roles );
 		}
-		$role = empty( $roles ) ? 'guest' : \implode( '.', $roles );
+
+		if ( is_null( $tax_display ) ) {
+			$tax_display = (string) \get_option( 'woocommerce_tax_display_shop' );
+		}
 
 		// get_woocommerce_currency is filtered by multicurrency integrations, so
 		// this reflects the currency the visitor is actually seeing.
 		$currency = function_exists( 'get_woocommerce_currency' ) ? \get_woocommerce_currency() : '';
-
-		$tax_display = \get_option( 'woocommerce_tax_display_shop' );
 
 		return \apply_filters( 'yaydp_pricing_context_key', $role . '|' . $currency . '|' . $tax_display );
 	}

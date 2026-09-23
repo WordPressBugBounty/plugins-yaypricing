@@ -241,7 +241,7 @@ msgstr "Número de todos los pedidos que han realizado en el pasado."
 
 #: includes/class-yaydp-i18n.php:59
 #, fuzzy
-msgid "Order count from last discount"
+msgid "Orders since last discount"
 msgstr "Recuento de pedidos desde el último descuento"
 
 #: includes/class-yaydp-i18n.php:60
@@ -265,7 +265,7 @@ msgstr "Fecha de compra de los pedidos realizados en el pasado."
 
 #: includes/class-yaydp-i18n.php:63
 #, fuzzy
-msgid "Order history product"
+msgid "Past order - product"
 msgstr "Historial de pedidos del producto"
 
 #: includes/class-yaydp-i18n.php:64
@@ -275,7 +275,7 @@ msgstr "Productos comprados en un pedido específico."
 
 #: includes/class-yaydp-i18n.php:65
 #, fuzzy
-msgid "Order history category"
+msgid "Past order - category"
 msgstr "Categoría de historial de pedidos"
 
 #: includes/class-yaydp-i18n.php:66
@@ -296,7 +296,7 @@ msgstr ""
 
 #: includes/class-yaydp-i18n.php:69
 #, fuzzy
-msgid "Account create time"
+msgid "Account age"
 msgstr "Hora de creación de la cuenta"
 
 #: includes/class-yaydp-i18n.php:70
@@ -323,7 +323,7 @@ msgid "Cart total weight"
 msgstr "Peso total del carrito"
 
 #: includes/class-yaydp-i18n.php:75
-msgid "Cart Items"
+msgid "Cart items"
 msgstr "Articulos en el carro"
 
 #: includes/class-yaydp-i18n.php:76
@@ -362,7 +362,7 @@ msgstr "Cliente"
 
 #: includes/class-yaydp-i18n.php:83
 #, fuzzy
-msgid "Is logged in customer"
+msgid "Login status"
 msgstr "Ha iniciado sesión en el cliente"
 
 #: includes/class-yaydp-i18n.php:84
@@ -374,8 +374,8 @@ msgid "Specific customer"
 msgstr "Cliente específico"
 
 #: includes/class-yaydp-i18n.php:86
-msgid "Others"
-msgstr "Otros"
+msgid "Checkout"
+msgstr ""
 
 #: includes/class-yaydp-i18n.php:87
 #, fuzzy
@@ -393,7 +393,7 @@ msgstr "Método de pago"
 
 #: includes/class-yaydp-i18n.php:90
 #, fuzzy
-msgid "Applied coupons"
+msgid "Coupon used"
 msgstr "Cupones aplicados"
 
 #: includes/class-yaydp-i18n.php:91
@@ -407,7 +407,7 @@ msgstr "Condición combinada"
 
 #: includes/class-yaydp-i18n.php:93
 #, fuzzy
-msgid "Total shipping fee"
+msgid "Shipping total"
 msgstr "Gastos de envío totales"
 
 #: includes/class-yaydp-i18n.php:94
@@ -427,7 +427,7 @@ msgstr "Artículos - Etiqueta"
 
 #: includes/class-yaydp-i18n.php:97
 #, fuzzy
-msgid "Combined items"
+msgid "Item totals"
 msgstr "Artículos combinados"
 
 #: includes/class-yaydp-i18n.php:98
@@ -442,17 +442,17 @@ msgstr "Artículos - Precio subtotal"
 
 #: includes/class-yaydp-i18n.php:100
 #, fuzzy
-msgid "Contain all"
+msgid "Contains all of"
 msgstr "Contiene todo"
 
 #: includes/class-yaydp-i18n.php:101
 #, fuzzy
-msgid "Contain in list"
+msgid "Contains any of"
 msgstr "Contener en la lista"
 
 #: includes/class-yaydp-i18n.php:102
 #, fuzzy
-msgid "Not contain in list"
+msgid "Does not contain"
 msgstr "No contiene en la lista"
 
 #: includes/class-yaydp-i18n.php:103
@@ -464,11 +464,11 @@ msgid "Less than"
 msgstr "Menos de"
 
 #: includes/class-yaydp-i18n.php:105
-msgid "Greater than or equal"
+msgid "Greater than or equal to"
 msgstr "Mayor o igual que"
 
 #: includes/class-yaydp-i18n.php:106
-msgid "Less than or equal"
+msgid "Less than or equal to"
 msgstr "Menos que o igual"
 
 #: includes/class-yaydp-i18n.php:107
@@ -2615,7 +2615,7 @@ msgstr "El valor calculado del descuento"
 
 #: includes/class-yaydp-i18n.php:503
 #, fuzzy
-msgid "The calculated value of fee, only available in Product Fee rule"
+msgid "The calculated value of fee"
 msgstr ""
 "El valor calculado de la tarifa, solo disponible en la regla de tarifa del "
 "producto"
@@ -2917,7 +2917,7 @@ msgstr "%1$s soporte %2$s"
 
 #: includes/constants/class-yaydp-admin-settings.php:176
 #, fuzzy
-msgid "WooCommerce on sale status"
+msgid "On sale (WooCommerce)"
 msgstr "Estado de venta de WooCommerce"
 
 #: includes/constants/class-yaydp-admin-settings.php:180

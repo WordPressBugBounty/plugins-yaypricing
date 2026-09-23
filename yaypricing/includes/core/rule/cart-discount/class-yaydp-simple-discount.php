@@ -60,13 +60,13 @@ class YAYDP_Simple_Discount extends \YAYDP\Abstracts\YAYDP_Cart_Discount_Rule {
 		$maximum_adjustment_amount = $this->get_maximum_adjustment_amount();
 		$cart_total_quantity       = $cart->get_cart_quantity();
 		$cart_subtotal             = $cart->get_cart_subtotal();
-		if ( \yaydp_is_percentage_pricing_type( $pricing_type ) ) {
+		if ( \YAYDP\Pricing_Type\YAYDP_Pricing_Type_Registry::is_percentage_adjustment( $pricing_type ) ) {
 			return min( $cart_subtotal, $adjustment_amount );
 		}
-		if ( \yaydp_is_fixed_product_pricing_type( $pricing_type ) ) {
+		if ( 'fixed_product' === $pricing_type ) {
 			return min( $cart_subtotal, min( $maximum_adjustment_amount, $adjustment_amount * $cart_total_quantity ) );
 		}
-		if ( \yaydp_is_fixed_pricing_type( $pricing_type ) ) {
+		if ( \YAYDP\Pricing_Type\YAYDP_Pricing_Type_Registry::is_money_amount( $pricing_type ) ) {
 			return min( $cart_subtotal, $adjustment_amount );
 		}
 		return 0;
@@ -120,24 +120,7 @@ class YAYDP_Simple_Discount extends \YAYDP\Abstracts\YAYDP_Cart_Discount_Rule {
 	 * Display coupon content
 	 */
 	public function get_coupon_content() {
-		$tooltips = array();
-		$tooltip  = $this->get_tooltip();
-		if ( ! $tooltip->is_enabled() ) {
-			return '';
-		}
-		$tooltips[] = $tooltip;
-		ob_start();
-		\wc_get_template(
-			'coupon/yaydp-cart-coupon.php',
-			array(
-				'tooltips' => $tooltips,
-			),
-			'',
-			YAYDP_PLUGIN_PATH . 'includes/templates/'
-		);
-		$html = ob_get_contents();
-		ob_end_clean();
-		return $html;
+		return \yaydp_render_tooltips( array( $this->get_tooltip() ) );
 	}
 
 	/**

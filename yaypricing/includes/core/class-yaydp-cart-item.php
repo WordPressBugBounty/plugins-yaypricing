@@ -40,23 +40,12 @@ class YAYDP_Cart_Item {
 	 */
 	protected $product = null;
 
-	protected $variation = array();
-
 	/**
 	 * Show whether item is extra
 	 *
 	 * @var bool
 	 */
 	protected $is_extra = false;
-
-	/**
-	 * Contains item extra data.
-	 *
-	 * @var array
-	 */
-	protected $extra_data = array();
-
-	protected $bulk_quantity = 0;
 
 	protected $initial_price = 0;
 
@@ -83,20 +72,24 @@ class YAYDP_Cart_Item {
 	 */
 	protected $store_price = 0;
 
-
 	/**
-	 * Bundle group index assigned during bundle candidate collection.
+	 * Contains item extra data.
 	 *
-	 * @var int
+	 * @var array
 	 */
-	public $bundle_index = 0;
-	
+	protected $extra_data = array();
+
+	protected $bulk_quantity = 0;
+
+	protected $variation = array();
+
 	/**
 	 * Contains item's modifiers.
 	 *
 	 * @var array
 	 */
-	protected $modifiers      = array();
+	protected $modifiers = array();
+
 	public $adjustment_values = array();
 	/**
 	 * Constructor
@@ -140,6 +133,7 @@ class YAYDP_Cart_Item {
 		if ( isset( $cart_item_data['yaydp_adjustment_values'] ) && is_array( $cart_item_data['yaydp_adjustment_values'] ) ) {
 			$this->adjustment_values = $cart_item_data['yaydp_adjustment_values'];
 		}
+
 		do_action( 'yaydp_after_initial_cart_item', $cart_item_data, $this );
 	}
 
@@ -183,10 +177,18 @@ class YAYDP_Cart_Item {
 	}
 
 	/**
+	 * Returns the effective item price: modified price if any product pricing
+	 * rule adjusted this item, otherwise the actual store price (sale-aware).
+	 */
+	public function get_effective_price() {
+		return $this->can_modify() ? $this->get_price() : $this->get_store_price();
+	}
+
+	/**
 	 * Determine whether the product is on sale or not.
 	 */
 	public function is_sale_product() {
-		 return $this->product->is_on_sale();
+		return $this->product->is_on_sale();
 	}
 
 	/**
@@ -210,6 +212,10 @@ class YAYDP_Cart_Item {
 		return $this->extra_data;
 	}
 
+	public function get_variation() {
+		return $this->variation;
+	}
+
 	/**
 	 * Add modifier to item
 	 *
@@ -224,6 +230,22 @@ class YAYDP_Cart_Item {
 	 */
 	public function get_modifiers() {
 		return $this->modifiers;
+	}
+
+	/**
+	 * Returns the item quantity already given away by free-pricing-type rules.
+	 * Reconstructed from recorded modifiers (no extra persistent state), so a
+	 * later free rule can skip units an earlier free rule already consumed.
+	 */
+	public function get_freed_quantity() {
+		$freed = 0;
+		foreach ( $this->modifiers as $modifier ) {
+			$rule = $modifier->get_rule();
+			if ( ! empty( $rule ) && 'free' === $rule->get_pricing_type() ) {
+				$freed += (float) $modifier->get_modify_quantity();
+			}
+		}
+		return $freed;
 	}
 
 	/**
@@ -244,19 +266,32 @@ class YAYDP_Cart_Item {
 	}
 
 	/**
-	 * Get item tooltips.
+	 * Enabled tooltips of the rules that modified this item, in modifier order.
+	 * Shared by the classic cart templates, integrations and the Store API cart-item extension.
+	 *
+	 * @return \YAYDP\Abstracts\YAYDP_Tooltip[]
 	 */
-	private function get_available_tooltips() {
+	public function get_available_tooltips() {
 		$tooltips = array();
 		foreach ( $this->modifiers as $modifier ) {
-			$rule    = $modifier->get_rule();
-			$tooltip = $rule->get_tooltip( $modifier );
-			if ( ! $tooltip->is_enabled() ) {
-				continue;
-			}
-			$tooltips[] = $tooltip;
+			$rule       = $modifier->get_rule();
+			$tooltips[] = empty( $rule ) ? null : $rule->get_tooltip( $modifier );
 		}
-		return $tooltips;
+		return \yaydp_filter_enabled_tooltips( $tooltips );
+	}
+
+	/**
+	 * Rendered tooltip HTML per enabled tooltip (variables replaced, translated).
+	 *
+	 * @return string[]
+	 */
+	public function get_available_tooltip_contents() {
+		return array_map(
+			function ( $tooltip ) {
+				return $tooltip->get_content();
+			},
+			$this->get_available_tooltips()
+		);
 	}
 
 	/**
@@ -267,13 +302,17 @@ class YAYDP_Cart_Item {
 		$show_regular_price      = \YAYDP\Settings\YAYDP_Product_Pricing_Settings::get_instance()->show_regular_price();
 		$origin_price            = $this->initial_price;
 		$prices_base_on_quantity = $this->get_prices_based_on_quantity();
-		$modifiers               = $this->get_modifiers();
+
+		$modifiers = $this->get_modifiers();
 		if ( is_array( $modifiers ) && count( $modifiers ) == 1 ) {
 			$mod = $modifiers[0];
 			if ( \yaydp_is_tiered_pricing( $mod->get_rule() ) ) {
 				$prices_base_on_quantity = array();
 				$item_quantity           = $this->quantity;
 				$origin_price            = $this->initial_price;
+				$item_price              = $this->get_price();
+
+				$prices_base_on_quantity = array();
 				$step_with_price         = array_fill( 1, $item_quantity, $origin_price );
 
 				for ( $i = 1; $i <= $item_quantity; $i++ ) {
@@ -375,10 +414,6 @@ class YAYDP_Cart_Item {
 
 	public function get_initial_price() {
 		return $this->initial_price;
-	}
-
-	public function get_variation() {
-		return $this->variation;
 	}
 
 	/**

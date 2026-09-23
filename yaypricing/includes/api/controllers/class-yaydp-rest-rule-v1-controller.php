@@ -79,7 +79,7 @@ class YAYDP_REST_RULE_V1_CONTROLLER {
 	 * It should return true if the user has permission, and false otherwise
 	 */
 	public function permission_callback() {
-		return \YAYDP\Helper\YAYDP_Helper::can_manage_pricing();
+		return current_user_can( 'manage_woocommerce' );
 	}
 
 }

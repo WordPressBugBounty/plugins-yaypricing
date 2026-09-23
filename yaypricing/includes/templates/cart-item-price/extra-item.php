@@ -15,14 +15,6 @@ $free_text = apply_filters( 'yaydp_extra_item_text', __( 'Free', 'yaypricing' ) 
 
 ?>
 <div class="yaydp-cart-item-price">
-	<div class="yaydp-free-item-badge"><?php echo esc_html( $free_text ); ?></div>
-	<?php if ( count( $tooltips ) > 0 ) : ?>
-		<span class="yaydp-tooltip-icon">
-			<div class="yaydp-tooltip-content">
-				<?php foreach ( $tooltips as $tooltip ) : ?>
-					<div><?php echo wp_kses_post( $tooltip->get_content() ); ?></div>
-				<?php endforeach; ?>
-			</div>
-		</span>
-	<?php endif; ?>
+	<span class="yaydp-gift-price"><?php echo esc_html( $free_text ); ?></span>
+	<?php echo \yaydp_render_tooltips( $tooltips ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- template output, tooltip content is wp_kses_post'ed. ?>
 </div>

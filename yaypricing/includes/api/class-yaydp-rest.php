@@ -53,6 +53,7 @@ class YAYDP_Rest {
 			'page-data' => 'YAYDP_REST_PAGE_DATA_V1_CONTROLLER',
 			'rule'      => 'YAYDP_REST_RULE_V1_CONTROLLER',
 			'report'    => 'YAYDP_REST_REPORT_V1_CONTROLLER',
+			'backfill'  => 'YAYDP_REST_REPORT_BACKFILL_V1_CONTROLLER',
 		);
 	}
 

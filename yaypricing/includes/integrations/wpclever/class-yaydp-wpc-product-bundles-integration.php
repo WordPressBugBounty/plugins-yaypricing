@@ -174,6 +174,8 @@ class YAYDP_WPC_Product_Bundles_Integration {
 			$html = '<div class="price">' . $extra_html . $html . '</div>';
 		}
 		return apply_filters( 'yaydp_cart_item_price_html', $html, $cart_item );
+
+		return $html;
 	}
 
 	public function adjust_item_price( $price, $cart_item ) {

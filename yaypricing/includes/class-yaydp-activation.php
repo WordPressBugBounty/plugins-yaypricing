@@ -19,6 +19,8 @@ class YAYDP_Activation {
 	 */
 	public static function initialize() {
 		self::convert_old_data();
+		\YAYDP\Schedule\YAYDP_Schedule_Migration::maybe_migrate();
+		\YAYDP\Report\YAYDP_Report_Install::create_table();
 	}
 
 	/**

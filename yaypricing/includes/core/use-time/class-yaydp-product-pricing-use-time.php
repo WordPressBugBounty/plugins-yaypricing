@@ -76,6 +76,35 @@ class YAYDP_Product_Pricing_Use_Time extends \YAYDP\Abstracts\YAYDP_Use_Time {
 		} else {
 			update_post_meta( $order_id, 'yaydp_product_pricing_rules', $list_rule_id );
 		}
+
+		$this->store_discount_amounts( $order_id, $cart );
+	}
+
+	/**
+	 * Store the discount amount contributed by each product pricing rule.
+	 *
+	 * Extra items are included so that free items given by BOGO and Buy X Get Y
+	 * rules are valued at the amount they discounted, rather than being ignored.
+	 *
+	 * @param string                $order_id The id of current order.
+	 * @param \YAYDP\Core\YAYDP_Cart $cart    Current cart.
+	 */
+	private function store_discount_amounts( $order_id, $cart ) {
+		$amounts = array();
+		foreach ( $cart->get_items_include_extra() as $item ) {
+			if ( ! $item->can_modify() ) {
+				continue;
+			}
+			foreach ( $item->get_modifiers() as $modifier ) {
+				$rule_id = $modifier->get_rule()->get_id();
+				$amount  = $modifier->get_discount_per_unit() * $modifier->get_modify_quantity();
+				if ( ! isset( $amounts[ $rule_id ] ) ) {
+					$amounts[ $rule_id ] = 0;
+				}
+				$amounts[ $rule_id ] += $amount;
+			}
+		}
+		\YAYDP\Helper\YAYDP_Rule_Discount_Helper::merge( $order_id, $amounts );
 	}
 
 	/**
@@ -94,18 +123,16 @@ class YAYDP_Product_Pricing_Use_Time extends \YAYDP\Abstracts\YAYDP_Use_Time {
 		if ( empty( $list_rule_id ) || ! is_array( $list_rule_id ) ) {
 			return;
 		}
-		$all_rules = \yaydp_get_product_pricing_rules();
-		foreach ( $all_rules as $rule_index => $rule ) {
-			if ( in_array( $rule->get_id(), $list_rule_id, true ) ) {
-				$all_rules[ $rule_index ]->increase_use_time();
+		$this->with_rules_lock(
+			'yaydp_product_pricing_rules',
+			function() use ( $order, $list_rule_id ) {
+				// Claimed inside the lock so two completions of the same order
+				// ( gateway webhook and admin at the same instant ) cannot both count.
+				if ( ! $this->claim_order_completion( $order, '_yaydp_product_pricing_use_time_counted' ) ) {
+					return;
+				}
+				$this->increment_stored_use_time( 'yaydp_product_pricing_rules', $list_rule_id );
 			}
-		}
-		$rules = array_map(
-			function( $rule ) {
-				return $rule->get_data();
-			},
-			$all_rules
 		);
-		update_option( 'yaydp_product_pricing_rules', $rules );
 	}
 }

@@ -46,6 +46,14 @@ class YAYDP_Product_Pricing_Adjustment extends \YAYDP\Abstracts\YAYDP_Adjustment
 	protected $cart = null;
 
 	/**
+	 * Flag to indicate if items were explicitly set for per-item mode
+	 *
+	 * @var bool
+	 * @since 3.5.4
+	 */
+	protected $items_set_for_per_item_mode = false;
+
+	/**
 	 * Constructor
 	 *
 	 * @override
@@ -94,23 +102,6 @@ class YAYDP_Product_Pricing_Adjustment extends \YAYDP\Abstracts\YAYDP_Adjustment
 	 */
 	public function apply_to_cart() {
 
-		$rule_data                    = $this->rule->get_data();
-		$is_applying_to_first_product = $rule_data['apply_to_first_matching_product'] ?? false;
-		if ( $is_applying_to_first_product ) {
-			$this->discountable_items = array_slice( $this->discountable_items, 0, 1 );
-			/**
-			 * No need to check with buy x get y or bogo
-			 *
-			 * @deprecated
-			 * @since 3.4.2
-			 */
-			// if ( ! empty( $this->receive_cases['case'] ) ) {
-			// 	foreach ( $this->receive_cases['case'] as $index => $case ) {
-			// 		$this->receive_cases['case'][ $index ]['items'] = array_slice( $this->receive_cases['case'][ $index ]['items'] ?? array(), 0, 1 );
-			// 	}
-			// }
-		}
-
 		if ( \yaydp_product_pricing_is_applied_to_non_discount_product() ) {
 			if ( isset( $this->receive_cases['case'] ) ) {
 				$this->receive_cases['case'] = array_map(
@@ -141,6 +132,10 @@ class YAYDP_Product_Pricing_Adjustment extends \YAYDP\Abstracts\YAYDP_Adjustment
 			$this->rule->discount_for_product_bundle_item( $this );
 		} elseif ( \yaydp_is_tiered_pricing( $this->rule ) ) {
 			$this->rule->discount_item( $this );
+		} elseif ( \yaydp_is_simple_adjustment( $this->rule ) ) {
+			// Also matches Product Fee (a Simple Adjustment subclass); the rule
+			// decides internally whether the affected-items cap applies.
+			$this->rule->discount_items( $this );
 		} else {
 			foreach ( $this->get_discountable_items() as $item ) {
 				$this->rule->discount_item( $item );
@@ -152,12 +147,37 @@ class YAYDP_Product_Pricing_Adjustment extends \YAYDP\Abstracts\YAYDP_Adjustment
 	 * Retrieves discountable items
 	 */
 	public function get_discountable_items() {
+		if ( $this->items_set_for_per_item_mode ) {
+			return $this->discountable_items;
+		}
+
 		if ( \yaydp_product_pricing_is_applied_to_maximum_amount_per_item() || \yaydp_product_pricing_is_applied_to_minimum_amount_per_item() ) {
 			$this->discountable_items = array_filter( $this->discountable_items, function( $item ) {
 				return ! $item->can_modify();
 			} );
 		}
 		return $this->discountable_items;
+	}
+
+	/**
+	 * Set discountable items for per-item mode
+	 * This allows the adjustment to be applied to specific items only.
+	 *
+	 * @param array $items Array of YAYDP_Cart_Item objects.
+	 * @since 3.5.4
+	 */
+	public function set_discountable_items_for_per_item_mode( $items ) {
+		$this->discountable_items            = $items;
+		$this->items_set_for_per_item_mode = true;
+	}
+
+	/**
+	 * Retrieves the rule
+	 *
+	 * @since 3.5.4
+	 */
+	public function get_rule() {
+		return $this->rule;
 	}
 
 	/**

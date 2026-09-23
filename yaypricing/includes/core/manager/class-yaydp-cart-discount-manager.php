@@ -119,7 +119,7 @@ class YAYDP_Cart_Discount_Manager {
 				return;
 			}
 		} else {
-			// remove_action( 'woocommerce_before_calculate_totals', array( self::get_instance(), 'calculate_pricings' ), YAYDP_CART_CALCULATE_PRIORITY );
+			// remove_action( 'woocommerce_before_calculate_totals', array( $this, 'calculate_pricings' ), YAYDP_CART_CALCULATE_PRIORITY );
 		}
 
 		static $running           = false;
@@ -160,13 +160,7 @@ class YAYDP_Cart_Discount_Manager {
 	 * Return coupon data
 	 */
 	public function get_shop_coupon_data( $coupon_data, $coupon_code ) {
-
-		global $yaydp_cart;
-		if ( is_null( $yaydp_cart ) ) {
-			$yaydp_cart                  = new \YAYDP\Core\YAYDP_Cart();
-			$product_pricing_adjustments = new \YAYDP\Core\Adjustments\YAYDP_Product_Pricing_Adjustments( $yaydp_cart );
-			$product_pricing_adjustments->do_stuff();
-		}
+		$yaydp_cart  = \yaydp_get_or_build_cart();
 		$is_combined = \YAYDP\Settings\YAYDP_Cart_Discount_Settings::get_instance()->is_combined();
 		if ( $is_combined ) {
 			if ( \YAYDP\Core\Rule\Cart_Discount\YAYDP_Combined_Discount::is_match_coupon( $coupon_code ) ) {
@@ -192,13 +186,12 @@ class YAYDP_Cart_Discount_Manager {
 
 		if ( \YAYDP\Core\Rule\Cart_Discount\YAYDP_Combined_Discount::is_match_coupon( $coupon_code ) ) {
 			$label = \YAYDP\Core\Rule\Cart_Discount\YAYDP_Combined_Discount::$coupon_name;
-			return sprintf( __( '%s', 'yaypricing' ), $label );
+			return sprintf( '%s', $label );
 		} else {
 			$running_rules = \yaydp_get_running_cart_discount_rules();
 			foreach ( $running_rules as $rule ) {
 				if ( $rule->is_match_coupon( $coupon_code ) ) {
-					$label = $rule->get_name();
-					return esc_html__( $label, 'yaypricing' );
+					return $rule->get_translated_name();
 				}
 			}
 		}

@@ -43,9 +43,41 @@ class YAYDP_Iconic_Attribute_Swatches_Integration {
 			}
 
 			$attribute = str_replace( 'attribute_', '', $attribute );
-			$price    += \Iconic_WAS_Fees::get_fees( $cart_item['product_id'], $attribute, $attribute_value );
+			$price    += $this->normalize_fee( \Iconic_WAS_Fees::get_fees( $cart_item['product_id'], $attribute, $attribute_value ) );
 		}
 
 		return $price;
+	}
+
+	/**
+	 * Normalize the value returned by Iconic_WAS_Fees::get_fees to a float.
+	 *
+	 * Depending on the Iconic version/configuration, get_fees may return a
+	 * scalar amount or an array of fee data. Summing an array directly causes
+	 * a fatal "Unsupported operand types: float + array" error, so flatten any
+	 * array into the total numeric fee.
+	 *
+	 * @param mixed $fees Raw value returned by Iconic_WAS_Fees::get_fees.
+	 * @return float
+	 */
+	protected function normalize_fee( $fees ) {
+		if ( is_numeric( $fees ) ) {
+			return (float) $fees;
+		}
+
+		if ( ! is_array( $fees ) ) {
+			return 0.0;
+		}
+
+		$total = 0.0;
+		foreach ( $fees as $fee ) {
+			if ( is_array( $fee ) && isset( $fee['amount'] ) ) {
+				$total += (float) $fee['amount'];
+			} elseif ( is_numeric( $fee ) ) {
+				$total += (float) $fee;
+			}
+		}
+
+		return $total;
 	}
 }

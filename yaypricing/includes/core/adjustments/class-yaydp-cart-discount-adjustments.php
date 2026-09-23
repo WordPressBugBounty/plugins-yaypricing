@@ -62,6 +62,10 @@ class YAYDP_Cart_Discount_Adjustments extends \YAYDP\Abstracts\YAYDP_Adjustments
 	 * @override
 	 */
 	public function apply() {
+		if ( empty( $this->adjustments ) ) {
+			return;
+		}
+
 		if ( \YAYDP\Settings\YAYDP_Cart_Discount_Settings::get_instance()->is_combined() ) {
 			\YAYDP\Core\Rule\Cart_Discount\YAYDP_Combined_Discount::add_coupon();
 			return;

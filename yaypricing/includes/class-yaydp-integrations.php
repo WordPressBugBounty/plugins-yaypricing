@@ -9,6 +9,7 @@ namespace YAYDP;
 
 use YAYDP\Integrations\Meowcrew\YAYDP_Role_Based_Pricing;
 use YAYDP\Integrations\Translations\YAYDP_WPML_Integration;
+use YAYDP\Integrations\Translations\YAYDP_Polylang_Integration;
 use YAYDP\Integrations\YAYDP_Custom_Taxonomies_Integration;
 use YAYDP\Integrations\YAYDP_DIBS_Integration;
 use YAYDP\Integrations\YAYDP_WC_Product_Feed_Pro_Integration;
@@ -28,18 +29,18 @@ class YAYDP_Integrations {
 	 */
 	public function __construct() {
 		\YAYDP\Integrations\YayCommerce\YAYDP_YayCurrency_Integration::get_instance();
+		\YAYDP\Integrations\YayCommerce\YAYDP_YayExtra_Integration::get_instance();
+		\YAYDP\Integrations\YayCommerce\YAYDP_YayWholesale_Integration::get_instance();
 		\YAYDP\Integrations\WebDevStudios\YAYDP_CPT_UI_Integration::get_instance();
+		\YAYDP\Integrations\VillaTheme\YAYDP_CURCY_Integration::get_instance();
 		\YAYDP\Integrations\YITH\YAYDP_YITH_WC_Brands_Integration::get_instance();
 		\YAYDP\Integrations\YITH\YAYDP_YITH_Gift_Card_Integration::get_instance();
 		\YAYDP\Integrations\YITH\YAYDP_YITH_Product_Add_On_Integration::get_instance();
 		\YAYDP\Integrations\YITH\YAYDP_YITH_Request_A_Quote_Integration::get_instance();
-		\YAYDP\Integrations\VillaTheme\YAYDP_CURCY_Integration::get_instance();
 		\YAYDP\Integrations\Themes\YAYDP_Astra_Theme_Integration::get_instance();
-		\YAYDP\Integrations\Themes\YAYDP_Flatsome_Theme_Integration::get_instance();
 		\YAYDP\Integrations\Aelia\YAYDP_Aelia_Currency_Integration::get_instance();
 		\YAYDP\Integrations\WooCommerce\YAYDP_WooCommerce_Subscriptions_Integration::get_instance();
 		\YAYDP\Integrations\WooCommerce\YAYDP_WooCommerce_Brands_Integration::get_instance();
-		\YAYDP\Integrations\WooCommerce\YAYDP_Perfect_WooCommerce_Brands_Integration::get_instance();
 		\YAYDP\Integrations\WooCommerce\YAYDP_WooCommerce_Composite_Products_Integration::get_instance();
 		\YAYDP\Integrations\Ademti\YAYDP_WC_Google_Product_Feed_Integration::get_instance();
 		\YAYDP\Integrations\MarketPress\YAYDP_B2B_Market_Integration::get_instance();
@@ -54,6 +55,7 @@ class YAYDP_Integrations {
 		\YAYDP\Integrations\DiviTheme\YAYDP_Divi_Theme_Integration::get_instance();
 		\YAYDP\Integrations\B2bking\YAYDP_B2BKing_Integration::get_instance();
 		\YAYDP\Integrations\CtxFeed\YAYDP_Ctx_Feed_Integration::get_instance();
+		\YAYDP\Integrations\Webexpert\YAYDP_Webexpert_Skroutz_Integration::get_instance();
 		\YAYDP\Integrations\WPClever\YAYDP_WPC_Product_Bundles_Integration::get_instance();
 		\YAYDP\Integrations\WPClever\YAYDP_WPC_Fly_Cart_Integration::get_instance();
 		\YAYDP\Integrations\Iconic\YAYDP_Iconic_Attribute_Swatches_Integration::get_instance();
@@ -62,13 +64,12 @@ class YAYDP_Integrations {
 		\YAYDP\Integrations\ThemeHigh\YAYDP_WooCommerce_Extra_Product_Options_Integration::get_instance();
 		\YAYDP\Integrations\RankMathSeo\YAYDP_Rank_Math_Seo_Integration::get_instance();
 		\YAYDP\Integrations\WC_Product_Addons_Ultimate\YAYDP_WC_Product_Addons_Ultimate_Integration::get_instance();
-		\YAYDP\Integrations\Minmaxcontrol\YAYDP_Min_Max_Quantity_Integration::get_instance();
-		\YAYDP\Integrations\Eventtickets\YAYDP_Event_Tickets_Integration::get_instance();
-		\YAYDP\Integrations\Lottery\YAYDP_Lottery_For_WooCommerce_Integration::get_instance();
-		\YAYDP\Integrations\Yay_Wholesale_B2B\YAYDP_Yay_Wholesale_B2B_Integration::get_instance();
+		\YAYDP\Integrations\Wholesale\YAYDP_Wholesale_Integration::get_instance();
 		\YAYDP\Integrations\PriceBasedCountry\YAYDP_Price_Based_Country_Integration::get_instance();
 
 		YAYDP_WPML_Integration::get_instance();
+		YAYDP_Polylang_Integration::get_instance();
+		\YAYDP\Integrations\WCML\YAYDP_WCML_Currency_Condition_Integration::get_instance();
 		YAYDP_Custom_Taxonomies_Integration::get_instance();
 		YAYDP_Role_Based_Pricing::get_instance();
 		YAYDP_DIBS_Integration::get_instance();
@@ -76,8 +77,6 @@ class YAYDP_Integrations {
 		YAYDP_YITH_Product_Bundles_Integration::get_instance();
 
 		\YAYDP\Integrations\WooCommerce\YAYDP_WooCommerce_Currency_Integration::get_instance();
-
-		\YAYDP\Integrations\YAYDP_Google_Tag_Manager_Integration::get_instance();
 	}
 }
 
