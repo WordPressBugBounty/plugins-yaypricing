@@ -339,8 +339,8 @@ class YAYDP_Product_Sale {
 			if ( is_null( $sub ) ) {
 				continue; // Undiscounted variation, excluded from the discounted range.
 			}
+			// Best price only: in range mode 'max' can be the undiscounted price.
 			$prices[] = $sub['min'];
-			$prices[] = $sub['max'];
 		}
 		if ( empty( $prices ) ) {
 			return null;
@@ -411,18 +411,10 @@ class YAYDP_Product_Sale {
 		if ( is_null( $min_max_percent ) || ( empty( $min_max_percent['min'] ) && empty( $min_max_percent['max'] ) ) ) {
 			return null;
 		} else {
-			$min_price = $product_price - ( $product_price * $min_max_percent['max'] / 100 );
-			$max_price = $product_price - ( $product_price * $min_max_percent['min'] / 100 );
-			if ( ! \yaydp_is_variable_product( $product ) ) {
-				$discounted_price = $product_price - ( $product_price * $min_max_percent['max'] / 100 );
-				return array(
-					'min' => $discounted_price,
-					'max' => $discounted_price,
-				);
-			}
+			// Keep both ends: "Discountable price range" shows best price – guaranteed price.
 			return array(
-				'min' => $min_price,
-				'max' => $max_price,
+				'min' => $product_price - ( $product_price * $min_max_percent['max'] / 100 ),
+				'max' => $product_price - ( $product_price * $min_max_percent['min'] / 100 ),
 			);
 		}
 	}
