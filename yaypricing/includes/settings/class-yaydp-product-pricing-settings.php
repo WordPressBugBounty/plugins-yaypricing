@@ -113,6 +113,19 @@ class YAYDP_Product_Pricing_Settings {
 	}
 
 	/**
+	 * Retrieves the "pricing_table.layout" information of the settings
+	 *
+	 * An unknown value ( e.g. a layout this edition does not ship ) falls back to "table".
+	 *
+	 * @since 3.6.2
+	 * @return string
+	 */
+	public function get_pricing_table_layout() {
+		$layout = isset( $this->settings['pricing_table']['layout'] ) ? $this->settings['pricing_table']['layout'] : \YAYDP\Constants\YAYDP_Pricing_Table::get_default()['layout'];
+		return in_array( $layout, \YAYDP\Constants\YAYDP_Pricing_Table::get_layouts(), true ) ? $layout : 'table';
+	}
+
+	/**
 	 * Retrieves the "pricing_table.table_title" information of the settings
 	 *
 	 * @return string
@@ -292,6 +305,15 @@ class YAYDP_Product_Pricing_Settings {
 	 */
 	public function show_original_subtotal_price() {
 		return isset( $this->settings['show_original_subtotal_price'] ) ? $this->settings['show_original_subtotal_price'] : true;
+	}
+
+	/**
+	 * Returns whether the free gifts of one rule share a single cart row
+	 *
+	 * @return bool
+	 */
+	public function group_gift_items() {
+		return isset( $this->settings['group_gift_items'] ) ? (bool) $this->settings['group_gift_items'] : false;
 	}
 
 	/**

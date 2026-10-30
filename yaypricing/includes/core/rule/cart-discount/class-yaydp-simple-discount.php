@@ -36,6 +36,20 @@ class YAYDP_Simple_Discount extends \YAYDP\Abstracts\YAYDP_Cart_Discount_Rule {
 	}
 
 	/**
+	 * Cart subtotal the discount is calculated from.
+	 *
+	 * Currency plugins can return the subtotal the customer actually sees, so that a percentage
+	 * discount matches the displayed prices after their conversion and rounding.
+	 *
+	 * @param \YAYDP\Core\YAYDP_Cart $cart Cart.
+	 *
+	 * @return float
+	 */
+	protected function get_discount_base_subtotal( $cart ) {
+		return apply_filters( 'yaydp_cart_discount_subtotal', $cart->get_cart_subtotal(), $cart );
+	}
+
+	/**
 	 * Calculate the adjustment amount based on current cart
 	 *
 	 * @param \YAYDP\Core\YAYDP_Cart $cart Cart.
@@ -44,7 +58,7 @@ class YAYDP_Simple_Discount extends \YAYDP\Abstracts\YAYDP_Cart_Discount_Rule {
 		$pricing_type              = $this->get_pricing_type();
 		$pricing_value             = $this->get_pricing_value();
 		$maximum_adjustment_amount = $this->get_maximum_adjustment_amount();
-		$cart_subtotal             = $cart->get_cart_subtotal();
+		$cart_subtotal             = $this->get_discount_base_subtotal( $cart );
 		$adjustment_amount         = \YAYDP\Helper\YAYDP_Pricing_Helper::calculate_adjustment_amount( $cart_subtotal, $pricing_type, $pricing_value, $maximum_adjustment_amount );
 		return $adjustment_amount;
 	}
@@ -59,7 +73,7 @@ class YAYDP_Simple_Discount extends \YAYDP\Abstracts\YAYDP_Cart_Discount_Rule {
 		$pricing_type              = $this->get_pricing_type();
 		$maximum_adjustment_amount = $this->get_maximum_adjustment_amount();
 		$cart_total_quantity       = $cart->get_cart_quantity();
-		$cart_subtotal             = $cart->get_cart_subtotal();
+		$cart_subtotal             = $this->get_discount_base_subtotal( $cart );
 		if ( \YAYDP\Pricing_Type\YAYDP_Pricing_Type_Registry::is_percentage_adjustment( $pricing_type ) ) {
 			return min( $cart_subtotal, $adjustment_amount );
 		}
@@ -113,7 +127,17 @@ class YAYDP_Simple_Discount extends \YAYDP\Abstracts\YAYDP_Cart_Discount_Rule {
 		if ( ! function_exists( 'WC' ) || empty( \WC()->cart ) ) {
 			return;
 		}
-		\WC()->cart->add_discount( $this->get_coupon_code() );
+		$code = $this->get_coupon_code();
+
+		/*
+		 * A real coupon owns this code, so it is not ours to apply. Asking
+		 * WooCommerce to apply it again on every recalculation only produces a
+		 * "coupon already applied" notice for the customer.
+		 */
+		if ( \yaydp_coupon_code_is_claimed( $code ) ) {
+			return;
+		}
+		\WC()->cart->add_discount( $code );
 	}
 
 	/**

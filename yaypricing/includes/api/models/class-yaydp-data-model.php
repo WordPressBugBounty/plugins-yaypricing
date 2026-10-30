@@ -63,28 +63,20 @@ class YAYDP_Data_Model {
 		 * variations exhausts the PHP memory limit on large catalogues.
 		 *
 		 * A variation post_title is the parent product name followed by its formatted
-		 * attributes, so matching on it covers searching by product name.
+		 * attributes, so matching on it covers searching by product name. An empty
+		 * search becomes LIKE '%', which matches every row (post_title is NOT NULL).
 		 */
-		$where  = "p.post_type = 'product_variation' AND p.post_status != 'trash'";
-		$params = array();
-
-		if ( '' !== $search ) {
-			$where   .= ' AND p.post_title LIKE %s';
-			$params[] = '%' . $wpdb->esc_like( $search ) . '%';
-		}
-
-		// One extra row signals to the frontend that a further page exists.
-		$params[] = $limit + 1;
-		$params[] = $offset;
-
 		$variation_ids = $wpdb->get_col(
 			$wpdb->prepare(
 				"SELECT p.ID
 				 FROM {$wpdb->posts} p
-				 WHERE {$where}
+				 WHERE p.post_type = 'product_variation' AND p.post_status != 'trash' AND p.post_title LIKE %s
 				 ORDER BY p.post_parent ASC, p.menu_order ASC, p.ID ASC
 				 LIMIT %d OFFSET %d",
-				$params
+				'%' . $wpdb->esc_like( (string) $search ) . '%',
+				// One extra row signals to the frontend that a further page exists.
+				$limit + 1,
+				$offset
 			)
 		);
 

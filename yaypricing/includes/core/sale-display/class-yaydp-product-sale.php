@@ -165,8 +165,8 @@ class YAYDP_Product_Sale {
 			if ( ! $rule->can_apply_adjustment( $product, $filters, $match_type ) ) {
 				continue;
 			}
-			$min_discounts[] = $rule->get_min_discount( $product );
-			$max_discounts[] = $rule->get_max_discount( $product );
+			$min_discounts[] = $this->with_rule_anchor( $rule->get_min_discount( $product ), $rule, $product );
+			$max_discounts[] = $this->with_rule_anchor( $rule->get_max_discount( $product ), $rule, $product );
 		}
 		if ( empty( $min_discounts ) && empty( $max_discounts ) ) {
 			return null;
@@ -260,6 +260,24 @@ class YAYDP_Product_Sale {
 	}
 
 	/**
+	 * Tag a rule's display bounds with the price it restarts from when the rule
+	 * has its own base price strategy. Zero bounds (rule gated by conditions, or
+	 * nothing guaranteed) keep no anchor, so they never reset the price.
+	 *
+	 * @param array                                  $bounds  Bounds from get_min_discount() / get_max_discount().
+	 * @param \YAYDP\Abstracts\YAYDP_Product_Pricing_Rule $rule    Rule.
+	 * @param \WC_Product                            $product Product.
+	 */
+	private function with_rule_anchor( $bounds, $rule, $product ) {
+		$strategy = $rule->get_base_price_strategy();
+		if ( 'inherit' === $strategy || \yaydp_is_product_fee( $rule ) || ! is_array( $bounds ) || \YAYDP\Pricing_Type\YAYDP_Pricing_Type_Registry::zero_bounds() == $bounds ) {
+			return $bounds;
+		}
+		$bounds['anchor'] = \YAYDP\Helper\YAYDP_Pricing_Helper::get_product_price_for_strategy( $product, $strategy );
+		return $bounds;
+	}
+
+	/**
 	 * Calculate the final discount percentage of product by list discounts
 	 *
 	 * @param float $product_price Product price.
@@ -275,6 +293,9 @@ class YAYDP_Product_Sale {
 			$pricing_value = $discount['pricing_value'];
 			$pricing_type  = $discount['pricing_type'];
 			$maximum       = $discount['maximum'];
+			if ( isset( $discount['anchor'] ) ) {
+				$after_discounted_product_price = $discount['anchor'];
+			}
 			if ( \YAYDP\Pricing_Type\YAYDP_Pricing_Type_Registry::is_percentage_adjustment( $pricing_type ) ) {
 				$discount_amount                = min( $maximum, $after_discounted_product_price * $pricing_value / 100 );
 				$after_discounted_product_price = max( 0, $after_discounted_product_price - $discount_amount );

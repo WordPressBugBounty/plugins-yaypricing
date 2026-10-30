@@ -41,7 +41,7 @@ class YAYDP_Logger {
 	 * @param string $content Given message.
 	 */
 	public static function log( $content ) {
-		$name     = __( 'log-', 'yaypricing' ) . current_time( 'timestamp' );
+		$name     = 'log-' . current_time( 'timestamp' );
 		$folder   = \YAYDP_PLUGIN_PATH . '/includes/Logs';
 		$filename = $folder . DIRECTORY_SEPARATOR . $name . '.xml';
 		global $wp_filesystem;

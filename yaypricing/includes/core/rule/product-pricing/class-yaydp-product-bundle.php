@@ -246,8 +246,12 @@ class YAYDP_Product_Bundle extends \YAYDP\Abstracts\YAYDP_Product_Pricing_Rule {
 		// Discount is computed off the item's original unit price, not the live
 		// (possibly already-discounted-by-another-rule) price, so stacked bundle
 		// rules each discount from the true unit price instead of compounding on an
-		// already-reduced average.
-		return \YAYDP\Pricing_Type\YAYDP_Pricing_Type_Registry::discount_per_item( $this->get_pricing_type(), $item->get_initial_price(), $this->get_bundle_pricing_value( $discount_time ), $this->get_maximum_adjustment_amount() );
+		// already-reduced average. A rule with its own base price calculates from
+		// that price and resets the running price to base - discount.
+		$is_inherit = 'inherit' === $this->get_base_price_strategy();
+		$base       = $is_inherit ? $item->get_initial_price() : $this->get_item_base_price( $item );
+		$discount   = \YAYDP\Pricing_Type\YAYDP_Pricing_Type_Registry::discount_per_item( $this->get_pricing_type(), $base, $this->get_bundle_pricing_value( $discount_time ), $this->get_maximum_adjustment_amount() );
+		return $is_inherit ? $discount : $this->to_running_discount( $item, $discount );
 	}
 
 	/**
@@ -464,7 +468,8 @@ class YAYDP_Product_Bundle extends \YAYDP\Abstracts\YAYDP_Product_Pricing_Rule {
 			$remaining_discount             = $this->get_bundled_products_discount( $total_discountable_items_price, $discount_time );
 
 			foreach ( $discountable_items as $item ) {
-				$item_price            = $item->get_price();
+				$running_price         = $item->get_price();
+				$item_price            = $this->get_bundle_unit_price( $item );
 				$item_quantity         = $item->get_quantity();
 				$purchase_quantity    -= $item_quantity;
 				$discountable_quantity = $purchase_quantity >= 0 ? $item_quantity : $item_quantity + $purchase_quantity;
@@ -483,10 +488,11 @@ class YAYDP_Product_Bundle extends \YAYDP\Abstracts\YAYDP_Product_Pricing_Rule {
 					$remaining_discount = 0;
 				}
 
-				$discount_per_item    = $item_price - ( $discounted_price / $discountable_quantity );
+				// Bundled units end at base - share; the rest keep the running price.
+				$discount_per_item    = $running_price - ( $discounted_price / $discountable_quantity );
 				$discount_per_unit    = $discount_per_item;
 				$normal_item_quantity = $item_quantity - $discountable_quantity;
-				$price                = ( ( $item_price * $normal_item_quantity ) + $discounted_price ) / $item_quantity;
+				$price                = ( ( $running_price * $normal_item_quantity ) + $discounted_price ) / $item_quantity;
 
 				if ( empty( $discountable_quantity ) || empty( $discount_per_unit ) ) {
 					continue;
@@ -561,6 +567,16 @@ class YAYDP_Product_Bundle extends \YAYDP\Abstracts\YAYDP_Product_Pricing_Rule {
 	}
 
 	/**
+	 * Unit price a whole-bundle discount pools: the running price, or the rule's
+	 * own base price (see get_base_price_strategy()).
+	 *
+	 * @param \YAYDP\Core\YAYDP_Cart_Item $item Item.
+	 */
+	private function get_bundle_unit_price( $item ) {
+		return 'inherit' === $this->get_base_price_strategy() ? $item->get_price() : $this->get_item_base_price( $item );
+	}
+
+	/**
 	 * Calculate total discountable items price.
 	 */
 	public function calculate_total_discountable_items_price( $discountable_items, $purchase_quantity ) {
@@ -571,7 +587,7 @@ class YAYDP_Product_Bundle extends \YAYDP\Abstracts\YAYDP_Product_Pricing_Rule {
 			if ( $discount_items_remain < 1 ) {
 				continue;
 			}
-			$item_price             = $item->get_price();
+			$item_price             = $this->get_bundle_unit_price( $item );
 			$item_quantity          = $item->get_quantity();
 			$discount_items_remain -= $item_quantity;
 

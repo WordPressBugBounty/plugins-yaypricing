@@ -232,6 +232,19 @@ class YAYDP_Tiered_Pricing extends \YAYDP\Abstracts\YAYDP_Product_Pricing_Rule {
 		return \YAYDP\Pricing_Type\YAYDP_Pricing_Type_Registry::adjustment_per_unit( $pricing_type, $item_price, $pricing_value, $maximum_value ?? $item_price );
 	}
 
+	/**
+	 * Per-unit discount of a range step off the item's running price, calculated
+	 * from the rule's base price (see get_base_price_strategy()).
+	 *
+	 * @param array                       $range Range.
+	 * @param \YAYDP\Core\YAYDP_Cart_Item $item  Item.
+	 */
+	protected function get_unit_adjust_value( $range, $item ) {
+		$base    = $this->get_item_base_price( $item );
+		$adj_val = $this->get_item_adjust_value( $range['pricing']['type'], $range['pricing']['value'], $base, $range['pricing']['maximum_value'] );
+		return $this->to_running_discount( $item, $adj_val );
+	}
+
 	public function discount_item( $adjustment ) {
 		$adjustment_values = array();
 		if ( $this->is_individual_line_item_discount() ) {
@@ -248,7 +261,7 @@ class YAYDP_Tiered_Pricing extends \YAYDP\Abstracts\YAYDP_Product_Pricing_Rule {
 						$to_quantity      = $range['to_quantity'];
 						$current_quantity = $i + 1;
 						if ( $current_quantity >= $from_quantity && ( null === $to_quantity || $current_quantity <= $to_quantity ) ) {
-							$adj_val                     = $this->get_item_adjust_value( $range['pricing']['type'], $range['pricing']['value'], $item_price, $range['pricing']['maximum_value'] );
+							$adj_val                     = $this->get_unit_adjust_value( $range, $item );
 							$total_discount             += $adj_val;
 							$adjustment_values[ $i + 1 ] = $adj_val;
 							break;
@@ -281,14 +294,15 @@ class YAYDP_Tiered_Pricing extends \YAYDP\Abstracts\YAYDP_Product_Pricing_Rule {
 						$to_quantity   = $range['to_quantity'];
 
 						if ( $current_quantity >= $from_quantity && ( null === $to_quantity || $current_quantity <= $to_quantity ) ) {
-							$adj_val                     = $this->get_item_adjust_value( $range['pricing']['type'], $range['pricing']['value'], $item_price, $range['pricing']['maximum_value'] );
+							$adj_val                     = $this->get_unit_adjust_value( $range, $item );
 							$total_discount             += $adj_val;
 							$adjustment_values[ $i + 1 ] = $adj_val;
 							break;
 						}
 					}
 				}
-				if ( $total_discount > 0 ) {
+				// A rule with its own base can raise the running price (negative total).
+				if ( $total_discount > 0 || ( 0 != $total_discount && 'inherit' !== $this->get_base_price_strategy() ) ) {
 					$discount_per_unit = $total_discount / $item_quantity;
 					$discounted_price  = $item_price - $discount_per_unit;
 					$this->modify_item( $item, $discounted_price, $discount_per_unit, $adjustment_values );
@@ -332,7 +346,7 @@ class YAYDP_Tiered_Pricing extends \YAYDP\Abstracts\YAYDP_Product_Pricing_Rule {
 						$to_quantity   = $range['to_quantity'];
 
 						if ( $counted_quantity >= $from_quantity && ( null === $to_quantity || $counted_quantity <= $to_quantity ) ) {
-							$adjust_val                  = $this->get_item_adjust_value( $range['pricing']['type'], $range['pricing']['value'], $item_price, $range['pricing']['maximum_value'] );
+							$adjust_val                  = $this->get_unit_adjust_value( $range, $item );
 							$total_discount             += $adjust_val;
 							$adjustment_values[ $i + 1 ] = $adjust_val;
 							break;

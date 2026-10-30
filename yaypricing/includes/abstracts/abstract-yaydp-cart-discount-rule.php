@@ -47,4 +47,15 @@ abstract class YAYDP_Cart_Discount_Rule extends YAYDP_Rule {
 	public function is_match_coupon( $code ) {
 		return $this->get_coupon_code() === wc_format_coupon_code( $code );
 	}
+
+	/**
+	 * Order meta key holding the applied rule ids, written at checkout.
+	 *
+	 * @override
+	 *
+	 * @return string
+	 */
+	public function get_order_rules_meta_key() {
+		return 'yaydp_cart_discount_rules';
+	}
 }

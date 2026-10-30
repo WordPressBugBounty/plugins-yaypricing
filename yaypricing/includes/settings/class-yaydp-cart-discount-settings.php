@@ -50,6 +50,18 @@ class YAYDP_Cart_Discount_Settings {
 	}
 
 	/**
+	 * Retrieves the merchant's custom name for the combined discount.
+	 *
+	 * Returns the stored value as-is, empty string included; the fallback to the
+	 * default name lives in YAYDP_Combined_Discount so the default has one home.
+	 *
+	 * @return string
+	 */
+	public function get_combined_name() {
+		return isset( $this->settings['combined_name'] ) ? $this->settings['combined_name'] : '';
+	}
+
+	/**
 	 * Retrieves the "use_id_as_code" information of the settings
 	 *
 	 * @return bool

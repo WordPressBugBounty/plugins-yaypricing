@@ -9,7 +9,8 @@
  */
 
 .yaydp-gift-item,
-.yaydp-gift-badge-small {
+.yaydp-gift-badge-small,
+.yaydp-offer-panel {
   --yaydp-bg: #ffffff;
   --yaydp-fg: #09090b;
   --yaydp-muted: #f4f4f5;
@@ -36,7 +37,6 @@
 }
 
 /* Badge */
-.yaydp-gift-badge,
 .yaydp-gift-badge-small {
   display: inline-flex;
   align-items: center;
@@ -56,6 +56,7 @@
 
 .yaydp-gift-badge-small {
   padding: 0 8px;
+  background: var(--yaydp-primary-color);
   font-size: 10px;
   margin-right: 6px;
 }
@@ -83,13 +84,47 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  margin: 0;
-  padding: 6px 10px;
-  border: 1px solid var(--yaydp-border);
-  border-radius: 6px;
-  background: var(--yaydp-muted);
   font-size: 13px;
   line-height: 1.4;
+}
+
+.yaydp-gift-selection-image {
+  flex: 0 0 50px;
+  width: 50px;
+  height: 50px;
+  overflow: hidden;
+  border-radius: 4px;
+  background: var(--yaydp-muted);
+}
+
+/* Themes float, shrink and indent every image in a mini cart's product list
+   (WooCommerce core and Storefront: `.product_list_widget li img`), which
+   would pull the gift thumbnails out of their line. */
+.yaydp-gift-item .yaydp-gift-selection-image img {
+  display: block;
+  float: none;
+  width: 100%;
+  max-width: none;
+  height: 100%;
+  margin: 0 !important;
+  object-fit: cover;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+/* Mini carts style every `li` of their product list (padding, borders,
+   Storefront's remove-link gutter); the gift lines are list items too. */
+.yaydp-gift-item .yaydp-gift-selections .yaydp-gift-selection-item {
+  position: static;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+/* Clearfix pseudo-elements on theme `li`s would become extra flex items. */
+.yaydp-gift-item .yaydp-gift-selections .yaydp-gift-selection-item::before,
+.yaydp-gift-item .yaydp-gift-selections .yaydp-gift-selection-item::after {
+  content: none;
 }
 
 .yaydp-gift-selection-qty {
@@ -115,24 +150,53 @@ a:has(.yaydp-gift-icon) {
   text-decoration: none !important;
 }
 
-/* Gift icon in place of the product thumbnail */
+/* Gift icon in place of the product thumbnail: the same tile as the cart
+   gift panel header, scaled to the thumbnail. */
 .yaydp-gift-icon {
   display: flex;
   align-items: center;
   justify-content: center;
+  box-sizing: border-box;
   width: 64px;
   height: 64px;
-  border: 1px solid var(--yaydp-border, #e4e4e7);
-  border-radius: 8px;
-  background: var(--yaydp-muted, #f4f4f5);
-  font-size: 32px;
+  margin: auto;
+  border: 1px solid #cfe7d5;
+  border-radius: 2px;
+  background: #fff;
+  color: #007017;
   line-height: 1;
 }
 
-.yaydp-gift-price,
-.yaydp-gift-subtotal {
-  color: var(--yaydp-gift-accent, #16a34a);
-  font-weight: 500;
+.yaydp-gift-icon svg {
+  display: block;
+  width: 32px;
+  height: 32px;
+  fill: currentColor;
+}
+
+/* Classic mini cart (every theme rendering woocommerce_mini_cart()): it
+   always lists each gift product on its own row, whatever the grouping
+   setting, so only the title and price need to fit its narrow panel. */
+.woocommerce-mini-cart .yaydp-gift-item {
+  display: block;
+}
+
+.woocommerce-mini-cart .yaydp-gift-title {
+  display: block;
+  margin-bottom: 8px;
+  line-height: 1.4;
+}
+
+.woocommerce-mini-cart .yaydp-gift-price {
+  display: inline-block;
+  margin-top: 8px;
+}
+
+.yaydp-gift-price {
+  padding: 2px 10px;
+  background: var(--yaydp-primary-color);
+  border-radius: 3px;
+  color: #fff;
 }
 
 .yaydp-gift-qty,
@@ -149,5 +213,235 @@ a:has(.yaydp-gift-icon) {
 @media (max-width: 768px) {
   .yaydp-gift-selections {
     max-width: none;
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* Offer panel (cart page, grouped mode)                              */
+/* ------------------------------------------------------------------ */
+
+/* The panel row carries no divider of its own so the panel reads as part
+   of the line above, with a small gap below it. A spacer cell skips the
+   remove column, and the theme's horizontal cell padding is kept, so the
+   card lines up with the thumbnail on the left and the subtotal on the
+   right. Cells are pinned so theme borders and zebra stripes don't paint
+   them. */
+.yaydp-offer-panel-row.yaydp-offer-panel-row.yaydp-offer-panel-row > td,
+.yaydp-offer-panel-row.yaydp-offer-panel-row.yaydp-offer-panel-row:nth-child(n) > td {
+  padding-top: 8px;
+  padding-bottom: 24px;
+  border-top: 0;
+  background: transparent;
+  text-align: left;
+}
+
+.yaydp-offer-orphan.yaydp-offer-orphan.yaydp-offer-orphan.yaydp-offer-orphan > td {
+  padding-top: 24px;
+}
+
+.yaydp-offer-panel {
+  --yaydp-offer-border: #dddddd;
+  --yaydp-offer-divider: #f0f0f1;
+  --yaydp-offer-fg: #1e1e1e;
+  --yaydp-offer-muted: #757575;
+  --yaydp-offer-faint: #949494;
+  --yaydp-offer-icon: #1e1e1e;
+  --yaydp-offer-free: #007017;
+  --yaydp-offer-subtotal-bg: #f7f7f7;
+  overflow: hidden;
+  padding: 14px 16px;
+  background: #fff;
+  border: 1px solid var(--yaydp-offer-border);
+  border-radius: 4px;
+  color: var(--yaydp-offer-fg);
+  font-size: 14px;
+  line-height: 1.35;
+}
+
+.yaydp-offer-panel + .yaydp-offer-panel {
+  margin-top: 12px;
+}
+
+/* Header: gift emoji and "Free gifts". */
+.yaydp-offer-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.yaydp-offer-heading {
+  display: flex;
+  flex: 1;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 10px;
+  min-width: 0;
+}
+
+.yaydp-offer-icon {
+  flex: none;
+  margin-right: -4px;
+  font-size: 16px;
+  line-height: 1;
+}
+
+.yaydp-offer-title {
+  font-size: 15px;
+  font-weight: 600;
+}
+
+/* Gift lines, divided from each other only. */
+.yaydp-offer-panel .yaydp-offer-gifts {
+  list-style: none;
+  margin: 10px 0 0;
+  padding: 0;
+}
+
+.yaydp-offer-panel .yaydp-offer-gift {
+  display: grid;
+  grid-template-columns: 42px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 12px;
+  margin: 0;
+  padding: 12px 0;
+  border-top: 1px solid var(--yaydp-offer-divider);
+  list-style: none;
+}
+
+.yaydp-offer-panel .yaydp-offer-gifts > li:first-child {
+  border-top: 0;
+}
+
+.yaydp-offer-gift::before,
+.yaydp-offer-gift::after {
+  content: none;
+}
+
+.yaydp-offer-gift-thumb {
+  display: block;
+  box-sizing: border-box;
+  width: 42px;
+  height: 42px;
+  border: 1px solid #e0e0e0;
+  border-radius: 2px;
+  background: #fff;
+  overflow: hidden;
+}
+
+.yaydp-offer-gift-thumb img {
+  display: block;
+  width: 100%;
+  max-width: none;
+  height: 100%;
+  margin: 0;
+  object-fit: contain;
+}
+
+.yaydp-offer-gift-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.yaydp-offer-gift-name {
+  font-size: 14px;
+  font-weight: 500;
+  overflow-wrap: anywhere;
+}
+
+.yaydp-offer-panel .yaydp-offer-gift-name.yaydp-offer-gift-name a {
+  color: var(--yaydp-offer-fg);
+  text-decoration: none;
+}
+
+.yaydp-offer-panel .yaydp-offer-gift-name.yaydp-offer-gift-name a:hover {
+  text-decoration: underline;
+}
+
+.yaydp-offer-gift-qty {
+  color: var(--yaydp-offer-muted);
+  font-size: 13px;
+}
+
+/* ~~Regular price~~ FREE. */
+.yaydp-offer-gift-price {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--yaydp-offer-muted);
+  font-size: 13px;
+  white-space: nowrap;
+}
+
+.yaydp-offer-gift-price del,
+.yaydp-offer-subtotal-price del {
+  color: var(--yaydp-offer-faint);
+  font-size: 13px;
+  font-weight: 400;
+}
+
+.yaydp-offer-gift-free {
+  color: var(--yaydp-offer-free);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+/* Gift subtotal footer. */
+.yaydp-offer-subtotal {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin: 8px -16px -14px;
+  padding: 12px 16px;
+  background: var(--yaydp-offer-subtotal-bg);
+  font-size: 13px;
+}
+
+.yaydp-offer-subtotal-label {
+  color: var(--yaydp-offer-muted);
+}
+
+.yaydp-offer-subtotal-price {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  white-space: nowrap;
+}
+
+.yaydp-offer-subtotal-price strong {
+  font-size: 15px;
+  font-weight: 600;
+}
+
+@media (max-width: 768px) {
+  /* shop_table_responsive stacks the cells: drop the data-title label
+     WooCommerce adds before each cell. */
+  .shop_table_responsive .yaydp-offer-panel-row.yaydp-offer-panel-row.yaydp-offer-panel-row > td.yaydp-offer-panel-cell {
+    display: block;
+    padding: 4px 12px 16px;
+    text-align: left !important;
+  }
+
+  /* Stacked cells have no columns to align with. */
+  .shop_table_responsive .yaydp-offer-panel-row > td.yaydp-offer-panel-spacer {
+    display: none;
+  }
+
+  .shop_table_responsive .yaydp-offer-panel-cell::before {
+    content: none !important;
+    display: none !important;
+  }
+
+  .yaydp-offer-panel {
+    padding: 12px;
+  }
+
+  .yaydp-offer-subtotal {
+    margin: 8px -12px -12px;
+    padding: 10px 12px;
   }
 }

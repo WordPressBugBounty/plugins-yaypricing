@@ -333,12 +333,14 @@ class YAYDP_Matching_Products_Helper {
 		$logic_operator = 'OR';
 		$combined_conditions = implode( " {$logic_operator} ", $meta_conditions );
 
+		// phpcs:disable WordPress.DB.PreparedSQL, WordPress.DB.PreparedSQLPlaceholders -- $combined_conditions holds only literal columns, a whitelisted operator and %s placeholders; values travel through prepare().
 		$meta_query = $wpdb->prepare(
 			"SELECT DISTINCT post_id
 			FROM {$wpdb->postmeta}
 			WHERE {$combined_conditions}",
 			...$prepare_values
 		);
+		// phpcs:enable WordPress.DB.PreparedSQL, WordPress.DB.PreparedSQLPlaceholders
 
 		$post_ids = $wpdb->get_col( $meta_query ); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
 
@@ -583,7 +585,7 @@ class YAYDP_Matching_Products_Helper {
 		ORDER BY {$wpdb->posts}.post_title $order";
 
 		if ( ! empty( $main_query_args ) ) {
-			$sql_query = $wpdb->prepare( $sql_query, $main_query_args ); // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+			$sql_query = $wpdb->prepare( $sql_query, $main_query_args ); // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.PreparedSQL.NotPrepared
 		}
 
 		$results = $wpdb->get_results( $sql_query ); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared,WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching
@@ -666,6 +668,7 @@ class YAYDP_Matching_Products_Helper {
 					'slug'                => $product->get_slug(),
 					'availability'        => $product->get_availability(),
 					'price_html'          => self::get_product_price_html( $product ),
+					'sale_percent'        => self::get_product_sale_percent( $product ),
 					'permalink'           => $product->get_permalink(),
 					'image'               => $product->get_image( array( 60, 60 ) ),
 					'is_variable_product' => is_a( $product, 'WC_Product_Variable' ),
@@ -750,6 +753,45 @@ class YAYDP_Matching_Products_Helper {
 			},
 			array()
 		);
+	}
+
+	/**
+	 * The product's own WooCommerce sale as a whole percentage off the regular
+	 * price (the largest one across a variable product's variations), or null
+	 * when it is not on sale. Grouped products have no price of their own.
+	 *
+	 * @param WC_Product $product Given product.
+	 * @return int|null
+	 */
+	public static function get_product_sale_percent( $product ) {
+		$percent_off = function( $regular, $sale ) {
+			$regular = (float) $regular;
+			$sale    = (float) $sale;
+			if ( $regular <= 0 || $sale >= $regular ) {
+				return null;
+			}
+			return (int) round( ( $regular - $sale ) / $regular * 100 );
+		};
+
+		$product_type = $product->get_type();
+		if ( 'grouped' === $product_type ) {
+			return null;
+		}
+		if ( 'variable' === $product_type ) {
+			$prices = $product->get_variation_prices( false );
+			$best   = null;
+			foreach ( $prices['regular_price'] ?? array() as $variation_id => $regular ) {
+				$percent = $percent_off( $regular, $prices['sale_price'][ $variation_id ] ?? $regular );
+				if ( null !== $percent && ( null === $best || $percent > $best ) ) {
+					$best = $percent;
+				}
+			}
+			return $best;
+		}
+		if ( ! $product->is_on_sale( 'edit' ) ) {
+			return null;
+		}
+		return $percent_off( $product->get_regular_price( 'edit' ), $product->get_sale_price( 'edit' ) );
 	}
 
 	/**
@@ -944,7 +986,9 @@ class YAYDP_Matching_Products_Helper {
 				}
 			}
 		}
-		return self::simplify_product_list( $capable_products, $match_type );
+		// Buy X Get Y always unions the filter rows above, so simplify as "any":
+		// the "all" branch would drop a matched variable parent and list only some of its variations.
+		return self::simplify_product_list( $capable_products, $is_buy_x_get_y ? 'any' : $match_type );
 	}
 
 	private static function get_order( $order ) {

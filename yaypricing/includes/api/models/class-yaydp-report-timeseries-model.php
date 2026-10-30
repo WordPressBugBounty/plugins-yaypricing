@@ -100,6 +100,7 @@ class YAYDP_Report_Timeseries_Model {
 
 		$income = \YAYDP\Report\YAYDP_Report_Fee_Subtype_Filter::get_income_condition();
 
+		// phpcs:disable WordPress.DB.PreparedSQL -- $table is the plugin's own table name; $where and $income are fragments already built with $wpdb->prepare().
 		$sql = $wpdb->prepare(
 			"SELECT DATE_FORMAT(date_created, %s) AS bucket,
 				rule_type,
@@ -111,7 +112,8 @@ class YAYDP_Report_Timeseries_Model {
 			WHERE {$where}
 			GROUP BY bucket, rule_type",
 			$format
-		); // phpcs:ignore WordPress.DB.PreparedSQL
+		);
+		// phpcs:enable WordPress.DB.PreparedSQL
 
 		$results = $wpdb->get_results( $sql ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery, WordPress.DB.PreparedSQL
 		$rows    = array();
@@ -152,6 +154,7 @@ class YAYDP_Report_Timeseries_Model {
 		$where  = \YAYDP\Report\YAYDP_Report_Query::get_where( $start, $end );
 		$income = \YAYDP\Report\YAYDP_Report_Fee_Subtype_Filter::get_income_condition();
 
+		// phpcs:disable WordPress.DB.PreparedSQL -- $table is the plugin's own table name; $where and $income are fragments already built with $wpdb->prepare().
 		$sql = $wpdb->prepare(
 			"SELECT DATE_FORMAT(o.date_created, %s) AS bucket, o.rule_type, SUM(o.order_revenue) AS revenue
 			FROM (
@@ -161,7 +164,8 @@ class YAYDP_Report_Timeseries_Model {
 			) AS o
 			GROUP BY bucket, o.rule_type",
 			$format
-		); // phpcs:ignore WordPress.DB.PreparedSQL
+		);
+		// phpcs:enable WordPress.DB.PreparedSQL
 
 		$results  = $wpdb->get_results( $sql ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery, WordPress.DB.PreparedSQL
 		$revenues = array();

@@ -78,6 +78,31 @@ final class YAYDP_Order_History_Query {
 	}
 
 	/**
+	 * Creation date of the most recent placed order matching the lookup,
+	 * memoised per request (product pricing evaluates it once per product).
+	 *
+	 * @param array $lookup wc_get_orders() args such as customer_id or billing_email.
+	 * @return \WC_DateTime|null Null when no placed order matches.
+	 */
+	public static function last_order_date( array $lookup ) {
+		return \YAYDP\Core\Caches\YAYDP_Request_Cache::get_instance()->remember(
+			'order_history',
+			'last_order_date:' . wp_json_encode( $lookup ),
+			function () use ( $lookup ) {
+				$orders = \wc_get_orders(
+					$lookup + array(
+						'status'  => self::placed_statuses(),
+						'orderby' => 'date',
+						'order'   => 'DESC',
+						'limit'   => 1,
+					)
+				);
+				return empty( $orders ) ? null : $orders[0]->get_date_created();
+			}
+		);
+	}
+
+	/**
 	 * The user's most recent orders, newest first, any status.
 	 *
 	 * @param int $user_id User id.

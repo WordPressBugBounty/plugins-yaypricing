@@ -259,8 +259,55 @@ abstract class YAYDP_Product_Pricing_Rule extends YAYDP_Rule {
 	 * @param \YAYDP\Core\YAYDP_Cart_Item $item Item to calculate adjustment amount.
 	 */
 	public function get_discount_amount_per_item( $item ) {
-		$pricing = $this->get_item_pricing( $item );
-		return \YAYDP\Pricing_Type\YAYDP_Pricing_Type_Registry::discount_per_item( $pricing['type'], $item->get_price(), $pricing['value'], $pricing['maximum'] );
+		$pricing  = $this->get_item_pricing( $item );
+		$base     = $this->get_item_base_price( $item );
+		$discount = \YAYDP\Pricing_Type\YAYDP_Pricing_Type_Registry::discount_per_item( $pricing['type'], $base, $pricing['value'], $pricing['maximum'] );
+		return $this->to_running_discount( $item, $discount );
+	}
+
+	/**
+	 * Per-rule price base. 'inherit' (absent or unknown values too) calculates from
+	 * the running price like before; 'regular_price' / 'sale_price' calculate from
+	 * that product price and ignore what earlier rules did to the item.
+	 *
+	 * @return string inherit, regular_price or sale_price.
+	 */
+	public function get_base_price_strategy() {
+		$value = isset( $this->data['base_price_strategy'] ) ? $this->data['base_price_strategy'] : 'inherit';
+		return in_array( $value, array( 'inherit', 'regular_price', 'sale_price' ), true ) ? $value : 'inherit';
+	}
+
+	/**
+	 * Price this rule calculates its discount from for the item.
+	 *
+	 * @param \YAYDP\Core\YAYDP_Cart_Item $item Item.
+	 *
+	 * @return float
+	 */
+	public function get_item_base_price( $item ) {
+		$strategy = $this->get_base_price_strategy();
+		if ( 'inherit' === $strategy ) {
+			return $item->get_price();
+		}
+		return $item->get_base_price_for_strategy( $strategy );
+	}
+
+	/**
+	 * Turn a discount calculated from the rule's own base into a discount off the
+	 * item's running price, so the result is base - discount whatever ran before.
+	 * Can be negative when the base is above the running price. Fees always stack
+	 * on the running price; their base only sizes the fee.
+	 *
+	 * @param \YAYDP\Core\YAYDP_Cart_Item $item               Item.
+	 * @param float                       $discount_from_base Per-unit discount calculated from get_item_base_price().
+	 *
+	 * @return float
+	 */
+	public function to_running_discount( $item, $discount_from_base ) {
+		if ( 'inherit' === $this->get_base_price_strategy() || \yaydp_is_product_fee( $this ) ) {
+			return $discount_from_base;
+		}
+		return $item->get_price() - ( $this->get_item_base_price( $item ) - $discount_from_base );
 	}
 
 	/**
@@ -328,4 +375,14 @@ abstract class YAYDP_Product_Pricing_Rule extends YAYDP_Rule {
 		);
 	}
 
+	/**
+	 * Order meta key holding the applied rule ids, written at checkout.
+	 *
+	 * @override
+	 *
+	 * @return string
+	 */
+	public function get_order_rules_meta_key() {
+		return 'yaydp_product_pricing_rules';
+	}
 }

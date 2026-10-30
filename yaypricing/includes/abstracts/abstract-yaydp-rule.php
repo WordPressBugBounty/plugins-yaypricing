@@ -118,7 +118,7 @@ abstract class YAYDP_Rule {
 	 * @return bool
 	 */
 	public function is_running() {
-		$check = $this->is_enabled() && $this->is_in_schedule() && ! $this->is_reach_limit_uses();
+		$check = $this->is_enabled() && $this->is_in_schedule() && ! $this->is_reach_limit_uses() && ! $this->is_reach_customer_limit_uses();
 		return $check;
 	}
 
@@ -178,6 +178,27 @@ abstract class YAYDP_Rule {
 		$use_time = (int) ( $this->data['use_time'] ?? 0 );
 		$limit    = (int) ( $this->data['maximum_uses']['value'] ?? 0 );
 		return $use_time >= $limit;
+	}
+
+	/**
+	 * Checks if the current customer has reached the per-customer use limit
+	 *
+	 * The per-customer limit is a pro feature; a stored maximum_uses_per_customer is ignored.
+	 *
+	 * @return bool
+	 */
+	public function is_reach_customer_limit_uses() {
+		return false;
+	}
+
+	/**
+	 * Order meta key holding the ids of the rules of this family applied to an order.
+	 * Empty when the family records none, which disables the per-customer use limit.
+	 *
+	 * @return string
+	 */
+	public function get_order_rules_meta_key() {
+		return '';
 	}
 
 	/**

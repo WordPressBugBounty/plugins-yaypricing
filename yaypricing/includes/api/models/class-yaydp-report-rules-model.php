@@ -146,6 +146,57 @@ class YAYDP_Report_Rules_Model {
 	}
 
 	/**
+	 * Orders, revenue, discount, fee income and return across every rule.
+	 *
+	 * Not derivable from the per-type figures: an order using rules of several
+	 * types is counted, and its revenue credited, once per type there. Each
+	 * order is counted once here, so these are the store-wide totals the
+	 * summary shows. Revenue follows the per-type rule and leaves out orders
+	 * that only paid a fee.
+	 *
+	 * @param string $range_type Type of time range.
+	 * @param array  $from       Start parts.
+	 * @param array  $to         End parts.
+	 */
+	public static function get_totals( $range_type, $from, $to ) {
+		global $wpdb;
+
+		list( $start, $end ) = \YAYDP\Report\YAYDP_Report_Query::get_range( $range_type, $from, $to );
+
+		$table = \YAYDP\Report\YAYDP_Report_Install::get_table_name();
+		$where = \YAYDP\Report\YAYDP_Report_Query::get_where( $start, $end );
+
+		$income = \YAYDP\Report\YAYDP_Report_Fee_Subtype_Filter::get_income_condition();
+
+		$sql = "SELECT COUNT(DISTINCT order_id) AS orders,
+				SUM(CASE WHEN {$income} THEN 0 ELSE COALESCE(discount_amount, 0) END) AS discount,
+				-SUM(CASE WHEN {$income} THEN COALESCE(discount_amount, 0) ELSE 0 END) AS fee_income,
+				SUM(CASE WHEN discount_amount IS NULL THEN 1 ELSE 0 END) AS unknown_rows
+			FROM {$table}
+			WHERE {$where}";
+
+		$revenue_sql = "SELECT SUM(o.order_revenue)
+			FROM (
+				SELECT DISTINCT order_id, order_revenue
+				FROM {$table}
+				WHERE {$where} AND NOT ({$income})
+			) AS o";
+
+		$total   = $wpdb->get_row( $sql ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery, WordPress.DB.PreparedSQL
+		$revenue = (float) $wpdb->get_var( $revenue_sql ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery, WordPress.DB.PreparedSQL
+
+		$discount = is_null( $total ) ? 0.0 : (float) $total->discount;
+		return array(
+			'orders'      => is_null( $total ) ? 0 : (int) $total->orders,
+			'revenue'     => $revenue,
+			'discount'    => $discount,
+			'fee_income'  => is_null( $total ) ? 0.0 : (float) $total->fee_income,
+			'roi'         => self::get_roi( $revenue, $discount ),
+			'has_unknown' => ! is_null( $total ) && $total->unknown_rows > 0,
+		);
+	}
+
+	/**
 	 * Return on the discount given, expressed as a percentage.
 	 *
 	 * Rules that cost nothing have no meaningful return, so they are left

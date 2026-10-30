@@ -27,6 +27,22 @@ class YAYDP_APF_Pro_Integration {
 		}
 		add_filter( 'yaydp_initial_cart_item_price', array( $this, 'initialize_cart_item_price' ), 10, 2 );
 		add_filter( 'woocommerce_cart_item_subtotal', array( $this, 'adjust_cart_item_subtotal_html' ), 10000, 3 );
+		// APF sets base + options price at priority 2000, after YayPricing (110), so re-apply our price afterwards.
+		add_action( 'woocommerce_before_calculate_totals', array( $this, 'reapply_cart_item_price' ), 2001 );
+	}
+
+	/**
+	 * Re-apply YayPricing price to APF cart items after APF has overwritten it
+	 *
+	 * @param \WC_Cart $cart Cart object.
+	 */
+	public function reapply_cart_item_price( $cart ) {
+		foreach ( $cart->get_cart() as $cart_item ) {
+			if ( empty( $cart_item['wapf'] ) || ! isset( $cart_item['yaydp_custom_data']['price'] ) ) {
+				continue;
+			}
+			$cart_item['data']->set_price( $cart_item['yaydp_custom_data']['price'] );
+		}
 	}
 
 	public function initialize_cart_item_price( $item_price, $cart_item ) {

@@ -282,15 +282,6 @@ class YAYDP_Sale_Flash {
 	 * @return bool
 	 */
 	protected function is_mini_cart_context() {
-		$backtrace = debug_backtrace( DEBUG_BACKTRACE_IGNORE_ARGS, 10 );
-		foreach ( $backtrace as $trace ) {
-			if ( isset( $trace['function'] ) && 'apply_filters' === $trace['function'] ) {
-				if ( isset( $trace['args'][0] ) && 'woocommerce_cart_item_thumbnail' === $trace['args'][0] ) {
-					return true;
-				}
-			}
-		}
-		
 		if ( did_action( 'woocommerce_before_mini_cart' ) || did_action( 'woocommerce_mini_cart_contents' ) ) {
 			return true;
 		}
@@ -375,7 +366,8 @@ class YAYDP_Sale_Flash {
 	 * @return bool
 	 */
 	protected function is_woocommerce_block_context() {
-		$backtrace = \debug_backtrace( DEBUG_BACKTRACE_IGNORE_ARGS, 20 );
+		// Only class names are read to detect a rendering block; no trace data is output or logged.
+		$backtrace = \debug_backtrace( DEBUG_BACKTRACE_IGNORE_ARGS, 20 ); // phpcs:ignore QITStandard.PHP.DebugCode.DebugFunctionFound, WordPress.PHP.DevelopmentFunctions.error_log_debug_backtrace
 		foreach ( $backtrace as $trace ) {
 			if ( isset( $trace['class'] ) ) {
 				$class = $trace['class'];

@@ -50,6 +50,14 @@ class YAYDP_Cart_Item {
 	protected $initial_price = 0;
 
 	/**
+	 * Base price before the yaydp_initial_cart_item_price filter (add-on/option costs).
+	 * Null for items priced through custom_price (gifts, extras).
+	 *
+	 * @var float|null
+	 */
+	protected $raw_base_price = null;
+
+	/**
 	 * Initial item regular price
 	 * The initial one
 	 *
@@ -122,7 +130,8 @@ class YAYDP_Cart_Item {
 		if ( isset( $cart_item_data['custom_price'] ) ) {
 			$initial_price = $cart_item_data['custom_price'];
 		} else {
-			$initial_price = \YAYDP\Helper\YAYDP_Pricing_Helper::get_product_price( $this->product );
+			$initial_price        = \YAYDP\Helper\YAYDP_Pricing_Helper::get_product_price( $this->product );
+			$this->raw_base_price = floatval( $initial_price );
 		}
 		$this->initial_price = apply_filters( 'yaydp_initial_cart_item_price', $initial_price, $cart_item_data );
 		$this->price         = $this->initial_price;
@@ -326,6 +335,7 @@ class YAYDP_Cart_Item {
 				}
 			}
 		}
+		$origin_price = max( $origin_price, $this->get_display_origin_price() );
 		ob_start();
 		\wc_get_template(
 			'cart-item-price/normal-item.php',
@@ -417,6 +427,50 @@ class YAYDP_Cart_Item {
 	}
 
 	/**
+	 * Struck-through price of a modified item: the initial price, or the base of
+	 * an applied rule calculating from a higher price (regular price while the
+	 * global base is the sale price).
+	 *
+	 * @return float
+	 */
+	public function get_display_origin_price() {
+		$origin_price = $this->initial_price;
+		foreach ( $this->get_modifiers() as $modifier ) {
+			$rule = $modifier->get_rule();
+			if ( ! $rule instanceof \YAYDP\Abstracts\YAYDP_Product_Pricing_Rule ) {
+				continue;
+			}
+			$strategy = $rule->get_base_price_strategy();
+			if ( 'inherit' !== $strategy ) {
+				$origin_price = max( $origin_price, $this->get_base_price_for_strategy( $strategy ) );
+			}
+		}
+		return $origin_price;
+	}
+
+	/**
+	 * Price a rule with its own base price strategy calculates from: the product's
+	 * regular or sale price plus whatever the initial price filter added on top
+	 * (add-on/option costs). 'inherit', custom-priced items and products without a
+	 * regular price fall back to the initial price.
+	 *
+	 * @param string $strategy inherit, regular_price or sale_price.
+	 *
+	 * @return float
+	 */
+	public function get_base_price_for_strategy( $strategy ) {
+		if ( 'inherit' === $strategy || is_null( $this->raw_base_price ) || empty( $this->regular_price ) ) {
+			return $this->initial_price;
+		}
+		$base = $this->regular_price;
+		if ( 'sale_price' === $strategy && ! empty( $this->sale_price ) && $this->product->is_on_sale( 'original' ) ) {
+			$base = $this->sale_price;
+		}
+		$extras = $this->initial_price - $this->raw_base_price;
+		return floatval( $base ) + $extras;
+	}
+
+	/**
 	 * Returns item product initial regular price
 	 *
 	 * @since 3.4
@@ -441,6 +495,15 @@ class YAYDP_Cart_Item {
 	 */
 	public function get_store_price() {
 		return $this->store_price;
+	}
+
+	/**
+	 * Assign item product price display on store
+	 *
+	 * @param float $value Price in the store currency.
+	 */
+	public function set_store_price( $value ) {
+		$this->store_price = floatval( $value );
 	}
 
 }

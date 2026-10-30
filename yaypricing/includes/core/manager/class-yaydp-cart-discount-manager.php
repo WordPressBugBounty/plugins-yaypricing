@@ -24,20 +24,6 @@ class YAYDP_Cart_Discount_Manager {
 	protected $combined_adjustment = null;
 
 	/**
-	 * This variable stores a combined coupon code string
-	 *
-	 * @var string
-	 */
-	public static $combined_coupon_code = 'yaydp_combined_coupon';
-
-	/**
-	 * This variable stores a combined coupon name string
-	 *
-	 * @var string
-	 */
-	public static $combined_coupon_name = 'Combined discount';
-
-	/**
 	 * Constructor
 	 */
 	private function __construct() {
@@ -160,40 +146,41 @@ class YAYDP_Cart_Discount_Manager {
 	 * Return coupon data
 	 */
 	public function get_shop_coupon_data( $coupon_data, $coupon_code ) {
-		$yaydp_cart  = \yaydp_get_or_build_cart();
 		$is_combined = \YAYDP\Settings\YAYDP_Cart_Discount_Settings::get_instance()->is_combined();
-		if ( $is_combined ) {
-			if ( \YAYDP\Core\Rule\Cart_Discount\YAYDP_Combined_Discount::is_match_coupon( $coupon_code ) ) {
-				return \YAYDP\Core\Rule\Cart_Discount\YAYDP_Combined_Discount::get_coupon_data( $yaydp_cart );
-			}
-		} else {
-			$running_rules = \yaydp_get_running_cart_discount_rules();
-			foreach ( $running_rules as $rule ) {
-				if ( $rule->is_match_coupon( $coupon_code ) ) {
-					return $rule->get_coupon_data( $yaydp_cart );
-				}
-			}
+
+		/*
+		 * Resolve before touching the cart. WooCommerce runs this filter on every
+		 * WC_Coupon construction in the request, third party coupons included, and
+		 * building a YAYDP_Cart for a code that is not ours is pure waste.
+		 *
+		 * Combining on means the combined discount owns the code and the rules are
+		 * never consulted; combining off means the reverse. That has always been
+		 * this method alone -- every other call site checks the combined discount
+		 * regardless of the setting.
+		 */
+		$resolved = \yaydp_resolve_coupon_rule( $coupon_code, array( 'combined' => $is_combined ? 'only' : 'skip' ) );
+		if ( null === $resolved ) {
+			return $coupon_data;
 		}
 
-		return $coupon_data;
+		$yaydp_cart = \yaydp_get_or_build_cart();
+		if ( 'combined' === $resolved ) {
+			return \YAYDP\Core\Rule\Cart_Discount\YAYDP_Combined_Discount::get_coupon_data( $yaydp_cart );
+		}
+		return $resolved->get_coupon_data( $yaydp_cart );
 	}
 
 	/**
 	 * Change coupon label
 	 */
 	public function change_coupon_label( $label, $coupon ) {
-		$coupon_code = $coupon->get_code();
-
-		if ( \YAYDP\Core\Rule\Cart_Discount\YAYDP_Combined_Discount::is_match_coupon( $coupon_code ) ) {
-			$label = \YAYDP\Core\Rule\Cart_Discount\YAYDP_Combined_Discount::$coupon_name;
-			return sprintf( '%s', $label );
-		} else {
-			$running_rules = \yaydp_get_running_cart_discount_rules();
-			foreach ( $running_rules as $rule ) {
-				if ( $rule->is_match_coupon( $coupon_code ) ) {
-					return $rule->get_translated_name();
-				}
-			}
+		$resolved = \yaydp_resolve_coupon_rule( $coupon->get_code() );
+		if ( 'combined' === $resolved ) {
+			// Escaped here: wc_cart_totals_coupon_label() echoes the filtered label unescaped.
+			return esc_html( \YAYDP\Core\Rule\Cart_Discount\YAYDP_Combined_Discount::get_translated_coupon_name() );
+		}
+		if ( null !== $resolved ) {
+			return $resolved->get_translated_name();
 		}
 		return $label;
 	}
@@ -202,18 +189,14 @@ class YAYDP_Cart_Discount_Manager {
 	 * Change coupon html
 	 */
 	public function change_coupon_html( $coupon_html, $coupon, $discount_amount_html ) {
-		$coupon_code = $coupon->get_code();
-		$result      = apply_filters( 'yaydp_checkout_coupon_fee_html', $discount_amount_html, $coupon_html );
-		if ( \YAYDP\Core\Rule\Cart_Discount\YAYDP_Combined_Discount::is_match_coupon( $coupon_code ) ) {
-			$result .= \YAYDP\Core\Rule\Cart_Discount\YAYDP_Combined_Discount::get_coupon_content();
-			return $result;
+		// Filtered unconditionally, as before: third parties hook it for every coupon.
+		$result   = apply_filters( 'yaydp_checkout_coupon_fee_html', $discount_amount_html, $coupon_html );
+		$resolved = \yaydp_resolve_coupon_rule( $coupon->get_code() );
+		if ( 'combined' === $resolved ) {
+			return $result . \YAYDP\Core\Rule\Cart_Discount\YAYDP_Combined_Discount::get_coupon_content();
 		}
-		$running_rules = \yaydp_get_running_cart_discount_rules();
-		foreach ( $running_rules as $rule ) {
-			if ( $rule->is_match_coupon( $coupon_code ) ) {
-				$result .= $rule->get_coupon_content();
-				return $result;
-			}
+		if ( null !== $resolved ) {
+			return $result . $resolved->get_coupon_content();
 		}
 		return $coupon_html;
 	}
@@ -225,17 +208,9 @@ class YAYDP_Cart_Discount_Manager {
 		if ( is_null( $coupon ) ) {
 			return $message;
 		}
-		$coupon_code = $coupon->get_code();
-		if ( \YAYDP\Core\Rule\Cart_Discount\YAYDP_Combined_Discount::is_match_coupon( $coupon_code ) ) {
-			return '';
-		}
-		$running_rules = \yaydp_get_running_cart_discount_rules();
-		foreach ( $running_rules as $rule ) {
-			if ( $rule->is_match_coupon( $coupon_code ) ) {
-				return '';
-			}
-		}
-		return $message;
+		// Our coupons are applied by the plugin, so WooCommerce's notices about them
+		// would only confuse the customer.
+		return null === \yaydp_resolve_coupon_rule( $coupon->get_code() ) ? $message : '';
 	}
 
 	/**
@@ -245,17 +220,7 @@ class YAYDP_Cart_Discount_Manager {
 		if ( is_null( $coupon ) ) {
 			return $message;
 		}
-		$coupon_code = $coupon->get_code();
-		if ( \YAYDP\Core\Rule\Cart_Discount\YAYDP_Combined_Discount::is_match_coupon( $coupon_code ) ) {
-			return '';
-		}
-		$running_rules = \yaydp_get_running_cart_discount_rules();
-		foreach ( $running_rules as $rule ) {
-			if ( $rule->is_match_coupon( $coupon_code ) ) {
-				return '';
-			}
-		}
-		return $message;
+		return null === \yaydp_resolve_coupon_rule( $coupon->get_code() ) ? $message : '';
 	}
 
 	/**

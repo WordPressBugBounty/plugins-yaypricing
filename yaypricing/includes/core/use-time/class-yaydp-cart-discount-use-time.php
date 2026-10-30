@@ -40,16 +40,19 @@ class YAYDP_Cart_Discount_Use_Time extends \YAYDP\Abstracts\YAYDP_Use_Time {
 		} else {
 			$applied_coupons = array();
 		}
-		$running_rules      = \yaydp_get_running_cart_discount_rules();
-		$rules_by_coupon    = array();
+		$rules_by_coupon = array();
 		foreach ( $applied_coupons as $coupon_code ) {
-			foreach ( $running_rules as $rule ) {
-				if ( $rule->is_match_coupon( $coupon_code ) ) {
-					if ( ! \in_array( $rule->get_id(), $list_rule_id, true ) ) {
-						$list_rule_id[] = $rule->get_id();
-					}
-					$rules_by_coupon[ $coupon_code ][] = $rule->get_id();
+			/*
+			 * Running rules only, and the combined discount is not considered:
+			 * this records which rules an order applied, and the combined coupon
+			 * is not a rule. Unchanged from before the resolver.
+			 */
+			foreach ( \yaydp_resolve_coupon_rules( $coupon_code, array( 'combined' => 'skip' ) ) as $rule ) {
+				$rule_id = $rule->get_id();
+				if ( ! \in_array( $rule_id, $list_rule_id, true ) ) {
+					$list_rule_id[] = $rule_id;
 				}
+				$rules_by_coupon[ $coupon_code ][] = $rule_id;
 			}
 		}
 		if ( \yaydp_check_wc_hpos() ) {
@@ -102,31 +105,11 @@ class YAYDP_Cart_Discount_Use_Time extends \YAYDP\Abstracts\YAYDP_Use_Time {
 	}
 
 	/**
-	 * Increment use_time on applied rules when the order is completed.
+	 * Rule type slug.
 	 *
 	 * @override
-	 *
-	 * @param int $order_id Given order id.
 	 */
-	public function on_order_completed( $order_id ) {
-		$order = \wc_get_order( $order_id );
-		if ( ! $order ) {
-			return;
-		}
-		$list_rule_id = $order->get_meta( 'yaydp_cart_discount_rules' );
-		if ( empty( $list_rule_id ) || ! is_array( $list_rule_id ) ) {
-			return;
-		}
-		$this->with_rules_lock(
-			'yaydp_cart_discount_rules',
-			function() use ( $order, $list_rule_id ) {
-				// Claimed inside the lock so two completions of the same order
-				// ( gateway webhook and admin at the same instant ) cannot both count.
-				if ( ! $this->claim_order_completion( $order, '_yaydp_cart_discount_use_time_counted' ) ) {
-					return;
-				}
-				$this->increment_stored_use_time( 'yaydp_cart_discount_rules', $list_rule_id );
-			}
-		);
+	protected function get_rule_type() {
+		return 'cart_discount';
 	}
 }

@@ -60,6 +60,29 @@ class YAYDP_Pricing_Helper {
 	}
 
 	/**
+	 * Product price a rule with its own base price strategy calculates from
+	 * (display twin of YAYDP_Cart_Item::get_base_price_for_strategy()).
+	 *
+	 * @param \WC_Product $product  Product.
+	 * @param string      $strategy inherit, regular_price or sale_price.
+	 *
+	 * @return float
+	 */
+	public static function get_product_price_for_strategy( $product, $strategy ) {
+		$regular = self::get_product_specific_price( $product, 'regular' );
+		if ( 'inherit' === $strategy || empty( $regular ) ) {
+			return self::get_product_price( $product );
+		}
+		if ( 'sale_price' === $strategy && $product->is_on_sale( 'original' ) ) {
+			$sale = self::get_product_specific_price( $product, 'sale' );
+			if ( ! empty( $sale ) ) {
+				return floatval( $sale );
+			}
+		}
+		return floatval( $regular );
+	}
+
+	/**
 	 * Get product price not affected by any YayPricing settings
 	 *
 	 * @since 3.4

@@ -115,19 +115,28 @@ class YAYDP_Buy_X_Get_Y extends \YAYDP\Abstracts\YAYDP_Product_Pricing_Rule {
 			$total_discount_time = 1;
 		}
 
+		$cleared_case_count = 0;
 		foreach ( $receive_cases['case'] as $a_case_index => $a_case ) {
 			$receive_quantity_per_unit = $a_case['quantity'];
 			$receive_quantity          = $total_discount_time * $receive_quantity_per_unit;
-			$receive_items             = array();
-			$receive_items             = \YAYDP\Core\Discount_Type\YAYDP_Filter_Discount::get_free_receive_items( $cart, $a_case['items'], $receive_quantity, $all_extra_items, $free_chosen_products[$a_case_index] ?? null );
+			$case_chosen_products      = $free_chosen_products[ $a_case_index ] ?? null;
+			$is_case_cleared           = is_array( $case_chosen_products ) && empty( $case_chosen_products );
+			$receive_items             = \YAYDP\Core\Discount_Type\YAYDP_Filter_Discount::get_free_receive_items( $cart, $a_case['items'], $receive_quantity, $all_extra_items, $case_chosen_products );
 			if ( ! empty( $receive_items ) ) {
 				$all_receive_items[] = $receive_items;
 			}
-			if ( $is_any_receive_match_type && ! empty( $receive_items ) ) {
+			if ( $is_case_cleared ) {
+				++$cleared_case_count;
+			}
+			// A case the customer chose in is final for an "any" rule: clearing
+			// it must not fall through to the next case's default gifts.
+			if ( $is_any_receive_match_type && ( ! empty( $receive_items ) || is_array( $case_chosen_products ) ) ) {
 				break;
 			}
 		}
-		if ( ! $is_any_receive_match_type && count( $all_receive_items ) !== count( $receive_filters ) ) {
+		// An "all" rule needs a gift from every case, except the ones the
+		// customer deliberately emptied: declining one gift keeps the others.
+		if ( ! $is_any_receive_match_type && count( $all_receive_items ) !== count( $receive_filters ) - $cleared_case_count ) {
 			$all_receive_items = array();
 		}
 		// Selections that no longer produce a gift are stale and get forgotten, so

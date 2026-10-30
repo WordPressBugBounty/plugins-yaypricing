@@ -26,6 +26,7 @@ class YAYDP_Setting_Model {
 					'discount_base_on'                   => 'regular_price',
 					'show_regular_price'                 => true,
 					'show_original_subtotal_price'       => true,
+					'group_gift_items'                   => false,
 					'show_sale_tag'                      => true,
 					'show_discounted_price'              => false,
 					'show_order_saving_amount'           => false,
@@ -40,6 +41,7 @@ class YAYDP_Setting_Model {
 				),
 				'cart_discount'   => array(
 					'is_combined'       => false,
+					'combined_name'     => '',
 					'use_id_as_code'    => false,
 					'how_to_apply'      => 'all',
 					'countdown_timer'   => \YAYDP\Constants\YAYDP_Countdown_Timer::get_default(),
@@ -53,6 +55,7 @@ class YAYDP_Setting_Model {
 				),
 				'general'         => array(
 					'sync_with_coupon_individual_use_only' => true,
+					'use_limit_restore_statuses'           => array(),
 				),
 			);
 		}

@@ -33,7 +33,17 @@ class YAYDP_Pricing_Table {
 			),
 			'border_color'   => '#e6e6e6',
 			'border_style'   => 'solid',
+			'layout'         => 'table',
 		);
+	}
+
+	/**
+	 * Get the pricing table layouts, the single source of valid "layout" values
+	 *
+	 * @since 3.6.2
+	 */
+	public static function get_layouts() {
+		return array( 'table', 'options', 'blocks', 'dropdown', 'tooltip' );
 	}
 
 	/**
@@ -41,9 +51,10 @@ class YAYDP_Pricing_Table {
 	 */
 	public static function get_sample_data() {
 		return array(
-			array( '3-6', '30%', \wc_price( 10.5 ) ),
-			array( '7-12', '50%', \wc_price( 7.5 ) ),
-			array( '13-Unlimited', '70%', \wc_price( 4.5 ) ),
+			// Quantity, discount, price, then (for the non-table layouts) tier label, regular price, saving percent and the total of 8 items.
+			array( '3-6', '30%', \wc_price( 10.5 ), '3 - 6', \wc_price( 15 ), 30, \wc_price( 84 ) ),
+			array( '7-12', '50%', \wc_price( 7.5 ), '7 - 12', \wc_price( 15 ), 50, \wc_price( 60 ) ),
+			array( '13-Unlimited', '70%', \wc_price( 4.5 ), '13+', \wc_price( 15 ), 70, \wc_price( 36 ) ),
 		);
 	}
 }

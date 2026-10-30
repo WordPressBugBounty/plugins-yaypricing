@@ -132,8 +132,8 @@ class YAYDP_REST_REPORT_V1_CONTROLLER {
 	/**
 	 * Retrieves revenue, discount and return per rule type, and per rule.
 	 *
-	 * The charts read the per-type figures; the per-rule figures back the
-	 * drilldown, so both are served by one request rather than two.
+	 * The summary reads the totals, the chart legend the per-type figures and
+	 * the table the per-rule figures, so all three are served by one request.
 	 *
 	 * @param \WP_REST_Request $request Rest request.
 	 */
@@ -149,8 +149,9 @@ class YAYDP_REST_REPORT_V1_CONTROLLER {
 			array(
 				'success' => true,
 				'data'    => array(
-					'types' => \YAYDP\API\Models\YAYDP_Report_Rules_Model::get_by_type( $range_type, $from, $to ),
-					'rules' => \YAYDP\API\Models\YAYDP_Report_Rules_Model::get( $range_type, $from, $to ),
+					'totals' => \YAYDP\API\Models\YAYDP_Report_Rules_Model::get_totals( $range_type, $from, $to ),
+					'types'  => \YAYDP\API\Models\YAYDP_Report_Rules_Model::get_by_type( $range_type, $from, $to ),
+					'rules'  => \YAYDP\API\Models\YAYDP_Report_Rules_Model::get( $range_type, $from, $to ),
 				),
 			)
 		);

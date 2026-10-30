@@ -58,4 +58,15 @@ abstract class YAYDP_Checkout_Fee_Rule extends YAYDP_Rule {
 	public function get_tax_class() {
 		return ! empty( $this->data['tax'] ) ? $this->data['tax'] : 'standard';
 	}
+
+	/**
+	 * Order meta key holding the applied rule ids, written at checkout.
+	 *
+	 * @override
+	 *
+	 * @return string
+	 */
+	public function get_order_rules_meta_key() {
+		return 'yaydp_checkout_fee_rules';
+	}
 }

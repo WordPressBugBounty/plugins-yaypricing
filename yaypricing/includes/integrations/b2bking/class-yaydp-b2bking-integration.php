@@ -116,7 +116,7 @@ class YAYDP_B2BKing_Integration {
 
 			ob_start();
 			?>
-			<del><?php echo \wc_price( \YAYDP\Helper\YAYDP_Pricing_Helper::convert_price( $original_subtotal ) ); ?></del>
+			<del><?php echo wp_kses_post( \wc_price( \YAYDP\Helper\YAYDP_Pricing_Helper::convert_price( $original_subtotal ) ) ); ?></del>
 			<?php
 			$strikethrough_html = ob_get_clean();
 			$html               = '<div class="price">' . $html . '</div>';
@@ -226,7 +226,7 @@ class YAYDP_B2BKing_Integration {
 			}
 		}
 
-		echo '<strong class="text-v-dark text-uppercase">' . esc_html__( 'Total', 'woocommerce' ) . ':</strong> ' . wc_price( $modified_subtotal );
+		echo '<strong class="text-v-dark text-uppercase">' . esc_html__( 'Total', 'woocommerce' ) . ':</strong> ' . wp_kses_post( wc_price( $modified_subtotal ) );
 	}
 
 	/**

@@ -30,13 +30,37 @@ class YAYDP_Gift_Product_Display {
 	private $assets_enqueued = false;
 
 	/**
+	 * Whether the gifts of one rule collapse into a single cart row. When off,
+	 * every gift product keeps its own row, image and link.
+	 *
+	 * @var bool
+	 */
+	private $grouped;
+
+	/**
+	 * Whether the classic mini cart is rendering. It always lists every gift
+	 * product on its own row, whatever the grouping setting says.
+	 *
+	 * @var bool
+	 */
+	private $in_mini_cart = false;
+
+	/**
 	 * Constructor
 	 */
 	public function __construct() {
-		add_filter( 'woocommerce_cart_item_visible', array( $this, 'hide_grouped_gift_rows' ), 20, 3 );
-		add_filter( 'woocommerce_widget_cart_item_visible', array( $this, 'hide_grouped_gift_rows' ), 20, 3 );
-		add_filter( 'woocommerce_cart_item_thumbnail', array( $this, 'render_gift_thumbnail' ), 20, 3 );
-		add_filter( 'woocommerce_cart_item_permalink', array( $this, 'render_gift_permalink' ), 20, 3 );
+		$this->grouped = \YAYDP\Settings\YAYDP_Product_Pricing_Settings::get_instance()->group_gift_items();
+
+		if ( $this->grouped ) {
+			add_filter( 'woocommerce_cart_item_visible', array( $this, 'hide_grouped_gift_rows' ), 20, 3 );
+			add_filter( 'woocommerce_cart_item_thumbnail', array( $this, 'render_gift_thumbnail' ), 20, 3 );
+			add_filter( 'woocommerce_cart_item_permalink', array( $this, 'render_gift_permalink' ), 20, 3 );
+			// On the cart page each offer's gifts are listed in a panel under
+			// its lines instead of a gift row.
+			new YAYDP_Gift_Offer_Cart_Layout();
+		}
+		add_action( 'woocommerce_before_mini_cart', array( $this, 'start_mini_cart' ) );
+		add_action( 'woocommerce_after_mini_cart', array( $this, 'end_mini_cart' ) );
 		add_filter( 'woocommerce_cart_item_name', array( $this, 'render_gift_name' ), 20, 3 );
 		add_filter( 'woocommerce_cart_item_quantity', array( $this, 'render_gift_quantity' ), 20, 3 );
 
@@ -59,6 +83,32 @@ class YAYDP_Gift_Product_Display {
 	}
 
 	/**
+	 * Enter the classic mini cart: separate gift rows, keeping the markup they
+	 * had before the legacy Free class came back.
+	 */
+	public function start_mini_cart() {
+		$this->in_mini_cart = true;
+		Gift_Row_Renderer::disable_legacy_classes();
+	}
+
+	/**
+	 * Leave the classic mini cart.
+	 */
+	public function end_mini_cart() {
+		$this->in_mini_cart = false;
+		Gift_Row_Renderer::enable_legacy_classes();
+	}
+
+	/**
+	 * Check whether the current output collapses a rule's gifts into one row.
+	 *
+	 * @return bool
+	 */
+	private function is_grouped_output() {
+		return $this->grouped && ! $this->in_mini_cart;
+	}
+
+	/**
 	 * Show one row per gift group and hide the rest.
 	 *
 	 * @param bool   $visible Whether the row renders.
@@ -67,7 +117,7 @@ class YAYDP_Gift_Product_Display {
 	 * @return bool
 	 */
 	public function hide_grouped_gift_rows( $visible, $cart_item, $cart_item_key ) {
-		if ( ! Gift_Helper::is_gift_item( $cart_item ) || self::is_checkout_summary() ) {
+		if ( ! $this->is_grouped_output() || ! Gift_Helper::is_gift_item( $cart_item ) || self::is_checkout_summary() ) {
 			return $visible;
 		}
 		return Gift_Group::is_group_leader( $cart_item_key );
@@ -82,10 +132,10 @@ class YAYDP_Gift_Product_Display {
 	 * @return string
 	 */
 	public function render_gift_thumbnail( $thumbnail, $cart_item, $cart_item_key ) {
-		if ( ! Gift_Helper::is_gift_item( $cart_item ) ) {
+		if ( ! $this->is_grouped_output() || ! Gift_Helper::is_gift_item( $cart_item ) ) {
 			return $thumbnail;
 		}
-		return '<span class="yaydp-gift-icon">&#127873;</span>';
+		return Gift_Row_Renderer::get_thumbnail_icon();
 	}
 
 	/**
@@ -97,14 +147,15 @@ class YAYDP_Gift_Product_Display {
 	 * @return string
 	 */
 	public function render_gift_permalink( $permalink, $cart_item, $cart_item_key ) {
-		if ( ! Gift_Helper::is_gift_item( $cart_item ) ) {
+		if ( ! $this->is_grouped_output() || ! Gift_Helper::is_gift_item( $cart_item ) ) {
 			return $permalink;
 		}
 		return '#';
 	}
 
 	/**
-	 * Prepend the FREE GIFT badge and append the rule name.
+	 * Prepend the FREE GIFT badge and append the rule name (grouped) or keep the
+	 * product name (separate).
 	 *
 	 * @param string $name Product name HTML.
 	 * @param array  $cart_item Cart item.
@@ -117,7 +168,13 @@ class YAYDP_Gift_Product_Display {
 		}
 
 		if ( self::is_checkout_summary() ) {
-			return Gift_Row_Renderer::render_checkout_name( $name );
+			// Separate rows already read as ordinary products; only the grouped
+			// display marks its checkout lines with the badge.
+			return $this->is_grouped_output() ? Gift_Row_Renderer::render_checkout_name( $name ) : $name;
+		}
+
+		if ( ! $this->is_grouped_output() ) {
+			return Gift_Row_Renderer::render_single_name( $name );
 		}
 
 		return Gift_Row_Renderer::render_name( $cart_item, $cart_item_key );
@@ -135,7 +192,8 @@ class YAYDP_Gift_Product_Display {
 		if ( ! Gift_Helper::is_gift_item( $cart_item ) ) {
 			return $quantity;
 		}
-		return '<span class="yaydp-gift-qty">' . esc_html( Gift_Group::get_group_quantity( $cart_item_key ) ) . '</span>';
+		$qty = $this->is_grouped_output() ? Gift_Group::get_group_quantity( $cart_item_key ) : $cart_item['quantity'];
+		return '<span class="yaydp-gift-qty">' . esc_html( $qty ) . '</span>';
 	}
 
 	/**

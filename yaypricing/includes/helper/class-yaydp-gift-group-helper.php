@@ -153,8 +153,29 @@ class YAYDP_Gift_Group_Helper {
 	 * @return array
 	 */
 	public static function get_group_selections( $cart_item_key ) {
+		return self::get_selections( self::get_group_keys( $cart_item_key ) );
+	}
+
+	/**
+	 * Products a rule currently gives away, as {product, qty} pairs in cart order.
+	 *
+	 * @param string $rule_id Rule id.
+	 * @return array
+	 */
+	public static function get_rule_selections( $rule_id ) {
+		$groups = self::get_groups();
+		return empty( $groups[ $rule_id ] ) ? array() : self::get_selections( $groups[ $rule_id ] );
+	}
+
+	/**
+	 * {product, qty} pairs of the given gift rows.
+	 *
+	 * @param string[] $keys Cart item keys.
+	 * @return array
+	 */
+	private static function get_selections( $keys ) {
 		$selections = array();
-		foreach ( self::get_group_keys( $cart_item_key ) as $key ) {
+		foreach ( $keys as $key ) {
 			$item = \WC()->cart->get_cart_item( $key );
 			if ( empty( $item['data'] ) ) {
 				continue;

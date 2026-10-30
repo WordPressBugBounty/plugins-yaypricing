@@ -53,6 +53,7 @@ class YAYDP_Integrations {
 		\YAYDP\Integrations\APF\YAYDP_APF_Pro_Integration::get_instance();
 		\YAYDP\Integrations\Automattic\YAYDP_Extra_Product_Options_Integration::get_instance();
 		\YAYDP\Integrations\DiviTheme\YAYDP_Divi_Theme_Integration::get_instance();
+		\YAYDP\Integrations\Elementor\YAYDP_Elementor_Pro_Menu_Cart_Integration::get_instance();
 		\YAYDP\Integrations\B2bking\YAYDP_B2BKing_Integration::get_instance();
 		\YAYDP\Integrations\CtxFeed\YAYDP_Ctx_Feed_Integration::get_instance();
 		\YAYDP\Integrations\Webexpert\YAYDP_Webexpert_Skroutz_Integration::get_instance();
@@ -64,6 +65,8 @@ class YAYDP_Integrations {
 		\YAYDP\Integrations\ThemeHigh\YAYDP_WooCommerce_Extra_Product_Options_Integration::get_instance();
 		\YAYDP\Integrations\RankMathSeo\YAYDP_Rank_Math_Seo_Integration::get_instance();
 		\YAYDP\Integrations\WC_Product_Addons_Ultimate\YAYDP_WC_Product_Addons_Ultimate_Integration::get_instance();
+		\YAYDP\Integrations\PluginRepublic\YAYDP_Bookings_For_WooCommerce_Integration::get_instance();
+		\YAYDP\Integrations\PluginRepublic\YAYDP_Bookings_For_WooCommerce_YayCurrency_Integration::get_instance();
 		\YAYDP\Integrations\Wholesale\YAYDP_Wholesale_Integration::get_instance();
 		\YAYDP\Integrations\PriceBasedCountry\YAYDP_Price_Based_Country_Integration::get_instance();
 

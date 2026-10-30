@@ -4,7 +4,7 @@ Donate link: https://yaycommerce.com/yaypricing-woocommerce-dynamic-pricing-and-
 Tags: dynamic pricing, discounts, cart fee, bogo, coupon
 Requires at least: 3.0
 Tested up to: 7.1
-Stable tag: 3.6.1
+Stable tag: 3.6.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -133,6 +133,20 @@ A big yes! YayPricing is compliant with GDPR. It doesn't collect your WooCommerc
 6. Gift item of "Buy one get one free" promotion automatically added to cart page
 
 == Changelog ==
+
+= Oct 30, 2026 - Version 3.6.2 =
+- Added: Sorting, limit and columns to on-sale products shortcode (Pro)
+- Added: Per-rule "Calculate discount from" setting.
+- Added: Usage limit per customer (Pro)
+- Added: New Pricing table layouts (Pro)
+- Added: Customer total spent condition
+- Added: A general setting to define which order statuses restore usage counts.
+- Updated: Processing, on-hold & completed orders are counted toward the usage limit.
+- Updated: Improve Report page
+- Updated: Improve admin UI
+- Updated: Enhance category matching with ancestor support
+- Updated: Missing translations
+- Fixed: minor issues
 
 = Sep 25, 2026 – Version 3.6.1 =
 - Fixed: Discountable range is not working.

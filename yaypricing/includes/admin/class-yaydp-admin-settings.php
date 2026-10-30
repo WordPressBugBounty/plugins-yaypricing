@@ -61,15 +61,19 @@ class YAYDP_Admin_Settings {
 				'currency_symbol' => html_entity_decode( \get_woocommerce_currency_symbol(), ENT_COMPAT ),
 			),
 			'sample_pricing_table_data' => \YAYDP\Constants\YAYDP_Pricing_Table::get_sample_data(),
+			'pricing_table_layouts'     => \YAYDP\Constants\YAYDP_Pricing_Table::get_layouts(),
 			'date_format'               => get_option( 'date_format' ),
 			'time_format'               => get_option( 'time_format' ),
 			'timezone_string'           => yaydp_get_timezone_offset(),
 			'image_url'                 => YAYDP_PLUGIN_URL . 'assets/images/',
 			'locale_direction'          => is_rtl() ? 'rtl' : 'ltr',
+			'locale'                    => get_user_locale(),
 			'i18n'                      => YAYDP_I18n::get_translations(),
 			// Pricing type metadata + per-rule-type availability; the single source for the admin's pricing fields.
 			'pricing_types'             => \YAYDP\Pricing_Type\YAYDP_Pricing_Type_Registry::all_for_localize(),
 			'version'                   => YAYDP_VERSION,
+			// Statuses the merchant can pick to give a usage-limit use back (Settings → General).
+			'order_statuses_restorable' => \YAYDP\Settings\YAYDP_General_Settings::get_use_limit_restorable_statuses(),
 		);
 		$extra_data    = apply_filters( 'yaydp_admin_extra_localize_data', array() );
 		$localize_data = array_merge( $default_data, $extra_data );

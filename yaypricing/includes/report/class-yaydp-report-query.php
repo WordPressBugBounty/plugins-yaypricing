@@ -118,14 +118,16 @@ class YAYDP_Report_Query {
 		}
 		$status_placeholders = implode( ', ', array_fill( 0, count( $statuses ), '%s' ) );
 
+		// phpcs:disable WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.PreparedSQLPlaceholders -- one %s placeholder per status; replacements are passed as an array.
 		return $wpdb->prepare(
-			"date_created BETWEEN %s AND %s AND order_status IN ({$status_placeholders}) AND currency IN (%s, %s)", // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+			"date_created BETWEEN %s AND %s AND order_status IN ({$status_placeholders}) AND currency IN (%s, %s)",
 			array_merge(
 				array( $start, $end ),
 				$statuses,
 				array( \get_woocommerce_currency(), '' )
 			)
 		);
+		// phpcs:enable WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.PreparedSQLPlaceholders
 	}
 
 	/**

@@ -53,15 +53,7 @@ class YAYDP_Simple_Exclude extends \YAYDP\Abstracts\YAYDP_Exclude_Rule {
 			return false;
 		}
 
-		$check = \YAYDP\Core\Caches\YAYDP_Request_Cache::get_instance()->remember(
-			'applicability',
-			'excl:' . $this->get_id() . ':' . $rule->get_id() . ':' . $product->get_id(),
-			function () use ( $product ) {
-				return $this->can_apply_adjustment( $product );
-			}
-		);
-
-		if ( ! $check ) {
+		if ( ! $this->excludes_product( $product ) ) {
 			return false;
 		}
 
@@ -77,5 +69,41 @@ class YAYDP_Simple_Exclude extends \YAYDP\Abstracts\YAYDP_Exclude_Rule {
 
 		return in_array( $rule->get_id(), $excluded_list, true );
 
+	}
+
+	/**
+	 * Whether the exclusion filters match a product, memoised per request.
+	 *
+	 * A variable product is excluded only when all of its published variations
+	 * are. The product_variation filter matches a parent when any one child is
+	 * listed, so checking the parent directly would exclude every variation
+	 * (e.g. hide the pricing table) for a single excluded variation.
+	 *
+	 * @param \WC_Product $product Checking product.
+	 *
+	 * @return bool
+	 */
+	private function excludes_product( $product ) {
+		return \YAYDP\Core\Caches\YAYDP_Request_Cache::get_instance()->remember(
+			'applicability',
+			'excl:' . $this->get_id() . ':' . $product->get_id(),
+			function () use ( $product ) {
+				if ( ! \yaydp_is_variable_product( $product ) ) {
+					return $this->can_apply_adjustment( $product );
+				}
+				$has_variation = false;
+				foreach ( $product->get_children() as $variation_id ) {
+					$variation = \wc_get_product( $variation_id );
+					if ( empty( $variation ) || 'publish' !== $variation->get_status() ) {
+						continue;
+					}
+					if ( ! $this->excludes_product( $variation ) ) {
+						return false;
+					}
+					$has_variation = true;
+				}
+				return $has_variation ? true : $this->can_apply_adjustment( $product );
+			}
+		);
 	}
 }

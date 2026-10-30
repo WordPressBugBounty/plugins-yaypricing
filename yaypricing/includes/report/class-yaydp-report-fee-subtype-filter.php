@@ -72,7 +72,7 @@ class YAYDP_Report_Fee_Subtype_Filter {
 			return '1 = 0';
 		}
 		$placeholders = implode( ', ', array_fill( 0, count( $rule_ids ), '%s' ) );
-		return $wpdb->prepare( "rule_id IN ({$placeholders})", $rule_ids ); // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+		return $wpdb->prepare( "rule_id IN ({$placeholders})", $rule_ids ); // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.PreparedSQLPlaceholders -- one %s placeholder per id.
 	}
 
 	/**

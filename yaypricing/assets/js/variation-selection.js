@@ -47,6 +47,79 @@
       return formattedPrice;
     }
 
+    /**
+     * Recompute every formula-driven price ( pricing table, offer description ) for the given base price.
+     */
+    function evaluateFormula(formula, basePrice) {
+      return eval(String(formula).replaceAll("x", basePrice));
+    }
+
+    // Shared with pricing-table.js, which recomputes tier savings and totals from the same formulas.
+    window.yaydp_pricing_formula = {
+      formatPrice,
+      evaluate: evaluateFormula,
+    };
+
+    function updateFormulaPrices(basePrice) {
+      if (isNaN(basePrice)) {
+        return;
+      }
+      $(
+        "[data-variable='discount_value'], [data-variable='final_price'], [data-variable='discount_amount'], [data-variable='discounted_price'], [data-variable='base_price']"
+      ).each((index, item) => {
+        const formula = $(item).attr("data-formula");
+        if (!formula) {
+          return;
+        }
+        const final_price = evaluateFormula(formula, basePrice);
+        $(item).find(".woocommerce-Price-amount").html(formatPrice(final_price));
+      });
+      $(document.body).trigger("yaydp_formula_prices_updated", [basePrice]);
+    }
+
+    // Displayed price the formulas start from: the product's own, or the selected variation's.
+    let currentBasePrice = parseFloat(
+      $(".yaydp-pricing-table-wrapper").first().attr("data-base-price")
+    );
+
+    /**
+     * How much the selected YayExtra options scale the base price, 1 without YayExtra.
+     *
+     * YayExtra keeps the unit price with options in `data-token-product-price-replace` of its
+     * `.yaye-product-price` input ( present when its "Update product price" setting is on ). Its prices
+     * may exclude tax while ours are displayed, so apply the option cost as a ratio of its own price.
+     */
+    function getYayExtraPriceRatio() {
+      const $yayePrice = $(".yaye-product-price");
+      if (!$yayePrice.length) {
+        return 1;
+      }
+      const price = parseFloat($yayePrice.attr("data-product-price"));
+      const regularPrice = parseFloat($yayePrice.attr("data-product-regular-price"));
+      const optionCost =
+        parseFloat($yayePrice.attr("data-token-product-price-replace")) - price;
+      const basePrice =
+        discount_based_on === "regular_price" && regularPrice > 0
+          ? regularPrice
+          : price;
+      if (!(basePrice > 0) || isNaN(optionCost)) {
+        return 1;
+      }
+      return (basePrice + optionCost) / basePrice;
+    }
+
+    // YayExtra fires this whenever its options ( size, colour, ... ) change the product price.
+    if (window.wp?.hooks?.addFilter) {
+      window.wp.hooks.addFilter(
+        "yaye_product_price_hook",
+        "yaydp/pricing-table",
+        function (html) {
+          updateFormulaPrices(currentBasePrice * getYayExtraPriceRatio());
+          return html;
+        }
+      );
+    }
+
     function updateSaleTagRules($saleTag, ruleNames) {
       if (!$saleTag.length || !ruleNames || ruleNames.length === 0) {
         return;
@@ -152,20 +225,12 @@
         if (lastMatchingTable) {
           lastMatchingTable.show();
         }
-        $(
-          "[data-variable='discount_value'], [data-variable='final_price'], [data-variable='discount_amount'], [data-variable='discounted_price']"
-        ).each((index, item) => {
-          const variation_price =
-            discount_based_on === "regular_price"
-              ? variation.display_regular_price
-              : variation.display_price;
-          const formula = $(item).data("formula");
-          const final_price = eval(formula.replaceAll("x", variation_price));
-
-          const formattedPrice = formatPrice(final_price);
-
-          $(item).find(".woocommerce-Price-amount").html(formattedPrice);
-        });
+        const variation_price =
+          discount_based_on === "regular_price"
+            ? variation.display_regular_price
+            : variation.display_price;
+        currentBasePrice = parseFloat(variation_price);
+        updateFormulaPrices(currentBasePrice * getYayExtraPriceRatio());
 
         const $saleTag = $(".yaydp-sale-tag[data-variable-product='1']");
         if ($saleTag.length) {

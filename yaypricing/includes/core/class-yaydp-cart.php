@@ -373,23 +373,9 @@ class YAYDP_Cart {
 		}
 
 		foreach ( $applied_coupons as $coupon_code ) {
-			if ( \YAYDP\Core\Rule\Cart_Discount\YAYDP_Combined_Discount::is_match_coupon( $coupon_code ) ) {
-				$coupon_rules[] = 'combined';
-				continue;
-			}
-			$running_rules = \yaydp_get_running_cart_discount_rules();
-			foreach ( $running_rules as $rule ) {
-				if ( $rule->is_match_coupon( $coupon_code ) ) {
-					$coupon_rules[] = $rule->get_id();
-				}
-			}
-
-			if ( empty( $running_rules ) ) {
-				foreach ( \yaydp_get_cart_discount_rules() as $rule ) {
-					if ( $rule->is_match_coupon( $coupon_code ) ) {
-						$coupon_rules[] = $rule->get_id();
-					}
-				}
+			// Every match, not just the first: nothing stops two rules sharing a name.
+			foreach ( \yaydp_resolve_coupon_rules( $coupon_code, array( 'include_inactive' => true ) ) as $resolved ) {
+				$coupon_rules[] = 'combined' === $resolved ? 'combined' : $resolved->get_id();
 			}
 		}
 

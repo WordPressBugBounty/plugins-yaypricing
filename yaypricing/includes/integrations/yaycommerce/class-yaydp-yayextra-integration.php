@@ -62,7 +62,14 @@ class YAYDP_YayExtra_Integration {
 			return $price;
 		}
 
-		if ( ! $this->is_cart_item_product( $product ) ) {
+		// Only cart item products: catalog prices elsewhere are converted on their own.
+		$cart_item = $this->get_cart_item_of( $product );
+		if ( false === $cart_item ) {
+			return $price;
+		}
+
+		// Already in the shopper's currency: the integration that set it reverses it.
+		if ( $this->is_price_in_shopper_currency( $cart_item ) ) {
 			return $price;
 		}
 
@@ -156,18 +163,18 @@ class YAYDP_YayExtra_Integration {
 	}
 
 	/**
-	 * Check whether the given product is the product of an item in the cart.
+	 * Whether the price on the given cart item product is already in the shopper's currency.
 	 *
-	 * Cart items carry their own product instance, the one YayExtra writes the price of the item on.
-	 * Products coming from anywhere else ( shop pages, single product pages ) hold a catalog price
-	 * that is converted on its own and must be left alone.
+	 * Cart item prices are normally in the store currency. Some plugins set one in the shopper's
+	 * currency instead ( Bookings for WooCommerce sets its converted booking cost ), and their
+	 * integrations say so through `yaydp_cart_item_price_in_shopper_currency`.
 	 *
-	 * @param \WC_Product $product Given product.
+	 * @param array|false $cart_item Given cart item.
 	 *
 	 * @return bool
 	 */
-	private function is_cart_item_product( $product ) {
-		return false !== $this->get_cart_item_of( $product );
+	private function is_price_in_shopper_currency( $cart_item ) {
+		return false !== $cart_item && (bool) apply_filters( 'yaydp_cart_item_price_in_shopper_currency', false, $cart_item );
 	}
 
 	/**
@@ -196,8 +203,9 @@ class YAYDP_YayExtra_Integration {
 	 * Returns the price we wrote on the given cart item product, null when we priced no such item.
 	 *
 	 * Read straight off the product object rather than off `yaydp_custom_data`, so a pass that has
-	 * rewound a price it no longer discounts is followed too. Read in the `edit` context, the raw
-	 * price the cart is made of, so reading it does not run the conversion filters we answer from.
+	 * rewound a price it no longer discounts is followed too. Read raw, the price the cart is made of,
+	 * so reading it does not run the conversion filters we answer from: the `edit` context is not
+	 * enough, as some product types ( Bookings for WooCommerce ) run the price filters in every context.
 	 *
 	 * @param \WC_Product $product Given product.
 	 *
@@ -208,7 +216,8 @@ class YAYDP_YayExtra_Integration {
 		if ( false === $cart_item || ! isset( $cart_item['yaydp_custom_data']['price'] ) ) {
 			return null;
 		}
-		return floatval( $product->get_price( 'edit' ) );
+		$props = array_merge( $product->get_data(), $product->get_changes() );
+		return floatval( isset( $props['price'] ) ? $props['price'] : 0 );
 	}
 
 	/**
@@ -229,6 +238,9 @@ class YAYDP_YayExtra_Integration {
 		$item_price = $this->get_priced_cart_item_price( $product );
 		if ( is_null( $item_price ) ) {
 			return $price;
+		}
+		if ( $this->is_price_in_shopper_currency( $this->get_cart_item_of( $product ) ) ) {
+			return $item_price;
 		}
 		$apply_currency = \Yay_Currency\Helpers\YayCurrencyHelper::detect_current_currency();
 		return \Yay_Currency\Helpers\YayCurrencyHelper::calculate_price_by_currency( $item_price, false, $apply_currency );

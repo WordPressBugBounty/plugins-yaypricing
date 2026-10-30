@@ -396,15 +396,7 @@ class YAYDP_Product_Pricing_Manager {
 				continue;
 			}
 
-			\wc_get_template(
-				'yaydp-pricing-table.php',
-				array(
-					'rule'    => $rule,
-					'product' => $product,
-				),
-				'',
-				YAYDP_PLUGIN_PATH . 'includes/templates/'
-			);
+			\YAYDP\NoName\YAYDP_Pricing_Table::render( $product, $rule );
 		}
 	}
 
@@ -476,7 +468,7 @@ class YAYDP_Product_Pricing_Manager {
 		}
 		$yaydp_cart_item    = new \YAYDP\Core\YAYDP_Cart_Item( $cart_item );
 		$product            = $yaydp_cart_item->get_product();
-		$item_initial_price = $yaydp_cart_item->get_initial_price();
+		$item_initial_price = $yaydp_cart_item->get_display_origin_price();
 		$item_quantity      = $yaydp_cart_item->get_quantity();
 		$subtotal           = \wc_get_price_to_display(
 			$product,

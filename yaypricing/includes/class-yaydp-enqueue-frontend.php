@@ -54,7 +54,7 @@ class YAYDP_Enqueue_Frontend {
 		if ( \is_product() ) {
 			$this->enqueue_script( 'variation-selection', 'variation-selection.js', array( 'jquery' ) );
 			$this->enqueue_style( 'pricing-table', 'pricing-table.css' );
-			$this->enqueue_script( 'pricing-table', 'pricing-table.js', array( 'jquery' ) );
+			$this->enqueue_script( 'pricing-table', 'pricing-table.js', array( 'jquery', 'yaydp-frontend-variation-selection' ) );
 		}
 
 		$features = $this->required_frontend_features();

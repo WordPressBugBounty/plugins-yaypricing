@@ -5,93 +5,45 @@
  * @package YayPricing\Templates
  * @param $product
  * @param $rule
+ * @param $pricing_table Optional, \YAYDP\NoName\YAYDP_Pricing_Table.
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-$pricing_table  = new \YAYDP\NoName\YAYDP_Pricing_Table( $product, $rule );
-$table_title    = $pricing_table->get_table_title();
-$columns_order        = $pricing_table->get_pricing_table_columns_order();
-$quantity_title = $pricing_table->get_quantity_title();
-$discount_title = $pricing_table->get_discount_title();
-$price_title    = $pricing_table->get_price_title();
-$border_color   = $pricing_table->get_border_color();
-$border_style   = $pricing_table->get_border_style();
-
-$applicable_variations = array();
-
-if ( yaydp_is_variable_product( $product ) ) {
-	foreach ( $product->get_children() as $variation_id ) {
-		$variation = \wc_get_product( $variation_id );
-		if ( $rule->can_apply_adjustment( $variation ) ) {
-			$applicable_variations[] = $variation_id;
-		}
-	}
+if ( ! isset( $pricing_table ) ) {
+	$pricing_table = new \YAYDP\NoName\YAYDP_Pricing_Table( $product, $rule );
 }
+$table_title           = $pricing_table->get_table_title();
+$columns_order         = $pricing_table->get_pricing_table_columns_order();
+$border_color          = $pricing_table->get_border_color();
+$applicable_variations = $pricing_table->get_applicable_variations( $product );
 
 ?>
 
-<div class="yaydp-pricing-table-wrapper" data-applicable-variations="<?php echo esc_attr( implode( ',', $applicable_variations ) ); ?>">
+<div class="yaydp-pricing-table-wrapper" data-applicable-variations="<?php echo esc_attr( implode( ',', $applicable_variations ) ); ?>" data-base-price="<?php echo esc_attr( $pricing_table->get_base_display_price() ); ?>">
 	<strong class="yaydp-pricing-table-header"><?php echo esc_html( $table_title ); ?></strong>
 	<table class="yaydp-pricing-table" style="border-color: <?php echo esc_attr( $border_color ); ?>;">
 		<thead>
 			<tr>
-				<?php
-                    foreach ( $columns_order as $column ) :
-                        $header_title = '';
-                        switch ( $column ) {
-                            case 'quantity_title':
-                                $header_title = $quantity_title;
-                                break;
-                            case 'discount_title':
-                                $header_title = $discount_title;
-                                break;
-                            case 'price_title':
-                                $header_title = $price_title;
-                                break;
-                        }
-                        ?>
-                        <th style="border-color: <?php echo esc_attr( $border_color ); ?>;">
-                            <?php echo esc_html( $header_title ); ?>
-                        </th>
-                        <?php
-                    endforeach;
-                ?>
+				<?php foreach ( $columns_order as $column ) : ?>
+					<th style="border-color: <?php echo esc_attr( $border_color ); ?>;">
+						<?php echo esc_html( $pricing_table->get_column_title( $column ) ); ?>
+					</th>
+				<?php endforeach; ?>
 			</tr>
 		</thead>
 		<tbody>
-			<?php
-			foreach ( $rule->get_ranges() as $range ) :
-				$range_instance = new \YAYDP\Core\Rule\Product_Pricing\YAYDP_Bulk_Range( $range );
-				?>
-				<tr data-min-value="<?php echo esc_attr( $range['from_quantity'] ); ?>" data-max-value="<?php echo esc_attr( $range['to_quantity'] ); ?>">
+			<?php foreach ( $pricing_table->get_rows() as $row ) : ?>
+				<tr data-min-value="<?php echo esc_attr( $row['min'] ); ?>" data-max-value="<?php echo esc_attr( $row['max'] ); ?>">
 					<?php
-						foreach ( $columns_order as $column ) {
-							switch ( $column ) {
-								case 'quantity_title':
-									echo '<td style="border-color: ' . esc_attr( $border_color ) . ';">' 
-									. esc_html( $pricing_table->get_quantity_text( $range_instance ) ) . 
-									'</td>';
-									break;
-								case 'discount_title':
-									echo '<td style="border-color: ' . esc_attr( $border_color ) . ';" data-variable="discount_value" data-formula="' . esc_attr( $pricing_table->get_discount_value_formula( $range_instance ) ) . '">' 
-									. wp_kses_post( $pricing_table->get_discount_text( $range_instance ) ) . 
-									'</td>';
-									break;
-								case 'price_title':
-									echo '<td style="border-color:' . esc_attr( $border_color ) . ';" data-variable="discounted_price" data-formula="' . esc_attr( $pricing_table->get_discounted_price_formula( $range_instance ) ) . '">' 
-									. wp_kses_post( $pricing_table->get_discounted_price_text( $range_instance ) ) . 
-									'</td>';
-									break;
-							}
-						}
+					foreach ( $columns_order as $column ) {
+						echo $pricing_table->get_table_cell( $row, $column ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- escaped in get_table_cell().
+					}
 					?>
 				</tr>
-				<?php
-			endforeach;
-			?>
+			<?php endforeach; ?>
 		</tbody>
 	</table>
 </div>

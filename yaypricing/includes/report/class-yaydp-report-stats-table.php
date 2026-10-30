@@ -83,7 +83,7 @@ class YAYDP_Report_Stats_Table {
 		global $wpdb;
 		$table        = YAYDP_Report_Install::get_table_name();
 		$placeholders = implode( ', ', array_fill( 0, count( $order_ids ), '%d' ) );
-		$wpdb->query( $wpdb->prepare( "DELETE FROM {$table} WHERE order_id IN ({$placeholders})", $order_ids ) ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery, WordPress.DB.PreparedSQL
+		$wpdb->query( $wpdb->prepare( "DELETE FROM {$table} WHERE order_id IN ({$placeholders})", $order_ids ) ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery, WordPress.DB.PreparedSQL, WordPress.DB.PreparedSQLPlaceholders -- one %d placeholder per id.
 	}
 
 	/**

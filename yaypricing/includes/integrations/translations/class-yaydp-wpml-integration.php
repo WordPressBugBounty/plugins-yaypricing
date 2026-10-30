@@ -26,6 +26,47 @@ class YAYDP_WPML_Integration {
 		add_action( 'yaydp_after_saving_data', array( $this, 'register_countdown_strings' ) );
 		add_action( 'yaydp_after_saving_data', array( $this, 'register_offer_description_strings' ) );
 		add_action( 'yaydp_after_saving_data', array( $this, 'register_tooltip_strings' ) );
+		add_action( 'yaydp_after_saving_data', array( $this, 'register_combined_name_string' ) );
+		add_action( 'yaydp_after_saving_data', array( $this, 'register_pricing_table_strings' ) );
+	}
+
+	/**
+	 * Registers the pricing table titles with WPML String Translation so
+	 * translators can provide per-language versions via the WPML UI.
+	 *
+	 * Default titles are skipped; they are translated through the text domain.
+	 *
+	 * @param array $body Saved data from the REST save_page_data request.
+	 */
+	public function register_pricing_table_strings( $body ) {
+		$table    = $body['settings']['product_pricing']['pricing_table'] ?? array();
+		$defaults = \YAYDP\Constants\YAYDP_Pricing_Table::get_default();
+
+		foreach ( array( 'table_title', 'quantity_title', 'discount_title', 'price_title' ) as $key ) {
+			$title = $table[ $key ] ?? '';
+			if ( empty( $title ) || ! is_string( $title ) || $defaults[ $key ] === $title ) {
+				continue;
+			}
+			do_action( 'wpml_register_single_string', 'yaypricing', "pricing_table_{$key}", $title );
+		}
+	}
+
+	/**
+	 * Registers the combined discount name with WPML String Translation so
+	 * translators can provide per-language versions via the WPML UI.
+	 *
+	 * Only the displayed label is translated; the coupon code keeps using the
+	 * raw name, so it stays identical in every language.
+	 *
+	 * @param array $body Saved data from the REST save_page_data request.
+	 */
+	public function register_combined_name_string( $body ) {
+		// Sanitised to match what get_coupon_name() looks up; Polylang keys by value.
+		$name = sanitize_text_field( $body['settings']['cart_discount']['combined_name'] ?? '' );
+
+		if ( ! empty( $name ) ) {
+			do_action( 'wpml_register_single_string', 'yaypricing', 'combined_discount_name', $name );
+		}
 	}
 
 	public static function get_translation_object_id( $object_id, $object_type = 'post' ) {
@@ -33,13 +74,34 @@ class YAYDP_WPML_Integration {
 		return apply_filters( 'wpml_object_id', $object_id, $object_type, true, $current_language );
 	}
 
+	/**
+	 * Expands stored ids with their translations in every active language.
+	 *
+	 * Matching only the current-language translation breaks whenever WPML's
+	 * current language differs from the cart's (wc-ajax / Store API requests,
+	 * rules saved while the admin was in another language), so a rule set up
+	 * once applies to every translation of its products and terms.
+	 *
+	 * @param array  $list        Stored ids.
+	 * @param string $object_type WPML element type: product | product_cat | product_tag ...
+	 * @return array
+	 */
 	public static function get_list_translation_object_id( $list, $object_type = 'post' ) {
+		$languages = apply_filters( 'wpml_active_languages', null, array( 'skip_missing' => 0 ) );
+		$codes     = is_array( $languages ) ? array_keys( $languages ) : array();
+
 		$translated_list = array();
 		foreach ( $list as $id ) {
 			$translated_list[] = $id;
 			$translated_list[] = self::get_translation_object_id( $id, $object_type );
+			foreach ( $codes as $code ) {
+				$translated_id = apply_filters( 'wpml_object_id', $id, $object_type, false, $code );
+				if ( ! empty( $translated_id ) ) {
+					$translated_list[] = $translated_id;
+				}
+			}
 		}
-		return array_unique( $translated_list );
+		return array_values( array_unique( $translated_list ) );
 	}
 
 	/**

@@ -121,8 +121,8 @@ class YAYDP_Cart_Discount_Encouragement extends  \YAYDP\Abstracts\YAYDP_Encourag
 					$action = apply_filters( 'yaydp_cart_discount_encouraged_notice_action', $action, $this->get_raw_content(), $condition_encouragement['type'], $missing_value );
 					break;
 				case YAYDP_Cart_Quantity_Condition::INCOMPLETE_KEY:
-					// Translators: buy more text.
-					$action = sprintf( __( 'add %1$s more item%2$s', 'yaypricing' ), $missing_value, $missing_value > 1 ? 's' : '' );
+					// translators: %s: number of items still needed.
+					$action = sprintf( _n( 'add %s more item', 'add %s more items', $missing_value, 'yaypricing' ), $missing_value );
 					$action = apply_filters( 'yaydp_cart_discount_encouraged_notice_action', $action, $this->get_raw_content(), $condition_encouragement['type'], $missing_value );
 					break;
 				case YAYDP_Logged_Customer_Condition::INCOMPLETE_KEY:
@@ -130,8 +130,8 @@ class YAYDP_Cart_Discount_Encouragement extends  \YAYDP\Abstracts\YAYDP_Encourag
 					$action = apply_filters( 'yaydp_cart_discount_encouraged_notice_action', $action, $this->get_raw_content(), $condition_encouragement['type'], null );
 					break;
 				case YAYDP_Customer_Order_Count_Condition::INCOMPLETE_KEY:
-					// translators: %s value.
-					$action = sprintf( __( 'make more %1$s order%2$s', 'yaypricing' ), $missing_value, $missing_value > 1 ? 's' : '' );
+					// translators: %s: number of orders still needed.
+					$action = sprintf( _n( 'make more %s order', 'make more %s orders', $missing_value, 'yaypricing' ), $missing_value );
 					$action = apply_filters( 'yaydp_cart_discount_encouraged_notice_action', $action, $this->get_raw_content(), $condition_encouragement['type'], $missing_value );
 					break;
 				case YAYDP_Shipping_Total_Condition::INCOMPLETE_KEY:

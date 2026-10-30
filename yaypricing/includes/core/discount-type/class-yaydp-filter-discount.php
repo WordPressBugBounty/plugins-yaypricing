@@ -68,7 +68,7 @@ class YAYDP_Filter_Discount {
 			$lucky_number   = intval( $current_hour ) + intval( $current_date );
 			$target_point   = intval( $lucky_number ) % ( count( $matching_items ) + 1 );
 			$target_point   = min( $target_point, count( $matching_items ) );
-			$new_items      = array_merge( array_slice( $matching_items, $target_point ), array_slice( $matching_items, 0, $target_point - 1 ) );
+			$new_items      = array_merge( array_slice( $matching_items, $target_point ), array_slice( $matching_items, 0, $target_point ) );
 			$matching_items = $new_items;
 		}
 		foreach ( $matching_items as $product_id ) {

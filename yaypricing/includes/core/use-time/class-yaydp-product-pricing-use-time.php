@@ -108,31 +108,11 @@ class YAYDP_Product_Pricing_Use_Time extends \YAYDP\Abstracts\YAYDP_Use_Time {
 	}
 
 	/**
-	 * Increment use_time on applied rules when the order is completed.
+	 * Rule type slug.
 	 *
 	 * @override
-	 *
-	 * @param int $order_id Given order id.
 	 */
-	public function on_order_completed( $order_id ) {
-		$order = \wc_get_order( $order_id );
-		if ( ! $order ) {
-			return;
-		}
-		$list_rule_id = $order->get_meta( 'yaydp_product_pricing_rules' );
-		if ( empty( $list_rule_id ) || ! is_array( $list_rule_id ) ) {
-			return;
-		}
-		$this->with_rules_lock(
-			'yaydp_product_pricing_rules',
-			function() use ( $order, $list_rule_id ) {
-				// Claimed inside the lock so two completions of the same order
-				// ( gateway webhook and admin at the same instant ) cannot both count.
-				if ( ! $this->claim_order_completion( $order, '_yaydp_product_pricing_use_time_counted' ) ) {
-					return;
-				}
-				$this->increment_stored_use_time( 'yaydp_product_pricing_rules', $list_rule_id );
-			}
-		);
+	protected function get_rule_type() {
+		return 'product_pricing';
 	}
 }

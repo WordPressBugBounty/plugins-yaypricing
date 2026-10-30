@@ -63,7 +63,7 @@ class YAYDP_Report_Rule_Map {
 		if ( \YAYDP\Helper\YAYDP_Rule_Discount_Helper::COMBINED_RULE_ID === $rule_id ) {
 			return array(
 				'type' => 'cart_discount',
-				'name' => __( 'Combined discount', 'yaypricing' ),
+				'name' => \YAYDP\Core\Rule\Cart_Discount\YAYDP_Combined_Discount::get_translated_coupon_name(),
 			);
 		}
 		$map = self::get();

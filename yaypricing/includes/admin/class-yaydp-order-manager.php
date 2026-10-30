@@ -236,9 +236,9 @@ class YAYDP_Order_Manager {
 		<tr class="' . esc_attr( $this->get_savings_class() ) . '">
 			<td class="label"> ' . esc_html__( 'Saved Amount:', 'yaypricing' ) . ' </td>
 			<td width="1%"></td>
-			<td class="total">' . \wc_price( $saved_amount, array( 'currency' => $order->get_currency() ) ) . '</td>
+			<td class="total">' . wp_kses_post( \wc_price( $saved_amount, array( 'currency' => $order->get_currency() ) ) ) . '</td>
 		</tr>
-		'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+		';
 	}
 
 }

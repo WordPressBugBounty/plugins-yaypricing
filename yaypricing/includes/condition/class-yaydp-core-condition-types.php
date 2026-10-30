@@ -42,6 +42,7 @@ final class YAYDP_Core_Condition_Types {
 			new Type\YAYDP_User_Creation_Date_Condition(),
 			// Purchase history.
 			new Type\YAYDP_Customer_Order_Count_Condition(),
+			new Type\YAYDP_Customer_Total_Spent_Condition(),
 			new Type\YAYDP_Billing_Email_Order_Count_Condition(),
 			new Type\YAYDP_Customer_Order_Count_From_Last_Discount_Condition(),
 			new Type\YAYDP_Orders_Purchased_Date_Condition(),
@@ -49,6 +50,7 @@ final class YAYDP_Core_Condition_Types {
 			new Type\YAYDP_Order_History_Category_Condition(),
 			new Type\YAYDP_Bought_Products_Condition(),
 			new Type\YAYDP_Previous_Order_In_Condition(),
+			new Type\YAYDP_Days_Since_Last_Order_Condition(),
 			// Others.
 			new Type\YAYDP_Shipping_Total_Condition(),
 			new Type\YAYDP_Shipping_Region_Condition(),

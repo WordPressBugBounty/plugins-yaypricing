@@ -81,6 +81,22 @@ class YAYDP_Gift_Helper {
 		return false;
 	}
 
+	/**
+	 * Build the pricing adjustment a gift rule produces for the cart.
+	 *
+	 * @param mixed $rule Rule.
+	 * @return \YAYDP\Core\Single_Adjustment\YAYDP_Product_Pricing_Adjustment|null
+	 */
+	public static function build_adjustment( $rule ) {
+		$yaydp_cart = \yaydp_get_or_build_cart( false );
+
+		$adjustment = $rule->create_possible_adjustment_from_cart( $yaydp_cart );
+		if ( is_null( $adjustment ) ) {
+			return null;
+		}
+		return new \YAYDP\Core\Single_Adjustment\YAYDP_Product_Pricing_Adjustment( $adjustment, $yaydp_cart );
+	}
+
 	public static function map_list( $list ) {
 		return array_map(
 			function( $i ) {
